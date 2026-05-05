@@ -1,0 +1,167 @@
+"use client";
+import CloseIcon from "@mui/icons-material/Close";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import {
+  Box,
+  FormControl,
+  IconButton,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  SxProps,
+  Typography,
+} from "@mui/material";
+import * as React from "react";
+
+interface Props {
+  itemsList: string[];
+  label: string;
+  isOrederDetail: boolean;
+  style?: SxProps;
+  maxWidth?: string;
+}
+export default function SelectField({
+  label,
+  itemsList,
+  isOrederDetail,
+  style,
+  maxWidth,
+}: Props) {
+  const [value, setValue] = React.useState<string>("");
+  const MenuProps = {
+    slotProps: {
+      paper: {
+        sx: {
+          background: "#FFFFFF",
+          border: "1px solid #C9CDCF",
+          backdropFilter: "blur(10px)",
+          borderRadius: "8px",
+        },
+      },
+    },
+  };
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setValue(event.target.value);
+  };
+
+  const handleClear = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setValue("");
+  };
+
+  return (
+    <FormControl sx={{ maxWidth: maxWidth || "100%", width: "100%" }}>
+      <Select
+        displayEmpty
+        value={value}
+        onChange={handleChange}
+        IconComponent={KeyboardArrowDownIcon}
+        input={<OutlinedInput />}
+        MenuProps={MenuProps}
+        sx={{
+          borderRadius: "8px",
+          color: "#CDCDCD",
+          fontSize: "18px",
+
+          "& .MuiSelect-icon": {
+            right: 8,
+            left: "auto",
+            color: "text.primary",
+            display: !isOrederDetail
+              ? "block"
+              : isOrederDetail && value
+                ? "none"
+                : "block",
+          },
+
+          "& .MuiSelect-select": {
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            py: 0.9,
+            pr: 1,
+          },
+          ...style,
+        }}
+        renderValue={() => {
+          if (!value) {
+            return (
+              <Typography
+                sx={{
+                  color: "#7C7C7B",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  position: "absolute ",
+                }}
+              >
+                {label}
+              </Typography>
+            );
+          }
+
+          return (
+            value && (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Stack direction={"row"} alignItems={"center"} gap={0.5}>
+                  {isOrederDetail && <Typography>{label}</Typography>}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: isOrederDetail ? "primary.dark" : "text.title",
+                    }}
+                  >
+                    {value}
+                  </Typography>
+                </Stack>
+
+                {isOrederDetail && (
+                  <IconButton
+                    size="small"
+                    onClick={handleClear}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    disableRipple
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                )}
+              </Box>
+            )
+          );
+        }}
+      >
+        {itemsList.map((name) => (
+          <MenuItem
+            key={name}
+            value={name}
+            sx={{
+              color: "black",
+
+              "&.Mui-selected": {
+                backgroundColor: "#E8EDEF !important",
+              },
+
+              "&.Mui-selected:hover": {
+                backgroundColor: "#E8EDEF !important",
+              },
+
+              "&:hover": {
+                backgroundColor: "#E8EDEF",
+              },
+            }}
+          >
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+}
