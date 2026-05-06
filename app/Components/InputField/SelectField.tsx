@@ -30,14 +30,32 @@ export default function SelectField({
   maxWidth,
 }: Props) {
   const [value, setValue] = React.useState<string>("");
+  const [open, setOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!open) return;
+
+    const handleScroll = () => {
+      setOpen(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [open]);
+
   const MenuProps = {
     slotProps: {
       paper: {
         sx: {
-          background: "#FFFFFF",
-          border: "1px solid #C9CDCF",
+          border: 1,
+          borderColor: "background.border",
+          bgcolor: "background.default",
           backdropFilter: "blur(10px)",
           borderRadius: "8px",
+          mt: 0.5,
         },
       },
     },
@@ -45,6 +63,15 @@ export default function SelectField({
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value);
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleClear = (e: React.MouseEvent) => {
@@ -58,14 +85,16 @@ export default function SelectField({
         displayEmpty
         value={value}
         onChange={handleChange}
+        onOpen={handleOpen}
+        onClose={handleClose}
+        open={open}
         IconComponent={KeyboardArrowDownIcon}
         input={<OutlinedInput />}
         MenuProps={MenuProps}
         sx={{
           borderRadius: "8px",
-          color: "#CDCDCD",
+          color: "text.primary",
           fontSize: "18px",
-
           "& .MuiSelect-icon": {
             right: 8,
             left: "auto",
@@ -76,7 +105,6 @@ export default function SelectField({
                 ? "none"
                 : "block",
           },
-
           "& .MuiSelect-select": {
             display: "flex",
             alignItems: "center",
@@ -91,7 +119,7 @@ export default function SelectField({
             return (
               <Typography
                 sx={{
-                  color: "#7C7C7B",
+                  color: "#7C7C7C",
                   top: "50%",
                   transform: "translateY(-50%)",
                   position: "absolute ",
@@ -115,9 +143,7 @@ export default function SelectField({
                   {isOrederDetail && <Typography>{label}</Typography>}
                   <Typography
                     variant="body1"
-                    sx={{
-                      color: isOrederDetail ? "primary.dark" : "text.title",
-                    }}
+                    sx={{ color: isOrederDetail ? "#B29727" : "text.title" }}
                   >
                     {value}
                   </Typography>
@@ -129,6 +155,9 @@ export default function SelectField({
                     onClick={handleClear}
                     onMouseDown={(e) => e.stopPropagation()}
                     disableRipple
+                    sx={{
+                      color: "#FFFFFF",
+                    }}
                   >
                     <CloseIcon fontSize="small" />
                   </IconButton>
@@ -143,18 +172,9 @@ export default function SelectField({
             key={name}
             value={name}
             sx={{
-              color: "black",
-
+              color: "text.primary",
               "&.Mui-selected": {
-                backgroundColor: "#E8EDEF !important",
-              },
-
-              "&.Mui-selected:hover": {
-                backgroundColor: "#E8EDEF !important",
-              },
-
-              "&:hover": {
-                backgroundColor: "#E8EDEF",
+                bgcolor: "background.default",
               },
             }}
           >
