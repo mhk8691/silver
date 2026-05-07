@@ -1,5 +1,5 @@
-import CreditContainer from "@/app/Components/CreditContainer/CreditContainer";
-import SilverUnderline from "@/app/Components/CreditContainer/SilverUnderline";
+import CreditContainer from "@/app/Components/Containers/CreditContainer/CreditContainer";
+import SilverUnderline from "@/app/Components/Containers/CreditContainer/SilverUnderline";
 import { Box, Grid, Typography } from "@mui/material";
 import { Metadata } from "next";
 export const metadata: Metadata = {

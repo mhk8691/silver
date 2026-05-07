@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import GoldTable from "./GoldTable";
-import { TableGoldDataType } from "@/app/core/Types";
+import ProcutTable from "./ProductTable";
+import { TableSilverDataType } from "@/app/core/Types";
 import { useMediaQuery, useTheme } from "@mui/material";
 import LaptopTable from "./LaptopTable";
 
 interface Props {
-  data: TableGoldDataType[];
+  data: TableSilverDataType[];
 }
 export default function TableContainer({ data }: Props) {
   const theme = useTheme();
@@ -14,7 +14,7 @@ export default function TableContainer({ data }: Props) {
   return (
     <>
       {!isDesktop ? (
-        <GoldTable
+        <ProcutTable
           data={data}
           heads={[
             "نوع طلا",

@@ -1,24 +1,24 @@
 import { Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import ChartGold from "../Components/ChartGold/ChartGold";
-import ApplicationDownload from "../Components/Tables/ApplicationDownload";
-import HowBuyGold from "../Components/Tables/HowBuyGold";
-import TradeCard from "../Components/Tables/TradeCard";
-import { TableGoldDataType } from "../core/Types";
+import ApplicationDownload from "../Components/Tables/ProductTable/ApplicationDownload";
+import HowBuySilver from "../Components/Tables/ProductTable/HowBuySilver";
+import TradeCard from "../Components/Tables/ProductTable/TradeCard";
+import { TableSilverDataType } from "../core/Types";
 import Trading from "../dashboard/trades/Trading/Trading";
 import ProductTableContainer from "./ProductTableContainer";
+import Chart from "../Components/Chart/Chart";
 
 export const goldData: {
   title: string;
   order: number;
-  data: TableGoldDataType[];
+  data: TableSilverDataType[];
 }[] = [
   {
     title: "طلا",
     order: 1,
     data: [
       {
-        typeGold: "طلای ۱۸ عیار(گرم)",
+        typeSilver: "طلای ۱۸ عیار(گرم)",
         currentRate: 17785000,
         minPriceDay: 17687000,
         maxPriceDay: 18000000,
@@ -27,7 +27,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "طلای ۲۱ عیار(گرم)",
+        typeSilver: "طلای ۲۱ عیار(گرم)",
         currentRate: 20703666,
         minPriceDay: 20634833,
         maxPriceDay: 20927666,
@@ -36,7 +36,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: " طلای ۲۴ عیار(گرم)",
+        typeSilver: " طلای ۲۴ عیار(گرم)",
         currentRate: 23543026,
         minPriceDay: 23464753,
         maxPriceDay: 23797746,
@@ -45,7 +45,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "۱ مثقال طلا ",
+        typeSilver: "۱ مثقال طلا ",
         currentRate: 76872122,
         minPriceDay: 76616546,
         maxPriceDay: 77703828,
@@ -54,7 +54,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "انس جهانی طلا ",
+        typeSilver: "انس جهانی طلا ",
         currentRate: 4785,
         minPriceDay: 4714,
         maxPriceDay: 4787,
@@ -63,7 +63,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "آبشده نقدی",
+        typeSilver: "آبشده نقدی",
         currentRate: 76872122,
         minPriceDay: 76616546,
         maxPriceDay: 77703828,
@@ -72,7 +72,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: " طلای دست دوم",
+        typeSilver: " طلای دست دوم",
         currentRate: 17509445,
         minPriceDay: 17451232,
         maxPriceDay: 17698886,
@@ -87,7 +87,7 @@ export const goldData: {
     order: 2,
     data: [
       {
-        typeGold: "سکه امامی",
+        typeSilver: "سکه امامی",
         currentRate: 186510000,
         minPriceDay: 186480000,
         maxPriceDay: 186510000,
@@ -96,7 +96,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "سکه تمام بهار آزادی",
+        typeSilver: "سکه تمام بهار آزادی",
         currentRate: 179020000,
         minPriceDay: 178980000,
         maxPriceDay: 179020000,
@@ -105,7 +105,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "نیم سکه",
+        typeSilver: "نیم سکه",
         currentRate: 103900000,
         minPriceDay: 98900000,
         maxPriceDay: 103900000,
@@ -114,7 +114,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "ربع سکه",
+        typeSilver: "ربع سکه",
         currentRate: 59800000,
         minPriceDay: 56300000,
         maxPriceDay: 59800000,
@@ -123,7 +123,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "سکه گرمی",
+        typeSilver: "سکه گرمی",
         currentRate: 29200000,
         minPriceDay: 27200000,
         maxPriceDay: 29200000,
@@ -132,7 +132,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeGold: "سکه پارسیان ۱ گرمی",
+        typeSilver: "سکه پارسیان ۱ گرمی",
         currentRate: 21295200,
         minPriceDay: 21224400,
         maxPriceDay: 21525600,
@@ -234,7 +234,7 @@ export default function page({ params }: Props) {
               lg: 7.5,
             }}
           >
-            <ChartGold
+            <Chart
               positionPrice="top"
               cardStyle={{ pt: 3.5, pb: 2.5 }}
               chartHeight="240px"
@@ -296,7 +296,7 @@ export default function page({ params }: Props) {
               md: 6,
             }}
           >
-            <HowBuyGold />
+            <HowBuySilver />
           </Grid>
         </Grid>
       </Grid>

@@ -1,10 +1,10 @@
 "use client";
 import { Button, Typography } from "@mui/material";
 import { useState } from "react";
-import InputField from "../InputField/InputField";
+import InputField from "../../InputField/InputField";
 import Container from "../Container/Container";
 
-export default function GoldBuy() {
+export default function SilverBuy() {
   const [value, setValue] = useState<string>('');
   return (
     <Container

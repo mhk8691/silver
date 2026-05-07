@@ -1,11 +1,11 @@
 import priceFormater from "@/app/core/PriceFormater";
-import { TableGoldDataType } from "@/app/core/Types";
+import { TableSilverDataType } from "@/app/core/Types";
 import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import LineChart from "../LineChart/LineChart";
+import LineChart from "../../LineChart/LineChart";
 
 interface Props {
-  items: TableGoldDataType[];
+  items: TableSilverDataType[];
   isDetail?: boolean;
 }
 export default function LaptopTable({ items, isDetail = true }: Props) {
@@ -14,7 +14,7 @@ export default function LaptopTable({ items, isDetail = true }: Props) {
       {items.map((item) => (
         <Grid
           size={12}
-          key={item.typeGold}
+          key={item.typeSilver}
           direction={"column"}
           border={1}
           borderRadius={2}
@@ -32,7 +32,7 @@ export default function LaptopTable({ items, isDetail = true }: Props) {
               sx={{ borderTopLeftRadius: 8, borderTopRightRadius: 8 }}
             >
               <Typography variant="body1" fontSize={12} fontWeight={"bold"}>
-                {item.typeGold}
+                {item.typeSilver}
               </Typography>
               {isDetail && (
                 <Link href={"/"}>

@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import Image from "next/image";
-import Container from "../Container/Container";
+import Container from "../../Containers/Container/Container";
 
 export default function ApplicationDownload() {
   return (

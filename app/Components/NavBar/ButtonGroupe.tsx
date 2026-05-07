@@ -79,7 +79,7 @@ export default function ButtonGroupe() {
         <>
           <IconButton
             disableRipple
-            onClick={() => router.push("/dashboard/gold-receive")}
+            onClick={() => router.push("/dashboard/silver-receive")}
             sx={{ color: "text.secondary" }}
           >
             <StyledBadge

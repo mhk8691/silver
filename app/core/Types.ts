@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ToggleItemsType {
   title: string;
   value: string;
@@ -15,8 +17,8 @@ export interface FaqItem {
   question: string;
   answer: string;
 }
-export interface TableGoldDataType {
-  typeGold?: string;
+export interface TableSilverDataType {
+  typeSilver?: string;
   currentRate: number;
   minPriceDay: number;
   maxPriceDay: number;
@@ -41,4 +43,15 @@ export interface Product {
 
 export interface CartItem extends Product {
   quantity: number;
+}
+export interface ActionButtonType {
+  title: string;
+  icon: ReactNode | string;
+  link: string;
+}
+
+export interface AppbarItemsType{
+    name: string;
+  image: string;
+  link?: string;
 }

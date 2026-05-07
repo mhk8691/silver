@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { Metadata } from "next";
-import ChartGold from "../Components/ChartGold/ChartGold";
+import Chart from "../Components/Chart/Chart";
 import Wallet from "../Components/Wallet/Wallet";
 import Dashboard from "./Dashboard";
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function page() {
         }}
         order={{ xs: 2, sm: 1 }}
       >
-        <ChartGold
+        <Chart
           positionPrice="both"
           chartHeight="176px"
           priceStyle={{ mt: 1.5 }}

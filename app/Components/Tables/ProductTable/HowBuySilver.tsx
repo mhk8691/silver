@@ -9,9 +9,9 @@ import {
   SvgIcon,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Container from "../Container/Container";
 import "./video-style.css";
-export default function HowBuyGold() {
+import Container from "../../Containers/Container/Container";
+export default function HowBuySilver() {
   return (
     <Container
       style={{

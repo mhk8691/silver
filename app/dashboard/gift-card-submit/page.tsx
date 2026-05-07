@@ -1,4 +1,4 @@
-import OrderDetail from "@/app/Components/OrderDetail/OrderDetail";
+import OrderDetail from "@/app/Components/Tables/DetailTable/DetailTable";
 import { Grid, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
 import Image from "next/image";

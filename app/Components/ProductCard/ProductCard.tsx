@@ -27,7 +27,7 @@ const product: Product = {
   title: "شمش نقره ۱ گرمی ۱۸ عیار",
   price: 19330693,
 };
-export default function SilverCard() {
+export default function ProductCard() {
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
   const item = cart.find((i) => i.id === product.id);
@@ -78,7 +78,6 @@ export default function SilverCard() {
         }}
       >
         <Stack px={1.5}>
-          <Link href={"/gold-shop/test"}>
             <Image
               width={100}
               height={100}
@@ -89,7 +88,6 @@ export default function SilverCard() {
               src="/images/product.webp"
               alt="green iguana"
             />
-          </Link>
         </Stack>
         <CardContent
           sx={{
@@ -106,8 +104,6 @@ export default function SilverCard() {
               sm: "center",
             }}
           >
-            <Link href={"/gold-shop/test"}>
-              {" "}
               <Typography
                 gutterBottom
                 variant="h5"
@@ -120,7 +116,6 @@ export default function SilverCard() {
                 {" "}
                 شمش نقره ۱ گرمی عیار ۹۹۹{" "}
               </Typography>{" "}
-            </Link>{" "}
           </Stack>
           <Stack direction={"column"} gap={1} sx={{ mt: 3.5 }}>
             {" "}
@@ -299,7 +294,7 @@ export default function SilverCard() {
         <Stack direction={"row"} gap={2} mt={5}>
           <Button
             onClick={() => {
-              router.push("/gold-shop-basket");
+              router.push("/silver-shop-basket");
               setOpen(false);
             }}
             variant="contained"

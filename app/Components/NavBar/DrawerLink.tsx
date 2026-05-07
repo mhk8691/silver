@@ -19,10 +19,6 @@ const menuItems = [
     link: "/dashboard/credit-menu",
   },
   {
-    title: "خرید شمش طلا",
-    link: "/gold-shop",
-  },
-  {
     title: "کارت هدیه سازمانی",
     link: "/gift-card",
   },

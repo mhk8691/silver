@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import CircleAnimation from "../CircleAnimation/CircleAnimation";
-import Card from "../Container/Container";
 import MobileWalletStatus from "./MobileWalletStatus";
+import Container from "../Containers/Container/Container";
 
 export default function WalletStatus() {
   const [visible, setVisible] = useState(false);
@@ -38,7 +38,7 @@ export default function WalletStatus() {
           }}
         >
           <Grid size={4}>
-            <Card
+            <Container
               style={{
                 flexDirection: "column",
                 justifyContent: "center",
@@ -72,10 +72,10 @@ export default function WalletStatus() {
                   گرم
                 </Typography>
               </Stack>
-            </Card>
+            </Container>
           </Grid>
           <Grid size={4}>
-            <Card
+            <Container
               style={{
                 flexDirection: "column",
                 justifyContent: "center",
@@ -113,10 +113,10 @@ export default function WalletStatus() {
                   تومان
                 </Typography>
               </Stack>
-            </Card>
+            </Container>
           </Grid>
           <Grid size={4}>
-            <Card
+            <Container
               style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -160,7 +160,7 @@ export default function WalletStatus() {
                   </Typography>
                 </Stack>
               </Stack>
-            </Card>
+            </Container>
           </Grid>
         </Grid>
       ) : (

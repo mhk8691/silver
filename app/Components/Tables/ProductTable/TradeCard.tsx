@@ -1,8 +1,8 @@
 import priceFormater from "@/app/core/PriceFormater";
 import { Box, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import CircleAnimation from "../CircleAnimation/CircleAnimation";
-import Container from "../Container/Container";
+import CircleAnimation from "../../CircleAnimation/CircleAnimation";
+import Container from "../../Containers/Container/Container";
 
 export default function TradeCard() {
   return (

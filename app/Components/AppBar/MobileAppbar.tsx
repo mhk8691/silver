@@ -166,7 +166,7 @@ const appbarItems = [
         ></path>
       </svg>
     ),
-    link: "/dashboard/gold-receive",
+    link: "/dashboard/silver-receive",
   },
   {
     name: "پروفایل",

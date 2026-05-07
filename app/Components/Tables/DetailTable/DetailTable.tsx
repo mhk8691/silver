@@ -4,11 +4,11 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
-import Card from "../Container/Container";
-import CustomDatePicker from "../DatePicker/CustomDatePicker";
-import FilterToggleButton from "../FilterToggleButton/FilterToggleButton";
-import SelectField from "../InputField/SelectField";
+import CustomDatePicker from "../../DatePicker/CustomDatePicker";
+import FilterToggleButton from "../../FilterToggleButton/FilterToggleButton";
+import SelectField from "../../InputField/SelectField";
 import FilterButton from "./FilterButton";
+import Container from "../../Containers/Container/Container";
 interface Props {
   title?: string;
   type: "chip" | "toggle";
@@ -17,7 +17,7 @@ interface Props {
   emptyMessage?: string;
 }
 const names = ["تکمیل شده", "در انتظار تایید", "لغو شده"];
-export default function OrderDetail({
+export default function DetailTable({
   title,
   type,
   toggleItems,
@@ -151,7 +151,7 @@ export default function OrderDetail({
       </Stack>
     </>
   ) : (
-    <Card
+    <Container
       style={{
         px: {
           xs: 0,
@@ -271,6 +271,6 @@ export default function OrderDetail({
           {emptyMessage || message}
         </Typography>
       </Stack>
-    </Card>
+    </Container>
   );
 }

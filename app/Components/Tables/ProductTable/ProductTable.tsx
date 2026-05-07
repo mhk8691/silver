@@ -1,4 +1,4 @@
-import { TableGoldDataType } from "@/app/core/Types";
+import { TableSilverDataType } from "@/app/core/Types";
 import { Button, Stack } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -9,19 +9,19 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import LineChart from "../LineChart/LineChart";
+import LineChart from "../../LineChart/LineChart";
 
 export function createData({
-  typeGold,
+  typeSilver,
   currentRate,
   minPriceDay,
   maxPriceDay,
   dayChange,
   monthChange,
   weeklyChart,
-}: TableGoldDataType) {
+}: TableSilverDataType) {
   return {
-    typeGold,
+    typeSilver,
     currentRate,
     minPriceDay,
     maxPriceDay,
@@ -33,9 +33,9 @@ export function createData({
 
 interface Props {
   heads: string[];
-  data: TableGoldDataType[];
+  data: TableSilverDataType[];
 }
-export default function GoldTable({ heads, data }: Props) {
+export default function ProductTable({ heads, data }: Props) {
   return (
     <TableContainer
       component={Paper}
@@ -83,7 +83,7 @@ export default function GoldTable({ heads, data }: Props) {
                 },
               }}
             >
-              {row.typeGold && (
+              {row.typeSilver && (
                 <TableCell
                   component="th"
                   scope="row"
@@ -99,7 +99,7 @@ export default function GoldTable({ heads, data }: Props) {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {row.typeGold}
+                  {row.typeSilver}
                 </TableCell>
               )}
               <TableCell
@@ -209,7 +209,7 @@ export default function GoldTable({ heads, data }: Props) {
                 <Stack direction={"row"} justifyContent={"center"}>
                   <LineChart
                     color="#D12F2F"
-                    width={row.typeGold ? "90%" : "70%"}
+                    width={row.typeSilver ? "90%" : "70%"}
                     height="40px"
                     data={[1, 2, 3]}
                     label={["فروردین", "اردیبهشت", "خرداد"]}

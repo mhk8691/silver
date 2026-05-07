@@ -18,7 +18,7 @@ const exactHiddenRoutes = [
   "/login/login-otp",
   "/login/forget",
   "/login/signup",
-  "/gold-shop-basket",
+  "/silver-shop-basket",
 ];
 
 const prefixHiddenRoutes = ["/login", "/dashboard"];

@@ -30,13 +30,13 @@ const inputStyle: SxProps = {
   },
 };
 export default function Calculator() {
-  const [goldRate, setGoldRate] = useState(439800);
+  const [silverRate, setSilverRate] = useState(439800);
   const [weight, setWeight] = useState(0);
   const [wagePercent, setWagePercent] = useState(18);
   const [profitPercent, setProfitPercent] = useState(7);
 
   const calculated = useMemo(() => {
-    const gPrice = weight * goldRate;
+    const gPrice = weight * silverRate;
 
     const w = gPrice * (wagePercent / 100);
 
@@ -49,14 +49,14 @@ export default function Calculator() {
     const total = gPrice + w + p + t;
 
     return {
-      goldPrice: Math.round(gPrice),
+      silverPrice: Math.round(gPrice),
       wage: Math.round(w),
       profit: Math.round(p),
       tax: Math.round(t),
       profitOne: Math.round(profitOne),
       total: Math.round(total),
     };
-  }, [goldRate, weight, wagePercent, profitPercent]);
+  }, [silverRate, weight, wagePercent, profitPercent]);
   return (
     <>
       <Grid container size={12} spacing={3}>
@@ -68,8 +68,8 @@ export default function Calculator() {
         >
           <TextField
             label="نرخ نقره"
-            value={goldRate}
-            onChange={(e) => setGoldRate(Number(e.target.value))}
+            value={silverRate}
+            onChange={(e) => setSilverRate(Number(e.target.value))}
             sx={inputStyle}
           />
         </Grid>
@@ -189,7 +189,7 @@ export default function Calculator() {
                 color: "#10100F",
               }}
             >
-              {calculated.goldPrice.toLocaleString()}
+              {calculated.silverPrice.toLocaleString()}
               <Box
                 component={"span"}
                 color={"#292926"}
@@ -460,7 +460,7 @@ export default function Calculator() {
                 color: "#10100F",
               }}
             >
-              {calculated.goldPrice.toLocaleString()}
+              {calculated.silverPrice.toLocaleString()}
               <Box
                 component={"span"}
                 color={"#292926"}
@@ -544,8 +544,8 @@ export default function Calculator() {
             fontWeight={600}
           >
             مجموع:{" "}
-            {calculated.profitOne + calculated.goldPrice > 0
-              ? (calculated.profitOne + calculated.goldPrice).toLocaleString()
+            {calculated.profitOne + calculated.silverPrice > 0
+              ? (calculated.profitOne + calculated.silverPrice).toLocaleString()
               : "۰"}{" "}
             تومان
           </Typography>

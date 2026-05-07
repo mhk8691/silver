@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import CustomModal from "../CustomModal/CustomModal";
+import { AppbarItemsType } from "@/app/core/Types";
 
 interface Props {
   open: boolean;
@@ -21,11 +22,7 @@ interface Props {
 
 interface ItemsType {
   title: string;
-  navigation: {
-    name: string;
-    image: string;
-    link: string;
-  }[];
+  navigation: AppbarItemsType[];
 }
 
 const items: ItemsType[] = [
@@ -76,7 +73,7 @@ const items: ItemsType[] = [
       {
         name: "تحویل فیزیکی",
         image: "/shop-active.svg",
-        link: "/gold-receive",
+        link: "/silver-receive",
       },
       {
         name: "کارت هدیه",

@@ -3,8 +3,8 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ReactNode } from "react";
+import SilverBuy from "./SilverBuy";
 import Container from "../Container/Container";
-import GoldBuy from "./GoldBuy";
 interface Props {
   title: ReactNode;
   banner: ReactNode;
@@ -227,7 +227,7 @@ export default function CreditContainer({
             </Typography>
           </Stack>
           <Stack direction={"row"} justifyContent={"center"} width={"100%"}>
-            <GoldBuy />
+            <SilverBuy />
           </Stack>
         </>
       )}

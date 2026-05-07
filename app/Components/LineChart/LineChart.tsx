@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { LineChart as LineChartGold } from "@mui/x-charts/LineChart";
+import { LineChart as SilverChart } from "@mui/x-charts/LineChart";
 
 const margin = { top: 0, bottom: 0, left: 10 };
 
@@ -27,7 +27,7 @@ export default function LineChart({
         width: { width },
         height: { height },
         "& .MuiAreaElement-root": {
-          fill: isGradiant ? "url(#goldGradient)" : "transparent",
+          fill: isGradiant ? "url(#silverGradiant)" : "transparent",
         },
 
         "& .MuiChartsAxis-tick": {
@@ -38,7 +38,7 @@ export default function LineChart({
         },
       }}
     >
-      <LineChartGold
+      <SilverChart
         slotProps={{
           tooltip: {
             trigger: "axis",
@@ -66,13 +66,13 @@ export default function LineChart({
       >
         {isGradiant && (
           <defs>
-            <linearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="silverGradiant" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#F7FAFD" stopOpacity={0.4} />
               <stop offset="100%" stopColor="#1F1E1B" stopOpacity={0} />
             </linearGradient>
           </defs>
         )}
-      </LineChartGold>
+      </SilverChart>
     </Box>
   );
 }

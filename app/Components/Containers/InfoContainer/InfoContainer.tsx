@@ -2,9 +2,10 @@ import { Divider, Grid, Stack, SxProps } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import React, { CSSProperties } from "react";
-import ActionButton, { ActionButtonType } from "../ActionButton/ActionButton";
-import Card from "../Container/Container";
-import BackLink from "@/app/dashboard/BackLink";
+
+import { ActionButtonType } from "@/app/core/Types";
+import ActionButton from "../../ActionButton/ActionButton";
+import Container from "../Container/Container";
 interface Props {
   title: string;
   items: ActionButtonType[];
@@ -21,7 +22,7 @@ export default function InfoContainer({
   return (
       
 
-      <Card
+      <Container
         style={{
           px: {
             xs: 0,
@@ -101,6 +102,6 @@ export default function InfoContainer({
             </Stack>
           </Grid>
         </Grid>
-      </Card>
+      </Container>
   );
 }

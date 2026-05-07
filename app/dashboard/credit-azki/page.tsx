@@ -1,5 +1,5 @@
-import CreditContainer from "@/app/Components/CreditContainer/CreditContainer";
-import GoldenUnderline from "@/app/Components/CreditContainer/SilverUnderline";
+import CreditContainer from "@/app/Components/Containers/CreditContainer/CreditContainer";
+import SilverUnderline from "@/app/Components/Containers/CreditContainer/SilverUnderline";
 import { Box, Grid, Typography } from "@mui/material";
 import { Metadata } from "next";
 export const metadata: Metadata = {
@@ -116,8 +116,8 @@ export default function page() {
                 mt: 3,
               }}
             >
-              خرید <GoldenUnderline>اقساطـــی</GoldenUnderline> طلا | بدون ضامن،
-              {"  "} بدون <GoldenUnderline> چک </GoldenUnderline>
+              خرید <SilverUnderline>اقساطـــی</SilverUnderline> طلا | بدون ضامن،
+              {"  "} بدون <SilverUnderline> چک </SilverUnderline>
             </Typography>
           }
         />

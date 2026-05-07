@@ -1,5 +1,5 @@
 "use client";
-import Card from "@/app/Components/Container/Container";
+import Card from "@/app/Components/Containers/Container/Container";
 import FilterToggleButton from "@/app/Components/FilterToggleButton/FilterToggleButton";
 import InputField from "@/app/Components/InputField/InputField";
 import { ToggleItemsType } from "@/app/core/Types";
@@ -18,7 +18,7 @@ const items: ToggleItemsType[] = [
 ];
 export default function Trading() {
   const [price, setPrice] = useState("");
-  const [gold, setGold] = useState("");
+  const [silver, setSilver] = useState("");
   const [select, setSelect] = useState(items[0].value);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
@@ -28,14 +28,14 @@ export default function Trading() {
 
     const num = Number(val);
     if (!isNaN(num)) {
-      setGold(String(num / 17999000));
+      setSilver(String(num / 17999000));
     } else {
-      setGold("");
+      setSilver("");
     }
   };
 
-  const handleGoldChange = (val: string) => {
-    setGold(val);
+  const handleSilverChange = (val: string) => {
+    setSilver(val);
 
     const num = Number(val);
     if (!isNaN(num)) {
@@ -89,8 +89,8 @@ export default function Trading() {
           <InputField
             placeholder={"وزن نقره"}
             title={"گرم"}
-            value={gold}
-            setValue={handleGoldChange}
+            value={silver}
+            setValue={handleSilverChange}
           />
         </Stack>
       </Stack>

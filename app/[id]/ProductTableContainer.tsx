@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import GoldTable from "../Components/Tables/GoldTable";
+import ProcutTable from "../Components/Tables/ProductTable/ProductTable";
 import { useMediaQuery, useTheme } from "@mui/material";
-import LaptopTable from "../Components/Tables/LaptopTable";
+import LaptopTable from "../Components/Tables/ProductTable/LaptopTable";
 
 export default function ProductTableContainer() {
   const theme = useTheme();
@@ -10,10 +10,10 @@ export default function ProductTableContainer() {
   return (
     <>
       {isUpMd ? (
-        <GoldTable
+        <ProcutTable
           data={[
             {
-              typeGold: "نقره عیار ۹۹۹ (گرم)",
+              typeSilver: "نقره عیار ۹۹۹ (گرم)",
               currentRate: 17596000,
               minPriceDay: 17580000,
               maxPriceDay: 17831000,
@@ -23,7 +23,7 @@ export default function ProductTableContainer() {
               isOns:false
             },
             {
-              typeGold: "انس جهانی نقره",
+              typeSilver: "انس جهانی نقره",
               currentRate: 17596000,
               minPriceDay: 17580000,
               maxPriceDay: 17831000,
@@ -50,7 +50,7 @@ export default function ProductTableContainer() {
           isDetail={false}
           items={[
             {
-              typeGold: "انس جهانی نقره",
+              typeSilver: "انس جهانی نقره",
               currentRate: 74.2,
               minPriceDay: 73.03,
               maxPriceDay: 74.51,
@@ -60,7 +60,7 @@ export default function ProductTableContainer() {
               isOns:true
             },
             {
-              typeGold: "نقره (گرم)",
+              typeSilver: "نقره (گرم)",
               currentRate: 439800,
               minPriceDay: 432020,
               maxPriceDay: 452400,

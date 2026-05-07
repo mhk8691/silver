@@ -3,7 +3,7 @@ interface Props {
   title: string;
   //   disableFunction:()=>{}
 }
-export default function ActionButton({ title }: Props) {
+export default function SubmitButton({ title }: Props) {
   return (
     <Button
       variant="contained"
