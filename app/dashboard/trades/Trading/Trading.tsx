@@ -2,7 +2,10 @@
 import Card from "@/app/Components/Containers/Container/Container";
 import FilterToggleButton from "@/app/Components/FilterToggleButton/FilterToggleButton";
 import InputField from "@/app/Components/InputField/InputField";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { ToggleItemsType } from "@/app/core/Types";
+import {  silverBuy } from "@/lib/gold/silverBuy";
+import {  silverSell } from "@/lib/gold/silverSell";
 import {
   Button,
   Stack,
@@ -10,6 +13,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { isAxiosError } from "axios";
 import { useState } from "react";
 
 const items: ToggleItemsType[] = [
@@ -20,6 +24,7 @@ export default function Trading() {
   const [price, setPrice] = useState("");
   const [silver, setSilver] = useState("");
   const [select, setSelect] = useState(items[0].value);
+  const [open,setOpen] = useState(false)
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -42,6 +47,27 @@ export default function Trading() {
       setPrice(String(num * 17999000));
     } else {
       setPrice("");
+    }
+  };
+  const handleBuySilver = async () => {
+    try {
+      const response = await silverBuy(price);
+      setOpen(true);
+      // setBuyInfo(response.data.details)
+    } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        showSnackbar(error.response?.data.error);
+      }
+    }
+  };
+  const handleSellSilver = async () => {
+    try {
+      const response = await silverSell(silver);
+      setOpen(true);
+    } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        showSnackbar(error.response?.data.error);
+      }
     }
   };
   return (
@@ -98,6 +124,7 @@ export default function Trading() {
         variant="contained"
         color="primary"
         disableRipple
+         onClick={() => (select === 'buy' ? handleBuySilver() : handleSellSilver())}
         sx={{ borderRadius: 2, fontSize: 16, py: 1.4,'&:hover':{
           bgcolor:'primary.main'
         } }}
