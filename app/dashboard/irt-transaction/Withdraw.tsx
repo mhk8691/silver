@@ -6,6 +6,7 @@ import { ToggleItemsType } from "@/app/core/Types";
 import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import BankCard from "./BankCard";
+import { goldWidthdraw } from "@/lib/withdraw/withdraw";
 
 const items: ToggleItemsType[] = [
   { title: "به حساب بانکی", value: "bank", id: 1 },
@@ -14,7 +15,14 @@ const items: ToggleItemsType[] = [
 export default function Withdraw() {
   const [price, setPrice] = useState('');
   const [select, setSelect] = useState(items[0].value);
-
+  const [selectedCard, setSelectedCard] = useState<number>(1);
+  const handleWithdraw = async () => {
+    const response = await goldWidthdraw(
+      price,
+      select === 'silver' ? 'TALAYINEH' : 'BANK_ACCOUNT',
+      selectedCard,
+    );
+  };
   return (
     <Card style={{ gap: 3.5, p: 0, border: "none" }}>
       <FilterToggleButton
@@ -66,6 +74,7 @@ export default function Withdraw() {
           },
           py: 1.4,
         }}
+        onClick={handleWithdraw}
       >
         برداشت
       </Button>

@@ -3,11 +3,11 @@ import api from '../api';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 import { WithdrawDataType } from '@/app/core/Types';
 
-export const silverWidthdraw = async (amount: string, target: string, cardId?: number) => {
+export const goldWidthdraw = async (amount: string, target: string, cardId?: number) => {
   try {
-    const response = await api.post<WithdrawDataType>('/gold/withdraw/', {
+    const response = await api.post<WithdrawDataType>('/silver/withdraw/', {
       amount,
-      target,
+      destination:target,
       card_id: cardId,
     });
     //  showSnackbar(response.data.message,true)
