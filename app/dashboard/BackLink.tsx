@@ -3,7 +3,7 @@
 import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
 
-export default function BackLink({ title }: { title: string }) {
+export default function BackLink({ title,fontSize }: { title?: string ,fontSize?: string}) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const router = useRouter();
@@ -17,8 +17,8 @@ export default function BackLink({ title }: { title: string }) {
       onClick={() => router.back()}
     >
       <svg
-        width="21"
-        height="20"
+       width={fontSize || 21}
+    height={fontSize || 21}
         viewBox="0 0 21 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

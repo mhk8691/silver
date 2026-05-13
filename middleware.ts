@@ -1,24 +1,30 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-  const token = req.cookies.get("refreshToken");
+  const access = req.cookies.get('accessToken');
+  const pathname = req.nextUrl.pathname;
 
-  const isProtected = pathname.startsWith("/dashboard");
+  const isHome = pathname === '/';
+  const isDashboard = pathname.startsWith('/dashboard');
 
-  // if (isProtected && !token) {
-  //   return NextResponse.redirect(new URL("/login/login-password", req.url));
-  // }
-
-  if (pathname === "/") {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+  // اگر روی صفحه اصلی بود
+  if (isHome) {
+    if (access) {
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    } else {
+      return NextResponse.redirect(new URL('/login/login-password', req.url));
+    }
   }
 
+  // اگر وارد داشبورد شد ولی لاگین نیست
+  if (isDashboard && !access) {
+    return NextResponse.redirect(new URL('/login/login-password', req.url));
+  }
 
   return NextResponse.next();
 }
 
 export const config = {
-    matcher: ["/"],
+  matcher: ['/', '/dashboard/:path*'],
 };

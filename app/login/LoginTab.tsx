@@ -67,7 +67,7 @@ export default function LoginTab() {
             >
               ورود با رمز یکبار مصرف
             </Typography>
-            {pathname === "/login/login-otp/" && (
+            {pathname === "/login/login-otp" && (
               <Divider
                 sx={{
                   border: 2,

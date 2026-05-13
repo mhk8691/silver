@@ -59,7 +59,7 @@ export default function layout({ children }: Props) {
               justifyContent={"center"}
             >
               <Image
-                src={"/images/darineh.png"}
+                src={"/images/logo.png"}
                 width={120}
                 height={120}
                 alt=""

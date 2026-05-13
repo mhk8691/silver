@@ -1,15 +1,18 @@
-"use client";
 import { Box, Stack, Typography } from "@mui/material";
-import { useState } from "react";
-import ActionButton from "../SubmitButton";
-import Field from "../Field";
-import SendCode from "../SendCode";
-
-export default function page() {
-  const [verifyCode, setVerifyCode] = useState("");
-
+import BackLink from "@/app/dashboard/BackLink";
+import VerifyLoginOtpForm from "./VerifyLoginOtpForm";
+import VerifySignupOtpForm from "./VerifySignupOtpForm";
+interface Props {
+  searchParams: {
+    phone: string;
+    type: string;
+  };
+}
+export default async function page({ searchParams }: Props) {
+const { phone, type } = await searchParams;
   return (
     <Stack>
+      <BackLink fontSize="30" />
       <Typography
         variant="h6"
         fontWeight={"500"}
@@ -31,15 +34,15 @@ export default function page() {
         fontWeight={"500"}
         sx={{ mt: 3 }}
       >
-        کد تایید ارسال شده به شماره موبایل 09961250980 را وارد کنید.
-        <Box component={"span"} display={"block"}>
-          کد تایید علاوه بر پیامک در پیامرسان بله نیز ارسال میشود.
-        </Box>
+        کد تایید ارسال شده به شماره موبایل {phone} را وارد کنید.
+       
       </Typography>
 
-      <Field value={verifyCode} setValue={setVerifyCode} label="کد تایید" />
-      <SendCode />
-      <ActionButton title={"تایید"} />
+         {type === 'login' ? (
+        <VerifyLoginOtpForm phoneNumber={phone} />
+      ) : (
+        <VerifySignupOtpForm phoneNumber={phone} />
+      )}
     </Stack>
   );
 }
