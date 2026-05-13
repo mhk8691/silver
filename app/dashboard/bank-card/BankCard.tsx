@@ -1,15 +1,32 @@
 "use client";
 import Card from "@/app/Components/Containers/Container/Container";
-import { IconButton, Stack, SvgIcon, Typography } from "@mui/material";
+import { Grid, IconButton, Stack, SvgIcon, Typography } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
-import DeleteCard from "./DeleteCard";
+import { Dispatch, SetStateAction, useState } from "react";
+import { BankCardDataType } from "@/app/core/Types";
+import RemoveCard from "./RemoveCard";
 
-export default function BankCard() {
-  const [cardId, setCardId] = useState<number | null>(null);
+export default function BankCard({
+  bankCardData,
+  setBankCardData,
+}: {
+  bankCardData: BankCardDataType[];
+  setBankCardData: Dispatch<SetStateAction<BankCardDataType[]>>;
+}) {
+  const [cardId, setCardId] = useState<number>(0);
   const [open, setOpen] = useState(false);
   return (
     <>
+     {bankCardData.map((item) => (
+        <Grid
+          key={item.id}
+          size={{
+            xs: 12,
+            sm: 6,
+            md: 4,
+            lg: 3,
+          }}
+        >
       <Card style={{ px: 2, py: 3 }}>
         <Stack
           direction={"row"}
@@ -100,11 +117,15 @@ export default function BankCard() {
           </Typography>
         </Stack>
       </Card>
-      <DeleteCard
+      </Grid>
+       ))}
+     <RemoveCard
         open={open}
         setOpen={setOpen}
         cardId={cardId}
+        setBankCardData={setBankCardData}
         setCardId={setCardId}
+        bankCardData={bankCardData}
       />
     </>
   );
