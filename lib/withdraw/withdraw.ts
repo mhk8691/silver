@@ -3,7 +3,7 @@ import api from "../api";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { WithdrawDataType } from "@/app/core/Types";
 
-export const goldWidthdraw = async (
+export const silverWidthdraw = async (
   amount: string,
   target: string,
   cardId?: number,

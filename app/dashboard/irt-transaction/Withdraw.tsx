@@ -6,7 +6,7 @@ import { BankCardDataType, ToggleItemsType } from "@/app/core/Types";
 import { Button, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import BankCard from "./BankCard";
-import { goldWidthdraw } from "@/lib/withdraw/withdraw";
+import { silverWidthdraw } from "@/lib/withdraw/withdraw";
 import { getBankCard } from "@/lib/getbankCard/bankCard";
 
 const items: ToggleItemsType[] = [
@@ -19,7 +19,7 @@ export default function Withdraw() {
   const [selectedCard, setSelectedCard] = useState<number>(2);
   const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
   const handleWithdraw = async () => {
-    const response = await goldWidthdraw(
+    const response = await silverWidthdraw(
       price,
       select === "silver" ? "TALAYINEH" : "BANK_ACCOUNT",
       select !== "silver" ? selectedCard : undefined,
