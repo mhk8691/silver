@@ -2,10 +2,11 @@
 import Card from "@/app/Components/Containers/Container/Container";
 import FilterToggleButton from "@/app/Components/FilterToggleButton/FilterToggleButton";
 import InputField from "@/app/Components/InputField/InputField";
-import { ToggleItemsType } from "@/app/core/Types";
+import { BankCardDataType, ToggleItemsType } from "@/app/core/Types";
 import { Button, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BankCard from "./BankCard";
+import { getBankCard } from "@/lib/getbankCard/bankCard";
 
 const items: ToggleItemsType[] = [
   { title: "درگاه پرداخت", value: "payment", id: 1 },
@@ -14,7 +15,15 @@ const items: ToggleItemsType[] = [
 export default function Deposit() {
   const [price, setPrice] = useState('');
   const [select, setSelect] = useState(items[0].value);
-
+  const [selectedCard, setSelectedCard] = useState<number>(2);
+    const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await getBankCard();
+      setBankCardsData(response && response.length > 0 ? response : []);
+    };
+    getData();
+  }, []);
   return (
     <Card
       style={{
@@ -61,7 +70,7 @@ export default function Deposit() {
             </Button>
           </Stack>
         )}
-        {select === "directPayment" && <BankCard />}
+        {select === "directPayment" && <BankCard bankCardsData={bankCardsData} selectedCard={selectedCard} setBankCardsData={setBankCardsData} setSelectedCard={setSelectedCard} />}
       </Stack>
       <Button
         variant="contained"

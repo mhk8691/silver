@@ -108,6 +108,9 @@ export default function page() {
           type="chip"
           title="لیست تحویل‌های اخیر"
           toggleItems={items}
+            listLength={0}
+          tableBody={<></>}
+          tableHead={[]}
         />
       </Grid>
     </Grid>

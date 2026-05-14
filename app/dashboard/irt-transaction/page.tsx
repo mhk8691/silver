@@ -57,6 +57,9 @@ export default function page() {
           title="لیست تراکنش های اخیر"
           toggleItems={items}
           type="chip"
+            listLength={0}
+          tableBody={<></>}
+          tableHead={[]}
         />
       </Grid>
     </Grid>
