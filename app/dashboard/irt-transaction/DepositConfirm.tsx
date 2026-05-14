@@ -16,7 +16,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 interface Props {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  setDepositData: Dispatch<SetStateAction<DepositDataType>>;
+  setDepositData: Dispatch<SetStateAction<DepositDataType | null>>;
 }
 export default function DepositConfirm({
   open,
@@ -30,7 +30,10 @@ export default function DepositConfirm({
   };
   const handleClick = async () => {
     const response = await getSilverDeposit();
-    setDepositData(response || ({} as DepositDataType));
+    if (response?.status === 200){
+        setDepositData(response.data || ({} as DepositDataType));
+    }
+    setOpen(false)
   };
   return (
     <CustomModal

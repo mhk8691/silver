@@ -25,8 +25,8 @@ export default function Deposit() {
   const [select, setSelect] = useState(items[0].value);
   const [selectedCard, setSelectedCard] = useState<number>(2);
   const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
-  const [depositData, setDepositData] = useState<DepositDataType>(
-    {} as DepositDataType,
+  const [depositData, setDepositData] = useState<DepositDataType | null>(
+    null
   );
   useEffect(() => {
     const getData = async () => {
@@ -98,7 +98,9 @@ export default function Deposit() {
             />
           )}
         </Stack>
-        <Typography variant="body2" fontSize={12} fontWeight={"bold"}>
+      {
+        depositData && <>
+          <Typography variant="body2" fontSize={12} fontWeight={"bold"}>
           اطلاعات واریز
         </Typography>
         <Container
@@ -155,6 +157,8 @@ export default function Deposit() {
             افزوده می‌شود.
           </Typography>
         </Container>
+        </>
+      }
         <Button
           variant="contained"
           color="primary"

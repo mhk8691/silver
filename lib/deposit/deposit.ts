@@ -20,7 +20,7 @@ export const getSilverDeposit = async () => {
   try {
     const response = await api.get<DepositDataType>("/silver/deposit/");
     //  showSnackbar(response.data.message,true)
-    return response.data;
+    return response;
   } catch (error: unknown) {
     if (isAxiosError(error)) {
       showSnackbar(error.response?.data.detail);
