@@ -35,13 +35,12 @@ export default function Deposit() {
     };
     getData();
   }, []);
-  const handleClick = async () => {
-    if (select === "payment") {
-      const response = await silverDeposit(price);
-    } else {
-      setOpen(true);
-    }
+  const handleDirectPayment = async () => {
+    setOpen(true)
   };
+  const handlePayment = async ()=>{
+const response = await silverDeposit(price);
+  }
   return (
     <>
       <Card
@@ -99,7 +98,7 @@ export default function Deposit() {
           )}
         </Stack>
       {
-        depositData && <>
+      depositData && select != 'payment'&&<>
           <Typography variant="body2" fontSize={12} fontWeight={"bold"}>
           اطلاعات واریز
         </Typography>
@@ -159,21 +158,38 @@ export default function Deposit() {
         </Container>
         </>
       }
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{
-            borderRadius: 2,
-            fontSize: {
-              xs: 14,
-              sm: 16,
-            },
-            py: 1.4,
-          }}
-          onClick={handleClick}
-        >
-          {select === "payment" ? "واریز" : "نمایش اطلاعات مقصد"}
-        </Button>
+        {
+      select === 'payment'?
+       <Button
+        variant="contained"
+        color="primary"
+        sx={{
+          borderRadius: 2,
+          fontSize: {
+            xs: 14,
+            sm: 16,
+          },
+          py: 1.5,
+        }}
+        onClick={handlePayment}
+      >
+        واریز
+      </Button>
+     :!depositData && <Button
+        variant="contained"
+        color="primary"
+        sx={{
+          borderRadius: 2,
+          fontSize: {
+            xs: 14,
+            sm: 16,
+          },
+          py: 1.5,
+        }}
+        onClick={handleDirectPayment}
+      >
+        نمایش اطلاعات مقصد
+      </Button>}
       </Card>
       <DepositConfirm
         open={open}
