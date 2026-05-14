@@ -1,4 +1,4 @@
-import OrderDetail from "@/app/Components/Tables/DetailTable/DetailTable";
+import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
 import { Grid, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -163,7 +163,7 @@ export default function page() {
         </Grid>
       </Grid>
       <Grid size={12}>
-        <OrderDetail
+        <DetailTable
           title="کارت هدیه های شما"
           toggleItems={[]}
           type="chip"

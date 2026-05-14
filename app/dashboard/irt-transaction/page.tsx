@@ -1,4 +1,4 @@
-import OrderDetail from "@/app/Components/Tables/DetailTable/DetailTable";
+import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
 import WalletStatus from "@/app/Components/Wallet/WalletStatus";
 import { ToggleItemsType } from "@/app/core/Types";
 import { Grid } from "@mui/material";
@@ -53,7 +53,7 @@ export default function page() {
       </Grid>
       <TransactionContainer />
       <Grid size={12} order={3}>
-        <OrderDetail
+        <DetailTable
           title="لیست تراکنش های اخیر"
           toggleItems={items}
           type="chip"

@@ -3,18 +3,22 @@ import { ToggleItemsType } from "@/app/core/Types";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import CustomDatePicker from "../../DatePicker/CustomDatePicker";
 import FilterToggleButton from "../../FilterToggleButton/FilterToggleButton";
 import SelectField from "../../InputField/SelectField";
 import FilterButton from "./FilterButton";
 import Container from "../../Containers/Container/Container";
+import CustomTable from "../CustomTable";
 interface Props {
   title?: string;
   type: "chip" | "toggle";
   toggleItems: ToggleItemsType[];
   noCard?: boolean;
   emptyMessage?: string;
+  tableBody: ReactNode;
+  tableHead: string[];
+  listLength: number;
 }
 const names = ["تکمیل شده", "در انتظار تایید", "لغو شده"];
 export default function DetailTable({
@@ -23,6 +27,9 @@ export default function DetailTable({
   toggleItems,
   noCard = false,
   emptyMessage,
+    tableBody,
+  tableHead,
+  listLength,
 }: Props) {
   const [active, setActive] = useState<number | null>(toggleItems[0]?.id);
   const [select, setSelect] = useState(toggleItems[0]?.value);
@@ -253,6 +260,11 @@ export default function DetailTable({
           <CustomDatePicker />
         </Stack>
       </Stack>
+         {listLength > 0 ? (
+        <Stack mt={5}>
+          <CustomTable heads={tableHead}>{tableBody}</CustomTable>
+        </Stack>
+      ) : (
       <Stack
         mt={10}
         mb={8}
@@ -270,7 +282,7 @@ export default function DetailTable({
         <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
           {emptyMessage || message}
         </Typography>
-      </Stack>
+      </Stack>)}
     </Container>
   );
 }

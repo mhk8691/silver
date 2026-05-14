@@ -3,7 +3,7 @@ import {
   default as Card,
   default as Container,
 } from "@/app/Components/Containers/Container/Container";
-import OrderDetail from "@/app/Components/Tables/DetailTable/DetailTable";
+import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
 import Wallet from "@/app/Components/Wallet/Wallet";
 import priceFormater from "@/app/core/PriceFormater";
 import { ToggleItemsType } from "@/app/core/Types";
@@ -294,7 +294,7 @@ export default function page() {
           <Chart />
         </Grid>
         <Stack mt={{ xs: 1, sm: 3 }}>
-          <OrderDetail
+          <DetailTable
             type="chip"
             title="لیست تراکنش‌‌های اخیر"
             toggleItems={items}

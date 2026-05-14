@@ -1,5 +1,5 @@
 import Container from "@/app/Components/Containers/Container/Container";
-import OrderDetail from "@/app/Components/Tables/DetailTable/DetailTable";
+import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
 import SilverCard from "@/app/Components/ProductCard/ProductCard";
 import WalletStatus from "@/app/Components/Wallet/WalletStatus";
 import { ToggleItemsType } from "@/app/core/Types";
@@ -104,7 +104,7 @@ export default function page() {
         </Grid>
       </Container>
       <Grid size={12}>
-        <OrderDetail
+        <DetailTable
           type="chip"
           title="لیست تحویل‌های اخیر"
           toggleItems={items}

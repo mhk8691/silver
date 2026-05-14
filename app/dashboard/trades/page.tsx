@@ -1,5 +1,5 @@
 import Chart from "@/app/Components/Chart/Chart";
-import OrderDetail from "@/app/Components/Tables/DetailTable/DetailTable";
+import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
 import WalletStatus from "@/app/Components/Wallet/WalletStatus";
 import { ToggleItemsType } from "@/app/core/Types";
 import { Grid } from "@mui/material";
@@ -61,7 +61,7 @@ export default function page() {
         </Grid>
       </Grid>
       <Grid size={12}>
-        <OrderDetail
+        <DetailTable
           title="لیست معاملات اخیر"
           toggleItems={items}
           type="chip"
