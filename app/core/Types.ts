@@ -161,13 +161,9 @@ export interface WalletHeaderDataType {
   gold_balance_gr: number;
   toman_balance: number;
 }
-export interface RefrraDataType {
-  referral_code: string;
-  total_invited: number;
-  total_earned_toman: number;
-  commission_rate: string;
-  message: string;
-}
+export interface RefrraDataType 
+{    "referral_code": string,    "statistics": {        "total_subscribers": number,        "total_earnings_toman": number,        "commission_percentage": string    },    "subscribers": [],    "message": string}
+
 
 export interface PriceAlertsDataType {
   id: number;

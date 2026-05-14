@@ -1,14 +1,27 @@
+'use client'
 import Card from "@/app/Components/Containers/Container/Container";
 import { Divider, Grid, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
 import Image from "next/image";
 import BackLink from "../BackLink";
 import RefralButton from "./RefralButton";
-export const metadata: Metadata = {
-  title: "دعوت از دوستان | دارینه",
-  description: "",
-};
+import { useEffect, useState } from "react";
+import { RefrraDataType } from "@/app/core/Types";
+import { getreferral } from "@/lib/getRefrral/getRefrral";
+import priceFormater from "@/app/core/PriceFormater";
+// export const metadata: Metadata = {
+//   title: "دعوت از دوستان | دارینه",
+//   description: "",
+// };
 export default function page() {
+    const [referralData, setreferralData] = useState<RefrraDataType>({} as RefrraDataType);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await getreferral();
+      setreferralData(response || ({} as RefrraDataType));
+    };
+    getData();
+  }, []);
   return (
     <Grid container spacing={3}>
       <BackLink title="دعوت از دوستان" />
@@ -94,8 +107,7 @@ export default function page() {
               sm: 18,
             }}
           >
-            با دعوت از دوستان خود ۲۰ درصد از کارمزد هر خرید آن‌ها، برای شما
-            واریز خواهد شد.
+           {referralData.message}
           </Typography>
           <Typography
             variant="h6"
@@ -108,7 +120,7 @@ export default function page() {
           >
             کد دعوت شما
           </Typography>
-          <RefralButton />
+          <RefralButton referralData={referralData} />
           <Card
             style={{
               px: {
@@ -151,7 +163,7 @@ export default function page() {
                 }}
                 sx={{ color: "text.title" }}
               >
-                ۰ نفر
+               {referralData?.statistics?.total_subscribers} نفر
               </Typography>
             </Stack>
             <Divider sx={{ my: 1.5, borderColor: " #C9CDCF" }} />
@@ -164,7 +176,7 @@ export default function page() {
                 }}
                 sx={{ color: "#535657" }}
               >
-                مجموع کاربران دعوت شده توسط شما:
+               مجموع دریافتی شما از دعوت دوستان:
               </Typography>
               <Typography
                 variant="h6"
@@ -174,7 +186,7 @@ export default function page() {
                 }}
                 sx={{ color: "text.title" }}
               >
-                ۰ نفر
+                {priceFormater(referralData?.statistics?.total_earnings_toman)} تومان
               </Typography>
             </Stack>
           </Card>
