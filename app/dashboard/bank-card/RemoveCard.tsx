@@ -2,7 +2,7 @@ import CustomModal from '@/app/Components/CustomModal/CustomModal';
 import { BankCardDataType } from '@/app/core/Types';
 import { getBankCard, removeBankCard } from '@/lib/getbankCard/bankCard';
 import { Close } from '@mui/icons-material';
-import { Button, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 interface Props {
   open: boolean;
@@ -47,7 +47,18 @@ export default function RemoveCard({
           </IconButton>
         </Stack>
         <Typography variant="body1" fontSize={15} fontWeight={'500'} sx={{ mt: 3 }}>
-          آیا از حذف کارت بانکی با شماره {selectedCard?.card_number} اطمینان دارید؟
+          آیا از حذف کارت بانکی با شماره <Box
+  component="span"
+  sx={{
+    direction: 'ltr',
+    unicodeBidi: 'isolate',
+    display: 'inline-block',
+  }}
+>
+  {'\u200E'}
+  {selectedCard?.card_number.replace(/(.{4})/g, '$1 ').trim()}
+</Box> {' '}
+ اطمینان دارید؟ 
         </Typography>
         <Stack direction={'row'} gap={2} mt={4}>
           <Button

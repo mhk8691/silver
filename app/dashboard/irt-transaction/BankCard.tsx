@@ -15,17 +15,10 @@ import {
 import Image from "next/image";
 import * as React from "react";
 import AddCard from "../bank-card/AddCard";
+import { BankCardDataType } from "@/app/core/Types";
 
-const names = [
-  {
-    id: 1,
-    icon: "/images/simple/mellat.svg",
-    bankName: "بانک ملت",
-    numberCard: "6104 3310 8629 2050",
-  },
-];
 
-const CardItem = ({ item }: { item: (typeof names)[0] }) => (
+const CardItem = ({ item }: { item: BankCardDataType }) => (
   <Box
     sx={{
       display: "flex",
@@ -35,26 +28,35 @@ const CardItem = ({ item }: { item: (typeof names)[0] }) => (
     }}
   >
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-      <Image src={item.icon} width={24} height={24} alt="" />
+      {/* <Image src={item.icon} width={24} height={24} alt="" /> */}
       <Typography fontSize={12} sx={{ color: "#535657" }}>
-        {item.bankName}
+        {item.bank_name}
       </Typography>
     </Box>
 
     <Typography fontSize={16} sx={{ color: "text.title", direction: "rtl" }}>
-      {item.numberCard}
+     {item.card_number.replace(/(.{4})/g, "$1 ").trim()}
     </Typography>
   </Box>
 );
 
-export default function CustomDropdown() {
+export default function BankCards({
+  bankCardsData,
+  setBankCardsData,
+  setSelectedCard,
+  selectedCard,
+}: {
+  bankCardsData: BankCardDataType[];
+  setBankCardsData: React.Dispatch<React.SetStateAction<BankCardDataType[]>>;
+  setSelectedCard: React.Dispatch<React.SetStateAction<number>>;
+  selectedCard: number;
+}) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState<number | null>(1);
   const [openModal, setOpenModal] = React.useState(false);
-  const selectedItem = names.find((item) => item.id === value);
+  const selectedItem = bankCardsData.find((item) => item.id === selectedCard);
   const [cardValue, setCardValue] = React.useState("");
   const handleSelect = (id: number) => {
-    setValue(id);
+    setSelectedCard(id);
     setOpen(false);
   };
 
@@ -69,7 +71,7 @@ export default function CustomDropdown() {
             }}
           >
             <InputLabel
-              shrink={open || !!value}
+              shrink={open || !!selectedCard}
               sx={{
                 position: "absolute",
                 right: 12,
@@ -129,7 +131,7 @@ export default function CustomDropdown() {
                 mx: 0.5,
               }}
             >
-              {names.map((item) => (
+              {bankCardsData.map((item) => (
                 <MenuItem
                   key={item.id}
                   onClick={() => handleSelect(item.id)}
@@ -249,6 +251,7 @@ export default function CustomDropdown() {
         setOpen={setOpenModal}
         value={cardValue}
         setValue={setCardValue}
+        setBankCardData={setBankCardsData}
       />
     </>
   );

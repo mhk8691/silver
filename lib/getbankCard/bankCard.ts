@@ -5,7 +5,7 @@ import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 
 export const getBankCard = async () => {
   try {
-    const res = await api.get<BankCardDataType[]>('/silver/cards/');
+    const res = await api.get<BankCardDataType[]>('/accounts/cards/');
     return res.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {
@@ -18,7 +18,7 @@ export const removeBankCard = async (id: number) => {
   try {
     const res = await api.delete<{
       message: string;
-    }>(`/silver/cards/${id}/`);
+    }>(`/accounts/cards/${id}/`);
     showSnackbar(res.data.message, true);
     return res.data;
   } catch (error: unknown) {
@@ -30,7 +30,7 @@ export const removeBankCard = async (id: number) => {
 
 export const addBankCard = async (cardNumber: string) => {
   try {
-    const res = await api.post<BankCardDataType[]>('/silver/cards/', { card_number: cardNumber });
+    const res = await api.post<BankCardDataType[]>('/accounts/cards/', { card_number: cardNumber });
     return res.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {

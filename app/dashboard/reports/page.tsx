@@ -84,8 +84,6 @@ const children: ReactNode[] = [
     type="toggle"
     emptyMessage={"سفارشی برای شما به ثبت نرسیده است"}
   />,
-
-  ,
 ];
 const tabs = [
   { title: "معاملات" },
