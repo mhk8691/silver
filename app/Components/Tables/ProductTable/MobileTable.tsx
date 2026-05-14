@@ -12,7 +12,13 @@ export default function MobileTable({ items }: Props) {
   const isMoblie = useMediaQuery(theme.breakpoints.down("sm"));
   if (!isMoblie) return null;
   return (
-    <Stack direction={"column"} borderRadius={2} my={2} border={1} borderColor={'background.paper'}>
+    <Stack
+      direction={"column"}
+      borderRadius={2}
+      my={2}
+      border={1}
+      borderColor={"background.paper"}
+    >
       {items.map((item, index) => (
         <Stack
           key={item.typeSilver}

@@ -71,7 +71,7 @@ export default function Navbar() {
           },
           bgcolor: "background.default",
           width: "100%",
-          boxShadow: 'none',
+          boxShadow: "none",
         }}
       >
         <Stack direction={"row"} gap={3} alignItems={"center"}>
@@ -95,12 +95,7 @@ export default function Navbar() {
               />
             </IconButton>
             <Stack component={Link} href={"/dashboard"}>
-              <Image
-                src={"/images/logo.png"}
-                width={56}
-                height={56}
-                alt=""
-              />
+              <Image src={"/images/logo.png"} width={56} height={56} alt="" />
             </Stack>
           </Stack>
           {isUpLg && (

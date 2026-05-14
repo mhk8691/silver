@@ -78,16 +78,16 @@ export default function ProductCard() {
         }}
       >
         <Stack px={1.5}>
-            <Image
-              width={100}
-              height={100}
-              style={{
-                height: "100%",
-                width: "100%",
-              }}
-              src="/images/product.webp"
-              alt="green iguana"
-            />
+          <Image
+            width={100}
+            height={100}
+            style={{
+              height: "100%",
+              width: "100%",
+            }}
+            src="/images/product.webp"
+            alt="green iguana"
+          />
         </Stack>
         <CardContent
           sx={{
@@ -104,22 +104,21 @@ export default function ProductCard() {
               sm: "center",
             }}
           >
-              <Typography
-                gutterBottom
-                variant="h5"
-                fontSize={{
-                  xs: 14,
-                  sm: 18,
-                }}
-                sx={{ px: 0.5 }}
-              >
-                {" "}
-                شمش نقره ۱ گرمی عیار ۹۹۹{" "}
-              </Typography>{" "}
+            <Typography
+              gutterBottom
+              variant="h5"
+              fontSize={{
+                xs: 14,
+                sm: 18,
+              }}
+              sx={{ px: 0.5 }}
+            >
+              {" "}
+              شمش نقره ۱ گرمی عیار ۹۹۹{" "}
+            </Typography>{" "}
           </Stack>
           <Stack direction={"column"} gap={1} sx={{ mt: 3.5 }}>
             {" "}
-         
             <Stack
               direction={{
                 xs: "column",

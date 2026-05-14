@@ -20,7 +20,6 @@ export default function layout({ children }: Props) {
             lg: 6,
           }}
           sx={{
-           
             borderTopLeftRadius: 20,
             borderBottomLeftRadius: 20,
             border: {

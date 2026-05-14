@@ -25,7 +25,6 @@ export default function Field({ value, setValue, label, placeholder }: Props) {
             sm: 16,
           },
           borderRadius: placeholder ? 2 : 2.5,
-       
         },
         "& .MuiInputLabel-root": {
           color: "#535657",

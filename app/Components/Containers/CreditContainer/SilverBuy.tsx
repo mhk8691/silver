@@ -5,7 +5,7 @@ import InputField from "../../InputField/InputField";
 import Container from "../Container/Container";
 
 export default function SilverBuy() {
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>("");
   return (
     <Container
       style={{
@@ -66,9 +66,9 @@ export default function SilverBuy() {
             xs: 1.3,
             sm: 1,
           },
-          '&:hover':{
-            bgcolor:'primary.main'
-          }
+          "&:hover": {
+            bgcolor: "primary.main",
+          },
         }}
       >
         خرید

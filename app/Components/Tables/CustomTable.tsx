@@ -70,7 +70,7 @@ export default function CustomTable({ heads, children }: Props) {
             ))}
           </TableRow>
         </TableHead>
-       {children}
+        {children}
       </Table>
     </TableContainer>
   );

@@ -14,18 +14,17 @@ const items: ToggleItemsType[] = [
   { title: "به نقره سی", value: "silver", id: 2 },
 ];
 export default function Withdraw() {
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState("");
   const [select, setSelect] = useState(items[0].value);
   const [selectedCard, setSelectedCard] = useState<number>(2);
-    const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
+  const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
   const handleWithdraw = async () => {
     const response = await goldWidthdraw(
       price,
-      select === 'silver' ? 'TALAYINEH' : 'BANK_ACCOUNT',
-     select !== 'silver'? selectedCard:undefined,
+      select === "silver" ? "TALAYINEH" : "BANK_ACCOUNT",
+      select !== "silver" ? selectedCard : undefined,
     );
   };
-
 
   useEffect(() => {
     const getData = async () => {
@@ -72,12 +71,14 @@ export default function Withdraw() {
             انتخاب کل موجودی
           </Button>
         </Stack>
-        {select !== "silver" &&       <BankCard
+        {select !== "silver" && (
+          <BankCard
             bankCardsData={bankCardsData}
             setBankCardsData={setBankCardsData}
             setSelectedCard={setSelectedCard}
             selectedCard={selectedCard}
-          />}
+          />
+        )}
       </Stack>
       <Button
         variant="contained"

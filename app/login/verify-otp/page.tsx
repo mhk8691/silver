@@ -9,7 +9,7 @@ interface Props {
   };
 }
 export default async function page({ searchParams }: Props) {
-const { phone, type } = await searchParams;
+  const { phone, type } = await searchParams;
   return (
     <Stack>
       <BackLink fontSize="30" />
@@ -35,10 +35,9 @@ const { phone, type } = await searchParams;
         sx={{ mt: 3 }}
       >
         کد تایید ارسال شده به شماره موبایل {phone} را وارد کنید.
-       
       </Typography>
 
-         {type === 'login' ? (
+      {type === "login" ? (
         <VerifyLoginOtpForm phoneNumber={phone} />
       ) : (
         <VerifySignupOtpForm phoneNumber={phone} />

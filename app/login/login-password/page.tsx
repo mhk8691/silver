@@ -4,7 +4,6 @@ import LoginTab from "../LoginTab";
 import LoginPassForm from "./LoginPassForm";
 
 export default function page() {
-
   return (
     <Stack>
       <LoginTab />
@@ -14,44 +13,43 @@ export default function page() {
           xs: 12,
           md: 16,
         }}
-        sx={{  mt: 2 }}
+        sx={{ mt: 2 }}
       >
         اطلاعات زیر را وارد کنید
       </Typography>
-    
-     
-     <LoginPassForm>
-       <Link href={"/login/forget"} style={{ marginTop: 24 }}>
+
+      <LoginPassForm>
+        <Link href={"/login/forget"} style={{ marginTop: 24 }}>
+          <Typography
+            variant="body2"
+            sx={{ color: "#F5B536" }}
+            fontSize={12}
+            fontWeight={600}
+          >
+            فراموشی رمز عبور
+          </Typography>
+        </Link>
         <Typography
           variant="body2"
-          sx={{ color: "#F5B536" }}
-          fontSize={12}
-          fontWeight={600}
-        >
-          فراموشی رمز عبور
-        </Typography>
-      </Link>
-      <Typography
-        variant="body2"
-        sx={{ mt: 6, color: "#535657" }}
-        fontSize={{
-          xs: 10,
-          md: 12,
-        }}
-        fontWeight={500}
-      >
-        ورود شما به منزله قبول‌{" "}
-        <Link
-          href={"/roules"}
-          style={{
-            color: "#F5B536",
+          sx={{ mt: 6, color: "#535657" }}
+          fontSize={{
+            xs: 10,
+            md: 12,
           }}
+          fontWeight={500}
         >
-          قوانین و مقررات‌
-        </Link>{" "}
-        نقره می‌باشد.
-      </Typography>
-     </LoginPassForm>
+          ورود شما به منزله قبول‌{" "}
+          <Link
+            href={"/roules"}
+            style={{
+              color: "#F5B536",
+            }}
+          >
+            قوانین و مقررات‌
+          </Link>{" "}
+          نقره می‌باشد.
+        </Typography>
+      </LoginPassForm>
       <Stack
         direction={"row"}
         gap={2}

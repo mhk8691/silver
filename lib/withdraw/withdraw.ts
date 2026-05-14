@@ -1,13 +1,17 @@
-import { isAxiosError } from 'axios';
-import api from '../api';
-import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
-import { WithdrawDataType } from '@/app/core/Types';
+import { isAxiosError } from "axios";
+import api from "../api";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+import { WithdrawDataType } from "@/app/core/Types";
 
-export const goldWidthdraw = async (amount: string, target: string, cardId?: number) => {
+export const goldWidthdraw = async (
+  amount: string,
+  target: string,
+  cardId?: number,
+) => {
   try {
-    const response = await api.post<WithdrawDataType>('/silver/withdraw/', {
+    const response = await api.post<WithdrawDataType>("/silver/withdraw/", {
       amount,
-      destination:target,
+      destination: target,
       card_id: cardId,
     });
     //  showSnackbar(response.data.message,true)

@@ -1,6 +1,6 @@
-import { Stack, Typography } from '@mui/material';
-import BackLink from '@/app/dashboard/BackLink';
-import RegisterForm from './RegisterForm';
+import { Stack, Typography } from "@mui/material";
+import BackLink from "@/app/dashboard/BackLink";
+import RegisterForm from "./RegisterForm";
 
 interface Props {
   searchParams: {
@@ -15,12 +15,12 @@ export default async function page({ searchParams }: Props) {
       <BackLink fontSize="30" />
       <Typography
         variant="h6"
-        fontWeight={'500'}
+        fontWeight={"500"}
         fontSize={{
           xs: 16,
           md: 22,
         }}
-        sx={{ color: 'text.title' }}
+        sx={{ color: "text.title" }}
       >
         اطلاعات کاربری
       </Typography>
@@ -31,7 +31,7 @@ export default async function page({ searchParams }: Props) {
           xs: 12,
           md: 16,
         }}
-        sx={{ color: 'text.secondary', mt: 3 }}
+        sx={{ color: "text.secondary", mt: 3 }}
       >
         اطلاعات زیر را با توجه به صاحب شماره {phone} وارد کنید
       </Typography>

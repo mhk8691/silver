@@ -22,7 +22,7 @@ const items: ToggleItemsType[] = [
     id: 2,
     emptyMessage: "واریز باشناسه ای برای شما به ثبت نرسیده است",
   },
-  
+
   {
     title: "برداشت",
     value: "withdraw",
@@ -57,7 +57,7 @@ export default function page() {
           title="لیست تراکنش های اخیر"
           toggleItems={items}
           type="chip"
-            listLength={0}
+          listLength={0}
           tableBody={<></>}
           tableHead={[]}
         />

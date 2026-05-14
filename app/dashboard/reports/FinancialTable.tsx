@@ -1,25 +1,25 @@
-import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
-import { ToggleItemsType } from '@/app/core/Types';
-import React from 'react';
+import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
+import { ToggleItemsType } from "@/app/core/Types";
+import React from "react";
 
 const depositItems: ToggleItemsType[] = [
   {
-    title: 'درگاه پرداخت',
-    value: 'paymentGateway',
+    title: "درگاه پرداخت",
+    value: "paymentGateway",
     id: 1,
-    emptyMessage: 'واریزی برای شما به ثبت نرسیده است',
+    emptyMessage: "واریزی برای شما به ثبت نرسیده است",
   },
   {
-    title: 'واریز مستقیم',
-    value: 'directDeposit',
+    title: "واریز مستقیم",
+    value: "directDeposit",
     id: 2,
-    emptyMessage: 'واریز باشناسه ای برای شما به ثبت نرسیده است',
+    emptyMessage: "واریز باشناسه ای برای شما به ثبت نرسیده است",
   },
   {
-    title: 'واریز از نقره سی',
-    value: 'silverDeposit',
+    title: "واریز از نقره سی",
+    value: "silverDeposit",
     id: 3,
-    emptyMessage: 'واریزی یا برداشتی برای شما به ثبت نرسیده است',
+    emptyMessage: "واریزی یا برداشتی برای شما به ثبت نرسیده است",
   },
 ];
 

@@ -13,7 +13,7 @@ export default function TradeCard() {
         border: 1,
         borderColor: "#C5DDF3",
         bgcolor: "#F0F6FC",
-        width: '100%',
+        width: "100%",
         height: "100%",
       }}
     >
@@ -31,7 +31,7 @@ export default function TradeCard() {
             variant="body2"
             sx={{ color: "#535657", mt: 0 }}
             fontSize={14}
-            fontWeight={'bold'}
+            fontWeight={"bold"}
           >
             قیمت نقره (گرم)
           </Typography>

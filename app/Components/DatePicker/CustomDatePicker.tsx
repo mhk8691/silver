@@ -88,7 +88,6 @@ function CustomRangeInput({
           color: "rgb(1,1,1,1)",
           opacity: 1,
           borderRadius: 2,
-         
         },
         ...style,
       }}

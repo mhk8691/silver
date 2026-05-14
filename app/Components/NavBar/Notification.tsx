@@ -182,7 +182,7 @@ export default function Notification() {
         >
           <IconButton onClick={handleToggle} disableRipple>
             <NotificationsIcon
-              color={'primary'}
+              color={"primary"}
               sx={{
                 fontSize: {
                   xs: 25,

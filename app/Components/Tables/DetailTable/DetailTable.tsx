@@ -27,7 +27,7 @@ export default function DetailTable({
   toggleItems,
   noCard = false,
   emptyMessage,
-    tableBody,
+  tableBody,
   tableHead,
   listLength,
 }: Props) {
@@ -260,29 +260,30 @@ export default function DetailTable({
           <CustomDatePicker />
         </Stack>
       </Stack>
-         {listLength > 0 ? (
+      {listLength > 0 ? (
         <Stack mt={5}>
           <CustomTable heads={tableHead}>{tableBody}</CustomTable>
         </Stack>
       ) : (
-      <Stack
-        mt={10}
-        mb={8}
-        direction={"column"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        gap={4}
-      >
-        <Image
-          src={"/images/emptyTable.webp"}
-          width={300}
-          height={270}
-          alt=""
-        />
-        <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
-          {emptyMessage || message}
-        </Typography>
-      </Stack>)}
+        <Stack
+          mt={10}
+          mb={8}
+          direction={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          gap={4}
+        >
+          <Image
+            src={"/images/emptyTable.webp"}
+            width={300}
+            height={270}
+            alt=""
+          />
+          <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
+            {emptyMessage || message}
+          </Typography>
+        </Stack>
+      )}
     </Container>
   );
 }

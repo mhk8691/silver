@@ -1,9 +1,9 @@
-import CustomModal from '@/app/Components/CustomModal/CustomModal';
-import { BankCardDataType } from '@/app/core/Types';
-import { getBankCard, removeBankCard } from '@/lib/getbankCard/bankCard';
-import { Close } from '@mui/icons-material';
-import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
+import CustomModal from "@/app/Components/CustomModal/CustomModal";
+import { BankCardDataType } from "@/app/core/Types";
+import { getBankCard, removeBankCard } from "@/lib/getbankCard/bankCard";
+import { Close } from "@mui/icons-material";
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { Dispatch, SetStateAction } from "react";
 interface Props {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -38,29 +38,39 @@ export default function RemoveCard({
           pb: 2,
         }}
       >
-        <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-          <Typography variant="body1" fontSize={16} fontWeight={'500'}>
+        <Stack
+          direction={"row"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
+          <Typography variant="body1" fontSize={16} fontWeight={"500"}>
             حذف کارت
           </Typography>
           <IconButton onClick={() => setOpen(false)} disableRipple>
             <Close />
           </IconButton>
         </Stack>
-        <Typography variant="body1" fontSize={15} fontWeight={'500'} sx={{ mt: 3 }}>
-          آیا از حذف کارت بانکی با شماره <Box
-  component="span"
-  sx={{
-    direction: 'ltr',
-    unicodeBidi: 'isolate',
-    display: 'inline-block',
-  }}
->
-  {'\u200E'}
-  {selectedCard?.card_number.replace(/(.{4})/g, '$1 ').trim()}
-</Box> {' '}
- اطمینان دارید؟ 
+        <Typography
+          variant="body1"
+          fontSize={15}
+          fontWeight={"500"}
+          sx={{ mt: 3 }}
+        >
+          آیا از حذف کارت بانکی با شماره{" "}
+          <Box
+            component="span"
+            sx={{
+              direction: "ltr",
+              unicodeBidi: "isolate",
+              display: "inline-block",
+            }}
+          >
+            {"\u200E"}
+            {selectedCard?.card_number.replace(/(.{4})/g, "$1 ").trim()}
+          </Box>{" "}
+          اطمینان دارید؟
         </Typography>
-        <Stack direction={'row'} gap={2} mt={4}>
+        <Stack direction={"row"} gap={2} mt={4}>
           <Button
             variant="contained"
             color="primary"
@@ -68,9 +78,9 @@ export default function RemoveCard({
               py: 1.4,
               fontSize: 16,
               borderRadius: 2,
-              width: '50%',
-              '&:hover': {
-                bgcolor: 'primary.main',
+              width: "50%",
+              "&:hover": {
+                bgcolor: "primary.main",
               },
             }}
             onClick={handleRemove}
@@ -85,9 +95,9 @@ export default function RemoveCard({
               py: 1.4,
               fontSize: 16,
               borderRadius: 2,
-              width: '50%',
-              '&:hover': {
-                bgcolor: 'background.default',
+              width: "50%",
+              "&:hover": {
+                bgcolor: "background.default",
               },
             }}
             onClick={() => setOpen(false)}

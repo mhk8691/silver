@@ -9,7 +9,7 @@ import { getBankCard } from "@/lib/getbankCard/bankCard";
 export default function CardContainer() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-    const [bankCardData, setBankCardData] = useState<BankCardDataType[]>([]);
+  const [bankCardData, setBankCardData] = useState<BankCardDataType[]>([]);
   useEffect(() => {
     const getData = async () => {
       const response = await getBankCard();
@@ -19,7 +19,7 @@ export default function CardContainer() {
   }, []);
   return (
     <>
-     <Grid
+      <Grid
         size={12}
         spacing={{
           xs: 2,
@@ -27,7 +27,10 @@ export default function CardContainer() {
         }}
         container
       >
-        <BankCard bankCardData={bankCardData} setBankCardData={setBankCardData} />
+        <BankCard
+          bankCardData={bankCardData}
+          setBankCardData={setBankCardData}
+        />
       </Grid>
       <Button
         variant="contained"
@@ -42,16 +45,16 @@ export default function CardContainer() {
             xs: 8,
             sm: 4,
           },
-          '&:hover':{
-            bgcolor:'primary.main'
-          }
+          "&:hover": {
+            bgcolor: "primary.main",
+          },
         }}
         startIcon={<AddIcon />}
         onClick={() => setOpen(true)}
       >
         افزودن کارت جدید
       </Button>
-        <AddCard
+      <AddCard
         open={open}
         setOpen={setOpen}
         value={value}

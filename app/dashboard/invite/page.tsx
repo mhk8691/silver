@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Card from "@/app/Components/Containers/Container/Container";
 import { Divider, Grid, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
@@ -14,7 +14,9 @@ import priceFormater from "@/app/core/PriceFormater";
 //   description: "",
 // };
 export default function page() {
-    const [referralData, setreferralData] = useState<RefrraDataType>({} as RefrraDataType);
+  const [referralData, setreferralData] = useState<RefrraDataType>(
+    {} as RefrraDataType,
+  );
   useEffect(() => {
     const getData = async () => {
       const response = await getreferral();
@@ -107,7 +109,7 @@ export default function page() {
               sm: 18,
             }}
           >
-           {referralData.message}
+            {referralData.message}
           </Typography>
           <Typography
             variant="h6"
@@ -163,7 +165,7 @@ export default function page() {
                 }}
                 sx={{ color: "text.title" }}
               >
-               {referralData?.statistics?.total_subscribers} نفر
+                {referralData?.statistics?.total_subscribers} نفر
               </Typography>
             </Stack>
             <Divider sx={{ my: 1.5, borderColor: " #C9CDCF" }} />
@@ -176,7 +178,7 @@ export default function page() {
                 }}
                 sx={{ color: "#535657" }}
               >
-               مجموع دریافتی شما از دعوت دوستان:
+                مجموع دریافتی شما از دعوت دوستان:
               </Typography>
               <Typography
                 variant="h6"
@@ -186,7 +188,8 @@ export default function page() {
                 }}
                 sx={{ color: "text.title" }}
               >
-                {priceFormater(referralData?.statistics?.total_earnings_toman)} تومان
+                {priceFormater(referralData?.statistics?.total_earnings_toman)}{" "}
+                تومان
               </Typography>
             </Stack>
           </Card>

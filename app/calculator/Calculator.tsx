@@ -11,8 +11,6 @@ import { useMemo, useState } from "react";
 const inputStyle: SxProps = {
   width: "100%",
 
-  
-
   "& .MuiInputLabel-root.MuiInputLabel-shrink": {
     color: "text.title",
     fontSize: "18",
@@ -25,8 +23,6 @@ const inputStyle: SxProps = {
       py: 1.8,
     },
     borderRadius: 2.5,
-
-   
   },
 };
 export default function Calculator() {

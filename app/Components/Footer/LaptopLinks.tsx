@@ -23,7 +23,7 @@ const items = [
       { title: "قوانین و مقررات", link: "rules" },
     ],
   },
- 
+
   {
     id: "2",
     title: "دسترسی سریع",
@@ -116,7 +116,9 @@ export default function LaptopLinks() {
                     )
                   }
                 >
-                  <Typography variant="body1" fontWeight={'bold'}>{item.title}</Typography>
+                  <Typography variant="body1" fontWeight={"bold"}>
+                    {item.title}
+                  </Typography>
                 </AccordionSummary>
 
                 <AccordionDetails>

@@ -3,7 +3,7 @@ interface Props {
   title: string;
   handleSubmit: () => Promise<void>;
 }
-export default function SubmitButton({ title,handleSubmit }: Props) {
+export default function SubmitButton({ title, handleSubmit }: Props) {
   return (
     <Button
       variant="contained"
@@ -19,7 +19,7 @@ export default function SubmitButton({ title,handleSubmit }: Props) {
         color: "white !important",
       }}
       disableRipple
-       onClick={handleSubmit}
+      onClick={handleSubmit}
     >
       {title}
     </Button>

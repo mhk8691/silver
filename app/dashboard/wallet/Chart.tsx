@@ -9,7 +9,7 @@ export default function Chart() {
         flexDirection: "row",
         alignItems: {
           sm: "center",
-          xs:'flex-start'
+          xs: "flex-start",
         },
         mt: 3,
         height: {

@@ -26,7 +26,7 @@ export interface TableSilverDataType {
   monthChange: number;
   weeklyChart: number;
   url?: string;
-  isOns?:boolean
+  isOns?: boolean;
 }
 
 export interface NotifItemsType {
@@ -50,12 +50,11 @@ export interface ActionButtonType {
   link: string;
 }
 
-export interface AppbarItemsType{
-    name: string;
+export interface AppbarItemsType {
+  name: string;
   image: string;
   link?: string;
 }
-
 
 export interface AssetsDataType {
   total_assets_value: number;
@@ -82,7 +81,11 @@ export interface BuySilverDataType {
 }
 
 export interface SellSilverDataType {
-  details: { sold_weight: number; payout_toman: number; wallet_balance: number };
+  details: {
+    sold_weight: number;
+    payout_toman: number;
+    wallet_balance: number;
+  };
 }
 
 export interface BankCardDataType {
@@ -102,7 +105,12 @@ export interface WithdrawDataType {
   added_weight?: string;
   new_wallet_balance: string;
 }
-
+export interface DepositDataType {
+  card_number: string;
+  shaba: string;
+  owner: string;
+  account: string;
+}
 export interface AllAssetsDataType {
   total_assets_value: number;
   gold_balance_gr: number;
@@ -161,9 +169,16 @@ export interface WalletHeaderDataType {
   gold_balance_gr: number;
   toman_balance: number;
 }
-export interface RefrraDataType 
-{    "referral_code": string,    "statistics": {        "total_subscribers": number,        "total_earnings_toman": number,        "commission_percentage": string    },    "subscribers": [],    "message": string}
-
+export interface RefrraDataType {
+  referral_code: string;
+  statistics: {
+    total_subscribers: number;
+    total_earnings_toman: number;
+    commission_percentage: string;
+  };
+  subscribers: [];
+  message: string;
+}
 
 export interface PriceAlertsDataType {
   id: number;

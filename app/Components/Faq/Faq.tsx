@@ -43,7 +43,7 @@ export default function Faq({ faqData, titleStyle }: Props): JSX.Element {
             onChange={handleChange(item.id)}
             sx={{
               bgcolor: "#F5F8F8",
-              boxShadow:'none',
+              boxShadow: "none",
               mb: 1.5,
               py: {
                 xs: 0.5,
@@ -131,7 +131,7 @@ export default function Faq({ faqData, titleStyle }: Props): JSX.Element {
                   sm: 16,
                   md: 18,
                 }}
-                fontWeight={'bold'}
+                fontWeight={"bold"}
               >
                 {item.question}
               </Typography>

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Card from "@/app/Components/Containers/Container/Container";
 import CustomTabs from "@/app/Components/Tabs/CustomTabs";
 import { Grid, Typography } from "@mui/material";
@@ -13,14 +13,12 @@ import { getReports } from "@/lib/getReports/getReports";
 //   title: "گزارشات | دارینه",
 //   description: "",
 // };
-const tabUrl = ['trades', 'financial', 'physical'];
-
-
+const tabUrl = ["trades", "financial", "physical"];
 
 const children: ReactNode[] = [
-  <TradesTable key={1} /> ,
-  <FinancialTable key={2} /> ,
-  <ReceiveTable key={3}/>
+  <TradesTable key={1} />,
+  <FinancialTable key={2} />,
+  <ReceiveTable key={3} />,
 ];
 const tabs = [
   { title: "معاملات" },
@@ -28,8 +26,8 @@ const tabs = [
   { title: "تحویل فیزیکی" },
 ];
 export default function page() {
-    const [value, setValue] = useState(0);
-    const [data, setData] = useState([]);
+  const [value, setValue] = useState(0);
+  const [data, setData] = useState([]);
   useEffect(() => {
     const getData = async () => {
       const response = await getReports(tabUrl[value]);

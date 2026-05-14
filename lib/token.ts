@@ -1,13 +1,13 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-const ACCESS_TOKEN_KEY = 'accessToken';
-const REFRESH_TOKEN_KEY = 'refreshToken';
+const ACCESS_TOKEN_KEY = "accessToken";
+const REFRESH_TOKEN_KEY = "refreshToken";
 
 export const setAccessToken = (token: string) => {
   Cookies.set(ACCESS_TOKEN_KEY, token, {
     expires: 1 / 144,
     secure: true,
-    sameSite: 'strict',
+    sameSite: "strict",
   });
 };
 
@@ -23,7 +23,7 @@ export const setRefreshToken = (token: string) => {
   Cookies.set(REFRESH_TOKEN_KEY, token, {
     expires: 7,
     secure: true,
-    sameSite: 'strict',
+    sameSite: "strict",
   });
 };
 

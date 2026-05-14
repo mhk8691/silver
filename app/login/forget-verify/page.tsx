@@ -1,4 +1,4 @@
-import {  Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import VerifyOtpCode from "./VerifyOtpCode";
 import BackLink from "@/app/dashboard/BackLink";
 interface Props {
@@ -33,7 +33,6 @@ export default async function page({ searchParams }: Props) {
         sx={{ mt: 3 }}
       >
         کد تایید ارسال شده به شماره موبایل {phone} را وارد کنید.
-       
       </Typography>
 
       <VerifyOtpCode phone={phone} />

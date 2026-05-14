@@ -1,11 +1,11 @@
-'use client';
-import React, { ReactNode, useState } from 'react';
-import Field from '../Field';
-import ActionButton from '../SubmitButton';
-import { useRouter } from 'next/navigation';
-import { signupOtp } from '@/lib/auth';
-import { isAxiosError } from 'axios';
-import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+"use client";
+import React, { ReactNode, useState } from "react";
+import Field from "../Field";
+import ActionButton from "../SubmitButton";
+import { useRouter } from "next/navigation";
+import { signupOtp } from "@/lib/auth";
+import { isAxiosError } from "axios";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 
 interface Props {
   children: ReactNode;
@@ -13,7 +13,7 @@ interface Props {
 
 export default function SignupOtpForm({ children }: Props) {
   const router = useRouter();
-  const [mobile, setMobile] = useState('');
+  const [mobile, setMobile] = useState("");
   const handleSignup = async () => {
     try {
       const res = await signupOtp(mobile);
@@ -32,7 +32,7 @@ export default function SignupOtpForm({ children }: Props) {
       <Field value={mobile} setValue={setMobile} label="شماره موبایل" />
 
       {children}
-      <ActionButton title={'ادامه'} handleSubmit={handleSignup} />
+      <ActionButton title={"ادامه"} handleSubmit={handleSignup} />
     </>
   );
 }

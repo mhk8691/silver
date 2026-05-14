@@ -66,17 +66,16 @@ export default function RootLayout({
         <AppRouterCacheProvider options={rtl}>
           <ThemeProvider theme={theme}>
             <AuthProvider>
+              <CssBaseline />
+              <Navbar />
+              <main style={{ flexGrow: 1 }}>
+                <SpaceBox />
+                <CustomBreadcrumbs />
 
-            <CssBaseline />
-            <Navbar />
-            <main style={{ flexGrow: 1 }}>
-              <SpaceBox />
-              <CustomBreadcrumbs />
-
-              {children}
-            </main>
-            <GlobalSnackbar />
-            <Footer />
+                {children}
+              </main>
+              <GlobalSnackbar />
+              <Footer />
             </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>

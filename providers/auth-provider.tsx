@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 
-import { getMe, logout as logoutRequest, User } from '@/lib/auth';
+import { getMe, logout as logoutRequest, User } from "@/lib/auth";
 
-import { getRefreshToken } from '@/lib/token';
+import { getRefreshToken } from "@/lib/token";
 
 type AuthContextType = {
   user: User | null;
@@ -71,7 +71,7 @@ export const useAuth = () => {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error('useAuth must be used inside AuthProvider');
+    throw new Error("useAuth must be used inside AuthProvider");
   }
 
   return context;

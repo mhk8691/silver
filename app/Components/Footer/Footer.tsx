@@ -9,7 +9,6 @@ import { usePathname } from "next/navigation";
 import Certificate from "./Certificate";
 import LinkContainer from "./LinkContainer";
 
-
 export const certificate = [
   "/images/simple/nezamSenfi.webp",
   "/images/simple/enamadSmall.webp",
@@ -20,7 +19,6 @@ export const certificate = [
   "/images/simple/nikecert.webp",
   "/images/simple/tuwWorld.webp",
 ];
-
 
 export default function Footer() {
   const pathname = usePathname();

@@ -29,7 +29,6 @@ export default function MessageCard({ items, isNotif }: Props) {
           "&::-webkit-scrollbar": {
             display: "none",
           },
-         
         }}
       >
         {items.map((item) => (

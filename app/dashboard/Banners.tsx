@@ -31,8 +31,6 @@ const styles = {
   } satisfies React.CSSProperties,
 };
 export default function Banners() {
- 
-
   return (
     <div style={styles.container}>
       <Swiper spaceBetween={10} style={styles.swiper} loop={true}>

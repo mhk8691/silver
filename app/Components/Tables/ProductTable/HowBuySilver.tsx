@@ -70,7 +70,7 @@ export default function HowBuySilver() {
       <Stack width={"100%"} mt={3} mb={2}>
         <Accordion
           sx={{
-            bgcolor:'background.default',
+            bgcolor: "background.default",
             boxShadow: "none",
             "&:before": { display: "none" },
           }}
@@ -116,7 +116,7 @@ export default function HowBuySilver() {
         </Accordion>
         <Accordion
           sx={{
-            bgcolor:'background.default',
+            bgcolor: "background.default",
             boxShadow: "none",
             "&:before": { display: "none" },
           }}
@@ -162,7 +162,7 @@ export default function HowBuySilver() {
         </Accordion>
         <Accordion
           sx={{
-            bgcolor:'background.default',
+            bgcolor: "background.default",
             boxShadow: "none",
             "&:before": { display: "none" },
           }}

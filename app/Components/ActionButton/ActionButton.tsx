@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-
 export default function ActionButton({ title, icon, link }: ActionButtonType) {
   return (
     <Link href={link}>
@@ -60,11 +59,7 @@ export default function ActionButton({ title, icon, link }: ActionButtonType) {
               />
             </Stack>
           ) : (
-            <Stack
-              
-            >
-              {icon}
-            </Stack>
+            <Stack>{icon}</Stack>
           )}
           <Typography
             variant="h6"

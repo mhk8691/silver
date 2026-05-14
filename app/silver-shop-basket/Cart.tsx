@@ -138,7 +138,7 @@ export default function Cart() {
             <Close />
           </IconButton>
         </Stack>
-        <Stack  overflow={"auto"} mt={1} pr={1} pb={4}>
+        <Stack overflow={"auto"} mt={1} pr={1} pb={4}>
           <OrderConfirmation setOpen={setOpen} />
         </Stack>
       </CustomModal>

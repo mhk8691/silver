@@ -1,12 +1,12 @@
-'use client';
-import { Grid } from '@mui/material';
-import React, { useState } from 'react';
-import Field from '../Field';
-import SubmitButton from '../SubmitButton';
-import { register } from '@/lib/auth';
-import { isAxiosError } from 'axios';
-import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
-import { useRouter } from 'next/navigation';
+"use client";
+import { Grid } from "@mui/material";
+import React, { useState } from "react";
+import Field from "../Field";
+import SubmitButton from "../SubmitButton";
+import { register } from "@/lib/auth";
+import { isAxiosError } from "axios";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+import { useRouter } from "next/navigation";
 
 export interface RegisterFormType {
   mobile: string;
@@ -20,14 +20,14 @@ export interface RegisterFormType {
   password: string;
 }
 export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
-  const [birthDay, setBirthDay] = useState('');
-  const [nationalCode, setNationalCode] = useState('');
+  const [birthDay, setBirthDay] = useState("");
+  const [nationalCode, setNationalCode] = useState("");
 
-  const [birthMonth, setBirthMonth] = useState('');
-  const [birthYear, setBirthYear] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [birthMonth, setBirthMonth] = useState("");
+  const [birthYear, setBirthYear] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const router = useRouter();
   const handleRegister = async () => {
     const newRegisterForm = {
@@ -44,7 +44,7 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
       const response = await register(newRegisterForm);
       if (response.status === 200 || response.status === 201) {
         showSnackbar(response?.data.message, true);
-        router.push('/login/login-password');
+        router.push("/login/login-password");
       }
     } catch (error: unknown) {
       if (isAxiosError(error)) {
@@ -56,14 +56,22 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
     <>
       <Grid container spacing={1.5}>
         <Grid size={12}>
-          <Field value={nationalCode} setValue={setNationalCode} label="کد ملی" />
+          <Field
+            value={nationalCode}
+            setValue={setNationalCode}
+            label="کد ملی"
+          />
         </Grid>
         <Grid container spacing={2}>
           <Grid size={4}>
             <Field value={birthDay} setValue={setBirthDay} label="روز تولد" />
           </Grid>
           <Grid size={4}>
-            <Field value={birthMonth} setValue={setBirthMonth} label="ماه تولد" />
+            <Field
+              value={birthMonth}
+              setValue={setBirthMonth}
+              label="ماه تولد"
+            />
           </Grid>
           <Grid size={4}>
             <Field value={birthYear} setValue={setBirthYear} label="سال تولد" />
@@ -74,7 +82,7 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
         </Grid> */}
         <Grid size={6}>
           <Field value={firstName} setValue={setFirstName} label="نام" />
-        </Grid>{' '}
+        </Grid>{" "}
         <Grid size={6}>
           <Field value={lastName} setValue={setLastName} label="نام خانوادگی" />
         </Grid>
@@ -84,7 +92,7 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
         </Grid>
       </Grid>
 
-      <SubmitButton title={'ورود'} handleSubmit={handleRegister} />
+      <SubmitButton title={"ورود"} handleSubmit={handleRegister} />
     </>
   );
 }

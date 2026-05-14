@@ -26,16 +26,16 @@ export default function InputField({
   style,
   multiline = false,
 }: Props) {
-const formatNumber = (val: string) => {
-  if (!val) return "";
+  const formatNumber = (val: string) => {
+    if (!val) return "";
 
-  const safeVal = String(val);
+    const safeVal = String(val);
 
-  const num = Number(safeVal.replace(/,/g, ""));
-  if (isNaN(num)) return safeVal;
+    const num = Number(safeVal.replace(/,/g, ""));
+    if (isNaN(num)) return safeVal;
 
-  return num.toLocaleString();
-};
+    return num.toLocaleString();
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value.replace(/,/g, "");
     setValue(raw);
@@ -58,8 +58,6 @@ const formatNumber = (val: string) => {
         },
         "& .MuiOutlinedInput-root": {
           borderRadius: 2,
-        
-          
         },
         ...style,
       }}

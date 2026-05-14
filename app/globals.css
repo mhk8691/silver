@@ -23,12 +23,11 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #E8EDEF; 
+  background: #e8edef;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #CCCCCC;
+  background-color: #cccccc;
   border-radius: 10px;
 }
-

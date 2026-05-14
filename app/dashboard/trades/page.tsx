@@ -65,7 +65,7 @@ export default function page() {
           title="لیست معاملات اخیر"
           toggleItems={items}
           type="chip"
-            listLength={0}
+          listLength={0}
           tableBody={<></>}
           tableHead={[]}
         />

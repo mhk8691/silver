@@ -14,41 +14,39 @@ export default function page() {
           xs: 12,
           md: 16,
         }}
-        sx={{  mt: 2 }}
+        sx={{ mt: 2 }}
       >
         شماره موبایل خود را وارد کنید
       </Typography>
 
-     
       <LoginOtpForm>
         <Typography
-        variant="body2"
-        sx={{
-          mt: {
-            xs: 4.5,
-            md: 9,
-          },
-          color: "#535657",
-        }}
-        fontSize={{
-          xs: 10,
-          md: 12,
-        }}
-        fontWeight={500}
-      >
-        ورود شما به منزله قبول‌{" "}
-        <Link
-          href={"/roules"}
-          style={{
-            color: "#F5B536",
-            textDecoration:'underline'
+          variant="body2"
+          sx={{
+            mt: {
+              xs: 4.5,
+              md: 9,
+            },
+            color: "#535657",
           }}
-          
+          fontSize={{
+            xs: 10,
+            md: 12,
+          }}
+          fontWeight={500}
         >
-          قوانین و مقررات‌
-        </Link>{" "}
-        نقره می‌باشد.
-      </Typography>
+          ورود شما به منزله قبول‌{" "}
+          <Link
+            href={"/roules"}
+            style={{
+              color: "#F5B536",
+              textDecoration: "underline",
+            }}
+          >
+            قوانین و مقررات‌
+          </Link>{" "}
+          نقره می‌باشد.
+        </Typography>
       </LoginOtpForm>
       <Stack
         direction={"row"}

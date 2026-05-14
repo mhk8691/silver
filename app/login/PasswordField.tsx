@@ -56,7 +56,6 @@ export default function PasswordField({ password, setPassword, label }: Props) {
             sm: 16,
           },
           borderRadius: 2.5,
-        
         }}
         endAdornment={
           <InputAdornment position="end">

@@ -1,19 +1,19 @@
-import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
-import { ToggleItemsType } from '@/app/core/Types';
-import React from 'react';
+import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
+import { ToggleItemsType } from "@/app/core/Types";
+import React from "react";
 
 const receiveItems: ToggleItemsType[] = [
   {
-    title: 'حضوری',
-    value: 'buy',
+    title: "حضوری",
+    value: "buy",
     id: 1,
-    emptyMessage: 'سفارشی برای شما به ثبت نرسیده است',
+    emptyMessage: "سفارشی برای شما به ثبت نرسیده است",
   },
   {
-    title: 'درب منزل',
-    value: 'recive',
+    title: "درب منزل",
+    value: "recive",
     id: 2,
-    emptyMessage: 'سفارشی برای شما به ثبت نرسیده است',
+    emptyMessage: "سفارشی برای شما به ثبت نرسیده است",
   },
 ];
 

@@ -1,22 +1,22 @@
-'use client';
-import React, { useState } from 'react';
-import Field from '../Field';
-import SendCode from '../SendCode';
-import SubmitButton from '../SubmitButton';
-import { verifyForgetOtp } from '@/lib/auth';
-import { isAxiosError } from 'axios';
-import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useState } from "react";
+import Field from "../Field";
+import SendCode from "../SendCode";
+import SubmitButton from "../SubmitButton";
+import { verifyForgetOtp } from "@/lib/auth";
+import { isAxiosError } from "axios";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+import { useRouter } from "next/navigation";
 
 export default function VerifyOtpCode({ phone }: { phone: string }) {
-  const [verifyCode, setVerifyCode] = useState('');
+  const [verifyCode, setVerifyCode] = useState("");
   const router = useRouter();
   const handleLoginVerifyOtp = async () => {
     try {
-      const res = await verifyForgetOtp(phone, verifyCode, '1');
+      const res = await verifyForgetOtp(phone, verifyCode, "1");
       if (res.status === 200) {
         showSnackbar(res.data.message, true);
-        router.push('/change-password');
+        router.push("/change-password");
       }
     } catch (error: unknown) {
       if (isAxiosError(error)) {
@@ -28,7 +28,7 @@ export default function VerifyOtpCode({ phone }: { phone: string }) {
     <>
       <Field value={verifyCode} setValue={setVerifyCode} label="کد تایید" />
       <SendCode phoneNumber={phone} />
-      <SubmitButton title={'تایید'} handleSubmit={handleLoginVerifyOtp} />
+      <SubmitButton title={"تایید"} handleSubmit={handleLoginVerifyOtp} />
     </>
   );
 }

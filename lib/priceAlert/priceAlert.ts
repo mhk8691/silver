@@ -1,11 +1,11 @@
-import { BankCardDataType, PriceAlertsDataType } from '@/app/core/Types';
-import api from '../api';
-import { isAxiosError } from 'axios';
-import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import { BankCardDataType, PriceAlertsDataType } from "@/app/core/Types";
+import api from "../api";
+import { isAxiosError } from "axios";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 
 export const getPriceAlerts = async () => {
   try {
-    const res = await api.get<PriceAlertsDataType[]>('/gold/price-alerts/');
+    const res = await api.get<PriceAlertsDataType[]>("/gold/price-alerts/");
     return res.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {
@@ -30,7 +30,7 @@ export const removePriceAlert = async (id: number) => {
 
 export const addPriceAlert = async (targetPrice: string, alertType: string) => {
   try {
-    const res = await api.post('/gold/price-alerts/', {
+    const res = await api.post("/gold/price-alerts/", {
       target_price: targetPrice,
       alert_type: alertType,
     });

@@ -87,9 +87,14 @@ export default function Trade({ type }: Props) {
         variant="contained"
         color="primary"
         disableRipple
-        sx={{ borderRadius: 2, fontSize: 16, py: 1.4 ,'&:hover':{
-          bgcolor:'primary.main'
-        }}}
+        sx={{
+          borderRadius: 2,
+          fontSize: 16,
+          py: 1.4,
+          "&:hover": {
+            bgcolor: "primary.main",
+          },
+        }}
       >
         ثبت سفارش
       </Button>

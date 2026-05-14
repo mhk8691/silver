@@ -22,7 +22,7 @@ const items: ToggleItemsType[] = [
     id: 1,
     emptyMessage: "واریزی برای شما به ثبت نرسیده است",
   },
- 
+
   {
     title: "واریز از طلاسی",
     value: "silverDeposit",
@@ -239,7 +239,7 @@ export default function page() {
                 *** تومان
               </Typography>
             </Stack>
-           
+
             <Stack
               direction={"row"}
               justifyContent={"space-between"}
@@ -298,9 +298,9 @@ export default function page() {
             type="chip"
             title="لیست تراکنش‌‌های اخیر"
             toggleItems={items}
-              listLength={0}
-          tableBody={<></>}
-          tableHead={[]}
+            listLength={0}
+            tableBody={<></>}
+            tableHead={[]}
           />
         </Stack>
       </Grid>

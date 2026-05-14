@@ -4,10 +4,14 @@ import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { RefrraDataType } from "@/app/core/Types";
 import { Stack, SvgIcon, Typography } from "@mui/material";
 
-export default function RefralButton({ referralData }: { referralData: RefrraDataType }) {
+export default function RefralButton({
+  referralData,
+}: {
+  referralData: RefrraDataType;
+}) {
   const handleClick = async () => {
     try {
- await navigator.clipboard.writeText(referralData.referral_code);
+      await navigator.clipboard.writeText(referralData.referral_code);
       showSnackbar("کپی شد", true);
     } catch (err) {
       console.error("failed to copy", err);
@@ -108,7 +112,7 @@ export default function RefralButton({ referralData }: { referralData: RefrraDat
           sm: 20,
         }}
       >
-                {referralData.referral_code}
+        {referralData.referral_code}
       </Typography>
     </Stack>
   );

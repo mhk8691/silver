@@ -1,6 +1,6 @@
-import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
-import api from '@/lib/api';
-import { isAxiosError } from 'axios';
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+import api from "@/lib/api";
+import { isAxiosError } from "axios";
 export const getReports = async (key: string) => {
   try {
     const response = await api.get(`/silver/reports/?tab=${key}`);

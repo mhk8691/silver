@@ -220,8 +220,8 @@ export default function CreditContainer({
                 xs: 12,
                 sm: 14,
               }}
-              fontWeight={'bold'}
-              sx={{ color: "text.secondary"}}
+              fontWeight={"bold"}
+              sx={{ color: "text.secondary" }}
             >
               {tooltip}
             </Typography>

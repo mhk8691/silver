@@ -78,7 +78,7 @@ export default function Map() {
         color="inherit"
         size="small"
         onClick={getUserLocation}
-        sx={{ mt: 2 ,borderRadius:2}}
+        sx={{ mt: 2, borderRadius: 2 }}
       >
         مکان فعلی من
       </Button>

@@ -41,7 +41,7 @@ export default function layout({ children }: Props) {
       </Container>
       <Divider
         sx={{
-          borderColor:'#EEF1F3',
+          borderColor: "#EEF1F3",
           display: {
             sm: "none",
           },

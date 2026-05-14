@@ -17,7 +17,6 @@ import * as React from "react";
 import AddCard from "../bank-card/AddCard";
 import { BankCardDataType } from "@/app/core/Types";
 
-
 const CardItem = ({ item }: { item: BankCardDataType }) => (
   <Box
     sx={{
@@ -35,7 +34,7 @@ const CardItem = ({ item }: { item: BankCardDataType }) => (
     </Box>
 
     <Typography fontSize={16} sx={{ color: "text.title", direction: "rtl" }}>
-     {item.card_number.replace(/(.{4})/g, "$1 ").trim()}
+      {item.card_number.replace(/(.{4})/g, "$1 ").trim()}
     </Typography>
   </Box>
 );

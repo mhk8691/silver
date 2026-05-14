@@ -176,7 +176,6 @@ const options = [
       </SvgIcon>
     ),
   },
-
 ];
 
 export default function ProfileBtn() {
@@ -379,9 +378,11 @@ export default function ProfileBtn() {
               href="/dashboard/irt-transaction"
               disableRipple
               onClick={() => setOpen(false)}
-              sx={{'&:hover':{
-                bgcolor:'primary.main'
-              }}}
+              sx={{
+                "&:hover": {
+                  bgcolor: "primary.main",
+                },
+              }}
             >
               افزایش اعتبار
             </Button>
@@ -389,7 +390,7 @@ export default function ProfileBtn() {
               variant="outlined"
               color="error"
               onClick={() => setOpen(false)}
-              sx={{borderColor:'red',color:'red'}}
+              sx={{ borderColor: "red", color: "red" }}
             >
               خروج
             </Button>

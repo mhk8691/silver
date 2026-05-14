@@ -10,7 +10,6 @@ export const aboutLink = [
 export const contentLink = [
   { title: "محاسبه قیمت نقره", link: "/calculator" },
   { title: "قیمت نقره امروز", link: "/silver-price" },
-
 ];
 
 export default function DesktopLinks() {

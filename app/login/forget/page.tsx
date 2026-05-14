@@ -22,41 +22,40 @@ export default function page() {
           xs: 12,
           sm: 16,
         }}
-        sx={{  mt: 3 }}
+        sx={{ mt: 3 }}
       >
         شماره موبایل خود را وارد کنید
       </Typography>
 
-   
-        <ForgetPasswordForm>
-                <Typography
-        variant="body2"
-        sx={{
-          mt: {
-            xs: 4.5,
-            md: 9,
-          },
-          color: "#535657",
-        }}
-        fontSize={{
-          xs: 10,
-          md: 12,
-        }}
-        fontWeight={500}
-      >
-        ورود شما به منزله قبول‌{" "}
-        <Link
-          href={"/roules"}
-          style={{
-            color: "#F5B536",
-            textDecoration:'underline'
+      <ForgetPasswordForm>
+        <Typography
+          variant="body2"
+          sx={{
+            mt: {
+              xs: 4.5,
+              md: 9,
+            },
+            color: "#535657",
           }}
+          fontSize={{
+            xs: 10,
+            md: 12,
+          }}
+          fontWeight={500}
         >
-          قوانین و مقررات‌
-        </Link>{" "}
-        نقره می‌باشد.
-      </Typography>
-        </ForgetPasswordForm>
+          ورود شما به منزله قبول‌{" "}
+          <Link
+            href={"/roules"}
+            style={{
+              color: "#F5B536",
+              textDecoration: "underline",
+            }}
+          >
+            قوانین و مقررات‌
+          </Link>{" "}
+          نقره می‌باشد.
+        </Typography>
+      </ForgetPasswordForm>
     </Stack>
   );
 }

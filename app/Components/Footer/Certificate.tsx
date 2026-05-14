@@ -20,7 +20,6 @@ export default function Certificate({ isMobile }: { isMobile: boolean }) {
         md: 0,
       }}
     >
-    
       {certificate.map((item, index) => (
         <React.Fragment key={index}>
           <Grid

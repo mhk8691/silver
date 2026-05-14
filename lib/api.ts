@@ -1,8 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
-import BASE_URL from '@/app/core/BASE_URL';
+import BASE_URL from "@/app/core/BASE_URL";
 
-import { clearTokens, getAccessToken, getRefreshToken, setAccessToken } from './token';
+import {
+  clearTokens,
+  getAccessToken,
+  getRefreshToken,
+  setAccessToken,
+} from "./token";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -50,7 +55,7 @@ const refreshAccessToken = async () => {
   const refresh = getRefreshToken();
 
   if (!refresh) {
-    throw new Error('No refresh token');
+    throw new Error("No refresh token");
   }
 
   const response = await axios.post(`${BASE_URL}/accounts/token/refresh/`, {
@@ -99,8 +104,8 @@ api.interceptors.response.use(
 
         clearTokens();
 
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login/login-password';
+        if (typeof window !== "undefined") {
+          window.location.href = "/login/login-password";
         }
 
         return Promise.reject(err);
