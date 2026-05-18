@@ -1,7 +1,7 @@
 import { isAxiosError } from "axios";
 import api from "../api";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
-import { DepositDataType, WithdrawDataType } from "@/app/core/Types";
+import { DepositDataType } from "@/app/core/Types";
 
 export const silverDeposit = async (amount: string) => {
   try {
