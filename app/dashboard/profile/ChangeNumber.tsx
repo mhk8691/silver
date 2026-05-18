@@ -1,52 +1,84 @@
-"use client";
-
-import InputField from "@/app/Components/InputField/InputField";
-import { Button, Stack } from "@mui/material";
-import { useState } from "react";
+'use client';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import Field from '@/app/login/Field';
+import { changeNumberConfirm, changeNumberRequest } from '@/lib/auth';
+import { Button, Stack } from '@mui/material';
+import { isAxiosError } from 'axios';
+import { useState } from 'react';
 
 export default function ChangeNumber() {
-  const [value, setValue] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [otpCode, setOtpCode] = useState('');
+  const [step, setStep] = useState(0);
+  const handleClick = async () => {
+    if (step === 0) {
+      try {
+        const response = await changeNumberRequest(phoneNumber);
+        showSnackbar(response.data.message, true);
+        setStep(1);
+      } catch (error: unknown) {
+        if (isAxiosError(error)) {
+          showSnackbar(error.response?.data.message);
+        }
+      }
+    } else if (step === 1) {
+      try {
+        const response = await changeNumberConfirm(phoneNumber, otpCode);
+        showSnackbar(response.data.message, true);
+        setStep(0);
+        setOtpCode('');
+        setPhoneNumber('');
+      } catch (error: unknown) {
+        if (isAxiosError(error)) {
+          showSnackbar(error.response?.data.message);
+        }
+      }
+    }
+  };
+
   return (
     <Stack
-      direction={"row"}
+      direction={'row'}
       gap={1}
       mt={{
         xs: 2,
         sm: 5,
       }}
-      width={"100%"}
+      width={'100%'}
+      alignItems={'center'}
     >
-      <InputField
-        placeholder="شماره تلفن جدید"
-        setValue={setValue}
-        value={value}
-        style={{
-          "& .MuiOutlinedInput-root": {
-            borderRadius: 2,
-            "& fieldset": {
-              borderColor: "#494949",
-              borderWidth: "1px",
+      {step === 0 ? (
+        <Field
+          placeholder="شماره تلفن جدید"
+          setValue={setPhoneNumber}
+          value={phoneNumber}
+          style={{
+            mt: 0,
+            '& .MuiInputBase-input': { py: 2.5 },
+            width: {
+              xs: '70%',
+              sm: '80%',
+              md: '75%',
             },
-            "&:hover fieldset": {
-              borderColor: "#494949",
-              borderWidth: "1px",
+          }}
+        />
+      ) : (
+        <Field
+          placeholder="کد ارسال شده"
+          setValue={setOtpCode}
+          value={otpCode}
+          style={{
+            mt: 0,
+            '& .MuiInputBase-input': { py: 2.5 },
+            width: {
+              xs: '70%',
+              sm: '80%',
+              md: '75%',
             },
-            "&.Mui-focused fieldset": {
-              borderColor: "#494949",
-              borderWidth: "1px",
-            },
-            "&.Mui-disabled fieldset": {
-              borderColor: "#494949",
-              borderWidth: "1px",
-            },
-          },
-          width: {
-            xs: "70%",
-            sm: "80%",
-            md: "75%",
-          },
-        }}
-      />
+          }}
+        />
+      )}
+
       <Button
         variant="contained"
         color="primary"
@@ -55,15 +87,16 @@ export default function ChangeNumber() {
             xs: 14,
             sm: 16,
           },
-          py: 1.6,
           borderRadius: 2,
           width: {
-            xs: "30%",
-            sm: "20%",
-            md: "25%",
+            xs: '30%',
+            sm: '20%',
+            md: '25%',
           },
-          fontWeight: "600",
+          fontWeight: '600',
+          py: 2,
         }}
+        onClick={handleClick}
       >
         ارسال کد
       </Button>
