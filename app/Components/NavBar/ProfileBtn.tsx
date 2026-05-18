@@ -1,4 +1,5 @@
 "use client";
+import { getMe, User } from "@/lib/auth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import {
@@ -16,8 +17,10 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { isAxiosError } from "axios";
 import Link from "next/link";
 import * as React from "react";
+import { showSnackbar } from "../Snackbar/Snackbar";
 const options = [
   {
     title: "پروفایل",
@@ -179,6 +182,7 @@ const options = [
 ];
 
 export default function ProfileBtn() {
+   const [user, setUser] = React.useState<User | null>(null);
   const [open, setOpen] = React.useState(false);
   const wrapperRef = React.useRef<HTMLDivElement | null>(null);
   const theme = useTheme();
@@ -193,6 +197,22 @@ export default function ProfileBtn() {
 
     setOpen(false);
   };
+
+     const fetchUser = React.useCallback(async () => {
+    try {
+      const me = await getMe();
+      setUser(me);
+    } catch (error:unknown) {
+      if (isAxiosError(error)){
+        showSnackbar(error.response?.data.message)
+
+      }
+      setUser(null);
+    }
+  }, []);
+React.useEffect(()=>{
+  fetchUser()
+},[fetchUser])
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <div
@@ -281,7 +301,7 @@ export default function ProfileBtn() {
                   </svg>
                 }
               >
-                محمد محمدی
+               {user?.full_name}
               </Button>
             )}
           </>
