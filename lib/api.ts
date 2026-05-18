@@ -1,114 +1,107 @@
-import axios from "axios";
+import BASE_URL from '@/app/core/BASE_URL';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+} from 'axios';
 
-import BASE_URL from "@/app/core/BASE_URL";
 
-import {
-  clearTokens,
-  getAccessToken,
-  getRefreshToken,
-  setAccessToken,
-} from "./token";
 
-const api = axios.create({
+export interface ApiResponse<T> {
+  message: string;
+  data: T;
+}
+
+
+interface RetryAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
+
+
+
+const api: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
 
-// =========================
-// REQUEST INTERCEPTOR
-// =========================
-
-api.interceptors.request.use((config) => {
-  const access = getAccessToken();
-
-  if (access) {
-    config.headers.Authorization = `Bearer ${access}`;
-  }
-
-  return config;
-});
-
-// =========================
-// REFRESH
-// =========================
 
 let isRefreshing = false;
 
-let failedQueue: {
-  resolve: (value?: unknown) => void;
-  reject: (reason?: any) => void;
-}[] = [];
+type FailedQueueItem = {
+  resolve: () => void;
+  reject: (error: AxiosError) => void;
+};
 
-const processQueue = (error?: any) => {
-  failedQueue.forEach((p) => {
+let failedQueue: FailedQueueItem[] = [];
+
+const processQueue = (error?: AxiosError) => {
+  failedQueue.forEach((promise) => {
     if (error) {
-      p.reject(error);
+      promise.reject(error);
     } else {
-      p.resolve(true);
+      promise.resolve();
     }
   });
 
   failedQueue = [];
 };
 
-const refreshAccessToken = async () => {
-  const refresh = getRefreshToken();
 
-  if (!refresh) {
-    throw new Error("No refresh token");
-  }
-
-  const response = await axios.post(`${BASE_URL}/accounts/token/refresh/`, {
-    refresh,
-  });
-
-  const newAccess = response.data.access;
-
-  setAccessToken(newAccess);
-
-  return newAccess;
-};
-
-// =========================
-// RESPONSE INTERCEPTOR
-// =========================
 
 api.interceptors.response.use(
   (response) => response,
 
-  async (error) => {
-    const originalRequest = error.config;
+  async (error: AxiosError) => {
+    const originalRequest = error.config as RetryAxiosRequestConfig;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      originalRequest &&
+      !originalRequest._retry
+    ) {
+      /**
+       * اگر رفرش توکن در حال انجام بود
+       * درخواست‌ها داخل صف میرن
+       */
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({
-            resolve,
+            resolve: () => resolve(api(originalRequest)),
             reject,
           });
-        }).then(() => api(originalRequest));
+        });
       }
 
       originalRequest._retry = true;
-
       isRefreshing = true;
 
       try {
-        await refreshAccessToken();
+        /**
+         * Refresh Token
+         */
+        await api.post('/accounts/token/refresh/');
 
         processQueue();
 
+        /**
+         * اجرای مجدد درخواست قبلی
+         */
         return api(originalRequest);
-      } catch (err) {
-        processQueue(err);
+      } catch (refreshError) {
+        processQueue(refreshError as AxiosError);
 
-        clearTokens();
+        /**
+         * Logout User
+         */
+        if (typeof window !== 'undefined') {
+          try {
+            await api.post('/accounts/logout/');
+          } catch (_) {}
 
-        if (typeof window !== "undefined") {
-          window.location.href = "/login/login-password";
+          window.location.href = '/login/login-password';
         }
 
-        return Promise.reject(err);
+        return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
       }

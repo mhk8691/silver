@@ -20,7 +20,7 @@ export default function VerifyOtpCode({ phone }: { phone: string }) {
       }
     } catch (error: unknown) {
       if (isAxiosError(error)) {
-        showSnackbar(error.response?.data.error, false);
+        showSnackbar(error.response?.data.message, false);
       }
     }
   };

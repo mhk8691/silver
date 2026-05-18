@@ -12,7 +12,7 @@ export const silverDeposit = async (amount: string) => {
     return response.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {
-      showSnackbar(error.response?.data.error);
+      showSnackbar(error.response?.data.message);
     }
   }
 };

@@ -23,7 +23,7 @@ export default function LoginPassForm({ children }: Props) {
       router.push("/dashboard");
     } catch (error: unknown) {
       if (isAxiosError(error)) {
-        showSnackbar(error.response?.data.error);
+        showSnackbar(error.response?.data.message);
       }
     }
   };

@@ -18,7 +18,7 @@ export const silverWidthdraw = async (
     return response.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {
-      showSnackbar(error.response?.data.error);
+      showSnackbar(error.response?.data.message);
     }
   }
 };

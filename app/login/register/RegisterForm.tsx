@@ -48,7 +48,7 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
       }
     } catch (error: unknown) {
       if (isAxiosError(error)) {
-        showSnackbar(error.response?.data.error);
+        showSnackbar(error.response?.data.message);
       }
     }
   };
