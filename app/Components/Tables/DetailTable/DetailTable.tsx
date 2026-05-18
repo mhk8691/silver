@@ -10,6 +10,7 @@ import SelectField from "../../InputField/SelectField";
 import FilterButton from "./FilterButton";
 import Container from "../../Containers/Container/Container";
 import CustomTable from "../CustomTable";
+import EmptyData from "../EmptyData";
 interface Props {
   title?: string;
   type: "chip" | "toggle";
@@ -265,24 +266,7 @@ export default function DetailTable({
           <CustomTable heads={tableHead}>{tableBody}</CustomTable>
         </Stack>
       ) : (
-        <Stack
-          mt={10}
-          mb={8}
-          direction={"column"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          gap={4}
-        >
-          <Image
-            src={"/images/emptyTable.webp"}
-            width={300}
-            height={270}
-            alt=""
-          />
-          <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
-            {emptyMessage || message}
-          </Typography>
-        </Stack>
+        <EmptyData emptyMessage={emptyMessage} message={message} />
       )}
     </Container>
   );

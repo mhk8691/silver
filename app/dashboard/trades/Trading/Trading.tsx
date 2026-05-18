@@ -4,8 +4,8 @@ import FilterToggleButton from "@/app/Components/FilterToggleButton/FilterToggle
 import InputField from "@/app/Components/InputField/InputField";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { ToggleItemsType } from "@/app/core/Types";
-import { silverBuy } from "@/lib/gold/silverBuy";
-import { silverSell } from "@/lib/gold/silverSell";
+import { silverBuy } from "@/lib/silver/silverBuy";
+import { silverSell } from "@/lib/silver/silverSell";
 import {
   Button,
   Stack,
