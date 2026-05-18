@@ -1,13 +1,66 @@
-"use client";
-import CustomModal from "@/app/Components/CustomModal/CustomModal";
-import Field from "@/app/login/Field";
-import { Close } from "@mui/icons-material";
-import { Button, IconButton, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+'use client';
+import CustomModal from '@/app/Components/CustomModal/CustomModal';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import Field from '@/app/login/Field';
+import { fogetPasswordComplete, forgetPasswordRequest, verifyForgetOtp } from '@/lib/auth';
+import { Close } from '@mui/icons-material';
+import { Button, IconButton, Stack, Typography } from '@mui/material';
+import { isAxiosError } from 'axios';
+import { useState } from 'react';
+import CompletePassword from './CompletePassword';
 
 export default function ChangePassword() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [otpCode, setOtpCode] = useState('');
+  const [step, setStep] = useState(0);
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const handleClick = async () => {
+    if (step === 0) {
+      try {
+        const response = await forgetPasswordRequest(phoneNumber);
+        showSnackbar(response.data.message, true);
+      } catch (error: unknown) {
+        if (isAxiosError(error)) {
+          showSnackbar(error.response?.data.message);
+        }
+      }
+      setStep(1);
+    } else if (step == 1) {
+       try {
+        const response = await verifyForgetOtp(phoneNumber, otpCode);
+        showSnackbar(response.data.message, true);
+        setStep(3);
+      } catch (error: unknown) {
+        if (isAxiosError(error)) {
+          showSnackbar(error.response?.data.message);
+        }
+      }
+      setStep(2);
+    } else if (step === 2) {
+      try {
+           const res = await fogetPasswordComplete(phoneNumber, otpCode,password,repeatPassword);
+             showSnackbar(res.data.message, true);
+         } catch (error: unknown) {
+           if (isAxiosError(error)) {
+             showSnackbar(error.response?.data.message, false);
+           }
+         }
+      
+    }else{
+         try {
+        const response = await fogetPasswordComplete(phoneNumber, otpCode,password,repeatPassword);
+        showSnackbar(response.data.message, true);
+        setStep(0);
+        setOpen(false)
+      } catch (error: unknown) {
+        if (isAxiosError(error)) {
+          showSnackbar(error.response?.data.message);
+        }
+      }
+    }
+  };
   return (
     <>
       <Button
@@ -18,9 +71,9 @@ export default function ChangePassword() {
           fontWeight: 800,
           py: 0.5,
           px: 2,
-          borderRadius: "7px",
-          color: "background.default",
-          width: "fit-content",
+          borderRadius: '7px',
+          color: 'background.default',
+          width: 'fit-content',
           mt: 5,
         }}
         onClick={() => setOpen(true)}
@@ -28,47 +81,32 @@ export default function ChangePassword() {
         تنظیم یا تغییر رمز ورود
       </Button>
       <CustomModal open={open} setOpen={setOpen} modalStyle={{ py: 3, px: 2 }}>
-        <Stack
-          direction={"row"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
+        <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
           <Typography variant="body1" fontSize={16}>
             فراموشی رمز عبور
           </Typography>
-          <IconButton onClick={() => setOpen(false)} disableRipple>
+          <IconButton onClick={() => {
+            setOpen(false)
+            setStep(0)
+          }} disableRipple>
             <Close />
           </IconButton>
         </Stack>
         <Typography variant="body1" fontSize={16} sx={{ my: 3 }}>
-          به منظور تغییر رمزعبور باید کدی به شماره موبایل شما ارسال شود.
+          {step === 0
+            ? 'به منظور تغییر رمزعبور باید کدی به شماره موبایل شما ارسال شود.'
+            : step === 1
+              ? `کدتایید ارسال شده به شماره موبایل ${phoneNumber} را وارد کنید`
+              : 'رمز عبور جدید را با توجه به شرایط ذکر شده تعیین کنید.'}
         </Typography>
-        <Field setValue={setValue} value={value} label="شماره موبایل شما" />
-        {/* 
-        <PasswordField password={value} setPassword={setValue} />
-        <PasswordField password={value} setPassword={setValue} label="تایید رمز عبور" />
-        
-        <Stack direction={"column"} gap={.5} mt={4}>
-          <Stack direction={"row"} gap={1}>
-            <InfoOutlinedIcon sx={{ color: "#535657" }} />
-            <Typography variant="body2" fontSize={14} sx={{ color: "#535657" }}>
-              رمز عبور باید بین 6 تا 24 حرف باشد
-            </Typography>
-          </Stack>
-          <Stack direction={"row"} gap={1}>
-            <InfoOutlinedIcon sx={{ color: "#535657" }} />
-            <Typography variant="body2" fontSize={14} sx={{ color: "#535657" }}>
-              رمز باید شامل اعداد باشد
-            </Typography>
-          </Stack>
-          <Stack direction={"row"} gap={1}>
-            <InfoOutlinedIcon sx={{ color: "#535657" }} />
-            <Typography variant="body2" fontSize={14} sx={{ color: "#535657" }}>
-              رمز باید شامل حروف بزرگتر و کوچکتر باشد
-            </Typography>
-          </Stack>
-        </Stack> */}
-        {/* <Field setValue={setValue} value={value} label="کد تایید" /> */}
+        {step === 0 ? (
+          <Field setValue={setPhoneNumber} value={phoneNumber} label="شماره موبایل شما" />
+        ) : step === 1 ? (
+          <Field setValue={setOtpCode} value={otpCode} label="کد تایید" />
+        ) : (
+       <CompletePassword password={password} repeatPassword={repeatPassword} setPassword={setPassword} setRepeatPassword={setRepeatPassword} />
+        )}
+
         <Button
           variant="contained"
           color="primary"
@@ -76,15 +114,16 @@ export default function ChangePassword() {
           sx={{
             py: 1.3,
             fontSize: 22,
-            width: "100%",
+            width: '100%',
             borderRadius: 2,
             mt: 6,
-            "&:hover": {
-              bgcolor: "primary.main",
+            '&:hover': {
+              bgcolor: 'primary.main',
             },
           }}
+          onClick={handleClick}
         >
-          ارسال کد
+          {step < 2 ? 'ادامه' : 'تایید'}
         </Button>
       </CustomModal>
     </>

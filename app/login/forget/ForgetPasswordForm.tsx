@@ -1,11 +1,11 @@
-"use client";
-import React, { ReactNode, useState } from "react";
-import Field from "../Field";
-import { useRouter } from "next/navigation";
-import { forgetPassword } from "@/lib/auth";
-import SubmitButton from "../SubmitButton";
-import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
-import { isAxiosError } from "axios";
+'use client';
+import React, { ReactNode, useState } from 'react';
+import Field from '../Field';
+import { useRouter } from 'next/navigation';
+import { forgetPasswordRequest } from '@/lib/auth';
+import SubmitButton from '../SubmitButton';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import { isAxiosError } from 'axios';
 
 interface Props {
   children: ReactNode;
@@ -13,10 +13,10 @@ interface Props {
 
 export default function ForgetPasswordForm({ children }: Props) {
   const router = useRouter();
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const handleLogin = async () => {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const handleClick = async () => {
     try {
-      const res = await forgetPassword(phoneNumber);
+      const res = await forgetPasswordRequest(phoneNumber);
       if (res.status === 200) {
         showSnackbar(res.data.message, true);
         router.push(`/login/forget-verify/?phone=${phoneNumber}`);
@@ -29,14 +29,9 @@ export default function ForgetPasswordForm({ children }: Props) {
   };
   return (
     <>
-      <Field
-        value={phoneNumber}
-        setValue={setPhoneNumber}
-        label="شماره موبایل"
-      />
-
+      <Field value={phoneNumber} setValue={setPhoneNumber} label="شماره موبایل" />
       {children}
-      <SubmitButton title={"ادامه"} handleSubmit={handleLogin} />
+      <SubmitButton title={'ادامه'}  handleSubmit={handleClick} />
     </>
   );
 }

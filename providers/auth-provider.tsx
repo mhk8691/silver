@@ -4,7 +4,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { getMe, logout as logoutRequest, User } from "@/lib/auth";
 
-import { getRefreshToken } from "@/lib/token";
 
 type AuthContextType = {
   user: User | null;

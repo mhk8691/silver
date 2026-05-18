@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
-import VerifyOtpCode from "./VerifyOtpCode";
 import BackLink from "@/app/dashboard/BackLink";
+import VerifyOtpCode from "./VerifyOtpCode";
 interface Props {
   searchParams: {
     phone: string;
