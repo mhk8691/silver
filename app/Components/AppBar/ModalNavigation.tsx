@@ -251,10 +251,9 @@ export default function ModalNavigation({ open, setOpen }: Props) {
       open={open}
       setOpen={setOpen}
       modalStyle={{
-        height: "65%",
         overflow: "auto",
         px: 5,
-        pb: 2,
+        py: 3,
       }}
     >
       <Content setOpen={setOpen} />
