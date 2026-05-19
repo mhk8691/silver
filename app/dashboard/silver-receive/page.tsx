@@ -1,11 +1,11 @@
 import Container from "@/app/Components/Containers/Container/Container";
 import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import SilverCard from "@/app/Components/ProductCard/ProductCard";
 import WalletStatus from "@/app/Components/Wallet/WalletStatus";
 import { ToggleItemsType } from "@/app/core/Types";
 import { Grid } from "@mui/material";
 import { Metadata } from "next";
 import Cart from "./Cart";
+import Products from "./Products";
 export const metadata: Metadata = {
   title: "دریافت نقره | دارینه",
   description: "",
@@ -67,38 +67,7 @@ export default function page() {
               md: 2,
             }}
           >
-            <Grid
-              size={{
-                xs: 6,
-                md: 4,
-              }}
-            >
-              <SilverCard />
-            </Grid>
-            <Grid
-              size={{
-                xs: 6,
-                md: 4,
-              }}
-            >
-              <SilverCard />
-            </Grid>
-            <Grid
-              size={{
-                xs: 6,
-                md: 4,
-              }}
-            >
-              <SilverCard />
-            </Grid>
-            <Grid
-              size={{
-                xs: 6,
-                md: 4,
-              }}
-            >
-              <SilverCard />
-            </Grid>
+           <Products/>
           </Grid>
           <Cart />
         </Grid>

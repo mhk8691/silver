@@ -12,10 +12,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { CartItem, Product } from "@/app/core/Types";
+import { CartItem, Product, ProductDateType } from "@/app/core/Types";
 import { Close } from "@mui/icons-material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -27,10 +26,10 @@ const product: Product = {
   title: "شمش نقره ۱ گرمی ۱۸ عیار",
   price: 19330693,
 };
-export default function ProductCard() {
+export default function ProductCard({ item }: { item: ProductDateType }) {
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
-  const item = cart.find((i) => i.id === product.id);
+  const index = cart.find((i) => i.id === product.id);
   const router = useRouter();
   useEffect(() => {
     setCart(getCart());
@@ -113,12 +112,10 @@ export default function ProductCard() {
               }}
               sx={{ px: 0.5 }}
             >
-              {" "}
-              شمش نقره ۱ گرمی عیار ۹۹۹{" "}
-            </Typography>{" "}
+              {item.name}
+            </Typography>
           </Stack>
           <Stack direction={"column"} gap={1} sx={{ mt: 3.5 }}>
-            {" "}
             <Stack
               direction={{
                 xs: "column",
@@ -134,7 +131,7 @@ export default function ProductCard() {
               }}
               justifyContent={"space-between"}
             >
-              {" "}
+              
               <Typography
                 variant="body2"
                 fontSize={{
@@ -143,9 +140,9 @@ export default function ProductCard() {
                 }}
                 sx={{ color: "#535657" }}
               >
-                {" "}
-                گرم نقره:{" "}
-              </Typography>{" "}
+                
+                گرم نقره:
+              </Typography>
               <Typography
                 variant="body1"
                 fontSize={{
@@ -156,8 +153,8 @@ export default function ProductCard() {
                 }}
                 sx={{ alignSelf: "flex-end" }}
               >
-                {" "}
-                ۱.۰۷۵{" "}
+                
+               (معادل {item.category.split('_')[0]} عیار)
                 <Box
                   component={"span"}
                   fontSize={{
@@ -165,11 +162,11 @@ export default function ProductCard() {
                     sm: 14,
                   }}
                 >
-                  {" "}
-                  گرم{" "}
-                </Box>{" "}
-              </Typography>{" "}
-            </Stack>{" "}
+                  
+                  گرم
+                </Box>
+              </Typography>
+            </Stack>
             <Stack
               direction={{
                 xs: "column",
@@ -185,7 +182,7 @@ export default function ProductCard() {
               }}
               justifyContent={"space-between"}
             >
-              {" "}
+              
               <Typography
                 variant="body2"
                 fontSize={{
@@ -194,9 +191,9 @@ export default function ProductCard() {
                 }}
                 sx={{ color: "#535657" }}
               >
-                {" "}
-                ارزش تومان:{" "}
-              </Typography>{" "}
+                
+                ارزش تومان:
+              </Typography>
               <Typography
                 variant="body1"
                 fontSize={{
@@ -207,8 +204,8 @@ export default function ProductCard() {
                 }}
                 sx={{ alignSelf: "flex-end" }}
               >
-                {" "}
-                {priceFormater(19330693)}{" "}
+                
+                {priceFormater(19330693)}
                 <Box
                   component={"span"}
                   fontSize={{
@@ -216,14 +213,14 @@ export default function ProductCard() {
                     sm: 14,
                   }}
                 >
-                  {" "}
-                  تومان{" "}
-                </Box>{" "}
-              </Typography>{" "}
-            </Stack>{" "}
-          </Stack>{" "}
+                  
+                  تومان
+                </Box>
+              </Typography>
+            </Stack>
+          </Stack>
         </CardContent>
-        {!item ? (
+        {!index ? (
           <Stack px={1}>
             <Button
               variant="outlined"
@@ -269,7 +266,7 @@ export default function ProductCard() {
               <IconButton onClick={addToCart} disableRipple>
                 <AddIcon />
               </IconButton>
-              <Typography fontWeight={600}>{item.quantity}</Typography>
+              <Typography fontWeight={600}>{index.quantity}</Typography>
 
               <IconButton onClick={removeItem} disableRipple>
                 <DeleteIcon />
@@ -288,7 +285,7 @@ export default function ProductCard() {
           این محصول به سبد خرید شما افزوده شد.
         </Typography>
         <Typography variant="body1" fontSize={16}>
-          {item?.title}
+          {index?.title}
         </Typography>
         <Stack direction={"row"} gap={2} mt={5}>
           <Button
