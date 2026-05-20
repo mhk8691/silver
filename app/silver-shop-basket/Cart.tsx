@@ -9,16 +9,21 @@ import {
   useTheme,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomModal from "../Components/CustomModal/CustomModal";
 import Delivery from "./Delivery";
 import DesktopCart from "./DesktopCart";
 import MobileCart from "./MobileCart";
 import OrderConfirmation from "./OrderConfirmation";
+import { getCart } from "@/lib/cart/cart";
+import { isAxiosError } from "axios";
+import { showSnackbar } from "../Components/Snackbar/Snackbar";
+import { ProductDateType } from "../core/Types";
 
 export default function Cart() {
   const [step, setStep] = useState(0);
   const [open, setOpen] = useState(false);
+    const [cartData,setCartData] = useState<ProductDateType[]>([] as ProductDateType[])
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
@@ -41,6 +46,19 @@ export default function Cart() {
       setStep((prev) => prev - 1);
     }
   };
+    useEffect(()=>{
+    const getData = async ()=>{
+      try{
+        const response = await getCart()
+        setCartData(response.data)
+      }catch(error:unknown){
+        if (isAxiosError(error)){
+          showSnackbar(error.response?.data.message)
+        }
+      }
+    }
+    getData()
+  },[])
   return (
     <>
       {step === 0 && (
@@ -55,7 +73,7 @@ export default function Cart() {
               سبد خرید شما
             </Typography>
           )}
-          {isMobile ? <MobileCart /> : <DesktopCart />}
+          {isMobile ? <MobileCart cartData={cartData} /> : <DesktopCart  cartData={cartData}/>}
         </>
       )}
       {step === 1 && <Delivery />}
