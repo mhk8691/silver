@@ -7,14 +7,16 @@ import {
   DepositDataType,
   ToggleItemsType,
 } from "@/app/core/Types";
-import { Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import BankCard from "./BankCard";
 import { getBankCard } from "@/lib/getbankCard/bankCard";
-import { silverDeposit } from "@/lib/deposit/deposit";
+import { silverDeposit, uploadreceipt } from "@/lib/deposit/deposit";
 import DepositConfirm from "./DepositConfirm";
 import Container from "@/app/Components/Containers/Container/Container";
-
+import { isAxiosError } from "axios";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+import UploadIcon from '@mui/icons-material/Upload';
 const items: ToggleItemsType[] = [
   { title: "درگاه پرداخت", value: "payment", id: 1 },
   { title: "واریز مستقیم", value: "directPayment", id: 2 },
@@ -25,6 +27,7 @@ export default function Deposit() {
   const [select, setSelect] = useState(items[0].value);
   const [selectedCard, setSelectedCard] = useState<number>(2);
   const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
+  const [receipt,setreceipt] = useState<File | null>(null)
   const [depositData, setDepositData] = useState<DepositDataType | null>(
     null
   );
@@ -35,11 +38,32 @@ export default function Deposit() {
     };
     getData();
   }, []);
-  const handleDirectPayment = async () => {
+
+  const handleDirectPayment =  () => {
     setOpen(true)
   };
+  const handleUploadReceipt = async()=>{
+    if (!receipt) return null
+    const formData = new FormData()
+      formData.append('receipt',receipt)
+    try{
+      const response =await uploadreceipt(formData)
+        showSnackbar(response?.message)
+    }catch(error:unknown){
+      if (isAxiosError(error)){
+        showSnackbar(error.response?.data.message)
+      }
+    }
+  }
+  const handleClick = ()=>{
+    if (depositData){
+      handleDirectPayment()
+    }else{
+      handleUploadReceipt()
+    }
+  }
   const handlePayment = async ()=>{
-const response = await silverDeposit(price);
+  const response = await silverDeposit(price);
   }
   return (
     <>
@@ -98,7 +122,7 @@ const response = await silverDeposit(price);
           )}
         </Stack>
       {
-      depositData && select != 'payment'&&<>
+      !depositData && select != 'payment'&&<>
           <Typography variant="body2" fontSize={12} fontWeight={"bold"}>
           اطلاعات واریز
         </Typography>
@@ -118,9 +142,9 @@ const response = await silverDeposit(price);
               کارت مبدا:
             </Typography>
             <Typography variant="body2" fontSize={12}>
-              {depositData.card_number}
+              {depositData?.card_number}
             </Typography>
-          </Stack>
+          </Stack>  
          <Stack>
            <Typography variant="body2" fontSize={12}>
             کارت مقصد:
@@ -135,7 +159,7 @@ const response = await silverDeposit(price);
               شماره شبا
             </Typography>
             <Typography variant="body2" fontSize={12}>
-              {depositData.shaba}
+              {depositData?.shaba}
             </Typography>
           </Stack>
           <Stack
@@ -147,14 +171,35 @@ const response = await silverDeposit(price);
               به نام
             </Typography>
             <Typography variant="body2" fontSize={12}>
-              {depositData.owner}
+              {depositData?.owner}
             </Typography>
           </Stack>
-          <Typography variant="body2" fontSize={12}>
-            به اپلیکیشن همراه‌بانک یا خودپرداز بانک بروید و مبلغ مورد نظرتان را
-            واریز کنید.مبلغ واریزی مطابق با سیکل پایا به حساب شما در طلاسی
-            افزوده می‌شود.
-          </Typography>
+<Stack component={'label'} htmlFor="upload-file" width={'100%'} direction={'row'} justifyContent={'center'} mt={3}>
+  <Button 
+    variant="outlined" 
+    color="secondary" 
+    startIcon={<UploadIcon/>}
+    component="span" 
+    sx={{
+      width:'100%',
+      py:1.5,borderRadius:2
+    }}
+  >
+    بارگذاری رسید
+  </Button>
+</Stack>
+
+          <Box 
+          component={'input'}
+            type="file" 
+  id="upload-file" 
+  style={{ display: 'none' }} 
+    accept="image/*"
+  onChange={(e) => {
+    const image =e?.target?.files[0]
+    setreceipt(image)
+     }}
+          />
         </Container>
         </>
       }
@@ -175,7 +220,7 @@ const response = await silverDeposit(price);
       >
         واریز
       </Button>
-     :!depositData && <Button
+     : <Button
         variant="contained"
         color="primary"
         sx={{
@@ -186,9 +231,11 @@ const response = await silverDeposit(price);
           },
           py: 1.5,
         }}
-        onClick={handleDirectPayment}
+        onClick={handleClick}
       >
-        نمایش اطلاعات مقصد
+        {
+          depositData ? 'نمایش اطلاعات مقصد' : 'تایید'
+        }
       </Button>}
       </Card>
       <DepositConfirm

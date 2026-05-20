@@ -16,6 +16,15 @@ export const silverDeposit = async (amount: string) => {
     }
   }
 };
+export const uploadreceipt = async (data:FormData) => {
+    const response = await api.post<{ message: string }>("/silver/deposit/", data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    });
+    return response.data;
+}
+
 export const getSilverDeposit = async () => {
   try {
     const response = await api.get<DepositDataType>("/silver/deposit/");
