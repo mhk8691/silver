@@ -56,7 +56,7 @@ export default function Deposit() {
     }
   }
   const handleClick = ()=>{
-    if (depositData){
+    if (!depositData){
       handleDirectPayment()
     }else{
       handleUploadReceipt()
@@ -122,7 +122,7 @@ export default function Deposit() {
           )}
         </Stack>
       {
-      !depositData && select != 'payment'&&<>
+      depositData && select != 'payment'&&<>
           <Typography variant="body2" fontSize={12} fontWeight={"bold"}>
           اطلاعات واریز
         </Typography>
@@ -220,7 +220,7 @@ export default function Deposit() {
       >
         واریز
       </Button>
-     : <Button
+     :!depositData && <Button
         variant="contained"
         color="primary"
         sx={{
@@ -234,7 +234,7 @@ export default function Deposit() {
         onClick={handleClick}
       >
         {
-          depositData ? 'نمایش اطلاعات مقصد' : 'تایید'
+          !depositData ? 'نمایش اطلاعات مقصد' : 'تایید'
         }
       </Button>}
       </Card>
