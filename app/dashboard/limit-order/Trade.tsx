@@ -40,6 +40,7 @@ export default function Trade({ type }: Props) {
 
       <Stack gap={3.5}>
         <InputField
+        type='number'
           placeholder={type === "buy" ? "قیمت مد نظر خرید" : "قیمت مد نظر فروش"}
           title="تومان"
           value={targetPrice}
@@ -48,6 +49,7 @@ export default function Trade({ type }: Props) {
 
         <Stack gap={1.5}>
           <InputField
+          type='number'
             placeholder="مبلغ به تومان"
             title="تومان"
             value={price}
@@ -75,6 +77,7 @@ export default function Trade({ type }: Props) {
           </Stack>
 
           <InputField
+          type='number'
             placeholder="وزن طلا"
             title="گرم"
             value={silver}

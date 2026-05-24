@@ -123,6 +123,7 @@ export default function Trading() {
       >
         <Stack>
           <InputField
+          type="number"
             placeholder={"ملبغ به تومان"}
             title={"تومان"}
             value={price}
@@ -131,6 +132,7 @@ export default function Trading() {
         </Stack>
         <Stack>
           <InputField
+          type="number"
             placeholder={"وزن نقره"}
             title={"گرم"}
             value={silver}

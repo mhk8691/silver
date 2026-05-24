@@ -16,7 +16,7 @@ interface Props {
   setValue: (value: string) => void;
   style?: SxProps;
   multiline?: boolean;
-  type?: 'text' | 'number';
+  type: 'text' | 'number';
 }
 
 export default function InputField({

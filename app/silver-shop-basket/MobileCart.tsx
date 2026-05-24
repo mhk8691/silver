@@ -1,56 +1,56 @@
-import { Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import Counter from "./Counter";
-import { useState } from "react";
-import { ProductDateType } from "../core/Types";
+// import { Stack, Typography } from "@mui/material";
+// import Image from "next/image";
+// import Counter from "./Counter";
+// import { useState } from "react";
+// import { CartDataType, ProductDateType } from "../core/Types";
 
-interface Props{
-  cartData:ProductDateType[]
-}
-export default function MobileCart({cartData}:Props) {
-  const [count, setCount] = useState(1);
+// interface Props{
+//   cartData:CartDataType[]
+// }
+// export default function MobileCart({cartData}:Props) {
+//   const [count, setCount] = useState(1);
 
-  return (
-    <Stack direction={"column"} gap={2}>
-      {cartData.map((item) => (
-        <Stack
-          key={item.id}
-          border={1}
-          borderColor={"background.paper"}
-          p={2}
-          borderRadius={2}
-          direction={"column"}
-          gap={2}
-        >
-          <Stack direction={"row"} gap={1} alignItems={"center"}>
-            <Image src={item.image} alt={item.name} width={64} height={64} />
-            <Stack direction={"column"} gap={1}>
-              <Typography
-                variant="body2"
-                sx={{ color: "text.title" }}
-                fontWeight={"bold"}
-              >
-                {item.name}
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "text.title" }}
-                fontSize={12}
-              >
-                {item.weight}
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "text.title" }}
-                fontSize={12}
-              >
-                {item.total_weight_with_fees} تومان
-              </Typography>
-            </Stack>
-          </Stack>
-          <Counter count={count} setCount={setCount} />
-        </Stack>
-      ))}
-    </Stack>
-  );
-}
+//   return (
+//     <Stack direction={"column"} gap={2}>
+//       {cartData.map((item) => (
+//         <Stack
+//           key={item.id}
+//           border={1}
+//           borderColor={"background.paper"}
+//           p={2}
+//           borderRadius={2}
+//           direction={"column"}
+//           gap={2}
+//         >
+//           <Stack direction={"row"} gap={1} alignItems={"center"}>
+//             <Image src={item.image} alt={item.name} width={64} height={64} />
+//             <Stack direction={"column"} gap={1}>
+//               <Typography
+//                 variant="body2"
+//                 sx={{ color: "text.title" }}
+//                 fontWeight={"bold"}
+//               >
+//                 {item.name}
+//               </Typography>
+//               <Typography
+//                 variant="body2"
+//                 sx={{ color: "text.title" }}
+//                 fontSize={12}
+//               >
+//                 {item.weight}
+//               </Typography>
+//               <Typography
+//                 variant="body2"
+//                 sx={{ color: "text.title" }}
+//                 fontSize={12}
+//               >
+//                 {item.total_weight_with_fees} تومان
+//               </Typography>
+//             </Stack>
+//           </Stack>
+//           <Counter count={count} setCount={setCount} />
+//         </Stack>
+//       ))}
+//     </Stack>
+//   );
+// }

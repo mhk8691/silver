@@ -170,13 +170,11 @@ export interface WalletHeaderDataType {
 }
 export interface RefrraDataType {
   referral_code: string;
-  statistics: {
-    total_subscribers: number;
-    total_earnings_toman: number;
-    commission_percentage: string;
-  };
-  subscribers: [];
-  message: string;
+  total_invited: number;
+  total_earned: number;
+  referral_link:string
+  // commission_rate: string;
+  // message: string;
 }
 export type StatusType="COMPLETED" | 'FAILED' | 'PENDING'
 export interface PriceAlertsDataType {
@@ -203,4 +201,52 @@ export interface RecentTransactionDataType{
 }
 export interface TradeTableDataType {
     "id": number,      "type": "BUY" | 'SELL',      "status": StatusType,      "amount_gr": number,      "price_per_gram": number,      "fee": number,      "total_amount": number,      "tracking_code": string,      "created_at": string
+}
+export interface ChartGoldDataType {
+  "chart": {
+      "labels": string[],
+      "prices": number[]  },
+    "stats": {
+      "current_price": number,
+      "highest_price": number,
+      "lowest_price": number,
+      "change_percent": number   }  }
+
+      export interface RecentTransactionDataType{
+    "id": number,
+      "amount": number,
+      "type":'DEPOSIT'|'WITHDRAW',
+      "method": string,
+      "status":  StatusType,
+      "tracking_code": string,
+      "created_at": string,
+}
+
+export interface RecentDeliveriesDataType{
+    "id": number,
+      "amount": number,
+      "type": string,
+      "type_display": string,
+      "method": string,
+      "method_display": string,
+      "status": string,
+      "status_display": string,
+      "receipt_image": string | null,
+      "user_card": string | null,
+      "user_card_number": string | null,
+      "admin_note": string,
+      "tracking_code": string,
+      "description": string,
+      "created_at": string,
+      "updated_at": string,
+}
+export interface AddressesDataType {
+    "id": number,
+      "type": string,
+      "province": string,
+      "city":string,
+      "address":string
+      "postal_code": string,
+      "plaque": string,
+      "unit": string
 }

@@ -1,10 +1,10 @@
 import Chart from "@/app/Components/Chart/Chart";
 import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import WalletStatus from "@/app/Components/Wallet/WalletHeader";
 import { Grid } from "@mui/material";
 import Trading from "./Trading";
 import { Metadata } from "next";
 import BackLink from "../BackLink";
+import WalletHeader from "@/app/Components/Wallet/WalletHeader";
 export const metadata: Metadata = {
   title: "سفارش با قیمت | دارینه",
   description: "",

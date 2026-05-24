@@ -18,6 +18,7 @@ export default function NewAddress() {
     <Grid container spacing={2} width={"100%"}>
       <Grid size={12}>
         <InputField
+        type="text"
           placeholder="آدرس محل تحویل"
           value={address}
           setValue={setAddress}
@@ -26,6 +27,7 @@ export default function NewAddress() {
       </Grid>
       <Grid size={6}>
         <InputField
+        type="text"
           placeholder="پلاک"
           value={plaque}
           setValue={setPlaque}
@@ -34,6 +36,7 @@ export default function NewAddress() {
       </Grid>
       <Grid size={6}>
         <InputField
+        type="text"
           placeholder="واحد"
           value={unit}
           setValue={setUnit}
@@ -42,6 +45,7 @@ export default function NewAddress() {
       </Grid>
       <Grid size={12}>
         <InputField
+        type="text"
           placeholder="کد پستی"
           value={postCode}
           setValue={setPostCode}

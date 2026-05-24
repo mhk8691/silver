@@ -9,6 +9,7 @@ export default function Form() {
   return (
     <Stack direction={"row"} gap={1} mt={3.5}>
       <InputField
+      type="number"
         placeholder="کد مندرج روی کارت"
         setValue={setValue}
         value={value}

@@ -60,7 +60,8 @@ export default function Invite() {
               sm: 18,
             }}
           >
-            {referralData.message}
+           با دعوت از دوستان خود 20% از کارمزد هر خرید آن‌ها، برای شما
+            واریز خواهد شد.
           </Typography>
           <Typography
             variant="h6"
@@ -116,7 +117,7 @@ export default function Invite() {
                 }}
                 sx={{ color: "text.title" }}
               >
-                {referralData?.statistics?.total_subscribers} نفر
+                {referralData?.total_invited ||0} نفر
               </Typography>
             </Stack>
             <Divider sx={{ my: 1.5, borderColor: " #C9CDCF" }} />
@@ -139,7 +140,7 @@ export default function Invite() {
                 }}
                 sx={{ color: "text.title" }}
               >
-                {priceFormater(referralData?.statistics?.total_earnings_toman)}{" "}
+                {priceFormater(referralData?.total_earned) ||0}{" "}
                 تومان
               </Typography>
             </Stack>
