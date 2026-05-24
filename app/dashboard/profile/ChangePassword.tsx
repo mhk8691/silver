@@ -8,6 +8,7 @@ import { Button, IconButton, Stack, Typography } from '@mui/material';
 import { isAxiosError } from 'axios';
 import { useState } from 'react';
 import CompletePassword from './CompletePassword';
+import Loading from '@/app/Components/Loading/Loading';
 
 export default function ChangePassword() {
   const [open, setOpen] = useState(false);
@@ -16,19 +17,24 @@ export default function ChangePassword() {
   const [step, setStep] = useState(0);
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [isLoading,setIsLoading] = useState(false)
   const handleClick = async () => {
     if (step === 0) {
       try {
+        setIsLoading(true)
         const response = await forgetPasswordRequest(phoneNumber);
         showSnackbar(response.data.message, true);
       } catch (error: unknown) {
         if (isAxiosError(error)) {
           showSnackbar(error.response?.data.message);
         }
+      }finally{
+        setIsLoading(false)
       }
       setStep(1);
     } else if (step == 1) {
        try {
+        setIsLoading(true)
         const response = await verifyForgetOtp(phoneNumber, otpCode);
         showSnackbar(response.data.message, true);
         setStep(3);
@@ -36,30 +42,27 @@ export default function ChangePassword() {
         if (isAxiosError(error)) {
           showSnackbar(error.response?.data.message);
         }
+      }finally{
+        setIsLoading(false)
       }
       setStep(2);
     } else if (step === 2) {
       try {
+        setIsLoading(true)
            const res = await fogetPasswordComplete(phoneNumber, otpCode,password,repeatPassword);
              showSnackbar(res.data.message, true);
+             setStep(0);
+        setOpen(false)
          } catch (error: unknown) {
            if (isAxiosError(error)) {
              showSnackbar(error.response?.data.message, false);
            }
+         }finally{
+          setIsLoading(false)
          }
       
-    }else{
-         try {
-        const response = await fogetPasswordComplete(phoneNumber, otpCode,password,repeatPassword);
-        showSnackbar(response.data.message, true);
-        setStep(0);
-        setOpen(false)
-      } catch (error: unknown) {
-        if (isAxiosError(error)) {
-          showSnackbar(error.response?.data.message);
-        }
-      }
     }
+
   };
   return (
     <>
@@ -72,7 +75,7 @@ export default function ChangePassword() {
           py: 0.5,
           px: 2,
           borderRadius: '7px',
-          color: 'background.default',
+          color: 'black',
           width: 'fit-content',
           mt: 5,
         }}
@@ -88,7 +91,7 @@ export default function ChangePassword() {
           <IconButton onClick={() => {
             setOpen(false)
             setStep(0)
-          }} disableRipple>
+          }}  >
             <Close />
           </IconButton>
         </Stack>
@@ -110,9 +113,9 @@ export default function ChangePassword() {
         <Button
           variant="contained"
           color="primary"
-          disableRipple
+           
           sx={{
-            py: 1.3,
+            height:60,
             fontSize: 22,
             width: '100%',
             borderRadius: 2,
@@ -122,8 +125,9 @@ export default function ChangePassword() {
             },
           }}
           onClick={handleClick}
+          disabled={isLoading}
         >
-          {step < 2 ? 'ادامه' : 'تایید'}
+          {isLoading ? <Loading size={30}/>:step < 2 ? 'ادامه' : 'تایید'}
         </Button>
       </CustomModal>
     </>

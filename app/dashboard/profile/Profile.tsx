@@ -1,14 +1,14 @@
-'use client'
-import Container from "@/app/Components/Containers/Container/Container";
-import WalletStatus from "@/app/Components/Wallet/WalletHeader";
-import { Divider, Grid, Stack, Typography } from "@mui/material";
-import TitleProfile from "./TitleProfile";
-import ChangePassword from "./ChangePassword";
-import { useCallback, useEffect, useState } from "react";
-import { getMe, User } from "@/lib/auth";
-import { isAxiosError } from "axios";
-import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
-import { formatDate } from "@/app/core/FormatDate";
+'use client';
+import Container from '@/app/Components/Containers/Container/Container';
+import WalletHeader from '@/app/Components/Wallet/WalletHeader';
+import { Divider, Grid, Stack, Typography } from '@mui/material';
+import ChangePassword from './ChangePassword';
+import TitleProfile from './TitleProfile';
+import { useCallback, useEffect, useState } from 'react';
+import { getMe, User } from '@/lib/auth';
+import { isAxiosError } from 'axios';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import { formatDate } from '@/app/core/FormatDate';
 
 export default function Profile() {
   const [user, setUser] = useState<User | null>(null);
@@ -44,16 +44,16 @@ export default function Profile() {
           sm: 1,
         },
         borderColor: {
-          sm: "background.paper",
+          sm: 'background.paper',
         },
       }}
     >
       <TitleProfile />
 
       <Stack
-        direction={"row"}
+        direction={'row'}
         gap={2}
-        alignItems={"center"}
+        alignItems={'center'}
         mt={{
           xs: 0,
           sm: 5,
@@ -87,7 +87,7 @@ export default function Profile() {
               sm: 22,
             }}
             fontWeight={600}
-            sx={{ color: "text.title" }}
+            sx={{ color: 'text.title' }}
           >
            {user?.full_name}
           </Typography>
@@ -107,7 +107,7 @@ export default function Profile() {
       <Grid
         size={12}
         display={{
-          sm: "none",
+          sm: 'none',
         }}
         mt={2}
       >
@@ -116,21 +116,16 @@ export default function Profile() {
       <Stack
         border={1}
         px={2}
-        pt={"14px"}
+        pt={'14px'}
         pb={3}
-        borderColor={"background.paper"}
+        borderColor={'background.paper'}
         borderRadius={2}
         mt={2}
       >
-        <Stack
-          py={"10px"}
-          direction={"row"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
+        <Stack py={'10px'} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
           <Typography
             variant="body1"
-            sx={{ color: "#717475" }}
+            sx={{ color: '#717475' }}
             fontSize={{
               xs: 10,
               sm: 14,
@@ -145,19 +140,16 @@ export default function Profile() {
               sm: 18,
             }}
           >
-            {formatDate(user?.birth_date)}
+            {
+              formatDate(user?.birth_date)
+            }
           </Typography>
         </Stack>
         <Divider />
-        <Stack
-          py={"10px"}
-          direction={"row"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
+        <Stack py={'10px'} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
           <Typography
             variant="body1"
-            sx={{ color: "#717475" }}
+            sx={{ color: '#717475' }}
             fontSize={{
               xs: 10,
               sm: 14,
@@ -176,15 +168,10 @@ export default function Profile() {
           </Typography>
         </Stack>
         <Divider />
-        <Stack
-          py={"10px"}
-          direction={"row"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
+        <Stack py={'10px'} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
           <Typography
             variant="body1"
-            sx={{ color: "#717475" }}
+            sx={{ color: '#717475' }}
             fontSize={{
               xs: 10,
               sm: 14,
@@ -203,15 +190,10 @@ export default function Profile() {
           </Typography>
         </Stack>
         <Divider />
-        <Stack
-          pt={"10px"}
-          direction={"row"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
+        <Stack pt={'10px'} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
           <Typography
             variant="body1"
-            sx={{ color: "#717475" }}
+            sx={{ color: '#717475' }}
             fontSize={{
               xs: 10,
               sm: 14,
@@ -233,3 +215,4 @@ export default function Profile() {
     </Container>
   );
 }
+

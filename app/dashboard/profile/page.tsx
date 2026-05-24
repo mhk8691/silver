@@ -1,10 +1,10 @@
 import Container from "@/app/Components/Containers/Container/Container";
-import WalletStatus from "@/app/Components/Wallet/WalletHeader";
 import { Grid, Typography } from "@mui/material";
 import { Metadata } from "next";
 import Buttons from "./Buttons";
 import ChangeNumber from "./ChangeNumber";
 import Profile from "./Profile";
+import WalletHeader from "@/app/Components/Wallet/WalletHeader";
 export const metadata: Metadata = {
   title: "پروفایل | دارینه",
   description: "",

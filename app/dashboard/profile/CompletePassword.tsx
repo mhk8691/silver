@@ -22,20 +22,20 @@ export default function CompletePassword({password,setPassword,setRepeatPassword
 
             <Stack direction={'column'} gap={0.5} mt={4}>
               <Stack direction={'row'} gap={1}>
-                <InfoOutlined sx={{ color: 'text.muted' }} />
-                <Typography variant="body2" fontSize={14} sx={{ color: 'text.muted' }}>
+                <InfoOutlined sx={{ color: '#575753' }} />
+                <Typography variant="body2" fontSize={14} sx={{ color: '#575753' }}>
                   رمز عبور باید بین 6 تا 24 حرف باشد
                 </Typography>
               </Stack>
               <Stack direction={'row'} gap={1}>
-                <InfoOutlined sx={{ color: 'text.muted' }} />
-                <Typography variant="body2" fontSize={14} sx={{ color: 'text.muted' }}>
+                <InfoOutlined sx={{ color: '#575753' }} />
+                <Typography variant="body2" fontSize={14} sx={{ color: '#575753' }}>
                   رمز باید شامل اعداد باشد
                 </Typography>
               </Stack>
               <Stack direction={'row'} gap={1}>
-                <InfoOutlined sx={{ color: 'text.muted' }} />
-                <Typography variant="body2" fontSize={14} sx={{ color: 'text.muted' }}>
+                <InfoOutlined sx={{ color: '#575753' }} />
+                <Typography variant="body2" fontSize={14} sx={{ color: '#575753' }}>
                   رمز باید شامل حروف بزرگتر و کوچکتر باشد
                 </Typography>
               </Stack>

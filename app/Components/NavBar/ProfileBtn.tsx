@@ -21,6 +21,9 @@ import { isAxiosError } from "axios";
 import Link from "next/link";
 import * as React from "react";
 import { showSnackbar } from "../Snackbar/Snackbar";
+import { getAssets } from "@/lib/getAssets/getAssets";
+import { AssetsDataType } from "@/app/core/Types";
+import priceFormater from "@/app/core/PriceFormater";
 const options = [
   {
     title: "پروفایل",
@@ -189,7 +192,21 @@ export default function ProfileBtn() {
   const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const handleToggle = () => setOpen((prev) => !prev);
-
+  const [assets,setAssets] = React.useState<AssetsDataType>({} as AssetsDataType)
+    React.useEffect(()=>{
+      const getData = async ()=>{
+       try{
+         const response = await getAssets()
+        setAssets(response)
+       }catch(error:unknown){
+        if (isAxiosError(error)){
+          showSnackbar(error.response?.data.message)
+        }
+       }
+      }
+         getData();
+    
+    },[open])
   const handleClose = (event: MouseEvent | TouchEvent) => {
     const target = event.target as Node;
 
@@ -349,7 +366,7 @@ React.useEffect(()=>{
                   موجودی تومان:
                 </Typography>
                 <Typography variant="body2" fontSize={12}>
-                  0 تومان
+                   {priceFormater(assets?.toman_balance)||0} تومان
                 </Typography>
               </Stack>
               <Divider />
@@ -359,10 +376,10 @@ React.useEffect(()=>{
                   sx={{ color: "text.secondary" }}
                   fontSize={12}
                 >
-                  موجودی طلا:
+                  موجودی نقره:
                 </Typography>
                 <Typography variant="body2" fontSize={12}>
-                  0 گرم
+                  {assets?.silver_balance_gr} گرم
                 </Typography>
               </Stack>
             </Stack>
