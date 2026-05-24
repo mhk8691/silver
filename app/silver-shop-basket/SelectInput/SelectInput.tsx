@@ -99,13 +99,13 @@ export default function SelectInput({
     ...sx,
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: error ? "#d32f2f" : "#575753",
+        borderColor: error ? "#d32f2f" : "text.muted",
       },
       "&:hover fieldset": {
-        borderColor: error ? "#d32f2f" : "#575753",
+        borderColor: error ? "#d32f2f" : "text.muted",
       },
       "&.Mui-focused fieldset": {
-        borderColor: error ? "#d32f2f" : "#575753",
+        borderColor: error ? "#d32f2f" : "text.muted",
       },
     },
   };

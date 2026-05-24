@@ -1,3 +1,4 @@
+'use client'
 import CircleAnimation from "@/app/Components/CircleAnimation/CircleAnimation";
 import {
   default as Card,
@@ -6,15 +7,20 @@ import {
 import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
 import Wallet from "@/app/Components/Wallet/Wallet";
 import priceFormater from "@/app/core/PriceFormater";
-import { ToggleItemsType } from "@/app/core/Types";
+import { RecentTransactionDataType, ToggleItemsType } from "@/app/core/Types";
 import { Grid, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
 import BackLink from "../BackLink";
 import Chart from "./Chart";
-export const metadata: Metadata = {
-  title: "کیف پول | دارینه",
-  description: "",
-};
+import TransactionTable from "../irt-transaction/TransactionTable";
+import { useEffect, useState } from "react";
+import { getRecentTransaction } from "@/lib/transactions/recent-transactions/recentTransactions";
+import { isAxiosError } from "axios";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+// export const metadata: Metadata = {
+//   title: "کیف پول | دارینه",
+//   description: "",
+// };
 const items: ToggleItemsType[] = [
   {
     title: "واریز",
@@ -43,6 +49,20 @@ const items: ToggleItemsType[] = [
   },
 ];
 export default function page() {
+  const [transactionData,setTransactionData] = useState<RecentTransactionDataType[]>([])
+  useEffect(()=>{
+     const getData = async ()=>{
+        try{
+          const response = await getRecentTransaction()
+          setTransactionData(response)
+        }catch(error:unknown){
+          if (isAxiosError(error)){
+            showSnackbar(error.response?.data.message)
+          }
+        }
+      }
+      getData()
+  },[])
   return (
     <Grid
       container
@@ -294,13 +314,20 @@ export default function page() {
           <Chart />
         </Grid>
         <Stack mt={{ xs: 1, sm: 3 }}>
-          <DetailTable
+            <DetailTable
             type="chip"
             title="لیست تراکنش‌‌های اخیر"
             toggleItems={items}
-            listLength={0}
-            tableBody={<></>}
-            tableHead={[]}
+            tableBody={<TransactionTable data={transactionData} />}
+            listLength={transactionData.length}
+             tableHead={[
+            'مبلغ',
+            'نوع تراکنش',
+            'روش',
+            'وضعیت',
+            'کد پیگیری',
+            'تاریخ',
+          ]}
           />
         </Stack>
       </Grid>

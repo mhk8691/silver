@@ -28,6 +28,7 @@ const IranYekanFont = localFont({
 declare module "@mui/material/styles" {
   interface TypeText {
     title: string;
+    muted:string
   }
   interface TypeBackground {
     secondary: string;
@@ -181,6 +182,7 @@ const theme = createTheme({
       primary: "#0F0F10",
       secondary: "#363839",
       title: "#1A1B1C",
+      muted:  '#575753',
     },
   },
   direction: "rtl",

@@ -1,20 +1,22 @@
-"use client";
+'use client';
 
-import React, { ReactNode } from "react";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import { SxProps } from "@mui/material";
+import React, { ReactNode } from 'react';
+
+import { SxProps } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 interface Props {
-  placeholder: string;
+  placeholder?: string;
   icon?: ReactNode;
   title?: string;
   value: string;
   setValue: (value: string) => void;
   style?: SxProps;
   multiline?: boolean;
+  type?: 'text' | 'number';
 }
 
 export default function InputField({
@@ -25,64 +27,98 @@ export default function InputField({
   setValue,
   style,
   multiline = false,
+  type = 'text',
 }: Props) {
+
+
   const formatNumber = (val: string) => {
-    if (!val) return "";
+    if (!val) return '';
 
-    const safeVal = String(val);
+    if (val === '.' || val.endsWith('.')) return val;
 
-    const num = Number(safeVal.replace(/,/g, ""));
-    if (isNaN(num)) return safeVal;
+    const num = Number(val);
 
-    return num.toLocaleString();
+    if (isNaN(num)) return '';
+
+    if (num > 0 && num < 0.001) return '0';
+
+    const rounded = Math.round(num * 1000) / 1000;
+
+    const [intPart, decPart] = rounded.toString().split('.');
+
+    const formattedInt = Number(intPart).toLocaleString('en-US');
+
+    return decPart
+      ? `${formattedInt}.${decPart}`
+      : formattedInt;
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/,/g, "");
-    setValue(raw);
+    let val = e.target.value;
+
+    if (type === 'number') {
+      val = val.replace(/[^0-9.]/g, '');
+
+      const parts = val.split('.');
+      if (parts.length > 2) {
+        val = parts[0] + '.' + parts.slice(1).join('');
+      }
+
+      const [int, dec] = val.split('.');
+      if (dec && dec.length > 3) {
+        val = `${int}.${dec.slice(0, 3)}`;
+      }
+    }
+
+    setValue(val);
   };
 
   return (
     <TextField
       placeholder={placeholder}
-      value={formatNumber(value)}
+      value={type === 'number' ? formatNumber(value) : value}
       onChange={handleChange}
       multiline={multiline}
       minRows={multiline ? 2 : undefined}
+      fullWidth
+      inputProps={{
+        inputMode: type === 'number' ? 'decimal' : 'text',
+      }}
       sx={{
-        direction: "ltr",
-        "& .MuiInputBase-input": {
+        direction: 'ltr',
+
+        '& .MuiInputBase-root': {
+          borderRadius: '14px',
+        },
+
+        '& .MuiInputBase-input': {
           py: 0,
-          minHeight: "56px",
-          textAlign: value ? "right" : "left",
-          fontSize: "16px",
+          minHeight: '56px',
+          fontSize: '16px',
+          textAlign: value ? 'right' : 'left',
         },
-        "& .MuiOutlinedInput-root": {
-          borderRadius: 2,
-        },
+
         ...style,
       }}
       slotProps={{
         input: {
-          startAdornment: icon && (
-            <InputAdornment position="start">{icon}</InputAdornment>
-          ),
-          endAdornment: title && (
+          startAdornment: icon ? (
+            <InputAdornment position="start">
+              {icon}
+            </InputAdornment>
+          ) : undefined,
+
+          endAdornment: title ? (
             <InputAdornment position="end">
-              <Divider
-                orientation="vertical"
-                flexItem
-                sx={{
-                  mr: 1,
-                  border: "1px solid #DBDEDF",
-                }}
-              />
-              <Typography variant="h6" sx={{ fontSize: 16 }}>
+              <Divider orientation="vertical" flexItem sx={{ mr: 1 ,border: "1px solid #DBDEDF",}} />
+              <Typography sx={{ fontSize: 16, color: 'text.primary' }}>
                 {title}
               </Typography>
             </InputAdornment>
-          ),
+          ) : undefined,
         },
       }}
     />
   );
 }
+ 

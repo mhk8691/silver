@@ -12,7 +12,6 @@ import {
   SvgIcon,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
 import * as React from "react";
 import AddCard from "../bank-card/AddCard";
 import { BankCardDataType } from "@/app/core/Types";
@@ -53,7 +52,7 @@ export default function BankCards({
   const [open, setOpen] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
   const selectedItem = bankCardsData.find((item) => item.id === selectedCard);
-  const [cardValue, setCardValue] = React.useState("");
+  const [cardValue, setCardValue] = React.useState('');
   const handleSelect = (id: number) => {
     setSelectedCard(id);
     setOpen(false);

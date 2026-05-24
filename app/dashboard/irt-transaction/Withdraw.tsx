@@ -1,29 +1,47 @@
-"use client";
-import Card from "@/app/Components/Containers/Container/Container";
-import FilterToggleButton from "@/app/Components/FilterToggleButton/FilterToggleButton";
-import InputField from "@/app/Components/InputField/InputField";
-import { BankCardDataType, ToggleItemsType } from "@/app/core/Types";
-import { Button, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
-import BankCard from "./BankCard";
-import { silverWidthdraw } from "@/lib/withdraw/withdraw";
-import { getBankCard } from "@/lib/getbankCard/bankCard";
+'use client';
+import Card from '@/app/Components/Containers/Container/Container';
+import FilterToggleButton from '@/app/Components/FilterToggleButton/FilterToggleButton';
+import InputField from '@/app/Components/InputField/InputField';
+import { BankCardDataType, ToggleItemsType } from '@/app/core/Types';
+import { Button, Stack } from '@mui/material';
+import { useEffect, useState } from 'react';
+import BankCard from './BankCard';
+import { getBankCard } from '@/lib/getbankCard/bankCard';
+import { isAxiosError } from 'axios';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import { goldWidthdraw } from '@/lib/transactions/withdraw/withdraw';
+import { useAssets } from '../AssetsProvider';
+import Loading from '@/app/Components/Loading/Loading';
 
 const items: ToggleItemsType[] = [
-  { title: "به حساب بانکی", value: "bank", id: 1 },
-  { title: "به نقره سی", value: "silver", id: 2 },
+  { title: 'به حساب بانکی', value: 'bank', id: 1 },
+  { title: 'به نقره سی', value: 'silver', id: 2 },
 ];
 export default function Withdraw() {
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState('');
   const [select, setSelect] = useState(items[0].value);
-  const [selectedCard, setSelectedCard] = useState<number>(2);
   const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
+  const [selectedCard, setSelectedCard] = useState<number>(1);
+  const {refetch,assets } = useAssets()
+  const [isLoading,setIsLoading] = useState(false)
   const handleWithdraw = async () => {
-    const response = await silverWidthdraw(
+ try{
+  setIsLoading(true)
+     const response = await goldWidthdraw(
       price,
-      select === "silver" ? "TALAYINEH" : "BANK_ACCOUNT",
-      select !== "silver" ? selectedCard : undefined,
+      select === 'silver' ? 'SILVER' : 'BANK',
+      selectedCard?selectedCard:undefined,
     );
+    showSnackbar(response.message,true)
+    setPrice('')
+    refetch()
+ }catch(error:unknown){
+  if (isAxiosError(error)){
+    showSnackbar(error.response?.data.message)
+  }
+ }finally{
+  setIsLoading(false)
+ }
   };
 
   useEffect(() => {
@@ -34,7 +52,7 @@ export default function Withdraw() {
     getData();
   }, []);
   return (
-    <Card style={{ gap: 3.5, p: 0, border: "none" }}>
+    <Card style={{ gap: 3.5, p: 0, border: 'none' }}>
       <FilterToggleButton
         items={items}
         select={select}
@@ -47,31 +65,27 @@ export default function Withdraw() {
         }}
       />
       <Stack gap={3.5}>
-        <Stack direction={"column"} gap={3}>
-          <InputField
-            placeholder={"ملبغ"}
-            title={"تومان"}
-            value={price}
-            setValue={setPrice}
-          />
+        <Stack direction={'column'} gap={3}>
+          <InputField type='number' placeholder={'ملبغ'} title={'تومان'} value={price} setValue={setPrice} />
           <Button
             variant="contained"
             sx={{
-              bgcolor: "primary.light",
+             bgcolor: "primary.light",
               color: "#535657",
               borderRadius: 1.5,
               px: 1,
-              width: "fit-content",
+              width: 'fit-content',
               fontSize: {
                 xs: 12,
                 sm: 14,
               },
             }}
+          onClick={()=>setPrice(assets?.toman_balance+'')}
           >
             انتخاب کل موجودی
           </Button>
         </Stack>
-        {select !== "silver" && (
+        {select !== 'silver' && (
           <BankCard
             bankCardsData={bankCardsData}
             setBankCardsData={setBankCardsData}
@@ -89,12 +103,15 @@ export default function Withdraw() {
             xs: 14,
             sm: 16,
           },
-          py: 1.4,
+          height:60
         }}
         onClick={handleWithdraw}
+        disabled={isLoading}
       >
-        برداشت
+        {isLoading ? <Loading size={30}/>:'برداشت'}
       </Button>
     </Card>
   );
 }
+
+

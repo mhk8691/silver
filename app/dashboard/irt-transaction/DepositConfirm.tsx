@@ -1,7 +1,9 @@
 import Container from "@/app/Components/Containers/Container/Container";
 import CustomModal from "@/app/Components/CustomModal/CustomModal";
+import Loading from "@/app/Components/Loading/Loading";
+import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { DepositDataType } from "@/app/core/Types";
-import { getSilverDeposit } from "@/lib/deposit/deposit";
+import { getGoldDeposit } from "@/lib/transactions/deposit/deposit";
 import { Close } from "@mui/icons-material";
 import {
   Checkbox,
@@ -11,6 +13,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import { isAxiosError } from "axios";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 interface Props {
@@ -24,16 +27,25 @@ export default function DepositConfirm({
   setDepositData,
 }: Props) {
   const [checked, setChecked] = useState(false);
-
+  const [isLoading,setIsLoading] = useState(false)
   const handleChangeBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
   const handleClick = async () => {
-    const response = await getSilverDeposit();
-    if (response?.status === 200){
-        setDepositData(response.data || ({} as DepositDataType));
-    }
+   try{
+    setIsLoading(true)
+     const response = await getGoldDeposit();
+      setDepositData(response.data || ({} as DepositDataType));
+      showSnackbar(response.message,true)
     setOpen(false)
+   }
+    catch (error: unknown) {
+    if (isAxiosError(error)) {
+      showSnackbar(error.response?.data.detail);
+    }
+  }finally{
+setIsLoading(false)
+    }
   };
   return (
     <CustomModal
@@ -55,7 +67,7 @@ export default function DepositConfirm({
           onClick={() => {
             setOpen(false);
           }}
-          disableRipple
+           
         >
           <Close />
         </IconButton>
@@ -66,8 +78,8 @@ export default function DepositConfirm({
           py: 1,
           mb: 2,
           mt: 2,
-          border: "none",
-          bgcolor: "#ffffe8",
+          
+          borderColor:'background.paper'
         }}
       >
         <Typography variant="body1" fontSize={14} lineHeight={"25px"}>
@@ -75,7 +87,7 @@ export default function DepositConfirm({
           خواهد شد.
         </Typography>
       </Container>
-      <Container style={{ px: 2, py: 1, border: "none", bgcolor: "#ffffe8" }}>
+      <Container style={{ px: 2, py: 1, borderColor:'background.paper'}}>
         <Typography variant="body1" fontSize={14} lineHeight={"25px"}>
           واریز فقط به صورت پایا به شماره شبا قابل انجام است. در صورت استفاده از
           روش های واریزی دیگر (کارت به کارت، پل، حساب به حساب و ....) وجه واریزی
@@ -95,7 +107,7 @@ export default function DepositConfirm({
             <Checkbox
               checked={checked}
               onChange={handleChangeBox}
-              disableRipple
+               
               sx={{
                 "&.Mui-checked": {
                   color: "primary.main",
@@ -112,10 +124,11 @@ export default function DepositConfirm({
         variant="contained"
         onClick={handleClick}
         color="primary"
-        disabled={!checked}
-        sx={{ width: "100%", py: 1.5, fontSize: 16, mt: 2 }}
+        disabled={!checked || isLoading}
+        sx={{ width: "100%", height:60, fontSize: 16, mt: 2 }}
+        
       >
-        تایید
+        {isLoading ? <Loading size={30} />:'تایید'}
       </Button>
     </CustomModal>
   );
