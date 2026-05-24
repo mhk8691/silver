@@ -1,6 +1,6 @@
 import Chart from "@/app/Components/Chart/Chart";
 import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import WalletStatus from "@/app/Components/Wallet/WalletStatus";
+import WalletStatus from "@/app/Components/Wallet/WalletHeader";
 import { ToggleItemsType } from "@/app/core/Types";
 import { Grid } from "@mui/material";
 import Trading from "./Trading/Trading";
@@ -36,7 +36,7 @@ export default function page() {
       <BackLink title="خرید و فروش" />
 
       <Grid size={12}>
-        <WalletStatus />
+        <WalletHeader />
       </Grid>
       <Grid size={12} container direction={"row"}>
         <Grid size={{ xs: 12, md: 4.8 }}>

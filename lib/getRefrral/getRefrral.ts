@@ -1,11 +1,11 @@
-import { RefrraDataType } from "@/app/core/Types";
-import api, { ApiResponse } from "../api";
-import { isAxiosError } from "axios";
-import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+import { RefrraDataType } from '@/app/core/Types';
+import api, { ApiResponse } from '../api';
+import { isAxiosError } from 'axios';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 
 export const getreferral = async () => {
   try {
-    const res = await api.get<ApiResponse<RefrraDataType>>("/silver/referral/dashboard/");
+    const res = await api.get<ApiResponse<RefrraDataType>>('/gold/referral-dashboard/');
     return res.data.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {

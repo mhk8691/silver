@@ -1,6 +1,6 @@
 'use client'
 import Container from "@/app/Components/Containers/Container/Container";
-import WalletStatus from "@/app/Components/Wallet/WalletStatus";
+import WalletStatus from "@/app/Components/Wallet/WalletHeader";
 import { Divider, Grid, Stack, Typography } from "@mui/material";
 import TitleProfile from "./TitleProfile";
 import ChangePassword from "./ChangePassword";
@@ -111,7 +111,7 @@ export default function Profile() {
         }}
         mt={2}
       >
-        <WalletStatus />
+        <WalletHeader />
       </Grid>
       <Stack
         border={1}

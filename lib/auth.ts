@@ -1,5 +1,4 @@
 import { RegisterFormType } from '@/app/login/register/RegisterForm';
-import { isAxiosError } from 'axios';
 import api, { ApiResponse } from './api';
 
 export type User = {
@@ -98,12 +97,6 @@ export const verifyForgetOtp = async (
   );
   return res;
 };
-
-
-// ======================
-// REGISTER
-// ======================
-
 export const register = async (
   data: RegisterFormType,
 ) => {
@@ -113,11 +106,6 @@ export const register = async (
 
   return response;
 };
-
-
-// ======================
-// LOGIN PASSWORD
-// ======================
 
 export const loginPassword = async (
   mobile: string,
@@ -136,11 +124,6 @@ export const loginPassword = async (
   return res;
 };
 
-
-// ======================
-// LOGIN OTP
-// ======================
-
 export const verifyLoginOtp = async (
   mobile: string,
   code: string,
@@ -156,25 +139,10 @@ export const verifyLoginOtp = async (
   return res;
 };
 
-
-// ======================
-// LOGOUT
-// ======================
-
 export const logout = async () => {
-  try {
-    await api.post('/auth/logout/');
-  } catch(error:unknown){
-    if (isAxiosError(error)){
-      console.log(error.response?.data.message)
-    }
-  }
+  const response = await api.post<{message:string}>('/accounts/logout/');
+  return response.data
 };
-
-
-// ======================
-// GET USER
-// ======================
 
 export const getMe = async (): Promise<User> => {
   const res = await api.get<ApiResponse<User>>('/accounts/profile/');

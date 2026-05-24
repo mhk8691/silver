@@ -1,6 +1,6 @@
 import Chart from "@/app/Components/Chart/Chart";
 import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import WalletStatus from "@/app/Components/Wallet/WalletStatus";
+import WalletStatus from "@/app/Components/Wallet/WalletHeader";
 import { Grid } from "@mui/material";
 import Trading from "./Trading";
 import { Metadata } from "next";
@@ -22,7 +22,7 @@ export default function page() {
       <BackLink title="سفارش با قیمت" />
 
       <Grid size={12}>
-        <WalletStatus />
+        <WalletHeader />
       </Grid>
       <Grid
         size={{

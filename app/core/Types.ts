@@ -57,12 +57,11 @@ export interface AppbarItemsType {
 }
 
 export interface AssetsDataType {
-  total_assets_value: number;
-  gold_balance_gr: number;
-  wallet_balance_toman: number;
-  live_price: number;
+  silver_balance_gr: number;
+  current_gold_price: number;
+toman_balance	:number
+total_assets	:number
 }
-
 export interface LoginDtaType {
   refresh: string;
   access: string;

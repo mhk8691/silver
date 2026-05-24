@@ -1,6 +1,6 @@
 import Container from "@/app/Components/Containers/Container/Container";
 import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import WalletStatus from "@/app/Components/Wallet/WalletStatus";
+import WalletStatus from "@/app/Components/Wallet/WalletHeader";
 import { ToggleItemsType } from "@/app/core/Types";
 import { Grid } from "@mui/material";
 import { Metadata } from "next";
@@ -36,7 +36,7 @@ export default function page() {
       }}
     >
       <Grid size={12}>
-        <WalletStatus />
+        <WalletHeader />
       </Grid>
       <Container
         style={{

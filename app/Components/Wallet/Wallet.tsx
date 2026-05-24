@@ -4,15 +4,17 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import MobileWalletStatus from "./MobileWalletStatus";
+import MobileWalletHeader from "./MobileWalletHeader";
 import ToggleEyeButton from "./ToggleEyeButton";
 import Container from "../Containers/Container/Container";
+import { useAssets } from "@/app/dashboard/AssetsProvider";
+import priceFormater from "@/app/core/PriceFormater";
 interface Props {
   type: "dashboard" | "wallet";
 }
 export default function Wallet({ type }: Props) {
   const theme = useTheme();
-
+const {assets} = useAssets()
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
   const [visible, setVisible] = useState(false);
   return (
@@ -74,6 +76,7 @@ export default function Wallet({ type }: Props) {
               direction={"column"}
               gap={1}
               alignItems={type === "wallet" ? "start" : "center"}
+              ml={type === 'wallet' ? 0:5}
             >
               <Typography
                 variant="body2"
@@ -93,7 +96,7 @@ export default function Wallet({ type }: Props) {
                   fontSize={20}
                   sx={{ color: "text.title" }}
                 >
-                  {visible ? "۰" : "***"}
+                  {visible ? priceFormater(assets?.total_assets) || 0 : '***'}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -114,7 +117,7 @@ export default function Wallet({ type }: Props) {
               <ToggleEyeButton visible={visible} setVisible={setVisible} />
             </Stack>
           </Stack>
-          <MobileWalletStatus visible={visible} isDesktop={isDesktop} />
+          <MobileWalletHeader visible={visible} isDesktop={isDesktop} assets={assets} />
         </Stack>
         {type === "wallet" && (
           <Stack
