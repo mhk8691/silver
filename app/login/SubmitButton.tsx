@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
+import Loading from "../Components/Loading/Loading";
 interface Props {
   title: string;
   handleSubmit: () => Promise<void>;
+  isLoading:boolean
 }
-export default function SubmitButton({ title, handleSubmit }: Props) {
+export default function SubmitButton({ title, handleSubmit,isLoading }: Props) {
   return (
     <Button
       variant="contained"
@@ -20,8 +22,11 @@ export default function SubmitButton({ title, handleSubmit }: Props) {
       }}
       disableRipple
       onClick={handleSubmit}
+      disabled={isLoading}
     >
-      {title}
+      {
+        isLoading ? <Loading size={30} />:title
+      }
     </Button>
   );
 }
