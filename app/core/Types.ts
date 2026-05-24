@@ -178,7 +178,7 @@ export interface RefrraDataType {
   subscribers: [];
   message: string;
 }
-
+export type StatusType="COMPLETED" | 'FAILED' | 'PENDING'
 export interface PriceAlertsDataType {
   id: number;
   target_price: number;
@@ -186,4 +186,21 @@ export interface PriceAlertsDataType {
   alert_type_display: string;
   is_active: boolean;
   created_at: string;
+}
+
+export interface OrdersDataType{
+  "id": 1,      "tracking_code": string,      "status": StatusType,      "payment_method": string,      "delivery_type": string,      "total_toman_amount": number,      "created_at": string
+}
+
+export interface RecentTransactionDataType{
+    "id": number,
+      "amount": number,
+      "type":'DEPOSIT'|'WITHDRAW',
+      "method": string,
+      "status":  StatusType,
+      "tracking_code": string,
+      "created_at": string,
+}
+export interface TradeTableDataType {
+    "id": number,      "type": "BUY" | 'SELL',      "status": StatusType,      "amount_gr": number,      "price_per_gram": number,      "fee": number,      "total_amount": number,      "tracking_code": string,      "created_at": string
 }
