@@ -1,11 +1,11 @@
 import Chart from "@/app/Components/Chart/Chart";
-import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import WalletStatus from "@/app/Components/Wallet/WalletHeader";
 import { ToggleItemsType } from "@/app/core/Types";
 import { Grid } from "@mui/material";
 import Trading from "./Trading/Trading";
 import { Metadata } from "next";
 import BackLink from "../BackLink";
+import WalletHeader from "@/app/Components/Wallet/WalletHeader";
+import TradesTableContainer from "./TradesTableContainer";
 export const metadata: Metadata = {
   title: "خرید و فروش طلا | دارینه",
   description: "",
@@ -61,14 +61,7 @@ export default function page() {
         </Grid>
       </Grid>
       <Grid size={12}>
-        <DetailTable
-          title="لیست معاملات اخیر"
-          toggleItems={items}
-          type="chip"
-          listLength={0}
-          tableBody={<></>}
-          tableHead={[]}
-        />
+       <TradesTableContainer/>
       </Grid>
     </Grid>
   );

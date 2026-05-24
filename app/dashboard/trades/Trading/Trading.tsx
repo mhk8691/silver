@@ -4,8 +4,6 @@ import FilterToggleButton from "@/app/Components/FilterToggleButton/FilterToggle
 import InputField from "@/app/Components/InputField/InputField";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { ToggleItemsType } from "@/app/core/Types";
-import { silverBuy } from "@/lib/silver/silverBuy";
-import { silverSell } from "@/lib/silver/silverSell";
 import {
   Button,
   Stack,
@@ -15,59 +13,79 @@ import {
 } from "@mui/material";
 import { isAxiosError } from "axios";
 import { useState } from "react";
+import { useAssets } from "../../AssetsProvider";
+import { silverSell } from "@/lib/silver/silverSell";
+import { silverBuy } from "@/lib/silver/silverBuy";
+import Loading from "@/app/Components/Loading/Loading";
 
 const items: ToggleItemsType[] = [
   { title: "خرید", value: "buy", id: 1 },
   { title: "فروش", value: "sell", id: 2 },
 ];
 export default function Trading() {
-  const [price, setPrice] = useState("");
-  const [silver, setSilver] = useState("");
+   const [price, setPrice] = useState('');
+  const [silver, setSilver] = useState('');
   const [select, setSelect] = useState(items[0].value);
   const [open, setOpen] = useState(false);
+  const [isLoading,setIsLoading] = useState(false)
+  // const [buyInfo, setBuyInfo] = useState<BuySilverDataType>({} as BuySilverDataType);
+  const {assets,refetch} = useAssets()
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
-
-  const handlePriceChange = (val: string) => {
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  
+  const handlePriceChange =  async (val: string) => {
     setPrice(val);
-
     const num = Number(val);
     if (!isNaN(num)) {
-      setSilver(String(num / 17999000));
+      setSilver(String(num / assets?.current_silver_price));
     } else {
-      setSilver("");
+      setSilver('');
     }
   };
 
-  const handleSilverChange = (val: string) => {
+  const handleSilverChange =async (val: string) => {
     setSilver(val);
-
     const num = Number(val);
     if (!isNaN(num)) {
-      setPrice(String(num * 17999000));
+      setPrice(String(num * assets?.current_silver_price));
     } else {
-      setPrice("");
+      setPrice('');
     }
   };
+
   const handleBuySilver = async () => {
+    const methood = assets?.toman_balance > 0 ? 'WALLET':'GATEWAY'
     try {
-      const response = await silverBuy(price);
-      setOpen(true);
+      setIsLoading(true)
+      const response = await silverBuy(price,methood,silver);
+      showSnackbar(response.data.message,true)
+      setSilver('')
+      setPrice('')
+      refetch()
       // setBuyInfo(response.data.details)
     } catch (error: unknown) {
       if (isAxiosError(error)) {
         showSnackbar(error.response?.data.message);
       }
+    }finally{
+      setIsLoading(false)
     }
   };
   const handleSellSilver = async () => {
     try {
+      setIsLoading(true)
       const response = await silverSell(silver);
+      showSnackbar(response.data.message,true)
       setOpen(true);
+           setSilver('')
+      setPrice('')
+      refetch()
     } catch (error: unknown) {
       if (isAxiosError(error)) {
         showSnackbar(error.response?.data.message);
       }
+    }finally{
+      setIsLoading(false)
     }
   };
   return (
@@ -120,24 +138,15 @@ export default function Trading() {
           />
         </Stack>
       </Stack>
-      <Button
-        variant="contained"
-        color="primary"
-        disableRipple
-        onClick={() =>
-          select === "buy" ? handleBuySilver() : handleSellSilver()
-        }
-        sx={{
-          borderRadius: 2,
-          fontSize: 16,
-          py: 1.4,
-          "&:hover": {
-            bgcolor: "primary.main",
-          },
-        }}
-      >
-        {select === "buy" ? "خرید" : "فروش"}
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => (select === 'buy' ? handleBuySilver() : handleSellSilver())}
+          sx={{ borderRadius: 2, fontSize: 16, height:60 }}
+          disabled={isLoading}
+        >
+          {isLoading ? <Loading size={30}/>:select === 'buy' ? 'خرید' : 'فروش'}
+        </Button>
     </Card>
   );
 }

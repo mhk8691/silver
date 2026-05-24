@@ -58,7 +58,7 @@ export interface AppbarItemsType {
 
 export interface AssetsDataType {
   silver_balance_gr: number;
-  current_gold_price: number;
+  current_silver_price: number;
 toman_balance	:number
 total_assets	:number
 }

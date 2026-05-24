@@ -1,10 +1,6 @@
-import { CSSProperties, Stack } from "@mui/material";
-import { DotLoader } from "react-spinners";
-const override: CSSProperties = {
-  display: "block",
-  margin: "0 auto",
-  borderColor: "red",
-};
+import {  Stack } from "@mui/material";
+import Loading from "./Components/Loading/Loading";
+
 export default function loading() {
   return (
     <Stack
@@ -14,14 +10,7 @@ export default function loading() {
       justifyContent={"center"}
     >
       <Stack zIndex={10}>
-        <DotLoader
-          color={"#6DA9E1"}
-          loading={true}
-          cssOverride={override}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
+       <Loading size={50}/>
       </Stack>
     </Stack>
   );

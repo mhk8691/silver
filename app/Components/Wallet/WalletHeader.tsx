@@ -150,7 +150,7 @@ export default function WalletHeader() {
                     sx={{ color: "text.title" }}
                     fontWeight={500}
                   >
-                    {priceFormater(assets?.current_gold_price)}
+                    {priceFormater(assets?.current_silver_price)}
                   </Typography>
                   <Typography
                     variant="body1"
