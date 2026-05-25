@@ -3,7 +3,7 @@ import CustomModal from "@/app/Components/CustomModal/CustomModal";
 import Loading from "@/app/Components/Loading/Loading";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { DepositDataType } from "@/app/core/Types";
-import { getGoldDeposit } from "@/lib/transactions/deposit/deposit";
+import { getSilverDeposit } from "@/lib/transactions/deposit/deposit";
 import { Close } from "@mui/icons-material";
 import {
   Checkbox,
@@ -34,7 +34,7 @@ export default function DepositConfirm({
   const handleClick = async () => {
    try{
     setIsLoading(true)
-     const response = await getGoldDeposit();
+     const response = await getSilverDeposit();
       setDepositData(response.data || ({} as DepositDataType));
       showSnackbar(response.message,true)
     setOpen(false)

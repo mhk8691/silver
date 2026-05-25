@@ -9,9 +9,9 @@ import BankCard from './BankCard';
 import { getBankCard } from '@/lib/getbankCard/bankCard';
 import { isAxiosError } from 'axios';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
-import { goldWidthdraw } from '@/lib/transactions/withdraw/withdraw';
 import { useAssets } from '../AssetsProvider';
 import Loading from '@/app/Components/Loading/Loading';
+import { silverWithdraw } from '@/lib/transactions/withdraw/withdraw';
 
 const items: ToggleItemsType[] = [
   { title: 'به حساب بانکی', value: 'bank', id: 1 },
@@ -27,7 +27,7 @@ export default function Withdraw() {
   const handleWithdraw = async () => {
  try{
   setIsLoading(true)
-     const response = await goldWidthdraw(
+     const response = await silverWithdraw(
       price,
       select === 'silver' ? 'SILVER' : 'BANK',
       selectedCard?selectedCard:undefined,

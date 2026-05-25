@@ -12,7 +12,7 @@ import DepositConfirm from './DepositConfirm';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 import { isAxiosError } from 'axios';
 import { Upload } from '@mui/icons-material';
-import { goldDeposit } from '@/lib/transactions/deposit/deposit';
+import {  silverDeposit } from '@/lib/transactions/deposit/deposit';
 import { useAssets } from '../AssetsProvider';
 import Loading from '@/app/Components/Loading/Loading';
 
@@ -53,7 +53,7 @@ export default function Deposit() {
       }
     try{
       setIsLoading(true)
-      const response =await goldDeposit(formData)
+      const response =await silverDeposit(formData)
         showSnackbar(response?.message,true)
       refetch()
         setPrice('')
