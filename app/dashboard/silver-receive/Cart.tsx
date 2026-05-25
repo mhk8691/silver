@@ -11,11 +11,22 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
+import { useAssets } from "../AssetsProvider";
+import { useEffect, useState } from "react";
+import priceFormater from "@/app/core/PriceFormater";
 
 export default function Cart() {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up("md"));
   const router = useRouter();
+  const [visible, setVisible] = useState(false);
+ useEffect(() => {
+    const stored = localStorage.getItem("eyeState");
+    if (stored !== null) {
+      setVisible(stored === "true");
+    }
+  }, []);
+  const {assets} = useAssets()
   return (
     <>
       {isMd && (
@@ -76,7 +87,7 @@ export default function Cart() {
                   موجودی نقره شما
                 </Typography>
                 <Typography variant="body1" fontSize={18}>
-                  ***
+                  {visible ? priceFormater(assets.silver_balance_gr) || 0 :'***'}
                 </Typography>
               </Stack>
               <Stack
@@ -92,7 +103,7 @@ export default function Cart() {
                   موجودی تومان شما
                 </Typography>
                 <Typography variant="body1" fontSize={18}>
-                  ***
+                  {visible ? priceFormater(assets.toman_balance)||0:'***'}
                 </Typography>
               </Stack>
               <Stack

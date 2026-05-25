@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   CardContent,
+  CardMedia,
   IconButton,
   Stack,
   Typography,
@@ -21,6 +22,7 @@ import { showSnackbar } from "../Snackbar/Snackbar";
 import { isAxiosError } from "axios";
 import { addToCart } from "@/lib/cart/cart";
 import Counter from "@/app/silver-shop-basket/Counter";
+import Link from "next/link";
 
 
 export default function ProductCard({ item }: { item: ProductDateType }) {
@@ -52,16 +54,19 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
         }}
       >
         <Stack px={1.5}>
-          <Image
-            width={100}
-            height={100}
-            style={{
-              height: "100%",
-              width: "100%",
-            }}
-            src="/images/product.webp"
-            alt="green iguana"
-          />
+           <Link href={'/gold-shop/test/'}>
+              <CardMedia
+                sx={{
+                  height: {
+                    xs: 150,
+                    sm: 180,
+                  },
+                  width: '100%',
+                }}
+                image="/images/product.webp"
+                title="green iguana"
+              />
+            </Link>
         </Stack>
         <CardContent
           sx={{
@@ -78,17 +83,19 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
               sm: "center",
             }}
           >
-            <Typography
-              gutterBottom
-              variant="h5"
-              fontSize={{
-                xs: 14,
-                sm: 18,
-              }}
-              sx={{ px: 0.5 }}
-            >
-              {item.name}
-            </Typography>
+             <Link href={`/gold-shop/${item.id}`}>
+              <Typography
+                gutterBottom
+                variant="h5"
+                fontSize={{
+                  xs: 14,
+                  sm: 18,
+                }}
+                sx={{ px: 0.5 }}
+              >
+                {item.name}
+              </Typography>
+            </Link>
           </Stack>
           <Stack direction={"column"} gap={1} sx={{ mt: 3.5 }}>
             <Stack
@@ -129,7 +136,7 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
                 sx={{ alignSelf: "flex-end" }}
               >
                 
-               (معادل {item.category.split('_')[0]} عیار)
+               
                 <Box
                   component={"span"}
                   fontSize={{
@@ -138,7 +145,7 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
                   }}
                 >
                   
-                  گرم
+                  {priceFormater(+item.weight)} گرم 
                 </Box>
               </Typography>
             </Stack>
@@ -180,7 +187,7 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
                 sx={{ alignSelf: "flex-end" }}
               >
                 
-                {priceFormater(19330693)}
+                {priceFormater(+item.price)}{' '}
                 <Box
                   component={"span"}
                   fontSize={{
@@ -195,7 +202,7 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
             </Stack>
           </Stack>
         </CardContent>
-        {!1 ? (
+        {1 ? (
           <Stack px={1}>
             <Button
               variant="outlined"
@@ -213,6 +220,7 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
                 setOpen(true);
               }}
               disableRipple
+              disabled
             >
               افزودن به سبد خرید
             </Button>
