@@ -29,7 +29,7 @@ export default function CardContainer() {
         container
       >
         {
-          bankCardData ? <BankCard
+          bankCardData.length >0 ? <BankCard
           bankCardData={bankCardData}
           setBankCardData={setBankCardData}
         />:<EmptyData emptyMessage="کارت بانکی وجود ندارد" />
