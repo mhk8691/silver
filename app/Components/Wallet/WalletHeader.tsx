@@ -127,14 +127,14 @@ export default function WalletHeader() {
                 py: "27px",
               }}
             >
-              <Stack
+              {/* <Stack
                 display={{
                   xs: "none",
                   md: "flex",
                 }}
               >
                 <CircleAnimation type="red" />
-              </Stack>
+              </Stack> */}
               <Stack direction={"column"} gap={0.5} justifyContent={"center"}>
                 <Typography
                   variant="body1"

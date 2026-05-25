@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { getRecentTransaction } from "@/lib/transactions/recent-transactions/recentTransactions";
 import { isAxiosError } from "axios";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+import { useAssets } from "../AssetsProvider";
 // export const metadata: Metadata = {
 //   title: "کیف پول | دارینه",
 //   description: "",
@@ -63,6 +64,7 @@ export default function page() {
       }
       getData()
   },[])
+  const{assets} = useAssets()
   return (
     <Grid
       container
@@ -112,7 +114,6 @@ export default function page() {
           }}
         >
           <Stack direction={"row"} gap={2} alignItems={"center"}>
-            <CircleAnimation type="red" />
             <Typography variant="body2" sx={{ color: "#535657" }}>
               قیمت فعلی نقره عیار ۹۹۹:
             </Typography>
@@ -124,7 +125,7 @@ export default function page() {
               sx={{ color: "text.title" }}
               fontWeight={500}
             >
-              {priceFormater(17329000)}
+              {priceFormater(assets.current_silver_price)}
             </Typography>
             <Typography
               variant="body1"
