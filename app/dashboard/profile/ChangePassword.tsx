@@ -75,7 +75,6 @@ export default function ChangePassword() {
           py: 0.5,
           px: 2,
           borderRadius: '7px',
-          color: 'black',
           width: 'fit-content',
           mt: 5,
         }}

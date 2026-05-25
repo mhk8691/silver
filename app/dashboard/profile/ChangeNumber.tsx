@@ -2,12 +2,12 @@
 import Loading from '@/app/Components/Loading/Loading';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 import Field from '@/app/login/Field';
-import { changeNumberConfirm, changeNumberRequest } from '@/lib/auth';
+import { changeNumberConfirm, changeNumberRequest, getMe, User } from '@/lib/auth';
 import { Button, Stack } from '@mui/material';
 import { isAxiosError } from 'axios';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-export default function ChangeNumber() {
+export default function ChangeNumber({setUser}:{setUser:Dispatch<SetStateAction<User | null>>}) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otpCode, setOtpCode] = useState('');
   const [step, setStep] = useState(0);
@@ -31,6 +31,8 @@ export default function ChangeNumber() {
         setIsLoading(true)
         const response = await changeNumberConfirm(phoneNumber, otpCode);
         showSnackbar(response.data.message, true);
+        const user = await getMe()
+        setUser(user)
         setStep(0);
         setOtpCode('');
         setPhoneNumber('');
