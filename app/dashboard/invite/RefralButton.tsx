@@ -11,7 +11,7 @@ export default function RefralButton({
 }) {
   const handleClick = async () => {
     try {
-      await navigator.clipboard.writeText(referralData.referral_code);
+      await navigator.clipboard.writeText(referralData.referral_link);
       showSnackbar("کپی شد", true);
     } catch (err) {
       console.error("failed to copy", err);

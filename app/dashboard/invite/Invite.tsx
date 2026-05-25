@@ -117,7 +117,7 @@ export default function Invite() {
                 }}
                 sx={{ color: "text.title" }}
               >
-                {referralData?.total_invited ||0} نفر
+                {priceFormater(referralData?.total_invited) ||0} نفر
               </Typography>
             </Stack>
             <Divider sx={{ my: 1.5, borderColor: " #C9CDCF" }} />
