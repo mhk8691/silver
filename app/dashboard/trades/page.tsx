@@ -7,7 +7,7 @@ import BackLink from "../BackLink";
 import WalletHeader from "@/app/Components/Wallet/WalletHeader";
 import TradesTableContainer from "./TradesTableContainer";
 export const metadata: Metadata = {
-  title: "خرید و فروش طلا | دارینه",
+  title: "خرید و فروش طلا | نقرینه",
   description: "",
 };
 const items: ToggleItemsType[] = [

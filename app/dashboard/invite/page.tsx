@@ -5,14 +5,14 @@ import BackLink from "../BackLink";
 import Invite from "./Invite";
 
 export const metadata: Metadata = {
-  title: "دعوت از دوستان | دارینه",
+  title: "نقره فروش شو | نقرینه",
   description: "",
 };
 export default function page() {
 
   return (
     <Grid container spacing={3}>
-      <BackLink title="دعوت از دوستان" />
+      <BackLink title="نقره فروش شو" />
 
       <Grid
         size={12}
@@ -51,7 +51,7 @@ export default function page() {
               sm: 22,
             }}
           >
-            دعوت از دوستان
+            نقره فروش شو
           </Typography>
         </Grid>
             <Invite/>

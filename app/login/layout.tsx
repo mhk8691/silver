@@ -148,14 +148,14 @@ export default function layout({ children }: Props) {
                 sx={{ color: "#10100F" }}
                 fontWeight={600}
               >
-                دارینه پلتفرم خرید و فروش نقره بدون اجرت
+                نقرینه پلتفرم خرید و فروش نقره بدون اجرت
               </Typography>
               <Typography
                 variant="h6"
                 fontSize={16}
                 sx={{ color: "text.secondary" }}
               >
-                دارینه بستر آنلاین خرید و فروش نقره
+                نقرینه بستر آنلاین خرید و فروش نقره
               </Typography>
             </Stack>
           </Stack>

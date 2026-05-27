@@ -404,7 +404,7 @@ export default function Calculator() {
             width={"100%"}
             textAlign={"center"}
           >
-            خرید نقره از دارینه
+            خرید نقره از نقرینه
           </Typography>
         </Stack>
         <Stack

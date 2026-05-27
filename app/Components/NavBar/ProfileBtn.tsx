@@ -123,7 +123,7 @@ const options = [
     ),
   },
   {
-    title: "دعوت از دوستان",
+    title: "نقره فروش شو",
     link: "/dashboard/invite",
     icon: (
       <SvgIcon>

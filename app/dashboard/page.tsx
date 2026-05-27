@@ -4,7 +4,7 @@ import Chart from "../Components/Chart/Chart";
 import Wallet from "../Components/Wallet/Wallet";
 import Dashboard from "./Dashboard";
 export const metadata: Metadata = {
-  title: "داشبورد | دارینه",
+  title: "داشبورد | نقرینه",
   description: "",
 };
 export default function page() {

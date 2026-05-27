@@ -17,7 +17,7 @@ const depositItems: ToggleItemsType[] = [
     emptyMessage: 'واریز باشناسه ای برای شما به ثبت نرسیده است',
   },
   {
-    title: 'واریز از نقره سی',
+    title: 'واریز از نقرینه',
     value: 'silverDeposit',
     id: 3,
     emptyMessage: 'واریزی برای شما به ثبت نرسیده است',

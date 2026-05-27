@@ -41,7 +41,7 @@ const menu: MenuType[] = [
       },
     ],
   },
-  { id: 3, title: "مجوز های دارینه", link: "/license" },
+  { id: 3, title: "مجوز های نقرینه", link: "/license" },
 ];
 export default function Navbar() {
   const theme = useTheme();

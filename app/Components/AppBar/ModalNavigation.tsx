@@ -91,7 +91,7 @@ const items: ItemsType[] = [
         link: "/reports",
       },
       {
-        name: "دعوت از دوستان",
+        name: "نقره فروش شو",
         image: "/invite-active.svg",
         link: "/invite",
       },

@@ -15,7 +15,7 @@ import { silverWithdraw } from '@/lib/transactions/withdraw/withdraw';
 
 const items: ToggleItemsType[] = [
   { title: 'به حساب بانکی', value: 'bank', id: 1 },
-  { title: 'به نقره سی', value: 'silver', id: 2 },
+  { title: 'به نقرینه', value: 'silver', id: 2 },
 ];
 export default function Withdraw() {
   const [price, setPrice] = useState('');

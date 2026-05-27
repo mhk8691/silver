@@ -2,7 +2,7 @@ import { Container, Divider, Grid, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
 import Calculator from "./Calculator";
 export const metadata: Metadata = {
-  title: "محاسبه قیمت آنلاین | دارینه",
+  title: "محاسبه قیمت آنلاین | نقرینه",
   description: "",
 };
 

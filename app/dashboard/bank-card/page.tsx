@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import BackLink from "../BackLink";
 import CardContainer from "./CardContainer";
 export const metadata: Metadata = {
-  title: "کارت بانکی | دارینه",
+  title: "کارت بانکی | نقرینه",
   description: "",
 };
 export default function page() {

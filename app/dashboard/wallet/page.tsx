@@ -31,7 +31,7 @@ const items: ToggleItemsType[] = [
   },
 
   {
-    title: "واریز از طلاسی",
+    title: "واریز از دارینه",
     value: "silverDeposit",
     id: 2,
     emptyMessage: "واریزی برای شما به ثبت نرسیده است",
@@ -43,7 +43,7 @@ const items: ToggleItemsType[] = [
     emptyMessage: "برداشتی برای شما به ثبت نرسیده است",
   },
   {
-    title: "برداشت به طلاسی",
+    title: "برداشت به دارینه",
     value: "silverWithdraw",
     id: 4,
     emptyMessage: "برداشتی برای شما به ثبت نرسیده است",

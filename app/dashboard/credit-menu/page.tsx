@@ -2,7 +2,7 @@ import InfoContainer from "@/app/Components/Containers/InfoContainer/InfoContain
 import { ActionButtonType } from "@/app/core/Types";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "خرید اقساطی طلا | دارینه",
+  title: "خرید اقساطی طلا | نقرینه",
   description: "",
 };
 const items: ActionButtonType[] = [

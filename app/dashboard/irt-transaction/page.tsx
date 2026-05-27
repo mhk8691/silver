@@ -12,7 +12,7 @@ import { isAxiosError } from 'axios';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
 // export const metadata: Metadata = {
-//   title: 'تراکنش های تومان | دارینه',
+//   title: 'تراکنش های تومان | نقرینه',
 //   description: '',
 // };
 const items: ToggleItemsType[] = [
@@ -41,7 +41,7 @@ const items: ToggleItemsType[] = [
     emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',
   },
   {
-    title: 'برداشت به نقره سی',
+    title: 'برداشت به نقرینه',
     value: 'silverWithdraw',
     id: 5,
     emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',

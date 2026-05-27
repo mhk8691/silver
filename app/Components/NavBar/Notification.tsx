@@ -20,7 +20,7 @@ import MessageCard from "./MessageCard";
 
 const tabs = [
   { title: "اعلان های من", count: 5 },
-  { title: "اطلاعیه های دارینه" },
+  { title: "اطلاعیه های نقرینه" },
 ];
 
 const notifList: NotifItemsType[] = [

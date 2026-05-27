@@ -5,7 +5,7 @@ import Image from "next/image";
 import BackLink from "../BackLink";
 import Form from "./Form";
 export const metadata: Metadata = {
-  title: "دریافت کارت هدیه | دارینه",
+  title: "دریافت کارت هدیه | نقرینه",
   description: "",
 };
 export default function page() {

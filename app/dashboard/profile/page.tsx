@@ -11,7 +11,7 @@ import { isAxiosError } from "axios";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { getMe, User } from "@/lib/auth";
 // export const metadata: Metadata = {
-//   title: "پروفایل | دارینه",
+//   title: "پروفایل | نقرینه",
 //   description: "",
 // };
 export default function page() {
@@ -81,7 +81,7 @@ export default function page() {
             }}
             sx={{ color: "text.title" }}
           >
-            فعالسازی ربات تلگرام
+           عضویت در خانواده نقرینه
           </Typography>
           <Typography
             variant="h6"

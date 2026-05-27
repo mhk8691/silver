@@ -45,7 +45,7 @@ export default function ApplicationDownload() {
           py: 1.2,
         }}
       >
-        دانلود اپلیکیشن دارینه
+        دانلود اپلیکیشن نقرینه
       </Button>
     </Container>
   );

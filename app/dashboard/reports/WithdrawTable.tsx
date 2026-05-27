@@ -11,7 +11,7 @@ const withdrawItems: ToggleItemsType[] = [
     emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',
   },
   {
-    title: 'برداشت به نقره سی',
+    title: 'برداشت به نقرینه',
     value: 'silver',
     id: 2,
     emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',

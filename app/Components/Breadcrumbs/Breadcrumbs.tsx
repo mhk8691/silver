@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 const breadcrumbNameMap: Record<string, string> = {
   calculator: "محاسبه قیمت طلا",
   faq: "سوالات متداول",
-  rules: "قوانین دارینه",
+  rules: "قوانین نقرینه",
 };
 
 const exactHiddenRoutes = [

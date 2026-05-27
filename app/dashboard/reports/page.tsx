@@ -4,7 +4,7 @@ import { Grid, Typography } from '@mui/material';
 import { Metadata } from 'next';
 import ReportsContainer from './ReportsContainer';
 export const metadata: Metadata = {
-  title: 'گزارشات | دارینه',
+  title: 'گزارشات | نقرینه',
   description: '',
 };
 

@@ -3,7 +3,7 @@ import SilverUnderline from "@/app/Components/Containers/CreditContainer/SilverU
 import { Box, Grid, Typography } from "@mui/material";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "خرید اعتباری با دیجی پی | دارینه",
+  title: "خرید اعتباری با دیجی پی | نقرینه",
   description: "",
 };
 export default function page() {

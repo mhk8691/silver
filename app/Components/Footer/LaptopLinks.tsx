@@ -15,11 +15,11 @@ import React, { useState } from "react";
 const items = [
   {
     id: "1",
-    title: "درباره دارینه",
+    title: "درباره نقرینه",
     items: [
       { title: "درباره‌ ما", link: "about-us" },
       { title: "سوالات متداول", link: "faq" },
-      { title: "اپلیکیشن نقره", link: "application" },
+      { title: "اپلیکیشن نقرینه", link: "application" },
       { title: "قوانین و مقررات", link: "rules" },
     ],
   },

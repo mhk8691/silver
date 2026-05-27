@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import BackLink from "../BackLink";
 import WalletHeader from "@/app/Components/Wallet/WalletHeader";
 export const metadata: Metadata = {
-  title: "سفارش با قیمت | دارینه",
+  title: "سفارش با قیمت | نقرینه",
   description: "",
 };
 export default function page() {

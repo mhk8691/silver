@@ -21,15 +21,11 @@ const AppbarItems: AppbarItemsType[] = [
     link: "/limit-order",
   },
 
+
   {
-    name: "ثبت کارت هدیه",
-    image: "/images/appbar/giftCard-active.svg",
-    link: "/gift-card-submit",
-  },
-  {
-    name: "خرید اقساطی",
-    image: "/images/appbar/credit-active.svg",
-    link: "/credit-menu",
+    name: "نقره فروش شو",
+    image: "/images/appbar/invite-active.svg",
+    link: "/invite",
   },
   {
     name: "تحویل فیزیکی",

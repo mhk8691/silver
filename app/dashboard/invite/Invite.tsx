@@ -44,7 +44,7 @@ export default function Invite() {
               sm: 22,
             }}
           >
-            دعوت از دوستان
+            نقره فروش شو
           </Typography>
           <Typography
             variant="h6"
@@ -72,7 +72,7 @@ export default function Invite() {
             }}
             fontWeight={500}
           >
-            کد دعوت شما
+            کد نمایندگی شما
           </Typography>
           <RefralButton referralData={referralData} />
           <Container
@@ -130,7 +130,7 @@ export default function Invite() {
                 }}
                 sx={{ color: "#535657" }}
               >
-                مجموع دریافتی شما از دعوت دوستان:
+                مجموع دریافتی شما از نقره فروش شو:
               </Typography>
               <Typography
                 variant="h6"

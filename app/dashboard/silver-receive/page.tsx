@@ -7,7 +7,7 @@ import Cart from "./Cart";
 import Products from "./Products";
 import WalletHeader from "@/app/Components/Wallet/WalletHeader";
 export const metadata: Metadata = {
-  title: "دریافت نقره | دارینه",
+  title: "دریافت نقره | نقرینه",
   description: "",
 };
 
