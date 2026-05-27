@@ -1,5 +1,5 @@
 "use client";
-import { getMe, User } from "@/lib/auth";
+import { getMe, logout, User } from "@/lib/auth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import {
@@ -24,6 +24,7 @@ import { showSnackbar } from "../Snackbar/Snackbar";
 import { getAssets } from "@/lib/getAssets/getAssets";
 import { AssetsDataType } from "@/app/core/Types";
 import priceFormater from "@/app/core/PriceFormater";
+import { useRouter } from "next/navigation";
 const options = [
   {
     title: "پروفایل",
@@ -185,6 +186,7 @@ const options = [
 ];
 
 export default function ProfileBtn() {
+  const router = useRouter()
    const [user, setUser] = React.useState<User | null>(null);
   const [open, setOpen] = React.useState(false);
   const wrapperRef = React.useRef<HTMLDivElement | null>(null);
@@ -214,7 +216,17 @@ export default function ProfileBtn() {
 
     setOpen(false);
   };
-
+const handleLogout = async ()=>{
+    try{
+      const response = await logout()
+      showSnackbar(response.message,true)
+      router.push('/login/login-password')
+    }catch(error:unknown){
+      if (isAxiosError(error)){
+        showSnackbar(error.response?.data.message)
+      }
+    }
+  }
      const fetchUser = React.useCallback(async () => {
     try {
       const me = await getMe();
@@ -426,7 +438,7 @@ React.useEffect(()=>{
             <Button
               variant="outlined"
               color="error"
-              onClick={() => setOpen(false)}
+              onClick={handleLogout}
               sx={{ borderColor: "red", color: "red" }}
             >
               خروج
