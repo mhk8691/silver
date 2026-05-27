@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Field from '../Field';
 import SendCode from '../SendCode';
 import { verifySignupOtp } from '@/lib/auth';
@@ -7,6 +7,7 @@ import { isAxiosError } from 'axios';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 import { useRouter } from 'next/navigation';
 import SubmitButton from '../SubmitButton';
+import { autoCompleteCode } from '../autoCompleteCode';
 
 interface Props {
   phoneNumber: string;
@@ -16,6 +17,9 @@ export default function VerifySignupOtpForm({ phoneNumber }: Props) {
   const [verifyCode, setVerifyCode] = useState('');
   const router = useRouter();
    const [isLoading,setIsLoading] = useState(false)
+   useEffect(() => {
+    autoCompleteCode(setVerifyCode)
+     }, []);
   const handleVerifyOtp = async () => {
     try {
       setIsLoading(true)
