@@ -226,7 +226,7 @@ export default function ProductCard({ item,cart,setCart}: { item: ProductDateTyp
         <Stack direction={'row'} gap={2} mt={5}>
           <Button
             onClick={() => {
-              router.push('/gold-shop-basket');
+              router.push('/silver-shop-basket');
               setOpen(false);
             }}
             variant="contained"

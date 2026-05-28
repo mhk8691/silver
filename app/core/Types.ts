@@ -123,7 +123,7 @@ export interface ProductDateType {
   name: string;
   category?: string;
   weight: number;
-  price?:number;
+  price:number;
   image?: string;
 }
 

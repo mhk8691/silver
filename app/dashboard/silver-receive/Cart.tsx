@@ -92,7 +92,7 @@ export default function Cart({cart}:{cart:CartItem[]}) {
                     bgcolor: 'primary.main',
                   },
                 }}
-                onClick={() => router.push('/gold-shop-basket')}
+                onClick={() => router.push('/silver-shop-basket')}
                 startIcon={  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M8.75 8.9481V7.81643C8.75 5.19143 10.8617 2.6131 13.4867 2.3681C16.6133 2.06477 19.25 4.52643 19.25 7.59477V9.20477"

@@ -1,21 +1,22 @@
-import { Container, Divider, Stack, Typography } from "@mui/material";
-import { Metadata } from "next";
-import Cart from "./Cart";
+import { Container, Divider} from '@mui/material';
+import { Metadata } from 'next';
+import Cart from './Cart';
 export const metadata: Metadata = {
-  title: "خرید شمش طلا 18 و 24 عیار آنلاین و قیمت روز | نقرینه",
-  description: "",
+  title: 'خرید شمش طلا 18 و 24 عیار آنلاین و قیمت روز | دارینه',
+  description: '',
 };
 export default function page() {
   return (
     <>
+  
       <Container
-        maxWidth={"xl"}
+        maxWidth={'xl'}
         sx={{
           mt: 5,
           px: {
-            xs: "16px !important",
-            md: "24px !important",
-            lg: "40px !important",
+            xs: '16px !important',
+            md: '24px !important',
+            lg: '40px !important',
           },
         }}
       >
