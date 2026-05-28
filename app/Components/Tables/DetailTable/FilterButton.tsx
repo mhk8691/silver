@@ -1,29 +1,25 @@
-"use client";
-import { ToggleItemsType } from "@/app/core/Types";
-import { Button } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
+'use client';
+import { ToggleItemsType } from '@/app/core/Types';
+import { Button, useTheme } from '@mui/material';
+import { Dispatch, SetStateAction } from 'react';
 interface Props {
   item: ToggleItemsType;
-  active: number | null;
-  setActive: Dispatch<SetStateAction<number | null>>;
+  active: string;
+  setActive: Dispatch<SetStateAction<string>>;
   setMessage?: Dispatch<SetStateAction<string>>;
+  setParams?:React.Dispatch<React.SetStateAction<string>>
 }
-export default function FilterButton({
-  active,
-  setActive,
-  item,
-  setMessage,
-}: Props) {
-  console.log(setMessage);
+export default function FilterButton({ setParams,active, setActive, item, setMessage }: Props) {
   return (
     <Button
       variant="outlined"
       color="inherit"
-      disableRipple
+       
       onClick={() => {
-        setActive(item.id);
+        setActive(item.value);
+      setParams&&  setParams(item.value)
         if (setMessage) {
-          setMessage(item.emptyMessage || "");
+          setMessage(item.emptyMessage || '');
         }
       }}
       sx={{
@@ -32,11 +28,11 @@ export default function FilterButton({
           xs: 12,
           sm: 16,
         },
-        width: "fit-content",
-        borderRadius: "999px",
+        width: 'fit-content',
+        borderRadius: '999px',
         px: 2,
-        borderColor: active === item.id ? "primary.main" : "#DBDEDF",
-        bgcolor: active === item.id ? "primary.light" : "background.default",
+         borderColor: active === item.value ? "primary.main" : "#DBDEDF",
+        bgcolor: active === item.value ? "primary.light" : "background.default",
         color: "text.secondary",
       }}
     >

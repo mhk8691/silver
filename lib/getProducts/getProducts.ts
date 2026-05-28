@@ -1,6 +1,6 @@
 import { ProductDateType } from '@/app/core/Types';
 import api, { ApiResponse } from '@/lib/api';
-export const getProducts = async () => {
-    const response = await api.get<ApiResponse<ProductDateType[]>>('/silver/products/');
+export const getProducts = async (params:string) => {
+    const response = await api.get<ApiResponse<ProductDateType[]>>(`/silver/products/?type=${params}`);
     return response.data.data;
   }

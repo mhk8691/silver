@@ -1,32 +1,11 @@
-import Container from "@/app/Components/Containers/Container/Container";
-import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import { ToggleItemsType } from "@/app/core/Types";
-import { Grid } from "@mui/material";
-import { Metadata } from "next";
-import Cart from "./Cart";
-import Products from "./Products";
-import WalletHeader from "@/app/Components/Wallet/WalletHeader";
-export const metadata: Metadata = {
-  title: "دریافت نقره | نقرینه",
-  description: "",
-};
+import WalletHeader from '@/app/Components/Wallet/WalletHeader';
+import Products from './Products';
+import { Grid } from '@mui/material';
 
-const items: ToggleItemsType[] = [
-  {
-    title: "تحویل درب منزل",
-    value: "doorstepdelivery",
-    id: 1,
-    emptyMessage: "سفارشی برای شما به ثبت نرسیده است",
-  },
-  {
-    title: "تحویل حضوری",
-    value: "personDelivery",
-    id: 2,
-    emptyMessage: "سفارشی برای شما به ثبت نرسیده است",
-  },
-];
+
 
 export default function page() {
+
   return (
     <Grid
       container
@@ -38,50 +17,8 @@ export default function page() {
       <Grid size={12}>
         <WalletHeader />
       </Grid>
-      <Container
-        style={{
-          pb: 11,
-          width: "100%",
-          px: {
-            xs: 0,
-            sm: 4,
-          },
-          border: {
-            xs: 0,
-            sm: 1,
-          },
-          borderColor: {
-            sm: "background.paper",
-          },
-        }}
-      >
-        <Grid container spacing={1} size={12}>
-          <Grid
-            size={{
-              xs: 12,
-              md: 8,
-            }}
-            container
-            spacing={{
-              xs: 1,
-              md: 2,
-            }}
-          >
-           <Products/>
-          </Grid>
-          <Cart />
-        </Grid>
-      </Container>
-      <Grid size={12}>
-        <DetailTable
-          type="chip"
-          title="لیست تحویل‌های اخیر"
-          toggleItems={items}
-          listLength={0}
-          tableBody={<></>}
-          tableHead={[]}
-        />
-      </Grid>
+    <Products/>
+      
     </Grid>
   );
 }

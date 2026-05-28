@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import priceFormater from "@/app/core/PriceFormater";
+import priceFormater from '@/app/core/PriceFormater';
 import {
   Box,
   Button,
@@ -10,51 +10,37 @@ import {
   IconButton,
   Stack,
   Typography,
-} from "@mui/material";
-import { useState } from "react";
+} from '@mui/material';
+import Link from 'next/link';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-import {  ProductDateType } from "@/app/core/Types";
-import { Close } from "@mui/icons-material";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import CustomModal from "../CustomModal/CustomModal";
-import { showSnackbar } from "../Snackbar/Snackbar";
-import { isAxiosError } from "axios";
-import { addToCart } from "@/lib/cart/cart";
-import Counter from "@/app/silver-shop-basket/Counter";
-import Link from "next/link";
+import {  CartItem, ProductDateType } from '@/app/core/Types';
+import { Close } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
+import CustomModal from '../CustomModal/CustomModal';
+import { addToCart } from '@/lib/cart/cart';
+import Counter from '@/app/silver-shop-basket/Counter';
 
 
-export default function ProductCard({ item }: { item: ProductDateType }) {
-    const [count, setCount] = useState(1);
+export default function ProductCard({ item,cart,setCart}: { item: ProductDateType,cart:CartItem[],setCart:Dispatch<SetStateAction<CartItem[]>>}) {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-    const handleAddToCart = async (id:number) => {
-   try{
-     const response = await addToCart(id)
-     showSnackbar(response.message,true)
-   }catch(error:unknown){
-    if (isAxiosError(error)){
-      showSnackbar(error.response?.data.message)
-    }
-   }
-    
-  };
 
+  const router = useRouter();
   return (
     <>
       <Card
         sx={{
           border: 1,
-          borderColor: "background.paper",
-          bgcolor: "background.default",
+          borderColor: 'background.paper',
+          bgcolor: 'background.default',
           py: 1.5,
-          borderRadius: 2,
-          boxShadow: "none",
+          borderRadius: 1.5,
+          boxShadow: 'none',
         }}
       >
         <Stack px={1.5}>
-           <Link href={'/gold-shop/test/'}>
+          <Stack bgcolor={'background.default'} borderRadius={2}>
+            <Link href={'/gold-shop/test/'}>
               <CardMedia
                 sx={{
                   height: {
@@ -67,6 +53,7 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
                 title="green iguana"
               />
             </Link>
+          </Stack>
         </Stack>
         <CardContent
           sx={{
@@ -77,13 +64,13 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
           }}
         >
           <Stack
-            direction={"row"}
+            direction={'row'}
             justifyContent={{
-              xs: "flex-start",
-              sm: "center",
+              xs: 'flex-start',
+              sm: 'center',
             }}
           >
-             <Link href={`/gold-shop/${item.id}`}>
+            <Link href={'/gold-shop/test/'}>
               <Typography
                 gutterBottom
                 variant="h5"
@@ -97,33 +84,32 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
               </Typography>
             </Link>
           </Stack>
-          <Stack direction={"column"} gap={1} sx={{ mt: 3.5 }}>
+          <Stack direction={'column'} gap={1} sx={{ mt: 3.5 }}>
             <Stack
               direction={{
-                xs: "column",
-                sm: "row",
-                md: "column",
-                lg: "row",
+                xs: 'column',
+                sm: 'row',
+                md: 'column',
+                lg: 'row',
               }}
               alignItems={{
-                xs: "flex-start",
-                sm: "center",
-                md: "flex-start",
-                lg: "center",
+                xs: 'flex-start',
+                sm: 'center',
+                md: 'flex-start',
+                lg: 'center',
               }}
-              justifyContent={"space-between"}
+              justifyContent={'space-between'}
             >
-              
               <Typography
                 variant="body2"
                 fontSize={{
                   xs: 10,
                   sm: 12,
                 }}
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
               >
-                
-                گرم نقره:
+                وزن
+                :
               </Typography>
               <Typography
                 variant="body1"
@@ -133,48 +119,44 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
                   lg: 14,
                   xl: 16,
                 }}
-                sx={{ alignSelf: "flex-end" }}
+                sx={{ alignSelf: 'flex-end' }}
               >
-                
-               
+                {priceFormater(+item.weight)} {' '}
                 <Box
-                  component={"span"}
+                  component={'span'}
                   fontSize={{
                     xs: 12,
                     sm: 14,
                   }}
                 >
-                  
-                  {priceFormater(+item.weight)} گرم 
+                  گرم
                 </Box>
               </Typography>
             </Stack>
             <Stack
               direction={{
-                xs: "column",
-                sm: "row",
-                md: "column",
-                lg: "row",
+                xs: 'column',
+                sm: 'row',
+                md: 'column',
+                lg: 'row',
               }}
               alignItems={{
-                xs: "flex-start",
-                sm: "center",
-                md: "flex-start",
-                lg: "center",
+                xs: 'flex-start',
+                sm: 'center',
+                md: 'flex-start',
+                lg: 'center',
               }}
-              justifyContent={"space-between"}
+              justifyContent={'space-between'}
             >
-              
               <Typography
                 variant="body2"
                 fontSize={{
                   xs: 10,
                   sm: 12,
                 }}
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
               >
-                
-                ارزش تومان:
+               قیمت:
               </Typography>
               <Typography
                 variant="body1"
@@ -184,83 +166,83 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
                   lg: 14,
                   xl: 16,
                 }}
-                sx={{ alignSelf: "flex-end" }}
+                sx={{ alignSelf: 'flex-end' }}
               >
-                
-                {priceFormater(+item.price)}{' '}
+                {priceFormater(item?.price || 0)} {' '}
                 <Box
-                  component={"span"}
+                  component={'span'}
                   fontSize={{
                     xs: 12,
                     sm: 14,
                   }}
                 >
-                  
                   تومان
                 </Box>
               </Typography>
             </Stack>
+         
           </Stack>
         </CardContent>
-        {1 ? (
-          <Stack px={1}>
-            <Button
-              variant="outlined"
-              sx={{
-                borderRadius: 2,
-                width: "100%",
-                mt: 3,
-                py: 1.5,
-                "&:hover": {
-                  bgcolor: "background.default",
-                },
-              }}
-              onClick={() => {
-                handleAddToCart(item.id);
-                setOpen(true);
-              }}
-              disableRipple
-              disabled
-            >
-              افزودن به سبد خرید
-            </Button>
-          </Stack>
+       <Stack px={1.5} mt={3}> 
+         {!cart.find((productId) => productId.id == item.id)? (
+          <Button
+            variant="outlined"
+            color="inherit"
+            sx={{
+              width: '100%',
+              py: 1.5,
+            
+            }}
+            onClick={() => {
+              setCart(addToCart({
+                id:item.id,
+                name:item.name,
+                price:item.price,
+                weight:item.weight
+              }))
+              setOpen(true);
+            }}
+             
+          >
+            افزودن به سبد خرید
+          </Button>
         ) : (
-          <Counter count={count} setCount={setCount} />
+          <Counter cart={cart} productId={item.id} setCart={setCart} />
         )}
+       </Stack>
       </Card>
       <CustomModal open={open} setOpen={setOpen} modalStyle={{ p: 2 }}>
-        <Stack direction={"row"} justifyContent={"flex-end"}>
-          <IconButton onClick={() => setOpen(false)} disableRipple>
+        <Stack direction={'row'} justifyContent={'flex-end'}>
+          <IconButton onClick={() => setOpen(false)}  >
             <Close />
           </IconButton>
         </Stack>
-        <Typography variant="h6" fontSize={22} sx={{ color: "#43AB79", mb: 4 }}>
+        <Typography variant="h6" fontSize={22} sx={{ color: '#43AB79', mb: 4 }}>
           این محصول به سبد خرید شما افزوده شد.
         </Typography>
         <Typography variant="body1" fontSize={16}>
           {item?.name}
         </Typography>
-        <Stack direction={"row"} gap={2} mt={5}>
+        <Stack direction={'row'} gap={2} mt={5}>
           <Button
             onClick={() => {
-              router.push("/silver-shop-basket");
+              router.push('/gold-shop-basket');
               setOpen(false);
             }}
             variant="contained"
             color="primary"
             sx={{
-              width: "50%",
-              color: "#10100F",
+              width: '50%',
+              color: 'background.default',
               py: 1.3,
               borderRadius: 2,
               fontSize: 16,
               fontWeight: 600,
-              "&:hover": {
-                bgcolor: "primary.main",
+              '&:hover': {
+                bgcolor: 'primary.main',
               },
             }}
-            disableRipple
+             
           >
             سبد خرید
           </Button>
@@ -269,16 +251,16 @@ export default function ProductCard({ item }: { item: ProductDateType }) {
             variant="outlined"
             color="inherit"
             sx={{
-              width: "50%",
+              width: '50%',
               py: 1.3,
               borderRadius: 2,
               fontSize: 16,
               fontWeight: 600,
-              "&:hover": {
-                bgcolor: "background.default",
+              '&:hover': {
+                bgcolor: 'background.default',
               },
             }}
-            disableRipple
+             
           >
             ادامه خرید
           </Button>

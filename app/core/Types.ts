@@ -35,13 +35,10 @@ export interface NotifItemsType {
   date: string;
 }
 
-export interface Product {
-  id: string;
-  title: string;
-  price: number;
-}
 
-export interface CartItem extends Product {
+
+export interface CartItem extends ProductDateType
+ {
   quantity: number;
 }
 export interface ActionButtonType {
@@ -124,12 +121,12 @@ export interface AllAssetsDataType {
 export interface ProductDateType {
   id: number;
   name: string;
-  category: string;
-  weight: string;
-  price: string;
-  image: string;
-  is_active: boolean;
+  category?: string;
+  weight: number;
+  price?:number;
+  image?: string;
 }
+
 export interface CartItemDataType {
   id: number;
   product_name: string;
