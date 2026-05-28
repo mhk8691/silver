@@ -1,24 +1,21 @@
 "use client";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import { Grid, Stack, SvgIcon, Typography } from "@mui/material";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import Certificate from "./Certificate";
 import LinkContainer from "./LinkContainer";
 
-export const certificate = [
-  "/images/simple/nezamSenfi.webp",
-  "/images/simple/enamadSmall.webp",
-  "/images/simple/ecunion.webp",
-  "/images/simple/estjt.webp",
-  "/images/simple/fintech.webp",
-  "/images/simple/khavarmianeQuality.webp",
-  "/images/simple/nikecert.webp",
-  "/images/simple/tuwWorld.webp",
-];
+// export const certificate = [
+//   "/images/simple/nezamSenfi.webp",
+//   "/images/simple/enamadSmall.webp",
+//   "/images/simple/ecunion.webp",
+//   "/images/simple/estjt.webp",
+//   "/images/simple/fintech.webp",
+//   "/images/simple/khavarmianeQuality.webp",
+//   "/images/simple/nikecert.webp",
+//   "/images/simple/tuwWorld.webp",
+// ];
 
 export default function Footer() {
   const pathname = usePathname();
@@ -60,7 +57,7 @@ export default function Footer() {
             />
           </Stack>
         </Grid>
-        <Grid size={12} container>
+        <Grid size={12} container spacing={2}>
           <Grid
             size={{
               xs: 12,
@@ -94,7 +91,7 @@ export default function Footer() {
           </Grid>
           <LinkContainer />
 
-          <Certificate isMobile={false} />
+          {/* <Certificate isMobile={false} /> */}
         </Grid>
       </Grid>
       <Grid
@@ -315,21 +312,7 @@ export default function Footer() {
                   }}
                 />
               </Stack>
-              <Stack
-                sx={{
-                  bgcolor: "primary.main",
-                  borderRadius: "50%",
-                  p: 0.75,
-                }}
-              >
-                <TwitterIcon
-                  sx={{
-                    color: "background.default",
-                    width: "23px",
-                    height: "23px",
-                  }}
-                />
-              </Stack>
+          
               <Stack
                 sx={{
                   bgcolor: "primary.main",
@@ -345,26 +328,12 @@ export default function Footer() {
                   }}
                 />
               </Stack>
-              <Stack
-                sx={{
-                  bgcolor: "primary.main",
-                  borderRadius: "50%",
-                  p: 0.75,
-                }}
-              >
-                <LinkedInIcon
-                  sx={{
-                    color: "background.default",
-                    width: "23px",
-                    height: "23px",
-                  }}
-                />
-              </Stack>
+            
             </Stack>
           </Stack>
         </Grid>
       </Grid>
-      <Certificate isMobile={true} />
+      {/* <Certificate isMobile={true} /> */}
       <Stack
         p={2}
         direction={"row"}
