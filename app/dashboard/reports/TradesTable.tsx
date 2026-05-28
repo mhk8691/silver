@@ -116,27 +116,7 @@ export default function TradesTable({data,type='toggle',noCard=true}:{data:Trade
                   </Stack>
                 </TableCell>
 
-                 <TableCell
-                  align="center"
-                  sx={{
-                    py: 2.5,
-                    px: 2.5,
-                  }}
-                >
-                  <Stack
-                    direction={'row'}
-                    alignItems={'center'}
-                    gap={0.5}
-                    justifyContent={'center'}
-                  >
-                    <Typography
-                      variant="body1"
-                    
-                    >
-                        {priceFormater(row.fee)} تومان
-                    </Typography>
-                  </Stack>
-                </TableCell>
+                 
 
                  <TableCell
                   align="center"
@@ -200,7 +180,6 @@ export default function TradesTable({data,type='toggle',noCard=true}:{data:Trade
         'وضعیت',
         'مقدار طلا',
         'قیمت',
-        'کارمزد',
         'قیمت نهایی',
         'کد پیگیری',
         'تاریخ',
