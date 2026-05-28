@@ -9,9 +9,9 @@ import BankCard from './BankCard';
 import { getBankCard } from '@/lib/getbankCard/bankCard';
 import { isAxiosError } from 'axios';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
-import { useAssets } from '../AssetsProvider';
 import Loading from '@/app/Components/Loading/Loading';
 import { silverWithdraw } from '@/lib/transactions/withdraw/withdraw';
+import { useAssets } from '@/app/AssetsProvider';
 
 const items: ToggleItemsType[] = [
   { title: 'به حساب بانکی', value: 'bank', id: 1 },

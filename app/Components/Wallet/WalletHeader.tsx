@@ -7,23 +7,15 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import CircleAnimation from "../CircleAnimation/CircleAnimation";
 import MobileWalletHeader from "./MobileWalletHeader";
 import Container from "../Containers/Container/Container";
-import { useAssets } from "@/app/dashboard/AssetsProvider";
+import { useAssets } from "@/app/AssetsProvider";
 
 export default function WalletHeader() {
-  const [visible, setVisible] = useState(false);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
-  const {assets} = useAssets()
-  useEffect(() => {
-    const stored = localStorage.getItem("eyeState");
-    if (stored !== null) {
-      setVisible(stored === "true");
-    }
-  }, []);
+  const {assets,isVisible} = useAssets()
+
   return (
     <>
       {isDesktop ? (
@@ -63,7 +55,7 @@ export default function WalletHeader() {
                   fontWeight={500}
                   sx={{ color: "text.title" }}
                 >
-                 {visible ? priceFormater(assets?.silver_balance_gr) || 0 : '***'}
+                 {isVisible ? priceFormater(assets?.silver_balance_gr) || 0 : '***'}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -104,7 +96,7 @@ export default function WalletHeader() {
                   fontSize={20}
                   sx={{ color: "text.title" }}
                 >
-                  {visible ? priceFormater(assets?.toman_balance) || 0 : '***'}
+                  {isVisible ? priceFormater(assets?.toman_balance) || 0 : '***'}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -166,7 +158,7 @@ export default function WalletHeader() {
           </Grid>
         </Grid>
       ) : (
-        <MobileWalletHeader isDesktop={isDesktop} visible={visible} assets={assets} />
+        <MobileWalletHeader isDesktop={isDesktop} visible={isVisible} assets={assets} />
       )}
     </>
   );

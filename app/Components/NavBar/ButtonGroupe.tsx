@@ -14,6 +14,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Notification from "./Notification";
 import ProfileBtn from "./ProfileBtn";
+import ToggleEyeButton from "./ToggleEyeButton";
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -68,12 +69,15 @@ export default function ButtonGroupe() {
             }}
             size="small"
           >
-            {isMobile ? "طلا" : " ورود به طلا"}
+            {isMobile ? "دارینه" : " ورود به دارینه"}
           </Button>
         </>
       )}
 
-      {url === "dashboard" && <Notification />}
+      {url === "dashboard" && <>
+      <Notification />
+      <ToggleEyeButton/>
+      </>}
 
       {url !== "dashboard" && (
         <>

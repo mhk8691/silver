@@ -10,6 +10,7 @@ import theme, { rtl } from "./theme";
 import GlobalSnackbar from "./Components/Snackbar/SnackbarRoot";
 import CustomBreadcrumbs from "./Components/Breadcrumbs/Breadcrumbs";
 import SpaceBox from "./SpaceBox";
+import { AssetsProvider } from "./AssetsProvider";
 
 const IranYekanFont = localFont({
   src: [
@@ -64,6 +65,7 @@ export default function RootLayout({
       >
         <AppRouterCacheProvider options={rtl}>
           <ThemeProvider theme={theme}>
+            <AssetsProvider>
               <CssBaseline />
               <Navbar />
               <main style={{ flexGrow: 1 }}>
@@ -74,6 +76,7 @@ export default function RootLayout({
               </main>
               <GlobalSnackbar />
               <Footer />
+              </AssetsProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

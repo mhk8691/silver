@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { getRecentTransaction } from "@/lib/transactions/recent-transactions/recentTransactions";
 import { isAxiosError } from "axios";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
-import { useAssets } from "../AssetsProvider";
+import { useAssets } from "@/app/AssetsProvider";
 // export const metadata: Metadata = {
 //   title: "کیف پول | دارینه",
 //   description: "",

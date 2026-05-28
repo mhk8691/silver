@@ -13,8 +13,8 @@ import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 import { isAxiosError } from 'axios';
 import { Upload } from '@mui/icons-material';
 import {  silverDeposit } from '@/lib/transactions/deposit/deposit';
-import { useAssets } from '../AssetsProvider';
 import Loading from '@/app/Components/Loading/Loading';
+import { useAssets } from '@/app/AssetsProvider';
 
 const items: ToggleItemsType[] = [
   { title: 'درگاه پرداخت', value: 'gateway', id: 1 },

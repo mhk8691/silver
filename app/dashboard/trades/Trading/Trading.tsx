@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import { isAxiosError } from "axios";
 import { useState } from "react";
-import { useAssets } from "../../AssetsProvider";
 import { silverSell } from "@/lib/silver/silverSell";
 import { silverBuy } from "@/lib/silver/silverBuy";
 import Loading from "@/app/Components/Loading/Loading";
+import { useAssets } from "@/app/AssetsProvider";
 
 const items: ToggleItemsType[] = [
   { title: "خرید", value: "buy", id: 1 },
