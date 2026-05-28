@@ -4,9 +4,9 @@ import ApplicationDownload from "../Components/Tables/ProductTable/ApplicationDo
 import HowBuySilver from "../Components/Tables/ProductTable/HowBuySilver";
 import TradeCard from "../Components/Tables/ProductTable/TradeCard";
 import { TableSilverDataType } from "../core/Types";
-import Trading from "../dashboard/trades/Trading/Trading";
 import ProductTableContainer from "./ProductTableContainer";
 import Chart from "../Components/Chart/Chart";
+import Trading from "../dashboard/trades/Trading";
 
 export const goldData: {
   title: string;

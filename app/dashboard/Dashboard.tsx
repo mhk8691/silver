@@ -2,8 +2,8 @@
 import { Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import MobileAppbar from "./MobileAppbar";
 import Banners from "./Banners";
-import Trading from "./trades/Trading/Trading";
 import Container from "../Components/Containers/Container/Container";
+import Trading from "./trades/Trading";
 
 export default function Dashboard() {
   const theme = useTheme();
