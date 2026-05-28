@@ -1,60 +1,33 @@
 'use client'
-import CircleAnimation from "@/app/Components/CircleAnimation/CircleAnimation";
 import {
   default as Card,
-  default as Container,
-} from "@/app/Components/Containers/Container/Container";
-import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import Wallet from "@/app/Components/Wallet/Wallet";
-import priceFormater from "@/app/core/PriceFormater";
-import { RecentTransactionDataType, ToggleItemsType } from "@/app/core/Types";
-import { Grid, Stack, Typography } from "@mui/material";
-import { Metadata } from "next";
-import BackLink from "../BackLink";
-import Chart from "./Chart";
-import TransactionTable from "../irt-transaction/TransactionTable";
-import { useEffect, useState } from "react";
-import { getRecentTransaction } from "@/lib/transactions/recent-transactions/recentTransactions";
-import { isAxiosError } from "axios";
-import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
-import { useAssets } from "@/app/AssetsProvider";
+} from '@/app/Components/Containers/Container/Container';
+import Wallet from '@/app/Components/Wallet/Wallet';
+import { RecentTransactionDataType } from '@/app/core/Types';
+import { Grid, Stack, Typography } from '@mui/material';
+import BackLink from '../BackLink';
+import { useEffect, useState } from 'react';
+import { getRecentTransaction } from '@/lib/transactions/recent-transactions/recentTransactions';
+import { isAxiosError } from 'axios';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import TransactionTable from '../irt-transaction/TransactionTable';
+import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
+import OrderDetail from '@/app/Components/Tables/DetailTable/DetailTable';
+import { TransactionItems } from '../irt-transaction/TransactionContainer';
 // export const metadata: Metadata = {
-//   title: "کیف پول | دارینه",
-//   description: "",
+//   title: 'کیف پول | دارینه',
+//   description: '',
 // };
-const items: ToggleItemsType[] = [
-  {
-    title: "واریز",
-    value: "deposit",
-    id: 1,
-    emptyMessage: "واریزی برای شما به ثبت نرسیده است",
-  },
 
-  {
-    title: "واریز از دارینه",
-    value: "silverDeposit",
-    id: 2,
-    emptyMessage: "واریزی برای شما به ثبت نرسیده است",
-  },
-  {
-    title: "برداشت",
-    value: "withdraw",
-    id: 3,
-    emptyMessage: "برداشتی برای شما به ثبت نرسیده است",
-  },
-  {
-    title: "برداشت به دارینه",
-    value: "silverWithdraw",
-    id: 4,
-    emptyMessage: "برداشتی برای شما به ثبت نرسیده است",
-  },
-];
-export default function page() {
+export default async function page() {
   const [transactionData,setTransactionData] = useState<RecentTransactionDataType[]>([])
+  const [transactionParams,setTransactionParams] = useState('deposit')
+    const [filter,setFilter] = useState('')
+    const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
   useEffect(()=>{
      const getData = async ()=>{
         try{
-          const response = await getRecentTransaction()
+          const response = await getRecentTransaction(transactionParams,filter,dateRange)
           setTransactionData(response)
         }catch(error:unknown){
           if (isAxiosError(error)){
@@ -63,8 +36,7 @@ export default function page() {
         }
       }
       getData()
-  },[])
-  const{assets} = useAssets()
+  },[transactionParams,filter,dateRange])
   return (
     <Grid
       container
@@ -81,62 +53,24 @@ export default function page() {
         <Grid
           size={12}
           display={{
-            xs: "none",
-            sm: "block",
+            xs: 'none',
+            sm: 'block',
           }}
         >
-          <Chart />
+          {/* <AllAssets
+            style={{
+              mt: 3,
+              minHeight: {
+                xs: '200px',
+                sm: '60px',
+              },
+            }}
+          /> */}
         </Grid>
       </Grid>
 
       <Grid size={{ xs: 12, md: 6 }}>
-        <Container
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mb: {
-              xs: 1,
-              lg: 3,
-            },
-            py: {
-              sm: 2,
-              lg: 3,
-            },
-            display: {
-              xs: "none",
-              sm: "flex",
-            },
-            px: {
-              sm: 2,
-              lg: 4,
-            },
-          }}
-        >
-          <Stack direction={"row"} gap={2} alignItems={"center"}>
-            <Typography variant="body2" sx={{ color: "#535657" }}>
-              قیمت فعلی نقره عیار ۹۹۹:
-            </Typography>
-          </Stack>
-          <Stack direction={"row"} gap={0.5} alignItems={"center"}>
-            <Typography
-              variant="body1"
-              fontSize={20}
-              sx={{ color: "text.title" }}
-              fontWeight={500}
-            >
-              {priceFormater(assets.current_silver_price)}
-            </Typography>
-            <Typography
-              variant="body1"
-              fontSize={18}
-              sx={{ color: "text.title" }}
-              fontWeight={500}
-            >
-              تومان
-            </Typography>
-          </Stack>
-        </Container>
+       
         <Card
           style={{
             mb: {
@@ -160,8 +94,8 @@ export default function page() {
               sm: 20,
               lg: 22,
             }}
-            sx={{ color: "text.primary" }}
-            fontWeight={"900"}
+            sx={{ color: 'text.primary' }}
+            fontWeight={'900'}
           >
             خلاصه فعالیت‌های شما
           </Typography>
@@ -170,20 +104,16 @@ export default function page() {
               xs: 3,
               lg: 4.5,
             }}
-            direction={"column"}
+            direction={'column'}
             gap={{
               xs: 2,
               sm: 2.5,
             }}
           >
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
               <Typography
                 variant="body1"
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
                 fontSize={{ xs: 10, sm: 14, lg: 16 }}
               >
                 مجموع دارایی شما
@@ -192,19 +122,15 @@ export default function page() {
               <Typography
                 variant="h6"
                 fontSize={{ xs: 12, sm: 18, lg: 20 }}
-                sx={{ color: "text.title" }}
+                sx={{ color: 'text.title' }}
               >
                 *** تومان
               </Typography>
             </Stack>
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
               <Typography
                 variant="body1"
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
                 fontSize={{ xs: 10, sm: 14, lg: 16 }}
               >
                 سود شما
@@ -213,40 +139,49 @@ export default function page() {
               <Typography
                 variant="h6"
                 fontSize={{ xs: 12, sm: 18, lg: 20 }}
-                sx={{ color: "success.main" }}
+                sx={{ color: 'success.main' }}
               >
                 *** تومان
               </Typography>
             </Stack>
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
               <Typography
                 variant="body1"
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
                 fontSize={{ xs: 10, sm: 14, lg: 16 }}
               >
-                نقره برداشت شده
+                طلا برداشت شده
               </Typography>
 
               <Typography
                 variant="h6"
                 fontSize={{ xs: 12, sm: 18, lg: 20 }}
-                sx={{ color: "text.title" }}
+                sx={{ color: 'text.title' }}
               >
                 *** گرم
               </Typography>
             </Stack>
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
               <Typography
                 variant="body1"
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
+                fontSize={{ xs: 10, sm: 14, lg: 16 }}
+              >
+                کارت هدیه های خریداری شده
+              </Typography>
+
+              <Typography
+                variant="h6"
+                fontSize={{ xs: 12, sm: 18, lg: 20 }}
+                sx={{ color: 'text.title' }}
+              >
+                *** تومان
+              </Typography>
+            </Stack>
+            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+              <Typography
+                variant="body1"
+                sx={{ color: 'text.muted' }}
                 fontSize={{ xs: 10, sm: 14, lg: 16 }}
               >
                 کارت هدیه های دریافت شده
@@ -255,20 +190,15 @@ export default function page() {
               <Typography
                 variant="h6"
                 fontSize={{ xs: 12, sm: 18, lg: 20 }}
-                sx={{ color: "text.title" }}
+                sx={{ color: 'text.title' }}
               >
                 *** تومان
               </Typography>
             </Stack>
-
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
               <Typography
                 variant="body1"
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
                 fontSize={{ xs: 10, sm: 14, lg: 16 }}
               >
                 تومان درانتظار پردازش
@@ -277,28 +207,24 @@ export default function page() {
               <Typography
                 variant="h6"
                 fontSize={{ xs: 12, sm: 18, lg: 20 }}
-                sx={{ color: "text.title" }}
+                sx={{ color: 'text.title' }}
               >
                 *** تومان
               </Typography>
             </Stack>
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-            >
+            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
               <Typography
                 variant="body1"
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
                 fontSize={{ xs: 10, sm: 14, lg: 16 }}
               >
-                نقره درانتظار پردازش
+                طلا درانتظار پردازش
               </Typography>
 
               <Typography
                 variant="h6"
                 fontSize={{ xs: 12, sm: 18, lg: 20 }}
-                sx={{ color: "text.title" }}
+                sx={{ color: 'text.title' }}
               >
                 *** گرم
               </Typography>
@@ -307,20 +233,29 @@ export default function page() {
         </Card>
         <Grid
           display={{
-            xs: "block",
-            sm: "none",
+            xs: 'block',
+            sm: 'none',
           }}
           size={12}
         >
-          <Chart />
+          {/* <AllAssets
+            style={{
+              mt: 3,
+              minHeight: {
+                xs: '200px',
+                sm: '60px',
+              },
+            }}
+          /> */}
         </Grid>
         <Stack mt={{ xs: 1, sm: 3 }}>
-            <DetailTable
+          <OrderDetail
             type="chip"
             title="لیست تراکنش‌‌های اخیر"
-            toggleItems={items}
+            toggleItems={TransactionItems}
             tableBody={<TransactionTable data={transactionData} />}
             listLength={transactionData.length}
+            setParams={setTransactionParams}
              tableHead={[
             'مبلغ',
             'نوع تراکنش',
@@ -329,6 +264,10 @@ export default function page() {
             'کد پیگیری',
             'تاریخ',
           ]}
+          setDateRange={setDateRange}
+          setFilter={setFilter}
+          dateRange={dateRange}
+          filter={filter}
           />
         </Stack>
       </Grid>

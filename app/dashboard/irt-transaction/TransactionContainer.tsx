@@ -168,10 +168,10 @@ dateRange={dateRange} setValue={setValue} setTransactionData={setTransactionData
           ]}
           setParams={setTransactionParams}
           listLength={transactionData.length}
-          // setDateRange={setDateRange}
-          // setFilter={setFilter}
-          // dateRange={dateRange}
-          // filter={filter}
+          setDateRange={setDateRange}
+          setFilter={setFilter}
+          dateRange={dateRange}
+          filter={filter}
         />
       </Grid>
     </>

@@ -7,6 +7,7 @@ import WithdrawTable from "./WithdrawTable";
 import { getReports } from "@/lib/getReports/getReports";
 import { isAxiosError } from "axios";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
+import { DatePickerValue } from "@/app/Components/DatePicker/CustomDatePicker";
 const tabs = [
   { title: 'معاملات' },
   { title: 'واریز' },
@@ -18,12 +19,17 @@ const tabs = [
 
 const tabUrl = ['gold', 'deposit', 'withdraw'];
 export default function ReportsContainer() {
+    const [filter,setFilter] = useState('')
+    const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
+  const [tradeParams,setTradeParams] = useState('buy')
+    const [depositParams,setDepositParams] = useState('paymentGateway')
+    const [withdrawParams,setWithdrawParams] = useState('bankAccount')
       const [value, setValue] = useState(0);
   const [data, setData] = useState([]);
   useEffect(() => {
     const getData = async () => {
       try{
-  const response = await getReports(tabUrl[value]);
+  const response = await getReports(tabUrl[value],tabUrl[value] === 'gold' ? tradeParams:tabUrl[value] === 'deposit' ? depositParams:withdrawParams,dateRange,filter);
       setData(response || []);
       }
     
@@ -34,11 +40,15 @@ export default function ReportsContainer() {
   }
     };
     getData();
-  }, [value]);
+  }, [value,tradeParams,depositParams,withdrawParams,filter,dateRange]);
+    useEffect(()=>{
+    setFilter('')
+    setDateRange(null)
+  },[value,setValue])
   const children: ReactNode[] = [
-  <TradesTable   data={data}  key={1} />,
-  <DepositTable  data={data}  key={2} />,
-  <WithdrawTable data={data}   key={3} />,
+  <TradesTable dateRange={dateRange} setDateRange={setDateRange} setFilter={setFilter} filter={filter} setTradeParams={setTradeParams}  data={data}  key={1} />,
+  <DepositTable  dateRange={dateRange} setDateRange={setDateRange} setFilter={setFilter} filter={filter} setDepositParams={setDepositParams} data={data}  key={2} />,
+  <WithdrawTable  dateRange={dateRange} setDateRange={setDateRange} setFilter={setFilter} filter={filter} setWithdrawParams={setWithdrawParams} data={data}   key={3} />,
   // <OrdersTable  data={data} key={4} />,
 ];
   return (

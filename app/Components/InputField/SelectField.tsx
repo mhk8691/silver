@@ -143,7 +143,7 @@ export default function SelectField({
                   {isOrederDetail && <Typography>{label}</Typography>}
                   <Typography
                     variant="body1"
-                    sx={{ color: isOrederDetail ? '#B29727' : 'text.title' }}
+                    sx={{ color: isOrederDetail ? 'primary.main' : 'text.title' }}
                   >
                     {value}
                   </Typography>
@@ -159,7 +159,7 @@ export default function SelectField({
                       color: '#FFFFFF',
                     }}
                   >
-                    <CloseIcon fontSize="small" />
+                    <CloseIcon fontSize="small" color='primary' />
                   </IconButton>
                 )}
               </Box>
