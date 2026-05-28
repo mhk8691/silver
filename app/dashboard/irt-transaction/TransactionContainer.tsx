@@ -1,12 +1,64 @@
-"use client";
-import Container from "@/app/Components/Containers/Container/Container";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Box, Grid, Stack, Typography } from "@mui/material";
-import Transaction from "./Transaction";
-import { useState } from "react";
+'use client';
+import Container from '@/app/Components/Containers/Container/Container';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { Box, Grid, Stack, Typography } from '@mui/material';
+import Transaction from './Transaction';
+import { useEffect, useState } from 'react';
+import TransactionTable from './TransactionTable';
+import { getRecentTransaction } from '@/lib/transactions/recent-transactions/recentTransactions';
+import { isAxiosError } from 'axios';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import { RecentTransactionDataType, ToggleItemsType } from '@/app/core/Types';
+import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
+import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
+
+export const TransactionItems: ToggleItemsType[] = [
+  {
+    title: 'واریز',
+    value: 'deposit',
+    id: 1,
+    emptyMessage: 'واریزی برای شما به ثبت نرسیده است',
+  },
+  {
+    title: 'واریز مستقیم',
+    value: 'directDeposit',
+    id: 2,
+    emptyMessage: 'واریز باشناسه ای برای شما به ثبت نرسیده است',
+  },
+ 
+  {
+    title: 'برداشت',
+    value: 'withdraw',
+    id: 3,
+    emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',
+  },
+  {
+    title: 'برداشت به نقره سی',
+    value: 'silverWithdraw',
+    id: 4,
+    emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',
+  },
+];
 
 export default function TransactionContainer() {
+    const [filter,setFilter] = useState('')
+    const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
   const [value, setValue] = useState(0);
+    const [transactionParams,setTransactionParams] = useState('deposit')
+    const [transactionData,setTransactionData] = useState<RecentTransactionDataType[]>([])
+    useEffect(()=>{
+      const getData = async ()=>{
+        try{
+          const response = await getRecentTransaction(transactionParams,filter,dateRange)
+          setTransactionData(response)
+        }catch(error:unknown){
+          if (isAxiosError(error)){
+            showSnackbar(error.response?.data.message)
+          }
+        }
+      }
+      getData()
+    },[transactionParams,filter,dateRange])
   return (
     <>
       <Grid
@@ -20,7 +72,8 @@ export default function TransactionContainer() {
           md: 1,
         }}
       >
-        <Transaction setValue={setValue} />
+        <Transaction filter={filter}
+dateRange={dateRange} setValue={setValue} setTransactionData={setTransactionData} transactionParams={transactionParams} />
       </Grid>
       <Grid
         size={{
@@ -35,7 +88,7 @@ export default function TransactionContainer() {
       >
         <Container
           style={{
-            color: "#EF8011",
+            color: '#EF8011',
             px: {
               xs: 2,
               sm: 4,
@@ -46,7 +99,7 @@ export default function TransactionContainer() {
             },
           }}
         >
-          <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack direction={'row'} alignItems={'center'} gap={1}>
             <InfoOutlinedIcon />
             <Typography
               variant="h6"
@@ -65,22 +118,21 @@ export default function TransactionContainer() {
                 xs: 12,
                 md: 16,
               }}
-              sx={{ color: "text.secondary", mt: "10px" }}
+              sx={{ color: 'text.secondary', mt: '10px' }}
             >
-              واریز ریالی فقط از حساب بانکی به نام خودتان امکان‌پذیر است. در غیر
-              این صورت، مبلغ در حالت انتظار قرار می‌گیرد و پس از پیگیری شما، طی
-              ۳ روز کاری به حساب شما باز می‌گردد.
+              واریز ریالی فقط از حساب بانکی به نام خودتان امکان‌پذیر است. در غیر این صورت، مبلغ در
+              حالت انتظار قرار می‌گیرد و پس از پیگیری شما، طی ۳ روز کاری به حساب شما باز می‌گردد.
             </Typography>
           ) : (
-            <Box component={"ul"} px={3}>
+            <Box component={'ul'} px={3}>
               <Typography
                 variant="body1"
                 fontSize={{
                   xs: 12,
                   md: 16,
                 }}
-                component={"li"}
-                sx={{ color: "text.secondary", mt: "10px" }}
+                component={'li'}
+                sx={{ color: 'text.secondary', mt: '10px' }}
               >
                 برداشت ریالی فقط به کارت‌های ثبت شده امکان‌پذیر است.
               </Typography>
@@ -90,16 +142,37 @@ export default function TransactionContainer() {
                   xs: 12,
                   md: 16,
                 }}
-                component={"li"}
-                sx={{ color: "text.secondary", mt: "10px" }}
+                component={'li'}
+                sx={{ color: 'text.secondary', mt: '10px' }}
               >
-                کاربر گرامی به دلیل شرایط پیش آمده و محدودیت اعلامی از سمت بانک
-                مرکزی، سامانه پایا به یک سیکل در روز (ساعت 15) کاهش یافته و
-                تسویه برداشت ها ممکن است زمانبر شود .
+                کاربر گرامی به دلیل شرایط پیش آمده و محدودیت اعلامی از سمت بانک مرکزی، سامانه پایا
+                به یک سیکل در روز (ساعت 15) کاهش یافته و تسویه برداشت ها ممکن است زمانبر شود .
               </Typography>
             </Box>
           )}
         </Container>
+      </Grid>
+      <Grid size={12} order={3}>
+        <DetailTable
+          title="لیست تراکنش های اخیر"
+          toggleItems={TransactionItems}
+          type="chip"
+          tableBody={<TransactionTable data={transactionData} />}
+          tableHead={[
+            'مبلغ',
+            'نوع تراکنش',
+            'روش',
+            'وضعیت',
+            'کد پیگیری',
+            'تاریخ',
+          ]}
+          setParams={setTransactionParams}
+          listLength={transactionData.length}
+          // setDateRange={setDateRange}
+          // setFilter={setFilter}
+          // dateRange={dateRange}
+          // filter={filter}
+        />
       </Grid>
     </>
   );

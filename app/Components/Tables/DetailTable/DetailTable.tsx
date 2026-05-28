@@ -1,28 +1,32 @@
-"use client";
-import { ToggleItemsType } from "@/app/core/Types";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import { ReactNode, useState } from "react";
-import CustomDatePicker from "../../DatePicker/CustomDatePicker";
-import FilterToggleButton from "../../FilterToggleButton/FilterToggleButton";
-import SelectField from "../../InputField/SelectField";
-import FilterButton from "./FilterButton";
-import Container from "../../Containers/Container/Container";
-import CustomTable from "../CustomTable";
-import EmptyData from "../EmptyData";
+'use client';
+import { ToggleItemsType } from '@/app/core/Types';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { Stack, Typography, useTheme } from '@mui/material';
+import Image from 'next/image';
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import Card from '../../Containers/Container/Container';
+import CustomDatePicker, { DatePickerValue } from '../../DatePicker/CustomDatePicker';
+import FilterToggleButton from '../../FilterToggleButton/FilterToggleButton';
+import SelectField from '../../InputField/SelectField';
+import FilterButton from './FilterButton';
+import CustomTable from '../CustomTable';
 interface Props {
   title?: string;
-  type: "chip" | "toggle";
+  type: 'chip' | 'toggle';
   toggleItems: ToggleItemsType[];
   noCard?: boolean;
   emptyMessage?: string;
   tableBody: ReactNode;
   tableHead: string[];
   listLength: number;
+  setParams?:React.Dispatch<React.SetStateAction<string>>
+  setFilter: Dispatch<SetStateAction<string>>
+  setDateRange:Dispatch<SetStateAction<DatePickerValue|null>>
+  filter:string
+  dateRange:DatePickerValue|null
 }
-const names = ["تکمیل شده", "در انتظار تایید", "لغو شده"];
-export default function DetailTable({
+const names = ['تکمیل شده', 'در انتظار تایید', 'لغو شده'];
+export default function OrderDetail({
   title,
   type,
   toggleItems,
@@ -31,10 +35,16 @@ export default function DetailTable({
   tableBody,
   tableHead,
   listLength,
+  setParams,
+  filter,dateRange,setDateRange,setFilter
 }: Props) {
-  const [active, setActive] = useState<number | null>(toggleItems[0]?.id);
-  const [select, setSelect] = useState(toggleItems[0]?.value);
-  const [message, setMessage] = useState(toggleItems[0]?.emptyMessage || "");
+  const [active, setActive] = useState(toggleItems[0]?.value);
+  const [message, setMessage] = useState(toggleItems[0]?.emptyMessage || '');
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+  const handleDateChange = (val:DatePickerValue)=>{
+   setDateRange(val) 
+  }
   return noCard ? (
     <>
       {title && (
@@ -43,7 +53,7 @@ export default function DetailTable({
           mb={4}
           fontWeight={500}
           sx={{
-            color: "text.title",
+            color: 'text.primary',
             fontSize: {
               xs: 16,
               md: 22,
@@ -55,8 +65,8 @@ export default function DetailTable({
       )}
       {toggleItems.length != 0 && (
         <>
-          {type === "chip" ? (
-            <Stack direction={"row"} gap={2} mb={3} flexWrap={"wrap"}>
+          {type === 'chip' ? (
+            <Stack direction={'row'} gap={2} mb={3} flexWrap={'wrap'}>
               {toggleItems.map((item) => (
                 <FilterButton
                   key={item.id}
@@ -64,20 +74,22 @@ export default function DetailTable({
                   active={active}
                   setActive={setActive}
                   setMessage={setMessage}
+                  setParams={setParams}
                 />
               ))}
             </Stack>
           ) : (
-            <Stack mb={3} width={"fit-content"}>
+            <Stack mb={3} width={'fit-content'}>
               <FilterToggleButton
+              setParams={setParams}
                 items={toggleItems}
-                select={select}
+                active={active}
                 setMessage={setMessage}
-                setSelect={setSelect}
+                setActive={setActive}
                 style={{
                   fontSize: {
-                    xs: "12px",
-                    sm: "16px",
+                    xs: '12px',
+                    sm: '16px',
                   },
                   px: {
                     xs: 1.5,
@@ -89,45 +101,48 @@ export default function DetailTable({
           )}
         </>
       )}
-      <Stack gap={2} direction={"row"} alignItems={"center"}>
+      <Stack gap={2} direction={'row'} alignItems={'center'}>
         <Stack
-          direction={"row"}
+          direction={'row'}
           gap={0.5}
           display={{
-            xs: "none",
-            sm: "flex",
+            xs: 'none',
+            sm: 'flex',
           }}
         >
-          <FilterListIcon sx={{ color: "#717475" }} />
-          <Typography variant="body2" sx={{ color: "#717475" }}>
+            <FilterListIcon sx={{ color: "#717475" }} />
+     <Typography variant="body2" sx={{ color: "#717475" }}>
             فیلترها:
           </Typography>
         </Stack>
         <Stack
-          direction={"row"}
+          direction={'row'}
           gap={2}
-          width={"100%"}
+          width={'100%'}
           sx={{
-            "& > *": {
+            '& > *': {
               flex: 1,
             },
           }}
         >
-          <SelectField
-            label="وضعیت"
-            itemsList={names}
-            isOrederDetail
-            maxWidth="260px"
-          />
-          <CustomDatePicker />
+          <SelectField label="وضعیت" itemsList={names}  isOrederDetail maxWidth="260px"  value={filter}
+            setValue={setFilter} />
+          <CustomDatePicker style={{
+            maxWidth:'270px'
+          }} value={dateRange} onChange={handleDateChange} isRange />
         </Stack>
       </Stack>
+       {listLength > 0 ? (
+        <Stack mt={5}>
+          <CustomTable heads={tableHead}>{tableBody}</CustomTable>
+        </Stack>
+      ) : (
       <Stack
         mt={10}
         mb={8}
-        direction={"column"}
-        alignItems={"center"}
-        justifyContent={"center"}
+        direction={'column'}
+        alignItems={'center'}
+        justifyContent={'center'}
         gap={4}
       >
         <Stack
@@ -143,23 +158,24 @@ export default function DetailTable({
           }}
         >
           <Image
-            src={"/images/emptyTable.webp"}
+            src={`/images/${isDarkMode ? 'emptyTableDark.png' : 'emptyTable.webp'}`}
             width={300}
             height={270}
             style={{
-              width: "100%",
-              height: "100%",
+              width: '100%',
+              height: '100%',
             }}
             alt=""
           />
         </Stack>
-        <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
-          {emptyMessage || message}
-        </Typography>
+       <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
+           {emptyMessage || message}
+         </Typography>
       </Stack>
+      )}
     </>
   ) : (
-    <Container
+    <Card
       style={{
         px: {
           xs: 0,
@@ -170,7 +186,7 @@ export default function DetailTable({
           sm: 1,
         },
         borderColor: {
-          sm: "background.paper",
+          sm: 'background.paper',
         },
       }}
     >
@@ -183,22 +199,22 @@ export default function DetailTable({
           }}
           mb={{ xs: 2, sm: 4 }}
           fontWeight={500}
-          sx={{ color: "text.title" }}
+          sx={{ color: 'text.title' }}
         >
           {title}
         </Typography>
       )}
       {toggleItems.length != 0 && (
         <>
-          {type === "chip" ? (
+          {type === 'chip' ? (
             <Stack
-              direction={"row"}
+              direction={'row'}
               gap={{
                 xs: 1,
                 sm: 2,
               }}
               mb={3}
-              flexWrap={"wrap"}
+              flexWrap={'wrap'}
             >
               {toggleItems.map((item) => (
                 <FilterButton
@@ -207,20 +223,22 @@ export default function DetailTable({
                   active={active}
                   setActive={setActive}
                   setMessage={setMessage}
+                  setParams={setParams}
                 />
               ))}
             </Stack>
           ) : (
-            <Stack mb={3} width={"fit-content"}>
+            <Stack mb={3} width={'fit-content'}>
               <FilterToggleButton
                 items={toggleItems}
-                select={select}
-                setSelect={setSelect}
+               active={active}
+                setActive={setActive}
+                setParams={setParams}
                 setMessage={setMessage}
                 style={{
                   fontSize: {
-                    xs: "12px",
-                    sm: "16px",
+                    xs: '12px',
+                    sm: '16px',
                   },
                 }}
               />
@@ -228,26 +246,26 @@ export default function DetailTable({
           )}
         </>
       )}
-      <Stack gap={2} direction={"row"} alignItems={"center"}>
+      <Stack gap={2} direction={'row'} alignItems={'center'}>
         <Stack
-          direction={"row"}
+          direction={'row'}
           gap={0.5}
           display={{
-            xs: "none",
-            sm: "flex",
+            xs: 'none',
+            sm: 'flex',
           }}
         >
-          <FilterListIcon sx={{ color: "#717475" }} />
-          <Typography variant="body2" sx={{ color: "#717475" }}>
+           <FilterListIcon sx={{ color: "#717475" }} />
+           <Typography variant="body2" sx={{ color: "#717475" }}>
             فیلترها:
           </Typography>
         </Stack>
         <Stack
-          direction={"row"}
+          direction={'row'}
           gap={2}
-          width={"100%"}
+          width={'100%'}
           sx={{
-            "& > *": {
+            '& > *': {
               flex: 1,
             },
           }}
@@ -257,8 +275,12 @@ export default function DetailTable({
             label="وضعیت"
             isOrederDetail={true}
             maxWidth="260px"
+            value={filter}
+            setValue={setFilter}
           />
-          <CustomDatePicker />
+          <CustomDatePicker style={{
+            maxWidth:'270px'
+          }} value={dateRange} onChange={handleDateChange} isRange />
         </Stack>
       </Stack>
       {listLength > 0 ? (
@@ -266,8 +288,25 @@ export default function DetailTable({
           <CustomTable heads={tableHead}>{tableBody}</CustomTable>
         </Stack>
       ) : (
-        <EmptyData emptyMessage={emptyMessage} message={message} />
+        <Stack
+          mt={10}
+          mb={8}
+          direction={'column'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          gap={4}
+        >
+          <Image
+            src={`/images/${isDarkMode ? 'emptyTableDark.png' : 'emptyTable.webp'}`}
+            width={300}
+            height={270}
+            alt=""
+          />
+          <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
+           {emptyMessage || message}
+        </Typography>
+        </Stack>
       )}
-    </Container>
+    </Card>
   );
 }

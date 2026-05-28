@@ -2,22 +2,30 @@
 import Card from '@/app/Components/Containers/Container/Container';
 import FilterToggleButton from '@/app/Components/FilterToggleButton/FilterToggleButton';
 import InputField from '@/app/Components/InputField/InputField';
-import { BankCardDataType, ToggleItemsType } from '@/app/core/Types';
+import { BankCardDataType, RecentTransactionDataType, ToggleItemsType } from '@/app/core/Types';
 import { Button, Stack } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import BankCard from './BankCard';
 import { getBankCard } from '@/lib/getbankCard/bankCard';
 import { isAxiosError } from 'axios';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import { useAssets } from '../../AssetsProvider';
 import Loading from '@/app/Components/Loading/Loading';
+import { getRecentTransaction } from '@/lib/transactions/recent-transactions/recentTransactions';
+import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 import { silverWithdraw } from '@/lib/transactions/withdraw/withdraw';
-import { useAssets } from '@/app/AssetsProvider';
 
 const items: ToggleItemsType[] = [
   { title: 'به حساب بانکی', value: 'bank', id: 1 },
-  { title: 'به نقرینه', value: 'silver', id: 2 },
+  { title: 'به نقره سی', value: 'silver', id: 2 },
 ];
-export default function Withdraw() {
+interface Props {
+  setTransactionData:Dispatch<SetStateAction<RecentTransactionDataType[]>>,
+    transactionParams:string
+    filter:string
+    dateRange:DatePickerValue
+}
+export default function Withdraw({setTransactionData,transactionParams,filter,dateRange}:Props) {
   const [price, setPrice] = useState('');
   const [select, setSelect] = useState(items[0].value);
   const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
@@ -32,6 +40,8 @@ export default function Withdraw() {
       select === 'silver' ? 'SILVER' : 'BANK',
       selectedCard?selectedCard:undefined,
     );
+      const transactionData = await getRecentTransaction(transactionParams,filter,dateRange)
+          setTransactionData(transactionData)
     showSnackbar(response.message,true)
     setPrice('')
     refetch()
@@ -55,8 +65,8 @@ export default function Withdraw() {
     <Card style={{ gap: 3.5, p: 0, border: 'none' }}>
       <FilterToggleButton
         items={items}
-        select={select}
-        setSelect={setSelect}
+        active={select}
+        setActive={setSelect}
         style={{
           fontSize: {
             xs: 12,
@@ -70,8 +80,8 @@ export default function Withdraw() {
           <Button
             variant="contained"
             sx={{
-             bgcolor: "primary.light",
-              color: "#535657",
+              bgcolor: 'primary.light',
+              color: 'black',
               borderRadius: 1.5,
               px: 1,
               width: 'fit-content',
@@ -113,5 +123,3 @@ export default function Withdraw() {
     </Card>
   );
 }
-
-

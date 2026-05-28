@@ -108,8 +108,8 @@ export default function Trading() {
       )}
       <FilterToggleButton
         items={items}
-        select={select}
-        setSelect={setSelect}
+        active={select}
+        setActive={setSelect}
         style={{
           fontSize: {
             xs: 16,

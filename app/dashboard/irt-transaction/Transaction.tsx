@@ -6,11 +6,21 @@ import { Dispatch, ReactNode, SetStateAction } from 'react';
 import Deposit from './Deposit';
 import Withdraw from './Withdraw';
 import { useMediaQuery, useTheme } from '@mui/material';
+import { RecentTransactionDataType } from '@/app/core/Types';
+import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 const tabs = [{ title: 'واریز' }, { title: 'برداشت' }];
-const children: ReactNode[] = [<Deposit key={1} />, <Withdraw key={2} />];
-export default function Transaction({ setValue }: { setValue: Dispatch<SetStateAction<number>> }) {
+interface Props { 
+  setValue: Dispatch<SetStateAction<number>>,
+  setTransactionData:Dispatch<SetStateAction<RecentTransactionDataType[]>> 
+  transactionParams:string
+  filter:string
+  dateRange:DatePickerValue
+}
+export default function Transaction({ setValue,setTransactionData,transactionParams,dateRange,filter }:Props) {
   const theme = useTheme();
-
+const children: ReactNode[] = [<Deposit dateRange={dateRange}
+filter={filter} key={1} setTransactionData={setTransactionData} transactionParams={transactionParams} />, <Withdraw dateRange={dateRange}
+filter={filter} key={2} setTransactionData={setTransactionData} transactionParams={transactionParams} />];
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   return (
     <Card

@@ -2,9 +2,9 @@
 import Card from '@/app/Components/Containers/Container/Container';
 import FilterToggleButton from '@/app/Components/FilterToggleButton/FilterToggleButton';
 import InputField from '@/app/Components/InputField/InputField';
-import { BankCardDataType, DepositDataType, ToggleItemsType } from '@/app/core/Types';
+import { BankCardDataType, DepositDataType, RecentTransactionDataType, ToggleItemsType } from '@/app/core/Types';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import BankCard from './BankCard';
 import { getBankCard } from '@/lib/getbankCard/bankCard';
 import Container from '@/app/Components/Containers/Container/Container';
@@ -12,15 +12,23 @@ import DepositConfirm from './DepositConfirm';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 import { isAxiosError } from 'axios';
 import { Upload } from '@mui/icons-material';
-import {  silverDeposit } from '@/lib/transactions/deposit/deposit';
+import { useAssets } from '../../AssetsProvider';
 import Loading from '@/app/Components/Loading/Loading';
-import { useAssets } from '@/app/AssetsProvider';
+import { getRecentTransaction } from '@/lib/transactions/recent-transactions/recentTransactions';
+import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
+import { silverDeposit } from '@/lib/transactions/deposit/deposit';
 
 const items: ToggleItemsType[] = [
   { title: 'درگاه پرداخت', value: 'gateway', id: 1 },
   { title: 'واریز مستقیم', value: 'receipt', id: 2 },
 ];
-export default function Deposit() {
+interface Props {
+  setTransactionData:Dispatch<SetStateAction<RecentTransactionDataType[]>>
+  transactionParams:string
+    filter:string
+    dateRange:DatePickerValue
+}
+export default function Deposit({setTransactionData,transactionParams,filter,dateRange}:Props) {
   const [price, setPrice] = useState('');
   const [select, setSelect] = useState(items[0].value);
   const [open,setOpen] = useState(false)
@@ -54,6 +62,8 @@ export default function Deposit() {
     try{
       setIsLoading(true)
       const response =await silverDeposit(formData)
+      const transactionData = await getRecentTransaction(transactionParams,filter,dateRange)
+      setTransactionData(transactionData)
         showSnackbar(response?.message,true)
       refetch()
         setPrice('')
@@ -88,8 +98,8 @@ export default function Deposit() {
     >
       <FilterToggleButton
         items={items}
-        select={select}
-        setSelect={setSelect}
+        active={select}
+        setActive={setSelect}
         style={{
           fontSize: {
             xs: 12,
@@ -104,8 +114,8 @@ export default function Deposit() {
             <Button
               variant="contained"
               sx={{
-                bgcolor: "primary.light",
-                color: "#535657",
+                bgcolor: 'primary.light',
+                color: 'black',
                 borderRadius: 1.5,
                 px: 1,
                 width: 'fit-content',
@@ -235,8 +245,3 @@ export default function Deposit() {
     </>
   );
 }
-
-
-
-
-   

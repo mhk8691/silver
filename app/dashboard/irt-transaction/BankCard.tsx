@@ -1,5 +1,5 @@
-"use client";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+'use client';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {
   Box,
   Button,
@@ -11,29 +11,29 @@ import {
   Stack,
   SvgIcon,
   Typography,
-} from "@mui/material";
-import * as React from "react";
-import AddCard from "../bank-card/AddCard";
-import { BankCardDataType } from "@/app/core/Types";
+} from '@mui/material';
+import * as React from 'react';
+import AddCard from '../bank-card/AddCard';
+import { BankCardDataType } from '@/app/core/Types';
 
 const CardItem = ({ item }: { item: BankCardDataType }) => (
   <Box
     sx={{
-      display: "flex",
-      alignItems: "center",
+      display: 'flex',
+      alignItems: 'center',
       gap: 1,
-      width: "100%",
+      width: '100%',
     }}
   >
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
       {/* <Image src={item.icon} width={24} height={24} alt="" /> */}
-      <Typography fontSize={12} sx={{ color: "#535657" }}>
+      <Typography fontSize={12} sx={{ color: 'text.muted' }}>
         {item.bank_name}
       </Typography>
     </Box>
 
-    <Typography fontSize={16} sx={{ color: "text.title", direction: "rtl" }}>
-      {item.card_number.replace(/(.{4})/g, "$1 ").trim()}
+    <Typography fontSize={16} sx={{ color: 'text.title', direction: 'rtl' }}>
+      {item.card_number}
     </Typography>
   </Box>
 );
@@ -61,23 +61,37 @@ export default function BankCards({
   return (
     <>
       <Stack>
+        {
+      bankCardsData.length > 0 && 
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <FormControl
             sx={{
-              width: "100%",
-              position: "relative",
+              width: '100%',
+              position: 'relative',
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'background.paper',
+              },
+
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'background.paper',
+              },
+
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'background.paper',
+              },
+              borderColor: 'background.paper !imporant',
             }}
           >
             <InputLabel
               shrink={open || !!selectedCard}
               sx={{
-                position: "absolute",
+                position: 'absolute',
                 right: 12,
-                bgcolor: "background.default",
+                bgcolor: 'background.default',
                 px: 1,
                 fontSize: 16,
-                color: "#535657",
-                width: "fit-content",
+                color: 'text.muted',
+                width: 'fit-content',
               }}
             >
               انتخاب کارت بانکی
@@ -86,29 +100,25 @@ export default function BankCards({
             <Box
               onClick={() => setOpen((prev) => !prev)}
               sx={{
-                border: "1px solid",
-                borderRadius: "8px",
-                height: "56px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
+                border: '1px solid',
+                borderRadius: '8px',
+                height: '56px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
                 px: 1.5,
-                cursor: "pointer",
-                transition: "0.2s",
-                borderColor: "#C9CDCF",
+                cursor: 'pointer',
+                transition: '0.2s',
+                borderColor: 'background.paper',
               }}
             >
-              {selectedItem ? (
-                <CardItem item={selectedItem} />
-              ) : (
-                <Stack></Stack>
-              )}
+              {selectedItem ? <CardItem item={selectedItem} /> : <Stack></Stack>}
 
               <KeyboardArrowDownIcon
                 style={{
-                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                  transition: "0.2s",
-                  color: "#535657",
+                  transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: '0.2s',
+                  color: 'text.muted',
                   zIndex: 2,
                 }}
               />
@@ -116,15 +126,16 @@ export default function BankCards({
 
             <Paper
               sx={{
-                position: "absolute",
-                top: "100%",
+                position: 'absolute',
+                top: '100%',
                 left: 0,
-                width: "98%",
+                width: '98%',
                 opacity: open ? 1 : 0,
-                transform: open ? "translateY(-10px)" : "translateY(-40px)",
-                pointerEvents: open ? "auto" : "none",
-                transition: "0.25s",
+                transform: open ? 'translateY(-10px)' : 'translateY(-40px)',
+                pointerEvents: open ? 'auto' : 'none',
+                transition: '0.25s',
                 zIndex: 10,
+                bgcolor: 'background.default',
                 borderRadius: 0,
                 mx: 0.5,
               }}
@@ -136,16 +147,8 @@ export default function BankCards({
                   sx={{
                     py: 2,
                     px: 2,
-                    "&:hover": {
-                      bgcolor: "background.default",
-                    },
-
-                    "&.MuiMenuItem-root": {
-                      bgcolor: "background.default",
-                    },
-
-                    "&.MuiMenuItem-root:hover": {
-                      bgcolor: "background.default",
+                    '&.Mui-selected': {
+                      bgcolor: 'background.default',
                     },
                   }}
                 >
@@ -155,16 +158,17 @@ export default function BankCards({
             </Paper>
           </FormControl>
         </ClickAwayListener>
+         }
         <Button
           onClick={() => setOpenModal(true)}
           variant="outlined"
           color="inherit"
-          disableRipple
+           
           sx={{
-            "&:hover": {
-              bgcolor: "background.default",
+            '&:hover': {
+              bgcolor: 'background.default',
             },
-            width: "fit-content",
+            width: 'fit-content',
             fontSize: {
               xs: 12,
               sm: 16,
@@ -244,6 +248,8 @@ export default function BankCards({
           افزودن کارت
         </Button>
       </Stack>
+   
+    
       <AddCard
         open={openModal}
         setOpen={setOpenModal}
