@@ -1,5 +1,5 @@
 "use client";
-import { Stack, SxProps, Typography } from "@mui/material";
+import { IconButton, Stack, SxProps, Typography } from "@mui/material";
 import LineChart from "../LineChart/LineChart";
 import BottomPrice from "./BottomPrice";
 import TopPrice from "./TopPrice";
@@ -7,7 +7,8 @@ import FilterToggleButton from "../FilterToggleButton/FilterToggleButton";
 import { useState } from "react";
 import { ToggleItemsType } from "@/app/core/Types";
 import Container from "../Containers/Container/Container";
-
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import SilverBubble from "./SilverBubble";
 const pData = [
   2350, 200, 300, 600, 802, 5000, 3290, 100, 200, 400, 300, 2435, 2450, 2465,
   2455, 2470, 2480, 2475, 2490, 2500, 2495, 2510, 2520, 2515,
@@ -45,8 +46,10 @@ export default function Chart({
   dividerStyle,
   priceStyle,
 }: Props) {
-  const [select, setSelect] = useState(toggleItems[0]?.value);
+  const [select, setSelect] = useState(toggleItems[0]?.value); 
+  const [open,setOpen] = useState(false)
   return (
+    <>
     <Container style={{ px: 2.5, ...cardStyle }}>
       <Typography
         variant="h2"
@@ -78,8 +81,8 @@ export default function Chart({
           }}
         >
           <FilterToggleButton
-            select={select}
-            setSelect={setSelect}
+            active={select}
+            setActive={setSelect}
             items={toggleItems}
             style={{
               fontSize: {
@@ -92,7 +95,14 @@ export default function Chart({
         </Stack>
       </Stack>
       {(positionPrice === "top" || positionPrice === "both") && <TopPrice />}
-
+  <Stack direction={'row'}  alignItems={'center'} gap={0}>
+              <Typography variant="body1" >
+              (حباب -۴.۴۸ ٪)  
+            </Typography>
+            <IconButton onClick={()=>setOpen(true)}>
+                <InfoOutlinedIcon  />
+              </IconButton>
+            </Stack>
       <LineChart
         width="100%"
         height={chartHeight || "180px"}
@@ -106,5 +116,7 @@ export default function Chart({
         <BottomPrice priceStyle={priceStyle} dividerStyle={dividerStyle} />
       )}
     </Container>
+    <SilverBubble open={open} setOpen={setOpen} />
+    </>
   );
 }
