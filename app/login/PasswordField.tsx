@@ -4,6 +4,7 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  InputProps,
   OutlinedInput,
 } from "@mui/material";
 import React, { Dispatch, SetStateAction, useState } from "react";
@@ -11,8 +12,9 @@ interface Props {
   password: string;
   setPassword: Dispatch<SetStateAction<string>>;
   label?: string;
+  inputProps?:InputProps
 }
-export default function PasswordField({ password, setPassword, label }: Props) {
+export default function PasswordField({ password, setPassword, label,inputProps }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -46,6 +48,7 @@ export default function PasswordField({ password, setPassword, label }: Props) {
         {label || "رمز ورود"}
       </InputLabel>
       <OutlinedInput
+        {...inputProps}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         id="outlined-adornment-password"
