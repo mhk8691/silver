@@ -1,41 +1,41 @@
-'use client';
-import Card from '@/app/Components/Containers/Container/Container';
-import FilterToggleButton from '@/app/Components/FilterToggleButton/FilterToggleButton';
-import InputField from '@/app/Components/InputField/InputField';
-import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
-import {  ToggleItemsType, TradeTableDataType } from '@/app/core/Types';
-import { Button, Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { isAxiosError } from 'axios';
-import {  useState } from 'react';
-import { useAssets } from '../../AssetsProvider';
-import Loading from '@/app/Components/Loading/Loading';
-import TradesTableContainer from './TradesTableContainer';
-import { getReports } from '@/lib/getReports/getReports';
-import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
-import { silverBuy } from '@/lib/silver/silverBuy';
-import { silverSell } from '@/lib/silver/silverSell';
-import Chart from '@/app/Components/Chart/Chart';
-// import TradesilverConfirmation from './TradesilverConfirmation';
+'use client'
+import { useAssets } from '@/app/AssetsProvider'
+import Container from '@/app/Components/Containers/Container/Container'
+import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker'
+import FilterToggleButton from '@/app/Components/FilterToggleButton/FilterToggleButton'
+import InputField from '@/app/Components/InputField/InputField'
+import Loading from '@/app/Components/Loading/Loading'
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar'
+import { ToggleItemsType, TradeTableDataType } from '@/app/core/Types'
+import { getReports } from '@/lib/getReports/getReports'
+import { silverBuy } from '@/lib/silver/silverBuy'
+import { silverSell } from '@/lib/silver/silverSell'
+import { Button, Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { isAxiosError } from 'axios'
+import React, { Dispatch, SetStateAction, useState } from 'react'
+
+
 
 const items: ToggleItemsType[] = [
   { title: 'خرید', value: 'buy', id: 1 },
   { title: 'فروش', value: 'sell', id: 2 },
 ];
-export default function Trading() {
-  const [price, setPrice] = useState('');
-  const [silver, setSilver] = useState('');
-  const [select, setSelect] = useState(items[0].value);
-  const [open, setOpen] = useState(false);
-  const [isLoading,setIsLoading] = useState(false)
-   const [data,setData] = useState<TradeTableDataType[]>([] as TradeTableDataType[])
-   const [reportsParams,setReportsParams] = useState('')
-  // const [buyInfo, setBuyInfo] = useState<BuysilverDataType>({} as BuysilverDataType);
+interface Props{
+    setData?: Dispatch<SetStateAction<TradeTableDataType[]>>
+    reportsParams?:string
+dateRange?:DatePickerValue | null
+filter?:string
+}
+export default function Trading({setData,reportsParams,filter,dateRange}:Props) {
+      const [price, setPrice] = useState('');
+      const [silver, setSilver] = useState('');
+      const [select, setSelect] = useState(items[0].value);
+      const [open, setOpen] = useState(false);
+      const [isLoading,setIsLoading] = useState(false)
   const {assets,refetch} = useAssets()
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
-      const [filter,setFilter] = useState('')
-      const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
-  const handlePriceChange =  async (val: string) => {
+      const handlePriceChange =  async (val: string) => {
     setPrice(val);
     const num = Number(val);
     if (!isNaN(num)) {
@@ -45,7 +45,7 @@ export default function Trading() {
     }
   };
 
-  const handlesilverChange =async (val: string) => {
+  const handleSilverChange =async (val: string) => {
     setSilver(val);
     const num = Number(val);
     if (!isNaN(num)) {
@@ -55,14 +55,14 @@ export default function Trading() {
     }
   };
 
-  const handleBuysilver = async () => {
+  const handleBuySilver = async () => {
     const methood = assets?.toman_balance > 0 ? 'WALLET':'GATEWAY'
     try {
       setIsLoading(true)
       const response = await silverBuy(price,methood,silver);
-      const newData = await getReports('silver',reportsParams,dateRange,filter)
+      const newData = await getReports('silver',reportsParams||'',dateRange,filter)
       
-      setData(newData)
+      setData&&setData(newData)
       showSnackbar(response.data.message,true)
       setSilver('')
       setPrice('')
@@ -76,12 +76,12 @@ export default function Trading() {
       setIsLoading(false)
     }
   };
-  const handleSellsilver = async () => {
+  const handleSellSilver = async () => {
     try {
       setIsLoading(true)
       const response = await silverSell(silver);
-      const newData = await getReports('silver',reportsParams,dateRange,filter)
-      setData(newData)
+      const newData = await getReports('silver',reportsParams || '',dateRange,filter)
+      setData&&setData(newData)
       showSnackbar(response.data.message,true)
       setOpen(true);
            setSilver('')
@@ -96,15 +96,7 @@ export default function Trading() {
     }
   };
   return (
-    <>
-       <Grid size={12} container  spacing={{
-        xs: 2,
-        lg: 3,
-      }} direction={'row'}>
-        
-      
-     <Grid size={{ xs: 12, md: 4.8 }}>
-      <Card
+      <Container
         style={{
           gap: 3.15,
           py: 3,
@@ -148,43 +140,20 @@ export default function Trading() {
               placeholder={'وزن طلا'}
               title={'گرم'}
               value={silver}
-              setValue={handlesilverChange}
+              setValue={handleSilverChange}
             />
           </Stack>
         </Stack>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => (select === 'buy' ? handleBuysilver() : handleSellsilver())}
+          onClick={() => (select === 'buy' ? handleBuySilver() : handleSellSilver())}
           sx={{ borderRadius: 2, fontSize: 16, height:60 }}
           disabled={isLoading}
         >
           {isLoading ? <Loading size={30}/>:select === 'buy' ? 'خرید' : 'فروش'}
         </Button>
-      </Card>
-      {/* <TradesilverConfirmation title={select === 'buy' ? 'تایید خرید طلا':'تایید فروش طلا'} open={open} setOpen={setOpen} data={buyInfo} /> */}
-   </Grid>
-   <Grid size={{ xs: 12, md: 7.2 }} height={'100%'}>
-          <Chart
-            positionPrice="bottom"
-            priceStyle={{
-              mt: {
-                xs: 2,
-                sm: 2.5,
-              },
-            }}
-            cardStyle={{
-              py: {
-                xs: 2,
-                sm: 2.7,
-              },
-            }}
-          />
-        </Grid>
-        </Grid>
-          <Grid size={12}>
-        <TradesTableContainer filter={filter} setDateRange={setDateRange} dateRange={dateRange} setFilter={setFilter} data={data} reportsParams={reportsParams} setData={setData} setReportsParams={setReportsParams} />
-      </Grid>
-    </>
-  );
+      </Container>
+      /* <TradesilverConfirmation title={select === 'buy' ? 'تایید خرید طلا':'تایید فروش طلا'} open={open} setOpen={setOpen} data={buyInfo} /> */
+  )
 }

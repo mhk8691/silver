@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
 import TransactionTable from '../irt-transaction/TransactionTable';
 import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
+import { statuses } from '../wallet/page';
 
 const depositItems: ToggleItemsType[] = [
   {
@@ -36,9 +37,10 @@ export default function DepositTable({data,setDepositParams,setDateRange,setFilt
   return (
     <DetailTable
     setDateRange={setDateRange}
-    setFilter={setFilter}
+    setStatus={setFilter}
     setParams={setDepositParams}
-    filter={filter}
+    status={filter}
+    statuses={statuses}
     dateRange={dateRange}
       key={2}
       toggleItems={depositItems}

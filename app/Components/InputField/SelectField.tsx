@@ -1,11 +1,10 @@
-
 'use client';
-import CloseIcon from '@mui/icons-material/Close';
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
   FormControl,
-  IconButton,
   MenuItem,
   OutlinedInput,
   Select,
@@ -13,11 +12,17 @@ import {
   Stack,
   SxProps,
   Typography,
+  InputAdornment,
 } from '@mui/material';
 import * as React from 'react';
 
+export interface SelectItem {
+  label: string;
+  value: string;
+}
+
 interface Props {
-  itemsList: string[];
+  itemsList: SelectItem[];
   label: string;
   isOrederDetail: boolean;
   style?: SxProps;
@@ -25,13 +30,14 @@ interface Props {
   value?: string;
   setValue?: React.Dispatch<React.SetStateAction<string>>;
 }
+
 export default function SelectField({
   label,
   itemsList,
   isOrederDetail,
   style,
   maxWidth,
-  value,
+  value = '',
   setValue,
 }: Props) {
   const [open, setOpen] = React.useState(false);
@@ -39,62 +45,37 @@ export default function SelectField({
   React.useEffect(() => {
     if (!open) return;
 
-    const handleScroll = () => {
-      setOpen(false);
-    };
+    const handleScroll = () => setOpen(false);
 
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [open]);
 
-  const MenuProps = {
-    slotProps: {
-      paper: {
-        sx: {
-          border: 1,
-          borderColor: '#D4D4D2',
-          bgcolor: 'background.default',
-          backdropFilter: 'blur(10px)',
-          borderRadius: '8px',
-          mt: 0.5,
-        },
-      },
-    },
-  };
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setValue && setValue(event.target.value);
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setValue?.(event.target.value);
     setOpen(false);
   };
 
   const handleClear = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setValue && setValue('');
+    setValue?.('');
+    setOpen(false);
   };
+
+  const selectedItem = itemsList.find((item) => item.value === value);
+  const hasValue = Boolean(value);
 
   return (
     <FormControl sx={{ maxWidth: maxWidth || '100%', width: '100%' }}>
       <Select
         displayEmpty
         value={value}
-        onChange={handleChange}
-        onOpen={handleOpen}
-        onClose={handleClose}
         open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        onChange={handleChange}
         IconComponent={KeyboardArrowDownIcon}
         input={<OutlinedInput />}
-        MenuProps={MenuProps}
         sx={{
           borderRadius: '8px',
           color: 'text.primary',
@@ -103,7 +84,6 @@ export default function SelectField({
             right: 8,
             left: 'auto',
             color: 'text.primary',
-            display: !isOrederDetail ? 'block' : isOrederDetail && value ? 'none' : 'block',
           },
           '& .MuiSelect-select': {
             display: 'flex',
@@ -115,62 +95,59 @@ export default function SelectField({
           ...style,
         }}
         renderValue={() => {
-          if (!value) {
+          if (!selectedItem) {
             return (
-              <Typography
-                sx={{
-                  color: '#7C7C7C',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  position: 'absolute ',
-                }}
-              >
+              <Typography sx={{ color: '#7C7C7C' }}>
                 {label}
               </Typography>
             );
           }
 
           return (
-            value && (
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '100%',
-                }}
-              >
-                <Stack direction={'row'} alignItems={'center'} gap={0.5}>
-                  {isOrederDetail && <Typography>{label}</Typography>}
-                  <Typography
-                    variant="body1"
-                    sx={{ color: isOrederDetail ? 'primary.main' : 'text.title' }}
-                  >
-                    {value}
-                  </Typography>
-                </Stack>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+              }}
+            >
+              <Stack direction="row" alignItems="center" gap={0.5}>
+                {isOrederDetail && <Typography>{label}</Typography>}
 
-                {isOrederDetail && (
-                  <IconButton
-                    size="small"
-                    onClick={handleClear}
-                    onMouseDown={(e) => e.stopPropagation()}
-                     
-                    sx={{
-                      color: '#FFFFFF',
-                    }}
-                  >
-                    <CloseIcon fontSize="small" color='primary' />
-                  </IconButton>
-                )}
-              </Box>
-            )
+                <Typography
+                  sx={{
+                    color: isOrederDetail ? 'primary.main' : 'text.title',
+                  }}
+                >
+                  {selectedItem.label}
+                </Typography>
+              </Stack>
+
+              {hasValue && (
+                <InputAdornment
+                  position="end"
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                  onClick={handleClear}
+                  sx={{
+                    cursor: 'pointer',
+                    ml: 1,
+                  }}
+                >
+                  <CloseIcon fontSize="small" />
+                </InputAdornment>
+              )}
+            </Box>
           );
         }}
       >
-        {itemsList.map((name) => (
+        {itemsList.map((item) => (
           <MenuItem
-            key={name}
-            value={name}
+            key={item.value}
+            value={item.value}
             sx={{
               color: 'text.primary',
               '&.Mui-selected': {
@@ -178,7 +155,7 @@ export default function SelectField({
               },
             }}
           >
-            {name}
+            {item.label}
           </MenuItem>
         ))}
       </Select>

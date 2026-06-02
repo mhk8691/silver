@@ -4,6 +4,7 @@ import { handleColorStatus, handleTitleStatus } from '@/app/core/handleStatus';
 import priceFormater from '@/app/core/PriceFormater';
 import { OrdersDataType, ToggleItemsType } from '@/app/core/Types';
 import { Stack, TableBody, TableCell, TableRow, Typography } from '@mui/material';
+import { statuses } from '../wallet/page';
 
 const receiveItems: ToggleItemsType[] = [
   {
@@ -23,6 +24,7 @@ const receiveItems: ToggleItemsType[] = [
 export default function OrdersTable({data}:{data:OrdersDataType[]}) {
   return (
     <DetailTable
+    statuses={statuses}
       key={1}
       toggleItems={receiveItems}
       type="toggle"

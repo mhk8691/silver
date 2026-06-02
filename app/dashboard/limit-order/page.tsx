@@ -5,6 +5,7 @@ import Trading from "./Trading";
 import { Metadata } from "next";
 import BackLink from "../BackLink";
 import WalletHeader from "@/app/Components/Wallet/WalletHeader";
+import { statuses } from "../wallet/page";
 export const metadata: Metadata = {
   title: "سفارش با قیمت | نقرینه",
   description: "",
@@ -73,6 +74,7 @@ export default function page() {
           listLength={0}
           tableBody={<></>}
           tableHead={[]}
+          statuses={statuses}
         />
       </Grid>
     </Grid>

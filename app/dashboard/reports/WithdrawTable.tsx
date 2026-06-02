@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import TransactionTable from '../irt-transaction/TransactionTable';
 import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
 import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
+import { statuses } from '../wallet/page';
 
 const withdrawItems: ToggleItemsType[] = [
   {
@@ -29,10 +30,11 @@ interface Props{
 export default function WithdrawTable({data,setWithdrawParams,setDateRange,setFilter,filter,dateRange}:Props) {
   return (
     <DetailTable
+    statuses={statuses}
         setDateRange={setDateRange}
-    setFilter={setFilter}
+    setStatus={setFilter}
     setParams={setWithdrawParams}
-    filter={filter}
+    status={filter}
     dateRange={dateRange}
       key={3}
       toggleItems={withdrawItems}

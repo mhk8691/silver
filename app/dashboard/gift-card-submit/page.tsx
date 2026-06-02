@@ -4,10 +4,12 @@ import { Metadata } from "next";
 import Image from "next/image";
 import BackLink from "../BackLink";
 import Form from "./Form";
+import { statuses } from "../wallet/page";
 export const metadata: Metadata = {
   title: "دریافت کارت هدیه | نقرینه",
   description: "",
 };
+
 export default function page() {
   return (
     <Grid
@@ -164,6 +166,7 @@ export default function page() {
       </Grid>
       <Grid size={12}>
         <DetailTable
+        statuses={statuses}
           title="کارت هدیه های شما"
           toggleItems={[]}
           type="chip"

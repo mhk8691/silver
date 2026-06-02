@@ -18,7 +18,12 @@ import { TransactionItems } from '../irt-transaction/TransactionContainer';
 //   title: 'کیف پول | دارینه',
 //   description: '',
 // };
-
+export const statuses = [
+  { label: 'در انتظار تایید', value: 'PENDING' },
+  { label: 'تکمیل شده', value: 'COMPLETED' },
+  { label: 'لغو شده', value: 'CANCELLED' },
+  { label: 'ناموفق', value: 'FAILED' },
+];
 export default async function page() {
   const [transactionData,setTransactionData] = useState<RecentTransactionDataType[]>([])
   const [transactionParams,setTransactionParams] = useState('deposit')
@@ -250,6 +255,7 @@ export default async function page() {
         </Grid>
         <Stack mt={{ xs: 1, sm: 3 }}>
           <OrderDetail
+          statuses={statuses}
             type="chip"
             title="لیست تراکنش‌‌های اخیر"
             toggleItems={TransactionItems}
@@ -265,9 +271,9 @@ export default async function page() {
             'تاریخ',
           ]}
           setDateRange={setDateRange}
-          setFilter={setFilter}
+          setStatus={setFilter}
           dateRange={dateRange}
-          filter={filter}
+          status={filter}
           />
         </Stack>
       </Grid>

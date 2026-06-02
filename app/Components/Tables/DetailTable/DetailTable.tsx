@@ -7,7 +7,7 @@ import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import Card from '../../Containers/Container/Container';
 import CustomDatePicker, { DatePickerValue } from '../../DatePicker/CustomDatePicker';
 import FilterToggleButton from '../../FilterToggleButton/FilterToggleButton';
-import SelectField from '../../InputField/SelectField';
+import SelectField, { SelectItem } from '../../InputField/SelectField';
 import FilterButton from './FilterButton';
 import CustomTable from '../CustomTable';
 interface Props {
@@ -20,13 +20,15 @@ interface Props {
   tableHead: string[];
   listLength: number;
   setParams?:React.Dispatch<React.SetStateAction<string>>
-  setFilter: Dispatch<SetStateAction<string>>
+  setStatus: Dispatch<SetStateAction<string>>
   setDateRange:Dispatch<SetStateAction<DatePickerValue|null>>
-  filter:string
+  status:string
   dateRange:DatePickerValue|null
+  statuses:SelectItem[]
 }
-const names = ['تکمیل شده', 'در انتظار تایید', 'لغو شده'];
+
 export default function OrderDetail({
+  statuses,
   title,
   type,
   toggleItems,
@@ -36,7 +38,7 @@ export default function OrderDetail({
   tableHead,
   listLength,
   setParams,
-  filter,dateRange,setDateRange,setFilter
+  status,dateRange,setDateRange,setStatus
 }: Props) {
   const [active, setActive] = useState(toggleItems[0]?.value);
   const [message, setMessage] = useState(toggleItems[0]?.emptyMessage || '');
@@ -110,8 +112,8 @@ export default function OrderDetail({
             sm: 'flex',
           }}
         >
-            <FilterListIcon sx={{ color: "#717475" }} />
-     <Typography variant="body2" sx={{ color: "#717475" }}>
+          <FilterListIcon sx={{ color: 'text.subtitle' }} />
+          <Typography variant="body2" sx={{ color: 'text.subtitle' }}>
             فیلترها:
           </Typography>
         </Stack>
@@ -125,8 +127,8 @@ export default function OrderDetail({
             },
           }}
         >
-          <SelectField label="وضعیت" itemsList={names}  isOrederDetail maxWidth="260px"  value={filter}
-            setValue={setFilter} />
+          <SelectField label="وضعیت" itemsList={statuses}  isOrederDetail maxWidth="260px"  value={status}
+            setValue={setStatus} />
           <CustomDatePicker style={{
             maxWidth:'270px'
           }} value={dateRange} onChange={handleDateChange} isRange />
@@ -168,9 +170,9 @@ export default function OrderDetail({
             alt=""
           />
         </Stack>
-       <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
-           {emptyMessage || message}
-         </Typography>
+        <Typography variant="body2" fontSize={12} sx={{ color: 'text.muted' }}>
+          {emptyMessage || message}
+        </Typography>
       </Stack>
       )}
     </>
@@ -255,8 +257,8 @@ export default function OrderDetail({
             sm: 'flex',
           }}
         >
-           <FilterListIcon sx={{ color: "#717475" }} />
-           <Typography variant="body2" sx={{ color: "#717475" }}>
+          <FilterListIcon sx={{ color: 'text.subtitle' }} />
+          <Typography variant="body2" sx={{ color: 'text.subtitle' }}>
             فیلترها:
           </Typography>
         </Stack>
@@ -271,12 +273,12 @@ export default function OrderDetail({
           }}
         >
           <SelectField
-            itemsList={names}
+            itemsList={statuses}
             label="وضعیت"
             isOrederDetail={true}
             maxWidth="260px"
-            value={filter}
-            setValue={setFilter}
+            value={status}
+            setValue={setStatus}
           />
           <CustomDatePicker style={{
             maxWidth:'270px'
@@ -302,9 +304,9 @@ export default function OrderDetail({
             height={270}
             alt=""
           />
-          <Typography variant="body2" fontSize={12} sx={{ color: "#535657" }}>
-           {emptyMessage || message}
-        </Typography>
+          <Typography variant="body2" fontSize={12} sx={{ color: 'text.muted' }}>
+            {emptyMessage || message}
+          </Typography>
         </Stack>
       )}
     </Card>

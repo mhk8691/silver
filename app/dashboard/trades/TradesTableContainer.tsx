@@ -22,7 +22,7 @@ export default function TradesTableContainer({data,setData,setReportsParams,repo
     useEffect(() => {
     const getData = async () => {
       try{
-  const response = await getReports('gold',reportsParams,dateRange,filter);
+  const response = await getReports('silver',reportsParams,dateRange,filter);
       setData(response || []);
       }
     

@@ -6,6 +6,7 @@ import priceFormater from '@/app/core/PriceFormater';
 import { ToggleItemsType, TradeTableDataType } from '@/app/core/Types';
 import { Stack, TableBody, TableCell, TableRow, Typography } from '@mui/material';
 import React, { Dispatch, SetStateAction } from 'react';
+import { statuses } from '../wallet/page';
 
 const trades: ToggleItemsType[] = [
   {
@@ -35,8 +36,9 @@ interface Props {
 export default function TradesTable({data,type='toggle',noCard=true,setTradeParams,dateRange,setDateRange,filter,setFilter}:Props) {
   return (
     <DetailTable
-    filter={filter}
-    setFilter={setFilter}
+    statuses={statuses}
+    status={filter}
+    setStatus={setFilter}
     dateRange={dateRange}
       setDateRange={setDateRange}
     setParams={setTradeParams}

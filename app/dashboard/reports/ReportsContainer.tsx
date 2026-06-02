@@ -17,7 +17,7 @@ const tabs = [
   // }
 ];
 
-const tabUrl = ['gold', 'deposit', 'withdraw'];
+const tabUrl = ['silver', 'deposit', 'withdraw'];
 export default function ReportsContainer() {
     const [filter,setFilter] = useState('')
     const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
@@ -29,7 +29,7 @@ export default function ReportsContainer() {
   useEffect(() => {
     const getData = async () => {
       try{
-  const response = await getReports(tabUrl[value],tabUrl[value] === 'gold' ? tradeParams:tabUrl[value] === 'deposit' ? depositParams:withdrawParams,dateRange,filter);
+  const response = await getReports(tabUrl[value],tabUrl[value] === 'silver' ? tradeParams:tabUrl[value] === 'deposit' ? depositParams:withdrawParams,dateRange,filter);
       setData(response || []);
       }
     

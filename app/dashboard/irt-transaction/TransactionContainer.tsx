@@ -11,6 +11,7 @@ import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 import { RecentTransactionDataType, ToggleItemsType } from '@/app/core/Types';
 import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
+import { statuses } from '../wallet/page';
 
 export const TransactionItems: ToggleItemsType[] = [
   {
@@ -169,9 +170,10 @@ dateRange={dateRange} setValue={setValue} setTransactionData={setTransactionData
           setParams={setTransactionParams}
           listLength={transactionData.length}
           setDateRange={setDateRange}
-          setFilter={setFilter}
+          setStatus={setFilter}
           dateRange={dateRange}
-          filter={filter}
+          status={filter}
+          statuses={statuses}
         />
       </Grid>
     </>
