@@ -32,7 +32,7 @@ export default function AddressList({ setOpenAddAddress, addresses, setAddressId
 
   useEffect(() => {
     if (addresses.length > 0 && !addressId) {
-      setAddressId(addresses[0].id);
+      setAddressId(addresses[1].id);
     }
   }, [addresses, addressId, setAddressId]);
 
@@ -56,7 +56,7 @@ export default function AddressList({ setOpenAddAddress, addresses, setAddressId
         onClick={() => setOpen(true)}
         value={displayText}
         sx={{
-          direction: 'ltr',
+          direction: 'rtl',
           width: '100%',
           '& .MuiInputBase-input': {
             '&:hover': {
@@ -64,30 +64,8 @@ export default function AddressList({ setOpenAddAddress, addresses, setAddressId
             },
             fontSize: '20px',
           },
-          '&.MuiFormControl-root .MuiFormLabel-root': {
-            color: 'text.subtitle',
-          },
-          '& .MuiOutlinedInput-root': {
-            color: '#ffffff',
-            opacity: 1,
-            borderRadius: 2,
-            '& fieldset': {
-              borderColor: '#494949',
-              borderWidth: '1px',
-            },
-            '&:hover fieldset': {
-              borderColor: '#494949',
-              borderWidth: '1px',
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: '#494949',
-              borderWidth: '1px',
-            },
-            '&.Mui-disabled fieldset': {
-              borderColor: '#494949',
-              borderWidth: '1px',
-            },
-          },
+
+         
         }}
         slotProps={{
           input: {
