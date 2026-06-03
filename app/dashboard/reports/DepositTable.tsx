@@ -8,19 +8,19 @@ import { statuses } from '../wallet/page';
 const depositItems: ToggleItemsType[] = [
   {
     title: 'درگاه پرداخت',
-    value: 'paymentGateway',
+    value: 'ONLINE',
     id: 1,
     emptyMessage: 'واریزی برای شما به ثبت نرسیده است',
   },
   {
     title: 'واریز مستقیم',
-    value: 'directDeposit',
+    value: 'BANK',
     id: 2,
     emptyMessage: 'واریز باشناسه ای برای شما به ثبت نرسیده است',
   },
   {
-    title: 'واریز از نقرینه',
-    value: 'silverDeposit',
+    title: 'واریز از دارینه',
+    value: 'GOLD',
     id: 3,
     emptyMessage: 'واریزی برای شما به ثبت نرسیده است',
   },

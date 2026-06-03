@@ -8,13 +8,13 @@ import { statuses } from '../wallet/page';
 const withdrawItems: ToggleItemsType[] = [
   {
     title: 'برداشت به حساب بانکی',
-    value: 'bankAccount',
+    value: 'BANK',
     id: 1,
     emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',
   },
   {
-    title: 'برداشت به نقرینه',
-    value: 'silver',
+    title: 'برداشت به دارینه',
+    value: 'GOLD',
     id: 2,
     emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',
   },

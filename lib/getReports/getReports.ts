@@ -3,16 +3,16 @@ import api, { ApiResponse } from '@/lib/api';
 
 export const getReports = async (
   key: string,
-  params?: string,
+  method?: string,
   date?: DatePickerValue,
   filter?: string
 ) => {
   const query = new URLSearchParams();
 
   query.append('type', key);
-  // if (params){
-  //     query.append('type', params);
-  // }
+  if (method){
+      query.append('method', method);
+  }
 
   if (date?.from) {
     query.append('start_date', String(date.from));
