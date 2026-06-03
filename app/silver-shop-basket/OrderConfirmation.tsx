@@ -44,7 +44,7 @@ interface Props {
 export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Props) {
   const [checked, setChecked] = useState(false);
   const [isLoading,setIsLoading] = useState(false)
-  const [active, setActive] = useState('one-time');
+  const [active, setActive] = useState('TOMAN');
   const router = useRouter()
   const { assets } = useAssets();
 
@@ -160,13 +160,13 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
           sx={{ flexDirection: 'row', justifyContent: 'space-between' }}
         >
           <FormControlLabel
-            value="one-time"
+            value="TOMAN"
             control={<Radio disableTouchRipple />}
             label="پرداخت نقدی"
             sx={{ '& .MuiTypography-root': { fontSize: 18 } }}
           />
           <FormControlLabel
-            value="every-time"
+            value="SILVER"
             control={<Radio disableTouchRipple />}
             label="پرداخت اعتباری"
             sx={{ '& .MuiTypography-root': { fontSize: 18 } }}

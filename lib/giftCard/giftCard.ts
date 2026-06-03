@@ -4,7 +4,7 @@ import api, { ApiResponse } from '@/lib/api';
 export const giftCardSubmit = async (serialNumber: string) => {
     const response = await api.post<{
       message: string;
-    }>('/gold/gift-card/redeem/', { serial_number: serialNumber });
+    }>('/silver/gift-card/redeem/', { serial_number: serialNumber });
    return response.data
   
 };
@@ -15,15 +15,15 @@ export const giftCardOrder = async (weight:string,quantity:number,province:strin
   const newData = addressId ?dataWithoutAddress :dataWithAddress
   const response = await api.post<{
       message: string;
-    }>('/gold/gift-card/order/', newData);
+    }>('/silver/gift-card/order/', newData);
     return response.data
   }
 
 export const getGiftCardList = async () => {
-    const response = await api.get<ApiResponse<GiftCardListType[]>>('/gold/gift-card/list/');
+    const response = await api.get<ApiResponse<GiftCardListType[]>>('/silver/gift-card/list/');
     return response.data.data;
 };
 export const getAddresses = async () => {
-    const response = await api.get<ApiResponse<AddressesDataType[]>>('/gold/addresses/');
+    const response = await api.get<ApiResponse<AddressesDataType[]>>('/silver/addresses/');
     return response.data.data;
 };

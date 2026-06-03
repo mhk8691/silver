@@ -52,7 +52,7 @@ export default function ButtonGroupe() {
             variant="outlined"
             color="secondary"
             disableRipple
-            onClick={() => router.push("http://panel.darine.shop/dashboard")}
+            onClick={() => router.push("http://gold.darine.shop/dashboard")}
             sx={{
               px: 1,
               border: 1,

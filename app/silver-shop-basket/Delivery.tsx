@@ -8,7 +8,7 @@ import HouseDelivery from './HouseDelivery';
 
 const toggleItems: ToggleItemsType[] = [
   { title: 'تحویل درب منزل', value: 'HOME', id: 1 },
-  { title: 'تحویل حضوری', value: 'directDelivery', id: 2 },
+  { title: 'تحویل حضوری', value: 'IN_PERSON', id: 2 },
 ];
 interface Props{
   deliveryType:string

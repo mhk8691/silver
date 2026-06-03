@@ -69,7 +69,7 @@ const {assets,isVisible} = useAssets()
             borderRadius: 2.5,
           }}
         >
-          <Stack direction={"row"} justifyContent={type ==='dashboard' ? 'flex-start':'center'} p={2}>
+          <Stack direction={"row"} justifyContent={type ==='dashboard' ? 'center':'flex-start'} p={2}>
             <Stack
               direction={"column"}
               gap={1}

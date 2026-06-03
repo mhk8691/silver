@@ -26,7 +26,7 @@ export const getRecentTransaction = async (
   }
 
   const response = await api.get<ApiResponse<RecentTransactionDataType[]>>(
-    `/silver/recent-transactions/?${query.toString()}`
+    `/silver/recent/transactions/?${query.toString()}`
   );
 
   return response.data.data;
