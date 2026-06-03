@@ -168,7 +168,7 @@ export default function ProductCard({ item,cart,setCart}: { item: ProductDateTyp
                 }}
                 sx={{ alignSelf: 'flex-end' }}
               >
-                {priceFormater(item?.price || 0)} {' '}
+                {priceFormater(item?.total_price || 0)} {' '}
                 <Box
                   component={'span'}
                   fontSize={{
@@ -197,7 +197,7 @@ export default function ProductCard({ item,cart,setCart}: { item: ProductDateTyp
               setCart(addToCart({
                 id:item.id,
                 name:item.name,
-                price:item.price,
+                total_price:item.total_price,
                 weight:item.weight
               }))
               setOpen(true);

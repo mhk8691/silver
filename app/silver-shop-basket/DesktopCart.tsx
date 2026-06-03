@@ -175,7 +175,7 @@ const DesktopCart = ({cartData,setCartData}:Props) => {
               </TableCell>
 
               <TableCell align="center" sx={dataStyle}>
-                {priceFormater(item.price)} تومان
+                {priceFormater(item.total_price)} تومان
               </TableCell>
 
               <TableCell align="center" sx={dataStyle}>
@@ -186,7 +186,7 @@ const DesktopCart = ({cartData,setCartData}:Props) => {
               </TableCell>
 
               <TableCell align="center" sx={dataStyle}>
-                {priceFormater(item.price * item.quantity)} تومان
+                {priceFormater(item.total_price * item.quantity)} تومان
               </TableCell>
             </TableRow>
           ))}

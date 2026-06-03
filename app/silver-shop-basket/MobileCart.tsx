@@ -33,7 +33,7 @@ export default function MobileCart({cartData,setCartData}:Props) {
                 {priceFormater(item.weight)} گرم
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.title' }} fontSize={12}>
-                {priceFormater(item.price)} تومان
+                {priceFormater(item.total_price)} تومان
               </Typography>
             </Stack>
           </Stack>
@@ -42,7 +42,7 @@ export default function MobileCart({cartData,setCartData}:Props) {
               width: '120px',
             }} />
             <Typography variant="h6" fontSize={18}>
-              {priceFormater(item.price * item.quantity)} تومان
+              {priceFormater(item.total_price * item.quantity)} تومان
             </Typography>
           </Stack>
         </Stack>

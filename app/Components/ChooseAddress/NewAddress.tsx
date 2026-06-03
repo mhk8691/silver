@@ -1,24 +1,30 @@
-import InputField from "@/app/Components/InputField/InputField";
-import { Grid, SxProps } from "@mui/material";
-import React, { useState } from "react";
+import InputField from '@/app/Components/InputField/InputField';
+import { Grid, SxProps } from '@mui/material';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
 const inputStyle: SxProps = {
-  width: "100%",
-  "& .MuiInputBase-input": {
-    textAlign: "left",
+  width: '100%',
+  '& .MuiInputBase-input': {
+    textAlign: 'left',
   },
 };
+interface Props{
+      address:string
+  setAddress:Dispatch<SetStateAction<string>>
+  setPlaque:React.Dispatch<React.SetStateAction<string>>
+setUnit:React.Dispatch<React.SetStateAction<string>>
+setPostCode:React.Dispatch<React.SetStateAction<string>>
+plaque:string
+unit:string
+postCode:string
+}
+export default function NewAddress({address,plaque,postCode,setPlaque,setPostCode,setUnit,unit,setAddress}:Props) {
 
-export default function NewAddress() {
-  const [address, setAddress] = useState("تست");
-  const [plaque, setPlaque] = useState("");
-  const [unit, setUnit] = useState("");
-  const [postCode, setPostCode] = useState("");
   return (
-    <Grid container spacing={2} width={"100%"}>
+    <Grid container spacing={2} width={'100%'}>
       <Grid size={12}>
         <InputField
-        type="text"
+        type='text'
           placeholder="آدرس محل تحویل"
           value={address}
           setValue={setAddress}
@@ -26,26 +32,14 @@ export default function NewAddress() {
         />
       </Grid>
       <Grid size={6}>
-        <InputField
-        type="text"
-          placeholder="پلاک"
-          value={plaque}
-          setValue={setPlaque}
-          style={inputStyle}
-        />
+        <InputField type='text' placeholder="پلاک" value={plaque} setValue={setPlaque} style={inputStyle} />
       </Grid>
       <Grid size={6}>
-        <InputField
-        type="text"
-          placeholder="واحد"
-          value={unit}
-          setValue={setUnit}
-          style={inputStyle}
-        />
+        <InputField type='text' placeholder="واحد" value={unit} setValue={setUnit} style={inputStyle} />
       </Grid>
       <Grid size={12}>
         <InputField
-        type="text"
+        type='text'
           placeholder="کد پستی"
           value={postCode}
           setValue={setPostCode}

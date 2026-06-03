@@ -1,6 +1,7 @@
 // cart.ts
 
-import { CartItem } from "@/app/core/Types";
+import { AddressesDataType, CartItem } from "@/app/core/Types";
+import api, { ApiResponse } from "../api";
 
 const STORAGE_KEY = "cart";
 
@@ -111,3 +112,8 @@ export const clearCart = () => {
 //     return total + item.weight * item.quantity;
 //   }, 0);
 // };
+
+export const addAddresses = async (newAddress:AddressesDataType) => {
+    const response = await api.post<ApiResponse<AddressesDataType>>('/gold/address/',newAddress);
+    return response.data;
+};

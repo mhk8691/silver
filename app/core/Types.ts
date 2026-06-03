@@ -123,7 +123,7 @@ export interface ProductDateType {
   name: string;
   category?: string;
   weight: number;
-  price:number;
+  total_price:number;
   image?: string;
 }
 
@@ -238,8 +238,8 @@ export interface RecentDeliveriesDataType{
       "updated_at": string,
 }
 export interface AddressesDataType {
-    "id": number,
-      "type": string,
+    "id"?: number,
+      "type"?: string,
       "province": string,
       "city":string,
       "address":string
