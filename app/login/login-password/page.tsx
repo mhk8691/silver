@@ -22,7 +22,7 @@ export default function page() {
         <Link href={"/login/forget"} style={{ marginTop: 24 }}>
           <Typography
             variant="body2"
-            sx={{ color: "#F5B536" }}
+            sx={{ color: "#F5B536",mt:2 }}
             fontSize={12}
             fontWeight={600}
           >

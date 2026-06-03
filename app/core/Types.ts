@@ -92,21 +92,15 @@ export interface BankCardDataType {
 }
 export interface DepositDataType {
   card_number: string;
-  shaba: string;
-  owner: string;
-  account: string;
+  sheba: string;
+  full_name: string;
 }
 
 export interface WithdrawDataType {
   added_weight?: string;
   new_wallet_balance: string;
 }
-export interface DepositDataType {
-  card_number: string;
-  shaba: string;
-  owner: string;
-  account: string;
-}
+
 export interface AllAssetsDataType {
   total_assets_value: number;
   gold_balance_gr: number;
@@ -246,4 +240,9 @@ export interface AddressesDataType {
       "postal_code": string,
       "plaque": string,
       "unit": string
+}
+export interface CategoriesDataType {
+            "id": number,
+            "name": string,
+            "slug": string
 }

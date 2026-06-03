@@ -15,7 +15,7 @@ export const silverDeposit = async (data:FormData) => {
   }
 
 export const getSilverDeposit = async () => {
-    const response = await api.get<ApiResponse<DepositDataType>>("/silver/deposit/");
+    const response = await api.get<ApiResponse<DepositDataType>>("/silver/deposit/info/");
    
     return response.data;
   } 
