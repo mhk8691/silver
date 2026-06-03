@@ -165,7 +165,7 @@ export default function page() {
         </Grid>
       </Grid>
       <Grid size={12}>
-        <DetailTable
+        {/* <DetailTable
         statuses={statuses}
           title="کارت هدیه های شما"
           toggleItems={[]}
@@ -174,7 +174,7 @@ export default function page() {
           listLength={0}
           tableBody={<></>}
           tableHead={[]}
-        />
+        /> */}
       </Grid>
     </Grid>
   );

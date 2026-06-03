@@ -11,7 +11,7 @@ interface Props {
 }
 export default function ToggleEyeButton({ visible, setVisible }: Props) {
   useEffect(() => {
-    const stored = localStorage.getItem("eyeState");
+    const stored = localStorage?.getItem("eyeState");
     if (stored !== null) {
       setVisible(stored === "true");
     }
@@ -20,7 +20,7 @@ export default function ToggleEyeButton({ visible, setVisible }: Props) {
   const handleClick = () => {
     const newValue = !visible;
     setVisible(newValue);
-    localStorage.setItem("eyeState", newValue.toString());
+    localStorage?.setItem("eyeState", newValue.toString());
   };
 
   return (

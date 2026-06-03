@@ -33,7 +33,7 @@ export function AssetsProvider({ children }: { children: React.ReactNode }) {
 
   // برای جلوگیری از باگ‌های هیدریشن در Next.js، لود لوکال استوریج را به useEffect منتقل می‌کنیم
   useEffect(() => {
-    const stored = localStorage.getItem('eyeState');
+    const stored = localStorage?.getItem('eyeState');
     if (stored !== null) {
       setIsVisible(stored === 'true');
     }

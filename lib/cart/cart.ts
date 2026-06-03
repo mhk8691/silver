@@ -6,7 +6,7 @@ import api, { ApiResponse } from "../api";
 const STORAGE_KEY = "cart";
 
 export const getCart = (): CartItem[] => {
-  const cart = localStorage.getItem(STORAGE_KEY);
+  const cart = localStorage?.getItem(STORAGE_KEY);
 
   if (!cart) return [];
 
@@ -14,7 +14,7 @@ export const getCart = (): CartItem[] => {
 };
 
 const saveCart = (cart: CartItem[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  localStorage?.setItem(STORAGE_KEY, JSON.stringify(cart));
 };
 
 export const addToCart = (product: Omit<CartItem, "quantity">) => {
@@ -83,7 +83,7 @@ export const decreaseQuantity = (productId: number | string) => {
 };
 
 export const clearCart = () => {
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage?.removeItem(STORAGE_KEY);
 };
 
 

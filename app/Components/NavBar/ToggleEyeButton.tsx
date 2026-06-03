@@ -10,7 +10,7 @@ export default function ToggleEyeButton() {
   const handleClick = () => {
     const nextState = !isVisible; 
     setIsVisible(nextState); 
-    localStorage.setItem('eyeState', String(nextState));
+    localStorage?.setItem('eyeState', String(nextState));
   };
 
   return (

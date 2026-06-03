@@ -36,7 +36,7 @@ export default function Trade({ type }: Props) {
         px: { xs: 0, sm: 1 },
       }}
     >
-      <FilterToggleButton items={items} select={select} setSelect={setSelect} />
+      <FilterToggleButton items={items} active={select} setActive={setSelect} />
 
       <Stack gap={3.5}>
         <InputField

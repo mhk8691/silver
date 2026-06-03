@@ -66,7 +66,7 @@ export default function page() {
         />
       </Grid>
       <Grid size={12}>
-        <DetailTable
+        {/* <DetailTable
           title="لیست معاملات اخیر"
           toggleItems={[]}
           type="chip"
@@ -75,7 +75,7 @@ export default function page() {
           tableBody={<></>}
           tableHead={[]}
           statuses={statuses}
-        />
+        /> */}
       </Grid>
     </Grid>
   );

@@ -177,9 +177,7 @@ export interface PriceAlertsDataType {
   created_at: string;
 }
 
-export interface OrdersDataType{
-  "id": 1,      "tracking_code": string,      "status": StatusType,      "payment_method": string,      "delivery_type": string,      "total_toman_amount": number,      "created_at": string
-}
+
 
 export interface RecentTransactionDataType{
     "id": number,
