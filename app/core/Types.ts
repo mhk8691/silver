@@ -185,7 +185,7 @@ export interface RecentTransactionDataType{
     "id": number,
       "amount": number,
       "type":'DEPOSIT'|'WITHDRAW',
-      "method": string,
+      "method_display": string,
       "status":  StatusType,
       "tracking_code": string,
       "created_at": string,
@@ -203,15 +203,7 @@ export interface ChartGoldDataType {
       "lowest_price": number,
       "change_percent": number   }  }
 
-      export interface RecentTransactionDataType{
-    "id": number,
-      "amount": number,
-      "type":'DEPOSIT'|'WITHDRAW',
-      "method": string,
-      "status":  StatusType,
-      "tracking_code": string,
-      "created_at": string,
-}
+
 
 export interface RecentDeliveriesDataType{
     "id": number,

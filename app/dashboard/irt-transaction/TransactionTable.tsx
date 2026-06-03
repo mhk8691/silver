@@ -73,7 +73,7 @@ export default function TransactionTable({data}:{data:RecentTransactionDataType[
                           variant="body1"
                         
                         >
-                            {row.method}
+                            {row.method_display}
                         </Typography>
                       </Stack>
                     </TableCell>

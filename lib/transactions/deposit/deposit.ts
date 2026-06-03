@@ -2,7 +2,7 @@ import { DepositDataType } from "@/app/core/Types";
 import api, { ApiResponse } from "@/lib/api";
 
 export const silverDeposit = async (data:FormData) => {
-    const response = await api.post<{ message: string }>("/silver/deposit/", {
+    const response = await api.post<{ message: string }>("/silver/wallet/deposit/", {
       amount:data.get('amount'),
       method:data.get('method'),
       receipt:data.get('receipt')

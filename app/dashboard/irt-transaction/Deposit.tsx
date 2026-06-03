@@ -62,11 +62,11 @@ export default function Deposit({setTransactionData,transactionParams,filter,dat
     try{
       setIsLoading(true)
       const response =await silverDeposit(formData)
-      const transactionData = await getRecentTransaction(transactionParams,filter,dateRange)
-      setTransactionData(transactionData)
-        showSnackbar(response?.message,true)
       refetch()
-        setPrice('')
+      setPrice('')
+      const transactionData = await getRecentTransaction(transactionParams,filter,dateRange)
+      showSnackbar(response?.message,true)
+      setTransactionData(transactionData)
     }catch(error:unknown){
       if (isAxiosError(error)){
         showSnackbar(error.response?.data.message)

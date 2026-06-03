@@ -17,7 +17,7 @@ import { silverWithdraw } from '@/lib/transactions/withdraw/withdraw';
 
 const items: ToggleItemsType[] = [
   { title: 'به حساب بانکی', value: 'bank', id: 1 },
-  { title: 'به نقره سی', value: 'silver', id: 2 },
+  { title: 'به دارینه', value: 'silver', id: 2 },
 ];
 interface Props {
   setTransactionData:Dispatch<SetStateAction<RecentTransactionDataType[]>>,
@@ -37,7 +37,7 @@ export default function Withdraw({setTransactionData,transactionParams,filter,da
   setIsLoading(true)
      const response = await silverWithdraw(
       price,
-      select === 'silver' ? 'SILVER' : 'BANK',
+      select === 'silver' ? 'GOLD' : 'BANK',
       selectedCard?selectedCard:undefined,
     );
       const transactionData = await getRecentTransaction(transactionParams,filter,dateRange)

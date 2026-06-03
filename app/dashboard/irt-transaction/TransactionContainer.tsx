@@ -34,7 +34,7 @@ export const TransactionItems: ToggleItemsType[] = [
     emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',
   },
   {
-    title: 'برداشت به نقره سی',
+    title: 'برداشت به دارینه',
     value: 'silverWithdraw',
     id: 4,
     emptyMessage: 'برداشتی برای شما به ثبت نرسیده است',
