@@ -13,11 +13,13 @@ import { CartItem } from '../core/Types';
 import Image from 'next/image';
 
 export default function Cart() {
+      const [deliveryType, setDeliveryType] = useState('HOME');
   const [step, setStep] = useState(0);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const theme = useTheme();
   const [cartData,setCartData] = useState<CartItem[]>(getCart())
+   const [addressId, setAddressId] = useState(0);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'), {
     noSsr: true,
   });
@@ -68,7 +70,8 @@ export default function Cart() {
         </Stack>}
         </>
       )}
-      {step === 1 && <Delivery />}
+      {step === 1 && <Delivery addressId={addressId} setAddressId={setAddressId} deliveryType={deliveryType}
+setDeliveryType={setDeliveryType} />}
      {
       cartData.length > 0 &&  <Stack
         width={{
@@ -148,7 +151,7 @@ export default function Cart() {
           </IconButton>
         </Stack>
         <Stack height={'90%'} overflow={'auto'} mt={1} pr={1} pb={4}>
-          <OrderConfirmation setOpen={setOpen} />
+          <OrderConfirmation setOpen={setOpen} addressId={addressId} deliveryType={deliveryType} />
         </Stack>
       </CustomModal>
     </>

@@ -205,24 +205,7 @@ export interface ChartGoldDataType {
 
 
 
-export interface RecentDeliveriesDataType{
-    "id": number,
-      "amount": number,
-      "type": string,
-      "type_display": string,
-      "method": string,
-      "method_display": string,
-      "status": string,
-      "status_display": string,
-      "receipt_image": string | null,
-      "user_card": string | null,
-      "user_card_number": string | null,
-      "admin_note": string,
-      "tracking_code": string,
-      "description": string,
-      "created_at": string,
-      "updated_at": string,
-}
+
 export interface AddressesDataType {
     "id"?: number,
       "type"?: string,
@@ -237,4 +220,28 @@ export interface CategoriesDataType {
             "id": number,
             "name": string,
             "slug": string
+}
+
+export interface OrdersDataType {
+  id:number,
+  tracking_code: string;
+  status: StatusType;
+  payment_method_display: string;
+  delivery_type_display: string;
+  total_toman_amount: number;
+  created_at: string;
+unit:string
+plaque:string
+  province: string;
+  city: string;
+  address: string;
+}
+export interface CheckoutDataType {
+  products:{
+    product_id:number
+    quantity:number
+  }[],
+    "payment_method": string,
+  "delivery_type": string,
+  "address_id": number
 }

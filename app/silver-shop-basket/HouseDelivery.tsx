@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import ChooseAddress from '../Components/ChooseAddress/ChooseAddress';
 import { Typography } from '@mui/material';
-
-export default function HouseDelivery() {
+import { AddressesDataType } from '../core/Types';
+interface Props{
+addressId:number
+setAddressId:Dispatch<SetStateAction<number>>
+}
+export default function HouseDelivery({addressId,setAddressId}:Props) {
   const [open, setOpen] = useState(false);
+  const [addresses,setAddresses] = React.useState<AddressesDataType[]>([])
   return (
     <>
       <Typography
@@ -17,13 +22,17 @@ export default function HouseDelivery() {
       <Typography variant="body1" fontSize={16}>
         سفارش شما تا ۵ روز کاری به آدرس تعیین شده تحویل داده می‌شود.
       </Typography> 
-     <ChooseAddress
-        open={open}
-        setOpen={setOpen}
-        description="برای دریافت کالای انتخاب شده، ابتدا آدرس خود را اضافه کنید"
-        cardStyle={{ mt: 3 }}
-        
-      />
+         <ChooseAddress
+     cardStyle={{mt:3}}
+                     open={open}
+                     setOpen={setOpen}
+                     description=" آدرس مورد نظر خود را اضافه کنید."
+     setAddresses={setAddresses}
+     addresses={addresses}
+     addressId={addressId} 
+     setAddressId={setAddressId
+     }
+                   />
     </>
   );
 }

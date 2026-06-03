@@ -20,7 +20,7 @@ setAddresses:Dispatch<SetStateAction<AddressesDataType[]>>
 addresses:AddressesDataType[]
 }
 export default function ChooseAddress({addressId,setAddressId,open, setOpen, description, cardStyle,setActiveStep,addresses,setAddresses}: Props) {
-  const [address, setAddress] = React.useState('تست');
+  const [address, setAddress] = React.useState('');
     const [province, setProvince] = React.useState('');
     const [city, setCity] = React.useState('');
     const [plaque, setPlaque] = React.useState('');

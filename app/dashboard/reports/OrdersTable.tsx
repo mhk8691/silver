@@ -1,9 +1,11 @@
-import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
 import { formatDate } from '@/app/core/FormatDate';
-import { handleColorStatus, handleTitleStatus } from '@/app/core/handleStatus';
 import priceFormater from '@/app/core/PriceFormater';
 import { OrdersDataType, ToggleItemsType } from '@/app/core/Types';
 import { Stack, TableBody, TableCell, TableRow, Typography } from '@mui/material';
+import React, { Dispatch, SetStateAction } from 'react';
+import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
+import { handleColorStatus, handleTitleStatus } from '@/app/core/handleStatus';
+import OrderDetail from '@/app/Components/Tables/DetailTable/DetailTable';
 import { statuses } from '../wallet/page';
 
 const receiveItems: ToggleItemsType[] = [
@@ -21,147 +23,218 @@ const receiveItems: ToggleItemsType[] = [
   },
 ];
 
-export default function OrdersTable({data}:{data:OrdersDataType[]}) {
+interface Props {
+  setOrdersParams: Dispatch<SetStateAction<string>>;
+  data: OrdersDataType[];
+  noCard?:boolean
+  setFilter: Dispatch<SetStateAction<string>>;
+  setDateRange: Dispatch<SetStateAction<DatePickerValue | null>>;
+  filter: string;
+  dateRange: DatePickerValue | null;
+  type?:'chip'| 'toggle'
+}
+
+export default function OrdersTable({
+  data,
+  dateRange,
+  filter,
+  setDateRange,
+  setFilter,
+  setOrdersParams,
+  noCard=true,
+type='toggle'
+}: Props) {
   return (
-    <DetailTable
-    statuses={statuses}
+    <OrderDetail
+      setParams={setOrdersParams}
+      dateRange={dateRange}
+      setDateRange={setDateRange}
+      setStatus={setFilter}
+      status={filter}
+      statuses={statuses}
       key={1}
       toggleItems={receiveItems}
-      type="toggle"
-      noCard
-      tableBody={<TableBody>
-            {data?.map((row) => (
-              <TableRow
-                key={row?.id}
+      type={type}
+      noCard={noCard}
+      tableBody={
+        <TableBody>
+          {data?.map((row) => (
+            <TableRow
+              key={row.id}
+              sx={{
+                '&:last-child td': {
+                  border: 0,
+                },
+                '&:last-child th': {
+                  border: 0,
+                },
+              }}
+            >
+              {/* کد رهگیری */}
+              <TableCell
+                align="center"
                 sx={{
-                  '&:last-child td': {
-                    border: 0,
-                  },
-                  '&:last-child th': { border: 0 },
+                  py: 2.5,
+                  px: 2.5,
                 }}
               >
-                 <TableCell
-                  align="center"
-                  sx={{
-                    py: 2.5,
-                    px: 2.5,
-                  }}
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  gap={0.5}
+                  justifyContent="center"
                 >
-                  <Stack
-                    direction={'row'}
-                    alignItems={'center'}
-                    gap={0.5}
-                    justifyContent={'center'}
-                  >
-                    <Typography
-                      variant="body1"
-                    
-                    >
-                        {row.tracking_code}
-                    </Typography>
-                  </Stack>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    py: 2.5,
-                    px: 2.5,
-                  }}
-                >
-                  <Stack
-                    direction={'row'}
-                    alignItems={'center'}
-                    gap={0.5}
-                    justifyContent={'center'}
-                  >
-                    <Typography variant="body1" sx={{color:handleColorStatus(row.status)}}>{handleTitleStatus(row.status)}</Typography>
-                  </Stack>
-                </TableCell>
+                  <Typography variant="body1">
+                    {row.tracking_code}
+                  </Typography>
+                </Stack>
+              </TableCell>
 
-                 <TableCell
-                  align="center"
-                  sx={{
-                    py: 2.5,
-                    px: 2.5,
-                  }}
+              {/* وضعیت سفارش */}
+              <TableCell
+                align="center"
+                sx={{
+                  py: 2.5,
+                  px: 2.5,
+                }}
+              >
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  gap={0.5}
+                  justifyContent="center"
                 >
-                  <Stack
-                    direction={'row'}
-                    alignItems={'center'}
-                    gap={0.5}
-                    justifyContent={'center'}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: handleColorStatus(row.status),
+                    }}
                   >
-                    <Typography variant="body1">{row.payment_method}</Typography>
-                  
-                  </Stack>
-                </TableCell>
-                
-               
-                <TableCell
-                  align="center"
-                  sx={{
-                    py: 2.5,
-                    px: 2.5,
-                  }}
+                    {handleTitleStatus(row.status)}
+                  </Typography>
+                </Stack>
+              </TableCell>
+
+              {/* مبلغ */}
+              <TableCell
+                align="center"
+                sx={{
+                  py: 2.5,
+                  px: 2.5,
+                }}
+              >
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  gap={0.5}
+                  justifyContent="center"
                 >
-                  <Stack
-                    direction={'row'}
-                    alignItems={'center'}
-                    gap={0.5}
-                    justifyContent={'center'}
+                  <Typography variant="body1">
+                    {priceFormater(row.total_toman_amount)} تومان
+                  </Typography>
+                </Stack>
+              </TableCell>
+
+              {/* روش پرداخت */}
+              <TableCell
+                align="center"
+                sx={{
+                  py: 2.5,
+                  px: 2.5,
+                }}
+              >
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  gap={0.5}
+                  justifyContent="center"
+                >
+                  <Typography variant="body1">
+                    {row.payment_method_display}
+                  </Typography>
+                </Stack>
+              </TableCell>
+
+              {/* نوع ارسال */}
+              <TableCell
+                align="center"
+                sx={{
+                  py: 2.5,
+                  px: 2.5,
+                }}
+              >
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  gap={0.5}
+                  justifyContent="center"
+                >
+                  <Typography variant="body1">
+                    {row.delivery_type_display}
+                  </Typography>
+                </Stack>
+              </TableCell>
+
+              {/* آدرس */}
+              <TableCell
+                align="center"
+                sx={{
+                  py: 2.5,
+                  px: 2.5,
+                }}
+              >
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  gap={0.5}
+                  justifyContent="center"
+                >
+                  <Typography
+                    variant="body1"
+                    noWrap
+                    sx={{
+                      maxWidth: 250,
+                      direction:'rtl'
+                    }}
                   >
-                    <Typography
-                      variant="body1"
-                    
-                    >
-                        {row.delivery_type} 
-                    </Typography>
-                  </Stack>
-                </TableCell>
+                    {`${row.province} - ${row.city} - ${row.address} - ${row.plaque} - ${row.unit}`}
+                  </Typography>
+                </Stack>
+              </TableCell>
 
-                  <TableCell
-                  align="center"
-                  sx={{
-                    py: 2.5,
-                    px: 2.5,
-                  }}
+              {/* تاریخ */}
+              <TableCell
+                align="center"
+                sx={{
+                  py: 2.5,
+                  px: 2.5,
+                }}
+              >
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  gap={0.5}
+                  justifyContent="center"
                 >
-                  <Stack
-                    direction={'row'}
-                    alignItems={'center'}
-                    gap={0.5}
-                    justifyContent={'center'}
-                  >
-                    <Typography
-                      variant="body1"
-                    
-                    >
-                        {priceFormater(row.total_toman_amount)} تومان
-                    </Typography>
-                  </Stack>
-                </TableCell>
-
-               
-
-                 
-               
-             
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontSize: '16px',
-                    py: 2.5,
-                    px: 2.5,
-                  }}
-                >
-                  {formatDate(row.created_at)}
-                </TableCell>
-                
-              </TableRow>
-            ))}
-          </TableBody>}
-      tableHead={[]}
-      listLength={0}
+                  <Typography variant="body1">
+                    {formatDate(row.created_at)}
+                  </Typography>
+                </Stack>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      }
+      tableHead={[
+        'کد رهگیری',
+        'وضعیت',
+        'مبلغ',
+        'روش پرداخت',
+        'نوع ارسال',
+        'آدرس',
+        'تاریخ',
+      ]}
+      listLength={data.length}
     />
   );
 }

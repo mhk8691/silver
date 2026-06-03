@@ -15,6 +15,12 @@ import {
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import priceFormater from '../core/PriceFormater';
 import { useAssets } from '../AssetsProvider';
+import { CheckoutDataType } from '../core/Types';
+import { checkout } from '@/lib/checkout/checkout';
+import { showSnackbar } from '../Components/Snackbar/Snackbar';
+import { isAxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
+import Loading from '../Components/Loading/Loading';
 
 const rowStyle: SxProps = {
   display: 'flex',
@@ -31,12 +37,15 @@ const titleStyle: SxProps = {
 
 interface Props {
   setOpen: Dispatch<SetStateAction<boolean>>;
+ deliveryType:string
+  addressId:number
 }
 
-export default function OrderConfirmation({ setOpen }: Props) {
+export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Props) {
   const [checked, setChecked] = useState(false);
+  const [isLoading,setIsLoading] = useState(false)
   const [active, setActive] = useState('one-time');
-
+  const router = useRouter()
   const { assets } = useAssets();
 
   const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +63,31 @@ export default function OrderConfirmation({ setOpen }: Props) {
       return total + item.total_price * item.quantity;
     }, 0);
   };
-
+  const handleClick = async ()=>{
+    const newData:CheckoutDataType = {
+      products:getCart().map((item)=>{
+        return {
+          product_id:item.id,
+          quantity:item.quantity
+        }
+      }),
+      payment_method:active,
+      delivery_type:deliveryType,
+      address_id:addressId
+    }
+    try{
+      setIsLoading(true)
+      const response = await checkout(newData)
+      showSnackbar(response.data.message,true)
+      router.push('/dashboard/gold-recieve')
+    }catch (error:unknown){
+      if (isAxiosError(error)){
+        showSnackbar(error.response?.data.message)
+      }
+    }finally{
+      setIsLoading(false)
+    }
+  }
   const totalPrice = getTotalPrice();
 
   const balance = assets?.toman_balance ?? 0;
@@ -161,7 +194,7 @@ export default function OrderConfirmation({ setOpen }: Props) {
         <Button
           variant="contained"
           color="primary"
-          disabled={!checked}
+          disabled={!checked || isLoading}
           sx={{
             fontSize: 20,
             py: 1.3,
@@ -169,8 +202,11 @@ export default function OrderConfirmation({ setOpen }: Props) {
             width: '70%',
             '&:hover': { bgcolor: 'primary.main' },
           }}
+          onClick={handleClick}
+
         >
-          تایید سفارش
+          {isLoading ? <Loading size={30} />:' تایید سفارش'}
+         
         </Button>
 
         <Button
