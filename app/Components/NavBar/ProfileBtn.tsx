@@ -216,7 +216,7 @@ export default function ProfileBtn() {
 
     setOpen(false);
   };
-const handleLogout = async ()=>{
+ const handleLogout = async ()=>{
     try{
       const response = await logout()
       showSnackbar(response.message,true)

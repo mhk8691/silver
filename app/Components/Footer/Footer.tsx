@@ -5,6 +5,7 @@ import { Grid, Stack, SvgIcon, Typography } from "@mui/material";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import LinkContainer from "./LinkContainer";
+import Link from "next/link";
 
 // export const certificate = [
 //   "/images/simple/nezamSenfi.webp",
@@ -86,7 +87,7 @@ export default function Footer() {
               }}
               sx={{ color: "text.secondary" }}
             >
-              آدرس: تهران, میدان هروی, بازار طلای هروی سنتر, پلاک B44
+             قم، میدان توحید، پاساژ شهر طلا
             </Typography>
           </Grid>
           <LinkContainer />
@@ -201,17 +202,16 @@ export default function Footer() {
                   </svg>
                 </SvgIcon>
 
+               <Link href={'https://t.me/darine_app'} target="_blank">
                 <Typography
                   variant="body2"
                   color="text.primary"
-                  fontSize={{
-                    xs: 12,
-                    sm: 14,
-                  }}
+                  fontSize={14}
                   sx={{ whiteSpace: "nowrap" }}
                 >
-                  پشتیبانی چت آنلاین
+                  پشتیبانی تلگرام
                 </Typography>
+               </Link>
               </Stack>
               <Stack
                 direction={"row"}
@@ -240,61 +240,13 @@ export default function Footer() {
                 <Typography
                   variant="body2"
                   color="text.primary"
-                  fontSize={{
-                    xs: 12,
-                    sm: 14,
-                  }}
+                  fontSize={14}
                   sx={{ whiteSpace: "nowrap" }}
                 >
-                  02191345910
+                  ۰۹۱۹۱۶۰۸۷۷۱
                 </Typography>
               </Stack>
-              <Stack
-                direction={"row"}
-                gap={{
-                  xs: 0.5,
-                  sm: 0.7,
-                }}
-                alignItems={"center"}
-              >
-                <SvgIcon>
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.41797 18.7918H15.5846C18.3346 18.7918 20.168 17.4168 20.168 14.2085V7.79183C20.168 4.5835 18.3346 3.2085 15.5846 3.2085H6.41797C3.66797 3.2085 1.83463 4.5835 1.83463 7.79183V14.2085C1.83463 17.4168 3.66797 18.7918 6.41797 18.7918Z"
-                      stroke="currentColor"
-                      strokeWidth="1.375"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                    <path
-                      d="M6.41536 8.25L9.28453 10.5417C10.2287 11.2933 11.7779 11.2933 12.722 10.5417L15.582 8.25"
-                      stroke="currentColor"
-                      strokeWidth="1.375"
-                      strokeMiterlimit="10"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </SvgIcon>
-                <Typography
-                  variant="body2"
-                  color="text.primary"
-                  fontSize={{
-                    xs: 12,
-                    sm: 14,
-                  }}
-                  sx={{ whiteSpace: "nowrap" }}
-                >
-                  support@darine.ir
-                </Typography>
-              </Stack>
+         
             </Stack>
             <Stack direction={"row"} gap={1.5}>
               <Stack
@@ -312,19 +264,21 @@ export default function Footer() {
                   }}
                 />
               </Stack>
-          
-              <Stack
+         <Stack
                 sx={{
-                  bgcolor: "primary.main",
-                  borderRadius: "50%",
+                  bgcolor: 'primary.main',
+                  borderRadius: '50%',
                   p: 0.75,
                 }}
+                component={Link}
+                target='_blank'
+                href={'https://t.me/darine_app'}
               >
                 <TelegramIcon
                   sx={{
-                    color: "background.default",
-                    width: "23px",
-                    height: "23px",
+                    color: 'background.default',
+                    width: '23px',
+                    height: '23px',
                   }}
                 />
               </Stack>
