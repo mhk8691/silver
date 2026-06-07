@@ -22,9 +22,7 @@ export default function page() {
     >
       <BackLink title="سفارش با قیمت" />
 
-      <Grid size={12}>
-        <WalletHeader />
-      </Grid>
+ 
       <Grid
         size={{
           xs: 12,

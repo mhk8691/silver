@@ -40,9 +40,7 @@ export default function page() {
         lg: 3,
       }}
     >
-      <Grid size={12} display={{ xs: "none", sm: "block" }}>
-        <WalletHeader />
-      </Grid>
+  
       <Grid
         size={{
           xs: 12,

@@ -20,9 +20,7 @@ export default function page() {
     >
       <BackLink title="خرید و فروش" />
 
-      <Grid size={12}>
-        <WalletHeader />
-      </Grid>
+
      <Trade />
    
     </Grid>
