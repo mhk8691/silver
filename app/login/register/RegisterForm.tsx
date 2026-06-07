@@ -44,7 +44,7 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
       const response = await register(newRegisterForm);
       if (response.status === 200 || response.status === 201) {
         showSnackbar(response?.data.message, true);
-        router.push('/login/login-password');
+         router.push('/dashboard');
       }
     } catch (error: unknown) {
       if (isAxiosError(error)) {
