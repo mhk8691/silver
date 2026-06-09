@@ -10,12 +10,13 @@ import {
 import MobileWalletHeader from "./MobileWalletHeader";
 import Container from "../Containers/Container/Container";
 import { useAssets } from "@/app/AssetsProvider";
+import { usePathname } from "next/navigation";
 
 export default function WalletHeader() {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
   const {assets,isVisible} = useAssets()
-
+const pathname = usePathname()
   return (
     <>
       {isDesktop ? (
@@ -156,7 +157,11 @@ export default function WalletHeader() {
           </Grid>
         </Grid>
       ) : (
+        pathname !== '/dashboard' && 
+         <Stack mb={2}>
         <MobileWalletHeader isDesktop={isDesktop} visible={isVisible} assets={assets} />
+        </Stack>
+        
       )}
     </>
   );

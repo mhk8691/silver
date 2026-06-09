@@ -238,6 +238,7 @@ export default function ModalNavigation({ open, setOpen }: Props) {
           sx: {
             width: "100vw",
             p: 2,
+            bgcolor:'background.default'
           },
         }}
       >
