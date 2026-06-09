@@ -48,22 +48,7 @@ const processQueue = (error?: AxiosError) => {
 };
 
 
-const excludedUrls = [
-  '/accounts/login/password/',
-  '/accounts/login/otp/',
 
-  '/accounts/send-otp/',
-  '/accounts/verify-otp/',
-
-  '/accounts/reset-password/request/',
-  '/accounts/reset-password/verify/',
-  '/accounts/reset-password/complete/',
-
-  '/accounts/complete-register/',
-
-  '/accounts/token/refresh/',
-  '/accounts/logout/',
-];
 api.interceptors.response.use(
   (response) => response,
 
@@ -74,9 +59,7 @@ api.interceptors.response.use(
   error.response?.status === 401 &&
   originalRequest &&
   !originalRequest._retry &&
-  !excludedUrls.some(url =>
-    originalRequest.url?.includes(url)
-  )
+  !location.pathname.startsWith('/login')
 ) {
      
       if (isRefreshing) {

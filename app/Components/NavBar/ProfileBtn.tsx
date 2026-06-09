@@ -25,6 +25,7 @@ import { getAssets } from "@/lib/getAssets/getAssets";
 import { AssetsDataType } from "@/app/core/Types";
 import priceFormater from "@/app/core/PriceFormater";
 import { useRouter } from "next/navigation";
+import { useAssets } from "@/app/AssetsProvider";
 const options = [
   {
     title: "پروفایل",
@@ -193,22 +194,9 @@ export default function ProfileBtn() {
   const theme = useTheme();
   const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const {assets} = useAssets()
   const handleToggle = () => setOpen((prev) => !prev);
-  const [assets,setAssets] = React.useState<AssetsDataType>({} as AssetsDataType)
-    React.useEffect(()=>{
-      const getData = async ()=>{
-       try{
-         const response = await getAssets()
-        setAssets(response)
-       }catch(error:unknown){
-        if (isAxiosError(error)){
-          showSnackbar(error.response?.data.message)
-        }
-       }
-      }
-         getData();
-    
-    },[open])
+
   const handleClose = (event: MouseEvent | TouchEvent) => {
     const target = event.target as Node;
 

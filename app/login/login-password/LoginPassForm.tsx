@@ -52,8 +52,8 @@ export default function LoginPassForm({ children }: Props) {
         label="شماره موبایل"
         
         inputProps={{
-          name:"phone_number",
-          autoComplete:"phone_number"
+          name:"user_name",
+          autoComplete:"user_name"
 
         }}
       />
