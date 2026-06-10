@@ -4,25 +4,25 @@ import rtlPlugin from "@mui/stylis-plugin-rtl";
 import localFont from "next/font/local";
 import { prefixer } from "stylis";
 
-const IranYekanFont = localFont({
+export const IranYekanFont = localFont({
   src: [
     {
-      path: "./fonts/Qs_Iranyekan.ttf",
-      weight: "400",
-      style: "normal",
+      path: './fonts/IRANYekanRegularFaNum.ttf',
+      weight: '400',
+      style: 'normal',
     },
     {
-      path: "./fonts/Qs_Iranyekan_medium.ttf",
-      weight: "500",
-      style: "normal",
+      path: './fonts/IRANYekanMediumFaNum.ttf',
+      weight: '500',
+      style: 'normal',
     },
     {
-      path: "./fonts/Qs_Iranyekan_bold.ttf",
-      weight: "700",
-      style: "normal",
+      path: './fonts/IRANYekanExtraBoldFaNum.ttf',
+      weight: '700',
+      style: 'normal',
     },
   ],
-  variable: "--font-iranyekan",
+  variable: '--font-iranyekan',
 });
 
 declare module "@mui/material/styles" {

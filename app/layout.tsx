@@ -6,33 +6,14 @@ import Head from "next/head";
 import Footer from "./Components/Footer/Footer";
 import Navbar from "./Components/NavBar/Navbar";
 import "./globals.css";
-import theme, { rtl } from "./theme";
+import theme, { IranYekanFont, rtl } from "./theme";
 import GlobalSnackbar from "./Components/Snackbar/SnackbarRoot";
 import CustomBreadcrumbs from "./Components/Breadcrumbs/Breadcrumbs";
 import SpaceBox from "./SpaceBox";
 import { AssetsProvider } from "./AssetsProvider";
 import StatusHeader from "./Components/Wallet/StatusHeader";
 
-const IranYekanFont = localFont({
-  src: [
-    {
-      path: "./fonts/Qs_Iranyekan.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/Qs_Iranyekan_medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "./fonts/Qs_Iranyekan_bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-iranyekan",
-});
+
 
 export const metadata: Metadata = {
   title: "نقرینه",
