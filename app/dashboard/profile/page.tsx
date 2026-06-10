@@ -2,7 +2,6 @@
 import Container from "@/app/Components/Containers/Container/Container";
 import { Grid, Typography } from "@mui/material";
 import { Metadata } from "next";
-import Buttons from "./Buttons";
 import ChangeNumber from "./ChangeNumber";
 import Profile from "./Profile";
 import WalletHeader from "@/app/Components/Wallet/WalletHeader";
@@ -10,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { isAxiosError } from "axios";
 import { showSnackbar } from "@/app/Components/Snackbar/Snackbar";
 import { getMe, User } from "@/lib/auth";
+import JoinTelButton from "./JoinTelButton";
 // export const metadata: Metadata = {
 //   title: "پروفایل | نقرینه",
 //   description: "",
@@ -89,11 +89,9 @@ export default function page() {
             }}
             mt={2.5}
           >
-            شما می‌توانید در این بخش، ارسال کد ورود به پنل کاربری نقره را در
-            حساب تلگرام خود را فعال کنید، تا در مواقع اختلال در زیرساخت‌های
-            مخابراتی، بتوانید به راحتی وارد حساب نقره خود شوید.
+           برای اطلاع از جدیدترین امکانات، به‌روزرسانی‌ها، اخبار مجموعه، آموزش‌ها و رویدادهای ویژه دارینه، در کانال تلگرام ما عضو شوید.
           </Typography>
-          <Buttons />
+          <JoinTelButton />
         </Container>
       </Grid>
       <Grid
