@@ -16,7 +16,7 @@ interface Props {
   setValue: (value: string) => void;
   style?: SxProps;
   multiline?: boolean;
-  type: 'text' | 'number';
+  type?: 'text' | 'number';
 }
 
 export default function InputField({
@@ -30,10 +30,17 @@ export default function InputField({
   type = 'text',
 }: Props) {
 
+  // تبدیل امن به عدد
+  const toNumber = (val: string) => {
+    const num = Number(val);
+    return isNaN(num) ? 0 : num;
+  };
 
+  // فرمت نمایش (رند 3 رقم اعشار + جلوگیری از خراب شدن تایپ)
   const formatNumber = (val: string) => {
     if (!val) return '';
 
+    // اجازه تایپ اعشاری نیمه‌کاره
     if (val === '.' || val.endsWith('.')) return val;
 
     const num = Number(val);
@@ -78,6 +85,7 @@ export default function InputField({
       placeholder={placeholder}
       value={type === 'number' ? formatNumber(value) : value}
       onChange={handleChange}
+      inputMode={type === 'number' ? 'decimal' : 'text'}
       multiline={multiline}
       minRows={multiline ? 2 : undefined}
       fullWidth
@@ -110,7 +118,7 @@ export default function InputField({
 
           endAdornment: title ? (
             <InputAdornment position="end">
-              <Divider orientation="vertical" flexItem sx={{ mr: 1 ,border: "1px solid #DBDEDF",}} />
+              <Divider orientation="vertical" flexItem sx={{ mr: 1,border: "1px solid #DBDEDF" }} />
               <Typography sx={{ fontSize: 16, color: 'text.primary' }}>
                 {title}
               </Typography>
@@ -121,4 +129,3 @@ export default function InputField({
     />
   );
 }
- 

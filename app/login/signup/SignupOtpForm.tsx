@@ -33,7 +33,7 @@ export default function SignupOtpForm({ children }: Props) {
   };
   return (
     <>
-      <Field value={mobile} setValue={setMobile} label="شماره موبایل" />
+      <Field type='number' value={mobile} setValue={setMobile} label="شماره موبایل" />
 
       {children}
       <ActionButton title={'ادامه'} isLoading={isLoading} handleSubmit={handleSignup} />

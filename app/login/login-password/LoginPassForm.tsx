@@ -47,11 +47,12 @@ export default function LoginPassForm({ children }: Props) {
       }}
     >
       <Field
+      type='number'
         value={phoneNumber}
         setValue={setPhoneNumber}
         label="شماره موبایل"
         
-        inputProps={{
+        textFieldProps={{
           name:"user_name",
           autoComplete:"user_name"
 

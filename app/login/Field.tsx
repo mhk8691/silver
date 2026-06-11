@@ -1,43 +1,72 @@
-"use client";
-import { SxProps, TextField, TextFieldProps } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
+'use client';
+
+import { SxProps, TextField, TextFieldProps } from '@mui/material';
+import { Dispatch, SetStateAction } from 'react';
+
 interface Props {
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   label?: string;
   placeholder?: string;
-   style?: SxProps;
-  inputProps?: Partial<TextFieldProps>;
+  style?: SxProps;
+  textFieldProps?: TextFieldProps;
+  type?: 'number' | 'text';
 }
 
-export default function Field({ value, setValue, label, placeholder, style ,inputProps}: Props) {
+export default function Field({
+  value,
+  setValue,
+  label,
+  placeholder,
+  style,
+  textFieldProps,
+  type = 'text',
+}: Props) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+
+    if (type === 'number') {
+      setValue(val.replace(/\D/g, ''));
+      return;
+    }
+
+    setValue(val);
+  };
+
   return (
     <TextField
-     {...inputProps}
+      {...textFieldProps}
       label={label}
-      autoComplete="one-time-code"
       value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={handleChange}
       variant="outlined"
       placeholder={placeholder}
+      inputProps={{
+        ...(textFieldProps?.inputProps || {}),
+        inputMode: type === 'number' ? 'numeric' : 'text',
+        ...(type === 'number' && {
+          pattern: '[0-9]*',
+        }),
+      }}
       sx={{
-        width: "100%",
+        width: '100%',
         mt: 2.5,
-        "& .MuiOutlinedInput-root": {
+        '& .MuiOutlinedInput-root': {
           fontSize: {
             xs: 14,
             sm: 16,
           },
           borderRadius: placeholder ? 2 : 2.5,
         },
-        "& .MuiInputLabel-root": {
-          color: "#535657",
+        '& .MuiInputLabel-root': {
+                    color: "#535657",
+
           fontSize: {
-            xs: "14px",
-            sm: "16px",
+            xs: '14px',
+            sm: '16px',
           },
         },
-        ...style
+        ...style,
       }}
     />
   );

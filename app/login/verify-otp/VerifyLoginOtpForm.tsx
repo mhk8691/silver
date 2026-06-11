@@ -44,7 +44,7 @@ useEffect(() => {
   
   return (
     <>
-      <Field value={verifyCode} setValue={setVerifyCode} label="کد تایید" />
+      <Field type='number' value={verifyCode} setValue={setVerifyCode} label="کد تایید" />
       <SendCode phoneNumber={phoneNumber} />
       <SubmitButton title={'تایید'} isLoading={isLoading} handleSubmit={handleLoginVerifyOtp} />
     </>

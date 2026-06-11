@@ -82,6 +82,7 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
 
     <Grid size={12}>
       <Field
+      type='number'
         value={nationalCode}
         setValue={setNationalCode}
         label="کد ملی"
