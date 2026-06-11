@@ -78,7 +78,7 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
     try{
       setIsLoading(true)
       const response = await checkout(newData)
-      showSnackbar(response.data.message,true)
+      showSnackbar(response.data.message,'success')
       router.push('/dashboard/gold-recieve')
     }catch (error:unknown){
       if (isAxiosError(error)){

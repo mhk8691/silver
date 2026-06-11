@@ -25,7 +25,7 @@ export default function ChangePassword() {
       try {
         setIsLoading(true)
         const response = await forgetPasswordRequest(phoneNumber);
-        showSnackbar(response.data.message, true);
+        showSnackbar(response.data.message, 'success');
       } catch (error: unknown) {
         if (isAxiosError(error)) {
           showSnackbar(error.response?.data.message);
@@ -38,7 +38,7 @@ export default function ChangePassword() {
        try {
         setIsLoading(true)
         const response = await verifyForgetOtp(phoneNumber, otpCode);
-        showSnackbar(response.data.message, true);
+        showSnackbar(response.data.message, 'success');
         setStep(3);
       } catch (error: unknown) {
         if (isAxiosError(error)) {
@@ -52,12 +52,12 @@ export default function ChangePassword() {
       try {
         setIsLoading(true)
            const res = await fogetPasswordComplete(phoneNumber, otpCode,password,repeatPassword);
-             showSnackbar(res.data.message, true);
+             showSnackbar(res.data.message, 'success');
              setStep(0);
         setOpen(false)
          } catch (error: unknown) {
            if (isAxiosError(error)) {
-             showSnackbar(error.response?.data.message, false);
+             showSnackbar(error.response?.data.message, );
            }
          }finally{
           setIsLoading(false)
@@ -69,7 +69,7 @@ export default function ChangePassword() {
    const handleLogout = async ()=>{
       try{
         const response = await logout()
-        showSnackbar(response.message,true)
+        showSnackbar(response.message,'success')
         router.push('/login/login-password')
       }catch(error:unknown){
         if (isAxiosError(error)){

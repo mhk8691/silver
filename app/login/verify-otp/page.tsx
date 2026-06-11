@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import BackLink from "@/app/dashboard/BackLink";
-import VerifyLoginOtpForm from "./VerifyLoginOtpForm";
+import VerifyLoginOtpForm from "./VerifyOtpForm";
 interface Props {
   searchParams: {
     phone: string;

@@ -66,7 +66,7 @@ export default function Deposit({setTransactionData,transactionParams,filter,dat
       refetch()
       setPrice('')
       const transactionData = await  getReports(transactionParams,undefined,dateRange,filter);
-      showSnackbar(response?.message,true)
+      showSnackbar(response?.message,'success')
       setTransactionData(transactionData)
       setDepositData(null)
     }catch(error:unknown){

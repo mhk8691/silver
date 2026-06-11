@@ -63,7 +63,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
       const newData = await getReports('silver',reportsParams||'',dateRange,filter)
       
       setData&&setData(newData)
-      showSnackbar(response.data.message,true)
+      showSnackbar(response.data.message,'success')
       setSilver('')
       setPrice('')
       refetch()
@@ -82,7 +82,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
       const response = await silverSell(silver);
       const newData = await getReports('silver',reportsParams || '',dateRange,filter)
       setData&&setData(newData)
-      showSnackbar(response.data.message,true)
+      showSnackbar(response.data.message,'success')
       setOpen(true);
            setSilver('')
       setPrice('')

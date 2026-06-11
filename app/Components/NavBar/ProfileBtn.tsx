@@ -207,7 +207,7 @@ export default function ProfileBtn() {
  const handleLogout = async ()=>{
     try{
       const response = await logout()
-      showSnackbar(response.message,true)
+      showSnackbar(response.message,'success')
       router.push('/login/login-password')
     }catch(error:unknown){
       if (isAxiosError(error)){
