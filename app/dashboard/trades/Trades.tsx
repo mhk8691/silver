@@ -11,7 +11,7 @@ import Chart from '@/app/Components/Chart/Chart';
 export default function Trade() {
 
    const [data,setData] = useState<TradeTableDataType[]>([] as TradeTableDataType[])
-   const [reportsParams,setReportsParams] = useState('gold')
+   const [reportsParams,setReportsParams] = useState('BUY')
   // const [buyInfo, setBuyInfo] = useState<BuyGoldDataType>({} as BuyGoldDataType);
 
       const [filter,setFilter] = useState('')
