@@ -1,15 +1,13 @@
 import { Box, Stack, Typography } from "@mui/material";
 import BackLink from "@/app/dashboard/BackLink";
 import VerifyLoginOtpForm from "./VerifyLoginOtpForm";
-import VerifySignupOtpForm from "./VerifySignupOtpForm";
 interface Props {
   searchParams: {
     phone: string;
-    type: string;
   };
 }
 export default async function page({ searchParams }: Props) {
-  const { phone, type } = await searchParams;
+  const { phone } = await searchParams;
   return (
     <Stack>
      <Stack direction={'row'} gap={1} alignItems={'center'}>
@@ -39,11 +37,8 @@ export default async function page({ searchParams }: Props) {
         کد تایید ارسال شده به شماره موبایل {phone} را وارد کنید.
       </Typography>
 
-      {type === "login" ? (
         <VerifyLoginOtpForm phoneNumber={phone} />
-      ) : (
-        <VerifySignupOtpForm phoneNumber={phone} />
-      )}
+   
     </Stack>
   );
 }

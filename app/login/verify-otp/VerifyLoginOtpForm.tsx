@@ -24,11 +24,14 @@ export default function VerifyLoginOtpForm({ phoneNumber }: Props) {
       showSnackbar(res.data.message,true)
         router.push('/dashboard');
     } catch (error: unknown) {
-      if (isAxiosError(error)) {
-          if (error.status === 404){
-          router.push('/login/signup')
+        if (isAxiosError(error)) {
+        if (error.status === 404 && error.response?.data.message.need_register){
+          router.push(`/login/register/?phone=${phoneNumber}`);
         }
-        showSnackbar(error.response?.data.message, false);
+        else{
+
+          showSnackbar(error.response?.data.message.message, false);
+        }
       }
     }finally{
       setIsLoading(false)
