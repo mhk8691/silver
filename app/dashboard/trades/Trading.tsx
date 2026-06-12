@@ -56,7 +56,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
   };
 
   const handleBuySilver = async () => {
-    const methood = assets?.toman_balance > 0 ? 'WALLET':'GATEWAY'
+    const methood = assets?.wallet_balance > 0 ? 'WALLET':'GATEWAY'
     try {
       setIsLoading(true)
       const response = await silverBuy(price,methood,silver);

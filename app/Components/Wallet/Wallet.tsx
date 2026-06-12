@@ -26,9 +26,9 @@ const {assets,isVisible} = useAssets()
         pb:
           type === "wallet"
             ? {
-                xs: 0,
-                sm: 4.5,
-              }
+              xs:4.5,
+              lg:8
+            }
             : 3,
         px: {
           sm: 2,
@@ -93,7 +93,7 @@ const {assets,isVisible} = useAssets()
                   fontSize={20}
                   sx={{ color: "text.title" }}
                 >
-                  {isVisible ? priceFormater(assets?.total_assets) || 0 : '***'}
+                  {isVisible ? priceFormater(assets?.total_asset_value) || 0 : '***'}
                 </Typography>
                 <Typography
                   variant="body1"

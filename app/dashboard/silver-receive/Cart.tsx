@@ -58,7 +58,7 @@ export default function Cart({cart}:{cart:CartItem[]}) {
                   موجودی طلای شما
                 </Typography>
                 <Typography variant="body1" fontSize={18}>
-                  {isVisible ? `${priceFormater(assets?.silver_balance_gr )|| 0} گرم` :'***'}
+                  {isVisible ? `${priceFormater(assets?.silver_balance )|| 0} گرم` :'***'}
                 </Typography>
               </Stack>
               <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
@@ -66,7 +66,7 @@ export default function Cart({cart}:{cart:CartItem[]}) {
                   موجودی تومان شما
                 </Typography>
                 <Typography variant="body1" fontSize={18}>
-                  {isVisible ? `${priceFormater(assets.toman_balance) || 0} تومان` :'***'}
+                  {isVisible ? `${priceFormater(assets.wallet_balance) || 0} تومان` :'***'}
                 </Typography>
               </Stack>
               <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>

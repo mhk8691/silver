@@ -1,13 +1,7 @@
-import {  AssetsDataType } from '@/app/core/Types';
-import api, { ApiResponse } from '../api';
+import { AllAssetsDataType } from '@/app/core/Types';
+import api from '../api';
 
-export const getAssets = async () => {
-    const res = await api.get<ApiResponse<AssetsDataType>>('/silver/balance/');
-    return res.data.data;
-
+export const getAssets = async (): Promise<AllAssetsDataType | null> => {
+  const res = await api.get<AllAssetsDataType>('/gold/asset-value/');
+  return res.data;
 };
-
-// export const getAllAssets = async () => {
-//   const res = await api.get<AllAssetsDataType>('/gold/assets/');
-//   return res.data;
-// };

@@ -52,7 +52,7 @@ const shouldShow = !isLoginPage && (isMobile || showOnAllSizes);
             variant="body1"
             fontSize={{ xs: 12, lg: 14, xl: 16 }}
           >
-            {priceFormater(assets.current_silver_price)} تومان
+            {priceFormater(assets.silver_price)} تومان
           </Typography>
         </Stack>
       )}

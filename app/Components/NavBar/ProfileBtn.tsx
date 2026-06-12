@@ -21,8 +21,6 @@ import { isAxiosError } from "axios";
 import Link from "next/link";
 import * as React from "react";
 import { showSnackbar } from "../Snackbar/Snackbar";
-import { getAssets } from "@/lib/getAssets/getAssets";
-import { AssetsDataType } from "@/app/core/Types";
 import priceFormater from "@/app/core/PriceFormater";
 import { useRouter } from "next/navigation";
 import { useAssets } from "@/app/AssetsProvider";
@@ -366,7 +364,7 @@ React.useEffect(()=>{
                   موجودی تومان:
                 </Typography>
                 <Typography variant="body2" fontSize={12}>
-                   {priceFormater(assets?.toman_balance)||0} تومان
+                   {priceFormater(assets?.wallet_balance)||0} تومان
                 </Typography>
               </Stack>
               <Divider />
@@ -379,7 +377,7 @@ React.useEffect(()=>{
                   موجودی نقره:
                 </Typography>
                 <Typography variant="body2" fontSize={12}>
-                  {assets?.silver_balance_gr} گرم
+                  {assets?.silver_balance} گرم
                 </Typography>
               </Stack>
             </Stack>

@@ -54,7 +54,7 @@ const pathname = usePathname()
                   fontWeight={500}
                   sx={{ color: "text.title" }}
                 >
-                 {isVisible ? priceFormater(assets?.silver_balance_gr) || 0 : '***'}
+                 {isVisible ? priceFormater(assets?.silver_balance) || 0 : '***'}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -95,7 +95,7 @@ const pathname = usePathname()
                   fontSize={20}
                   sx={{ color: "text.title" }}
                 >
-                  {isVisible ? priceFormater(assets?.toman_balance) || 0 : '***'}
+                  {isVisible ? priceFormater(assets?.wallet_balance) || 0 : '***'}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -141,7 +141,7 @@ const pathname = usePathname()
                     sx={{ color: "text.title" }}
                     fontWeight={500}
                   >
-                    {priceFormater(assets?.current_silver_price)}
+                    {priceFormater(assets?.silver_price)}
                   </Typography>
                   <Typography
                     variant="body1"

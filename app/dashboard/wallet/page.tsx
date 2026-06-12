@@ -55,23 +55,7 @@ export default async function page() {
 
       <Grid size={{ xs: 12, md: 6 }}>
         <Wallet type="wallet" />
-        <Grid
-          size={12}
-          display={{
-            xs: 'none',
-            sm: 'block',
-          }}
-        >
-          {/* <AllAssets
-            style={{
-              mt: 3,
-              minHeight: {
-                xs: '200px',
-                sm: '60px',
-              },
-            }}
-          /> */}
-        </Grid>
+ 
       </Grid>
 
       <Grid size={{ xs: 12, md: 6 }}>
@@ -86,9 +70,9 @@ export default async function page() {
               xs: 2,
               lg: 4,
             },
-            py: {
-              xs: 2,
-              lg: 3,
+        py: {
+              xs:3.5,
+              lg:3
             },
           }}
         >
@@ -236,24 +220,11 @@ export default async function page() {
             </Stack>
           </Stack>
         </Card>
-        <Grid
-          display={{
-            xs: 'block',
-            sm: 'none',
-          }}
-          size={12}
-        >
-          {/* <AllAssets
-            style={{
-              mt: 3,
-              minHeight: {
-                xs: '200px',
-                sm: '60px',
-              },
-            }}
-          /> */}
-        </Grid>
-        <Stack mt={{ xs: 1, sm: 3 }}>
+
+     
+      </Grid>
+      <Grid size={12}>
+           <Stack mt={{ xs: 1, sm: 3 }}>
           <OrderDetail
           statuses={statuses}
             type="chip"

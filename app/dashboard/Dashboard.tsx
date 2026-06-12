@@ -4,6 +4,7 @@ import MobileAppbar from "./MobileAppbar";
 import Banners from "./Banners";
 import Container from "../Components/Containers/Container/Container";
 import Trading from "./trades/Trading";
+import AllAssets from "./wallet/AllAssets";
 
 export default function Dashboard() {
   const theme = useTheme();
@@ -26,24 +27,14 @@ export default function Dashboard() {
               xs: 12,
             }}
           >
-            <Container
+            <AllAssets
               style={{
-                height: {
+                minHeight: {
                   xs: 160,
                   md: 400,
                 },
-                justifyContent: "center",
-                flexDirection: "row",
-                alignItems: {
-                  xs: "flex-start",
-                  md: "center",
-                },
               }}
-            >
-              <Typography variant="h2" fontSize={12}>
-                نمودار دارایی پس از ۲ روز بعد از اولین خرید شما فعال میشود.
-              </Typography>
-            </Container>
+            />
           </Grid>
         </>
       ) : (
