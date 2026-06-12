@@ -31,7 +31,7 @@ export default function VerifyOtpForm({ phoneNumber }: Props) {
         }
         else{
 
-          showSnackbar(error.response?.data.message.message);
+          showSnackbar(error.response?.data.message);
         }
       }
     }finally{

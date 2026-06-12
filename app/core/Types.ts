@@ -111,7 +111,15 @@ export interface AllAssetsDataType {
   "gold_price":number, 
   "silver_price": number
 }
-
+export interface StatisticsDataType {
+ "total_assets": number,
+  "profit": number,
+  "withdrawn_silver": number,
+  "purchased_giftcards": number,
+  "received_giftcards": number,
+  "pending_toman": number,
+  "pending_silver": number
+}
 export interface ProductDateType {
   id: number;
   name: string;

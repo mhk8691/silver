@@ -10,7 +10,7 @@ import opacity from 'react-element-popper/animations/opacity';
 import transition from 'react-element-popper/animations/transition';
 import DatePicker, { DateObject } from 'react-multi-date-picker';
 import 'react-multi-date-picker/styles/backgrounds/bg-dark.css';
-import 'react-multi-date-picker/styles/colors/yellow.css';
+import 'react-multi-date-picker/styles/colors/teal.css';
 
 export type DatePickerValue = {
   date?: string; 
@@ -77,7 +77,7 @@ export default function CustomDatePicker({ style, isRange = false, label, value,
   return (
     <DatePicker
       monthYearSeparator="|"
-      className={`yellow ${isDarkMode ? 'bg-dark' : 'bg-light'}`}
+      className={`teal ${isDarkMode ? 'bg-dark' : 'bg-light'}`}
       range={isRange}
       value={getInternalValue()}
       onChange={handleDatePickerChange}
