@@ -1,13 +1,18 @@
-"use client";
-import CustomModal from "@/app/Components/CustomModal/CustomModal";
-import { Button, IconButton, Stack } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import { Dispatch, SetStateAction } from "react";
+'use client';
+import CustomModal from '@/app/Components/CustomModal/CustomModal';
+import { Button, IconButton, InputAdornment, Stack } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { getBankInfoWithSheba } from 'ir-banks-info'
 
-import Field from "@/app/login/Field";
-import { Close } from "@mui/icons-material";
-import { addBankCard, getBankCard } from "@/lib/getbankCard/bankCard";
-import { BankCardDataType } from "@/app/core/Types";
+import Field from '@/app/login/Field';
+import { Close } from '@mui/icons-material';
+import { addBankCard, getBankCard } from '@/lib/getbankCard/bankCard';
+import { BankCardDataType } from '@/app/core/Types';
+import { isAxiosError } from 'axios';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import Loading from '@/app/Components/Loading/Loading';
+import Image from 'next/image';
 interface Props {
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
@@ -15,19 +20,25 @@ interface Props {
   value: string;
   setBankCardData: Dispatch<SetStateAction<BankCardDataType[]>>;
 }
-export default function AddCard({
-  setOpen,
-  setValue,
-  open,
-  value,
-  setBankCardData,
-}: Props) {
+export default function AddCard({ setOpen, setValue, open, value, setBankCardData }: Props) {
+  const [isLoading,setIsLoading] = useState(false)
+
   const handleAddBankCard = async () => {
-    await addBankCard(value);
+  try{
+    setIsLoading(true)
+      const res = await addBankCard(value);
+      showSnackbar(res.message,'success')
     const response = await getBankCard();
     setBankCardData(response && response?.length > 0 ? response : []);
-    setValue("");
+    setValue('');
     setOpen(false);
+  }catch(error:unknown){
+    if (isAxiosError(error)){
+      showSnackbar(error.response?.data.message)
+    }
+  }finally{
+    setIsLoading(false)
+  }
   };
   return (
     <CustomModal
@@ -38,39 +49,73 @@ export default function AddCard({
         pb: 2,
       }}
     >
-      <Stack
-        direction={"row"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-      >
+      <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
         <Typography variant="body1" fontSize={16}>
           افزودن کارت جدید
         </Typography>
-        <IconButton onClick={() => setOpen(false)} disableRipple>
+        <IconButton onClick={() => setOpen(false)}  >
           <Close />
         </IconButton>
       </Stack>
       <Typography variant="body1" fontSize={14} sx={{ mt: 3 }}>
-        شماره‌ی کارت بانکی خود را وارد کنید
+        شماره‌ی شبا خود را وارد کنید
       </Typography>
-      <Field type='number' value={value} setValue={setValue} placeholder="شماره کارت جدید" />
+
+     <Stack direction={'row'} border={1} borderRadius={2} alignItems={'center'} mt={2.5} borderColor={'text.muted'}>
+{getBankInfoWithSheba(`IR${value}`)?.logo && (
+  <Image
+    src={getBankInfoWithSheba(`IR${value}`)?.logo ?? ''}
+    alt=''
+    width={30}
+    height={30}
+    style={{ marginRight: 15 }}
+  />
+)}
+
+  <Field
+    type='number'
+    value={value}
+    setValue={setValue}
+    textFieldProps={{
+      InputProps: {
+        endAdornment: (
+          <InputAdornment position="end">
+            <Typography fontWeight={600} fontSize={15} sx={{}}>IR</Typography>
+          </InputAdornment>
+        ),
+      },
+    }}
+    style={{
+      '& .MuiInputBase-input': {
+        direction: 'rtl',
+      },
+      mt: 0,
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': { border: 'none' },
+        '&:hover fieldset': { border: 'none' },
+        '&.Mui-focused fieldset': { border: 'none' },
+      },
+    }}
+  />
+</Stack>
       <Button
         variant="contained"
         color="primary"
         sx={{
-          py: 1.4,
+          height:60,
           fontSize: 16,
           borderRadius: 2,
-          width: "100%",
+          width: '100%',
           mt: 8,
-          "&.Mui-disabled": {
-            bgcolor: "background.border",
+          '&.Mui-disabled': {
+            bgcolor: 'background.border',
           },
         }}
-        disableRipple
+         
         onClick={handleAddBankCard}
+        disabled={isLoading}
       >
-        ثبت
+        {isLoading ? <Loading size={30} />:'ثبت'}
       </Button>
     </CustomModal>
   );

@@ -39,7 +39,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
     setPrice(val);
     const num = Number(val);
     if (!isNaN(num)) {
-      setSilver(String(num / assets?.current_silver_price));
+      setSilver(String(num / assets?.silver_price));
     } else {
       setSilver('');
     }
@@ -49,7 +49,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
     setSilver(val);
     const num = Number(val);
     if (!isNaN(num)) {
-      setPrice(String(num * assets?.current_silver_price));
+      setPrice(String(num * assets?.silver_price));
     } else {
       setPrice('');
     }
