@@ -39,16 +39,8 @@ export default function BottomPrice({
               sm: 16,
             }}
           >
-            {priceFormater(493000)}
-            <Box
-              component={"span"}
-              fontSize={{
-                xs: 8,
-                sm: 14,
-              }}
-            >
-              تومان
-            </Box>
+            {priceFormater(493000)} تومان
+        
           </Typography>
         </Stack>
         <Stack direction={"column"} alignItems={"center"} gap={0.5}>
@@ -70,16 +62,8 @@ export default function BottomPrice({
               sm: 16,
             }}
           >
-            {priceFormater(391920)}
-            <Box
-              component={"span"}
-              fontSize={{
-                xs: 8,
-                sm: 14,
-              }}
-            >
-              تومان
-            </Box>
+            {priceFormater(391920)} تومان
+       
           </Typography>
         </Stack>
         <Stack direction={"column"} alignItems={"center"} gap={0.5}>
@@ -101,16 +85,8 @@ export default function BottomPrice({
               sm: 16,
             }}
           >
-            {new Intl.NumberFormat("fa-IR").format(15.43)}
-            <Box
-              component={"span"}
-              fontSize={{
-                xs: 8,
-                sm: 14,
-              }}
-            >
-              درصد
-            </Box>
+            {new Intl.NumberFormat("fa-IR").format(15.43)} درصد
+         
           </Typography>
         </Stack>
       </Stack>
