@@ -16,34 +16,36 @@ interface Props {
 export default function VerifyOtpForm({ phoneNumber }: Props) {
   const [verifyCode, setVerifyCode] = useState('');
   const router = useRouter();
-   const [isLoading,setIsLoading] = useState(false)
-  const handleLoginVerifyOtp = async () => {
-    try {
-      setIsLoading(true)
-      const res = await verifyLoginOtp(phoneNumber, verifyCode);
-      showSnackbar(res.data.message,'success')
-        router.push('/dashboard');
-    } catch (error: unknown) {
-        if (isAxiosError(error)) {
-        if (error.status === 404 && error.response?.data.message.need_register){
-          router.push(`/login/register/?phone=${phoneNumber}`);
-          showSnackbar(error.response?.data.message.message,'warning');
-        }
-        else{
+  const [isLoading, setIsLoading] = useState(false);
 
+  const handleLoginVerifyOtp = async (code?: string) => {
+    const finalCode = code ?? verifyCode;
+    try {
+      setIsLoading(true);
+      const res = await verifyLoginOtp(phoneNumber, finalCode);
+      showSnackbar(res.data.message, 'success');
+      router.push('/dashboard');
+    } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        if (error.status === 404 && error.response?.data.message.need_register) {
+          router.push(`/login/register/?phone=${phoneNumber}`);
+          showSnackbar(error.response?.data.message.message, 'warning');
+        } else {
           showSnackbar(error.response?.data.message);
         }
       }
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
-useEffect(() => {
- autoCompleteCode(setVerifyCode)
- handleLoginVerifyOtp()
+
+  useEffect(() => {
+    const cleanup = autoCompleteCode(setVerifyCode, (code) => {
+      handleLoginVerifyOtp(code);
+    });
+    return cleanup;
   }, []);
 
-  
   return (
     <>
       <Field type='number' value={verifyCode} setValue={setVerifyCode} label="کد تایید" />
