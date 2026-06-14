@@ -175,7 +175,7 @@ export default function TableContainer({ data }: Props) {
                   }}
                 >
                   <Stack direction={"row"} justifyContent={"center"}>
-                    <LineChart
+                    {/* <LineChart
                       color="#D12F2F"
                       width={row.typeSilver ? "90%" : "70%"}
                       height="40px"
@@ -183,7 +183,7 @@ export default function TableContainer({ data }: Props) {
                       label={["فروردین", "اردیبهشت", "خرداد"]}
                       noLabel={true}
                       isGradiant={false}
-                    />
+                    /> */}
                   </Stack>
                 </TableCell>
                 <TableCell

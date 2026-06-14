@@ -194,7 +194,7 @@ export default function ProductTableContainer() {
                   }}
                 >
                   <Stack direction={"row"} justifyContent={"center"}>
-                    <LineChart
+                    {/* <LineChart
                       color="#D12F2F"
                       width={row.typeSilver ? "90%" : "70%"}
                       height="40px"
@@ -202,7 +202,7 @@ export default function ProductTableContainer() {
                       label={["فروردین", "اردیبهشت", "خرداد"]}
                       noLabel={true}
                       isGradiant={false}
-                    />
+                    /> */}
                   </Stack>
                 </TableCell>
                 <TableCell
