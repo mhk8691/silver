@@ -6,28 +6,24 @@ import axios, {
   isAxiosError,
 } from 'axios';
 
-
-
 export interface ApiResponse<T> {
   message: string;
   data: T;
 }
 
-
 interface RetryAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-
-
 const api: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
-  headers: {
-    'X-Client-Type': 'silver',
-  },
 });
 
+api.interceptors.request.use((config) => {
+  config.headers['X-Client-Type'] = 'silver';
+  return config;
+});
 
 let isRefreshing = false;
 
@@ -50,21 +46,18 @@ const processQueue = (error?: AxiosError) => {
   failedQueue = [];
 };
 
-
-
 api.interceptors.response.use(
   (response) => response,
 
   async (error: AxiosError) => {
     const originalRequest = error.config as RetryAxiosRequestConfig;
 
-     if (
-  error.response?.status === 401 &&
-  originalRequest &&
-  !originalRequest._retry &&
-  !location.pathname.startsWith('/login')
-) {
-     
+    if (
+      error.response?.status === 401 &&
+      originalRequest &&
+      !originalRequest._retry &&
+      !location.pathname.startsWith('/login')
+    ) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({
@@ -78,23 +71,20 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-      
         await api.post('/accounts/token/refresh/');
 
         processQueue();
 
-       
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError as AxiosError);
 
-     
         if (typeof window !== 'undefined') {
           try {
             await api.post('/accounts/logout/');
-          } catch (error:unknown) {
-            if(isAxiosError(error)){
-              console.log(error.response?.data.message)
+          } catch (error: unknown) {
+            if (isAxiosError(error)) {
+              console.log(error.response?.data.message);
             }
           }
 

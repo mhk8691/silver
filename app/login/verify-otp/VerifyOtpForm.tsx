@@ -40,6 +40,7 @@ export default function VerifyOtpForm({ phoneNumber }: Props) {
   };
 useEffect(() => {
  autoCompleteCode(setVerifyCode)
+ handleLoginVerifyOtp()
   }, []);
 
   
