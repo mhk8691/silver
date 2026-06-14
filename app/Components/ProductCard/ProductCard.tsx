@@ -49,7 +49,7 @@ export default function ProductCard({ item,cart,setCart}: { item: ProductDateTyp
                   },
                   width: '100%',
                 }}
-                image={item.image}
+                image={item.image_url}
                 title="green iguana"
               />
             </Link>

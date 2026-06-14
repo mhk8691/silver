@@ -30,19 +30,19 @@ export default async function page() {
   const [transactionParams,setTransactionParams] = useState('deposit')
     const [filter,setFilter] = useState('')
     const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
-  // useEffect(()=>{
-  //    const getData = async ()=>{
-  //       try{
-  //         const response = await getRecentTransaction(transactionParams,filter,dateRange)
-  //         setTransactionData(response)
-  //       }catch(error:unknown){
-  //         if (isAxiosError(error)){
-  //           showSnackbar(error.response?.data.message)
-  //         }
-  //       }
-  //     }
-  //     getData()
-  // },[transactionParams,filter,dateRange])
+  useEffect(()=>{
+     const getData = async ()=>{
+        try{
+          const response = await getRecentTransaction(transactionParams,filter,dateRange)
+          setTransactionData(response)
+        }catch(error:unknown){
+          if (isAxiosError(error)){
+            showSnackbar(error.response?.data.message)
+          }
+        }
+      }
+      getData()
+  },[transactionParams,filter,dateRange])
   return (
     <Grid
       container
