@@ -1,9 +1,10 @@
 import { RecentTransactionDataType, ToggleItemsType } from '@/app/core/Types';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import TransactionTable from '../irt-transaction/TransactionTable';
 import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
 import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 import { statuses } from '../wallet/page';
+import TransactionDetailModal from './TransactionDetailModal';
 
 const withdrawItems: ToggleItemsType[] = [
   {
@@ -27,29 +28,59 @@ interface Props{
         filter:string
         dateRange:DatePickerValue|null
 }
-export default function WithdrawTable({data,setWithdrawParams,setDateRange,setFilter,filter,dateRange}:Props) {
-  return (
-    <DetailTable
-    statuses={statuses}
-        setDateRange={setDateRange}
-    setStatus={setFilter}
-    setParams={setWithdrawParams}
-    status={filter}
-    dateRange={dateRange}
-      key={3}
-      toggleItems={withdrawItems}
-      noCard
-      type="toggle"
-      tableBody={<TransactionTable data={data} />}
-      tableHead={[
-        'قیمت',
-        'نوع تراکنش',
-        'روش',
-        'وضعیت',
-        'کد پیگیری',
-        'تاریخ',
-      ]}
-      listLength={data.length}
-    />
-  );
-}
+  export default function WithdrawTable({
+    data,
+    setWithdrawParams,
+    setDateRange,
+    setFilter,
+    filter,
+    dateRange,
+  }: Props) {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedTransaction, setSelectedTransaction] =
+      useState<RecentTransactionDataType | null>(null);
+
+    function handleRowClick(row: RecentTransactionDataType) {
+      setSelectedTransaction(row);
+      setModalOpen(true);
+    }
+
+    return (
+      <>
+        <DetailTable
+          statuses={statuses}
+          status={filter}
+          setDateRange={setDateRange}
+          setStatus={setFilter}
+          dateRange={dateRange}
+          key={3}
+          setParams={setWithdrawParams}
+          toggleItems={withdrawItems}
+          noCard
+          type="toggle"
+          tableBody={
+            <TransactionTable
+              data={data}
+              onRowClick={handleRowClick}  
+            />
+          }
+          tableHead={[
+            'قیمت',
+            'نوع تراکنش',
+            'روش',
+            'وضعیت',
+            'کد پیگیری',
+            'تاریخ',
+            ''
+          ]}
+          listLength={data.length}
+        />
+
+        <TransactionDetailModal
+          open={modalOpen}
+          setOpen={setModalOpen}
+          data={selectedTransaction}
+        />
+      </>
+    );
+  }

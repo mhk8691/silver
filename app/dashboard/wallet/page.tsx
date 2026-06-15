@@ -15,6 +15,7 @@ import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 import OrderDetail from '@/app/Components/Tables/DetailTable/DetailTable';
 import { TransactionItems } from '../irt-transaction/TransactionContainer';
 import Statistics from './Statistics';
+import TransactionDetailModal from '../reports/TransactionDetailModal';
 // export const metadata: Metadata = {
 //   title: 'کیف پول | دارینه',
 //   description: '',
@@ -29,6 +30,14 @@ export default async function page() {
   const [transactionData,setTransactionData] = useState<RecentTransactionDataType[]>([])
   const [transactionParams,setTransactionParams] = useState('deposit')
     const [filter,setFilter] = useState('')
+         const [modalOpen, setModalOpen] = useState(false);
+        const [selectedTransaction, setSelectedTransaction] =
+          useState<RecentTransactionDataType | null>(null);
+    
+        function handleRowClick(row: RecentTransactionDataType) {
+          setSelectedTransaction(row);
+          setModalOpen(true);
+        }
     const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
   useEffect(()=>{
      const getData = async ()=>{
@@ -72,7 +81,7 @@ export default async function page() {
             type="chip"
             title="لیست تراکنش‌‌های اخیر"
             toggleItems={TransactionItems}
-            tableBody={<TransactionTable data={transactionData} />}
+            tableBody={<TransactionTable data={transactionData} onRowClick={handleRowClick} />}
             listLength={transactionData.length}
             setParams={setTransactionParams}
              tableHead={[
@@ -82,12 +91,18 @@ export default async function page() {
             'وضعیت',
             'کد پیگیری',
             'تاریخ',
+            ''
           ]}
           setDateRange={setDateRange}
           setStatus={setFilter}
           dateRange={dateRange}
           status={filter}
           />
+          <TransactionDetailModal
+                    open={modalOpen}
+                    setOpen={setModalOpen}
+                    data={selectedTransaction}
+                  />
         </Stack>
       </Grid>
     </Grid>

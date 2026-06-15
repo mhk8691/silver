@@ -1,9 +1,10 @@
 import { RecentTransactionDataType, ToggleItemsType } from '@/app/core/Types';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
 import TransactionTable from '../irt-transaction/TransactionTable';
 import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 import { statuses } from '../wallet/page';
+import TransactionDetailModal from './TransactionDetailModal';
 
 const depositItems: ToggleItemsType[] = [
   {
@@ -34,19 +35,27 @@ interface Props{
       dateRange:DatePickerValue|null
 }
 export default function DepositTable({data,setDepositParams,setDateRange,setFilter,filter,dateRange}:Props) {
+  const [modalOpen, setModalOpen] = useState(false);
+      const [selectedTransaction, setSelectedTransaction] =
+        useState<RecentTransactionDataType | null>(null);
+  function handleRowClick(row: RecentTransactionDataType) {
+        setSelectedTransaction(row);
+        setModalOpen(true);
+      }
   return (
+    <>
     <DetailTable
+    statuses={statuses}
+     status={filter}
     setDateRange={setDateRange}
     setStatus={setFilter}
-    setParams={setDepositParams}
-    status={filter}
-    statuses={statuses}
     dateRange={dateRange}
+    setParams={setDepositParams}
       key={2}
       toggleItems={depositItems}
       type="toggle"
       noCard
-       tableBody={<TransactionTable data={data} />}
+       tableBody={<TransactionTable data={data} onRowClick={handleRowClick}  />}
       tableHead={[
         'قیمت',
         'نوع تراکنش',
@@ -54,8 +63,15 @@ export default function DepositTable({data,setDepositParams,setDateRange,setFilt
         'وضعیت',
         'کد پیگیری',
         'تاریخ',
+        ''
       ]}
       listLength={data.length}
     />
+    <TransactionDetailModal
+              open={modalOpen}
+              setOpen={setModalOpen}
+              data={selectedTransaction}
+            />
+    </>
   );
 }
