@@ -5,7 +5,9 @@ export const silverDeposit = async (data:FormData) => {
     const response = await api.post<{ message: string }>("/silver/wallet/deposit/", {
       amount:data.get('amount'),
       method:data.get('method'),
-      receipt:data.get('receipt')
+      receipt:data.get('receipt'),
+      description:data.get('description')
+
     },{
        headers: {
       'Content-Type': 'multipart/form-data',
