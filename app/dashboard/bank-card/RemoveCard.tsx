@@ -56,7 +56,7 @@ export default function RemoveCard({
           fontWeight={"500"}
           sx={{ mt: 3 }}
         >
-          آیا از حذف کارت بانکی با شماره{" "}
+          آیا از حذف کارت بانکی با شماره شبا {" "}
           <Box
             component="span"
             sx={{
@@ -66,7 +66,7 @@ export default function RemoveCard({
             }}
           >
             {"\u200E"}
-            {selectedCard?.card_number.replace(/(.{4})/g, "$1 ").trim()}
+            {selectedCard?.shaba_number}
           </Box>{" "}
           اطمینان دارید؟
         </Typography>

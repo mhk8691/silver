@@ -18,6 +18,8 @@ import { getRecentTransaction } from '@/lib/transactions/recent-transactions/rec
 import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 import { silverDeposit } from '@/lib/transactions/deposit/deposit';
 import { getReports } from '@/lib/getReports/getReports';
+import { getBankInfoWithSheba } from 'ir-banks-info';
+import Image from 'next/image';
 
 const items: ToggleItemsType[] = [
   { title: 'درگاه پرداخت', value: 'gateway', id: 1 },
@@ -137,26 +139,14 @@ export default function Deposit({setTransactionData,transactionParams,filter,dat
           <Typography variant="body2" fontSize={12} fontWeight={"bold"}>
           اطلاعات واریز
         </Typography>
-        <Container
+            <Container
           style={{
             flexDirection: "column",
             gap: 2,
           }}
         >
-          <Stack
-            direction={"row"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-
-          >
-            <Typography variant="body2" fontSize={12} sx={{color:'text.muted'}}>
-              کارت مبدا:
-            </Typography>
-            <Typography variant="body2" fontSize={12}>
-              {depositData.card_number}
-            </Typography>
-          </Stack>
-         <Stack mt={2}>
+         
+         <Stack>
            <Typography variant="body2" fontSize={12} sx={{color:'text.muted'}}>
             کارت مقصد:
           </Typography>
@@ -172,6 +162,23 @@ export default function Deposit({setTransactionData,transactionParams,filter,dat
             <Typography variant="body2" fontSize={12}>
               {depositData.sheba}
             </Typography>
+          </Stack>
+           <Stack
+            direction={"row"}
+                  justifyContent={"space-between"}
+            alignItems={"center"}
+          >
+            <Typography variant="body2" fontSize={10}>
+              بانک
+            </Typography>
+            <Stack direction={'row'} gap={1} alignItems={'center'} justifyContent={'end' } width={'100%'}>
+                      <Typography variant="body2" fontSize={14} sx={{ color: 'text.muted' }}>
+                                {getBankInfoWithSheba(depositData.sheba.replace('IR', ''))?.persianName}
+
+                                </Typography>
+                                <Image src={getBankInfoWithSheba(depositData.sheba)?.logo + ''} alt={''} width={27} height={27} />
+                                
+                              </Stack>
           </Stack>
           <Stack
             direction={"row"}

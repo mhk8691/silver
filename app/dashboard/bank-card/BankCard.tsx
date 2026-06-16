@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 import { BankCardDataType } from "@/app/core/Types";
 import RemoveCard from "./RemoveCard";
+import { getBankInfoWithSheba } from "ir-banks-info";
 
 export default function BankCard({
   bankCardData,
@@ -36,7 +37,7 @@ export default function BankCard({
             >
               <Stack direction={"row"} gap={1} alignItems={"center"}>
                 <Image
-                  src={"/images/simple/mellat.svg"}
+                  src={getBankInfoWithSheba(item.shaba_number)?.logo || ''}
                   alt={""}
                   width={36}
                   height={36}
@@ -46,7 +47,7 @@ export default function BankCard({
                   fontSize={16}
                   sx={{ color: "text.muted" }}
                 >
-                  {item.bank_name} بانک تست
+                  {getBankInfoWithSheba(item.shaba_number)?.persianName} 
                 </Typography>
               </Stack>
               <Stack>
@@ -113,14 +114,14 @@ export default function BankCard({
                   textAlign: "left",
                 }}
               >
-                {item.card_number.replace(/(.{4})/g, "$1 ").trim()}
+                محمد محمدی
               </Typography>
               <Typography
                 variant="body2"
                 fontSize={18}
-                sx={{ color: "text.title" }}
+                sx={{ color: "text.title",mt:1.5 }}
               >
-                IR۸***۰۳۰۹۰۶۹۷۶55
+                {item.shaba_number}
               </Typography>
             </Stack>
           </Card>
