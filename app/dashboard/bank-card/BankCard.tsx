@@ -37,7 +37,7 @@ export default function BankCard({
             >
               <Stack direction={"row"} gap={1} alignItems={"center"}>
                 <Image
-                  src={getBankInfoWithSheba(item.shaba_number)?.logo || ''}
+                  src={getBankInfoWithSheba(item?.shaba_number)?.logo || ''}
                   alt={""}
                   width={36}
                   height={36}
@@ -47,7 +47,7 @@ export default function BankCard({
                   fontSize={16}
                   sx={{ color: "text.muted" }}
                 >
-                  {getBankInfoWithSheba(item.shaba_number)?.persianName} 
+                  {getBankInfoWithSheba(item?.shaba_number)?.persianName} 
                 </Typography>
               </Stack>
               <Stack>
