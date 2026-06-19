@@ -268,3 +268,7 @@ export interface CheckoutDataType {
   "delivery_type": string,
   "address_id": number
 }
+export interface BannersType {
+  image:string
+  link:string
+}
