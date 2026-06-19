@@ -37,7 +37,7 @@ export default function Deposit({setTransactionData,transactionParams,filter,dat
   const [open,setOpen] = useState(false)
   const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
   const [selectedCard, setSelectedCard] = useState<number>(1);
-
+  const [checked, setChecked] = useState(false);
   const [receiptPreview, setReceiptPreview] = useState<string | null>(null);
 const [zoomOpen, setZoomOpen] = useState(false);
 const [description, setDescription] = useState('');
@@ -81,6 +81,10 @@ const handleReceiptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const response =await silverDeposit(formData)
       refetch()
       setPrice('')
+      setReceipt(null)
+      setReceiptPreview('')
+      setDescription('')
+      setChecked(false)
       const transactionData = await  getReports(transactionParams,undefined,dateRange,filter);
       showSnackbar(response?.message,'success')
       setTransactionData(transactionData)
@@ -286,7 +290,8 @@ const handleReceiptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         }
       </Button>
     </Card>
-    <DepositConfirm setDepositData={setDepositData} setOpen={setOpen} open={open} />
+    <DepositConfirm setDepositData={setDepositData} setOpen={setOpen} open={open} checked={checked}
+setChecked={setChecked} />
     </>
   );
 }
