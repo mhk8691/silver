@@ -35,7 +35,8 @@ export default function BankCard({
               justifyContent={"space-between"}
               alignItems={"center"}
             >
-              <Stack direction={"row"} gap={1} alignItems={"center"}>
+           {
+            item.shaba_number &&    <Stack direction={"row"} gap={1} alignItems={"center"}>
                 <Image
                   src={getBankInfoWithSheba(item?.shaba_number)?.logo || ''}
                   alt={""}
@@ -50,6 +51,7 @@ export default function BankCard({
                   {getBankInfoWithSheba(item?.shaba_number)?.persianName} 
                 </Typography>
               </Stack>
+           }
               <Stack>
                 <IconButton
                   disableRipple
