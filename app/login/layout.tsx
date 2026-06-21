@@ -121,7 +121,7 @@ export default function layout({ children }: Props) {
               }}
             >
               <Image
-                src={"/images/login2.webp"}
+                src={"/images/login1.webp"}
                 width={365}
                 height={290}
                 alt=""
