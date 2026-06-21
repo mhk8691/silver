@@ -8,6 +8,7 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Chip,
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -25,6 +26,15 @@ interface ItemsType {
   navigation: AppbarItemsType[];
 }
 
+// اضافه کردن فیلد comingSoon به نوع AppbarItemsType
+// باید در فایل Types اضافه بشه:
+// export interface AppbarItemsType {
+//   name: string;
+//   image: string;
+//   link: string;
+//   comingSoon?: boolean; // اضافه بشه
+// }
+
 const items: ItemsType[] = [
   {
     title: "سفارش",
@@ -33,11 +43,13 @@ const items: ItemsType[] = [
         name: "خرید و فروش",
         image: "/trade-active.svg",
         link: "/trades",
+        comingSoon: false, // فعال
       },
       {
         name: "سفارش با قیمت",
         image: "/limitOrder-active.svg",
         link: "/limit-order",
+        comingSoon: false, 
       },
     ],
   },
@@ -48,16 +60,19 @@ const items: ItemsType[] = [
         name: "دارایی ها",
         image: "/wallet-active.svg",
         link: "/wallet",
+        comingSoon: false,
       },
       {
         name: "واریز و برداشت",
         image: "/irtTransaction-active.svg",
         link: "/irt-transaction",
+        comingSoon: false,
       },
       {
         name: "کارت های بانکی",
         image: "/bankCard-active.svg",
         link: "/bank-card",
+        comingSoon: false, 
       },
     ],
   },
@@ -68,17 +83,19 @@ const items: ItemsType[] = [
         name: "خرید اقساطی",
         image: "/credit-active.svg",
         link: "/credit-menu",
+        comingSoon: true,
       },
-
       {
         name: "تحویل فیزیکی",
         image: "/shop-active.svg",
         link: "/silver-receive",
+        comingSoon: false, 
       },
       {
         name: "کارت هدیه",
         image: "/giftCard-active.svg",
         link: "/gift-card-submit",
+        comingSoon: false,
       },
     ],
   },
@@ -89,16 +106,19 @@ const items: ItemsType[] = [
         name: "گزارش ها",
         image: "/reports-active.svg",
         link: "/reports",
+        comingSoon: false,
       },
       {
         name: "نقره فروش شو",
         image: "/invite-active.svg",
         link: "/invite",
+        comingSoon: false, 
       },
       {
         name: "پروفایل",
         image: "/profile-active.svg",
         link: "/profile",
+        comingSoon: false,
       },
     ],
   },
@@ -187,10 +207,22 @@ const Content = ({
                     px={1.5}
                     component={"div"}
                     onClick={() => {
-                      router.push(`/dashboard${navigate.link}`);
-                      setOpen(false);
+                      // فقط اگر به زودی نباشه، کلیک کار کنه
+                      if (!navigate.comingSoon) {
+                        router.push(`/dashboard${navigate.link}`);
+                        setOpen(false);
+                      }
                     }}
-                    sx={{ cursor: "pointer" }}
+                    sx={{
+                      cursor: navigate.comingSoon ? "default" : "pointer",
+                      position: "relative",
+                      opacity: navigate.comingSoon ? 0.6 : 1,
+                      transition: "all 0.2s ease",
+                      "&:hover": {
+                        opacity: navigate.comingSoon ? 0.6 : 0.8,
+                        transform: navigate.comingSoon ? "none" : "scale(1.02)",
+                      },
+                    }}
                   >
                     <Stack direction={"column"} alignItems={"center"} gap={1.5}>
                       <Image
@@ -210,6 +242,27 @@ const Content = ({
                       >
                         {navigate.name}
                       </Typography>
+                      
+                      {/* نشانگر به زودی */}
+                      {navigate.comingSoon && (
+                        <Chip
+                          label="به زودی"
+                          size="small"
+                          sx={{
+                            position: "absolute",
+                            top: -8,
+                            right: -8,
+                            backgroundColor: "#FF6B6B",
+                            color: "white",
+                            fontSize: "10px",
+                            height: "20px",
+                            fontWeight: "bold",
+                            "& .MuiChip-label": {
+                              px: 1,
+                            },
+                          }}
+                        />
+                      )}
                     </Stack>
                   </Grid>
                 ))}

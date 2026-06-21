@@ -50,7 +50,8 @@ export interface ActionButtonType {
 export interface AppbarItemsType {
   name: string;
   image: string;
-  link?: string;
+  link: string;
+  comingSoon?: boolean; // اختیاری
 }
 
 export interface AssetsDataType {
