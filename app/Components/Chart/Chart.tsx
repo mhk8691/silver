@@ -88,7 +88,7 @@ export default function ChartGold({
         </Stack>
 
         {(positionPrice === 'top' || positionPrice === 'both') && (
-          <TopPrice  />
+          <TopPrice chartData={chartData}  />
         )}
 
         <Stack direction="row" alignItems="center" gap={0}>
@@ -111,7 +111,7 @@ export default function ChartGold({
           <BottomPrice
             priceStyle={priceStyle}
             dividerStyle={dividerStyle}
-            // chartData={chartData}
+            chartData={chartData}
           />
         )}
       </Container>

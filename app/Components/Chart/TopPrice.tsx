@@ -1,11 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import priceFormater from "../../core/PriceFormater";
 import CircleAnimation from "../CircleAnimation/CircleAnimation";
+import { ChartGoldDataType } from "@/app/core/Types";
 
-export default function TopPrice() {
+export default function TopPrice({chartData}:{chartData:ChartGoldDataType}) {
   return (
     <Stack direction={"row"} alignItems={"center"} mt={1} gap={2}>
-      <CircleAnimation type="red" />
+      <CircleAnimation type={chartData.stats.change_percent >= 0 ? 'green' :'red'} />
       <Stack direction={"row"} alignItems={"center"} gap={0.5}>
         <Typography
           variant="body2"
@@ -28,7 +29,7 @@ export default function TopPrice() {
             alignItems: "center",
           }}
         >
-          <Box component={"span"}>{priceFormater(18076000)}</Box>
+          <Box component={"span"}>{priceFormater(chartData.stats.current_price)}</Box>{' '}
           <Box component={"span"} fontSize={{ xs: 12, sm: 14 }}>
             تومان
           </Box>
@@ -36,10 +37,10 @@ export default function TopPrice() {
         <Typography
           variant="body1"
           sx={{ mr: 0.5 }}
-          color="error"
+          color={chartData.stats.change_percent >= 0 ? 'success':'error'}
           fontSize={{ xs: 10, sm: 16 }}
         >
-          {new Intl.NumberFormat("fa-IR").format(1.11)} -%
+          {new Intl.NumberFormat("fa-IR").format(chartData.stats.change_percent)} %
         </Typography>
       </Stack>
     </Stack>

@@ -1,12 +1,15 @@
 import { Box, Divider, Stack, SxProps, Typography } from "@mui/material";
 import priceFormater from "../../core/PriceFormater";
+import { ChartGoldDataType } from "@/app/core/Types";
 
 export default function BottomPrice({
   priceStyle,
   dividerStyle,
+  chartData
 }: {
   priceStyle?: SxProps;
   dividerStyle?: SxProps;
+  chartData:ChartGoldDataType
 }) {
   return (
     <>
@@ -39,7 +42,7 @@ export default function BottomPrice({
               sm: 16,
             }}
           >
-            {priceFormater(493000)} تومان
+            {priceFormater(chartData.stats.highest_price)} تومان
         
           </Typography>
         </Stack>
@@ -62,7 +65,7 @@ export default function BottomPrice({
               sm: 16,
             }}
           >
-            {priceFormater(391920)} تومان
+            {priceFormater(chartData.stats.lowest_price)} تومان
        
           </Typography>
         </Stack>
@@ -79,13 +82,13 @@ export default function BottomPrice({
           </Typography>
           <Typography
             variant="body1"
-            color="success"
+            color={chartData.stats.change_percent >= 0 ? 'success' : 'error'}
             fontSize={{
               xs: 12,
               sm: 16,
             }}
           >
-            {new Intl.NumberFormat("fa-IR").format(15.43)} درصد
+            {new Intl.NumberFormat("fa-IR").format(chartData.stats.change_percent)} درصد
          
           </Typography>
         </Stack>
