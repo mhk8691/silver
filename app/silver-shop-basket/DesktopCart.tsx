@@ -69,7 +69,7 @@ const DesktopCart = ({cartData,setCartData}:Props) => {
                 ...headStyle,
               }}
             >
-              مقدار طلا
+              مقدار نقره
             </TableCell>
 
             <TableCell

@@ -2,7 +2,7 @@ import { Container, Divider} from '@mui/material';
 import { Metadata } from 'next';
 import Cart from './Cart';
 export const metadata: Metadata = {
-  title: 'خرید شمش طلا 18 و 24 عیار آنلاین و قیمت روز | دارینه',
+  title: 'خرید شمش نقره 18 و 24 عیار آنلاین و قیمت روز | دارینه',
   description: '',
 };
 export default function page() {

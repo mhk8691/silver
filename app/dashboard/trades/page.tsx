@@ -5,7 +5,7 @@ import WalletHeader from '@/app/Components/Wallet/WalletHeader';
 import Trading from './Trading';
 import Trade from './Trades';
 export const metadata: Metadata = {
-  title: 'خرید و فروش طلا | دارینه',
+  title: 'خرید و فروش نقره | دارینه',
   description: '',
 };
 

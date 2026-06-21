@@ -86,7 +86,7 @@ const chartLabels: string[] = Array.from({ length: 30 }, (_, i) => {
           fontWeight="bold"
           sx={{ color: 'text.primary' }}
         >
-          نمودار لحظه ای قیمت طلا
+          نمودار لحظه ای قیمت نقره
         </Typography>
 
         <Stack

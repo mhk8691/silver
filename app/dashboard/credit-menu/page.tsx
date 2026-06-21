@@ -2,7 +2,7 @@ import InfoContainer from "@/app/Components/Containers/InfoContainer/InfoContain
 import { ActionButtonType } from "@/app/core/Types";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "خرید اقساطی طلا | نقرینه",
+  title: "خرید اقساطی نقره | نقرینه",
   description: "",
 };
 const items: ActionButtonType[] = [
@@ -120,7 +120,7 @@ const items: ActionButtonType[] = [
 export default function page() {
   return (
     <InfoContainer
-      title="خرید اقساطی طلا"
+      title="خرید اقساطی نقره"
       items={items}
       image="/images/menu.webp"
     />

@@ -5,7 +5,7 @@ import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
 
 export const getBanners = async () => {
   try {
-    const res = await api.get<ApiResponse<BannersType[]>>('/gold/banners/');
+    const res = await api.get<ApiResponse<BannersType[]>>('/silver/banners/');
     return res.data.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {

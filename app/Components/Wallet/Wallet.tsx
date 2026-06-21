@@ -106,7 +106,7 @@ const {assets,isVisible} = useAssets()
               </Stack>
               {type === "wallet" && (
                 <Typography variant="body2" fontSize={10}>
-                  ارزش دارایی مجموع دارایی طلا و دارایی نقدی شماست
+                  ارزش دارایی مجموع دارایی نقره و دارایی نقدی شماست
                 </Typography>
               )}
             </Stack>

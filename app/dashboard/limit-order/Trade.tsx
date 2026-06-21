@@ -78,7 +78,7 @@ export default function Trade({ type }: Props) {
 
           <InputField
           type='number'
-            placeholder="وزن طلا"
+            placeholder="وزن نقره"
             title="گرم"
             value={silver}
             setValue={() => {}}

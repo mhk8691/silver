@@ -57,7 +57,7 @@ export default function AllAssets({ style }: { style: SxProps }) {
               sm: 16,
             }}
           >
-            مقدار طلای خریداری شده
+            مقدار نقره ی خریداری شده
           </Typography>
           <Typography
             variant="body2"
@@ -120,7 +120,7 @@ export default function AllAssets({ style }: { style: SxProps }) {
               sm: 16,
             }}
           >
-            ارزش طلای خریداری شده
+            ارزش نقره ی خریداری شده
           </Typography>
           <Typography
             variant="body2"
@@ -162,7 +162,7 @@ export default function AllAssets({ style }: { style: SxProps }) {
               sm: 16,
             }}
           >
-            قیمت طلا
+            قیمت نقره
           </Typography>
           <Typography
             variant="body2"

@@ -110,7 +110,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
       >
         {isDesktop && (
           <Typography variant="h2" fontSize={22}>
-            خرید و فروش طلا
+            خرید و فروش نقره
           </Typography>
         )}
         <FilterToggleButton
@@ -137,7 +137,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
           <Stack>
             <InputField
             type='number'
-              placeholder={'وزن طلا'}
+              placeholder={'وزن نقره'}
               title={'گرم'}
               value={silver}
               setValue={handleSilverChange}
@@ -154,6 +154,6 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
           {isLoading ? <Loading size={30}/>:select === 'buy' ? 'خرید' : 'فروش'}
         </Button>
       </Container>
-      /* <TradesilverConfirmation title={select === 'buy' ? 'تایید خرید طلا':'تایید فروش طلا'} open={open} setOpen={setOpen} data={buyInfo} /> */
+      /* <TradesilverConfirmation title={select === 'buy' ? 'تایید خرید نقره':'تایید فروش نقره'} open={open} setOpen={setOpen} data={buyInfo} /> */
   )
 }

@@ -15,7 +15,7 @@ const menuItems = [
     link: "/dashboard/loan",
   },
   {
-    title: "خرید قسطی طلا",
+    title: "خرید قسطی نقره",
     link: "/dashboard/credit-menu",
   },
   {
@@ -24,15 +24,15 @@ const menuItems = [
   },
 
   {
-    title: "قیمت طلا امروز",
+    title: "قیمت نقره امروز",
     link: "/gold-price",
   },
   {
-    title: "انس جهانی طلا",
+    title: "انس جهانی نقره",
     link: "/ons",
   },
   {
-    title: "محاسبه قیمت طلا",
+    title: "محاسبه قیمت نقره",
     link: "/calculator",
   },
   {

@@ -27,7 +27,7 @@ export default function TableContainer({ data }: Props) {
       {!isDesktop ? (
         <CustomTable
           heads={[
-            "نوع طلا",
+            "نوع نقره",
             "نرخ فعلی",
             "پایین‌ترین قیمت روز",
             "بالاترین قیمت روز",

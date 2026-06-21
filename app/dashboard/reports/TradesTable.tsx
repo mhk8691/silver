@@ -196,7 +196,7 @@ export default function TradesTable({data,type='toggle',noCard=true,setTradePara
       tableHead={[
         'نوع معامله',
         'وضعیت',
-        'مقدار طلا',
+        'مقدار نقره',
         'قیمت',
         'قیمت نهایی',
         'کد پیگیری',

@@ -45,9 +45,8 @@ const shouldShow = !isLoginPage && (isMobile || showOnAllSizes);
             sx={{ color: 'text.title' }}
             fontSize={{ xs: 12, lg: 14, xl: 16 }}
           >
-            قیمت لحظه ای طلا ۱۸ عیار(گرمی):
+           قیمت لحظه ای نقره (گرمی):
           </Typography>
-
           <Typography
             variant="body1"
             fontSize={{ xs: 12, lg: 14, xl: 16 }}

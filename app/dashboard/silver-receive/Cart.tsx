@@ -55,7 +55,7 @@ export default function Cart({cart}:{cart:CartItem[]}) {
             <Stack direction={'column'} gap={2} mt={1} px={1.5}>
               <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
                 <Typography variant="body1" fontSize={16} sx={{ color: 'text.muted' }}>
-                  موجودی طلای شما
+                  موجودی نقره ی شما
                 </Typography>
                 <Typography variant="body1" fontSize={18}>
                   {isVisible ? `${priceFormater(assets?.silver_balance )|| 0} گرم` :'***'}

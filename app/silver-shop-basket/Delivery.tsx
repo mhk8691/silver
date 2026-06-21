@@ -72,7 +72,7 @@ export default function Delivery({deliveryType,setDeliveryType,addressId,setAddr
             }}
             sx={{ color: 'text.secondary', fontWeight: '600', mt: '10px' }}
           >
-            {deliveryType === 'HOME' ? 'تحویل امن طلا به سرتاسر ایران' : 'تحویل حضوری طلای شما'}
+            {deliveryType === 'HOME' ? 'تحویل امن نقره  به سرتاسر ایران' : 'تحویل حضوری نقره ی شما'}
           </Typography>
           <Typography
             variant="body1"
@@ -83,7 +83,7 @@ export default function Delivery({deliveryType,setDeliveryType,addressId,setAddr
             sx={{ color: 'text.secondary', mt: 1 }}
           >
             {deliveryType === 'HOME'
-              ? 'دارینه طلای شما را از ۳۰ سوت، به هر نقطه از کشور که بخواهید ارسال می‌کند. تمامی مرسولات ارسالی بیمه می‌شوند؛ در صورت بروز هرگونه خسارت، جبران آن با دارینه است.'
+              ? 'دارینه نقره ی شما را از ۳۰ سوت، به هر نقطه از کشور که بخواهید ارسال می‌کند. تمامی مرسولات ارسالی بیمه می‌شوند؛ در صورت بروز هرگونه خسارت، جبران آن با دارینه است.'
               : 'برای تحویل حضوری، لطفاً کارت شناسایی خود را همراه داشته باشید. مراجعه تنها در ساعت و آدرس تعیین‌شده امکان‌پذیر است.'}
           </Typography>
           {/* {deliveryType === "delivery" && (

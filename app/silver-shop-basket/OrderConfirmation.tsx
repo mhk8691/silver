@@ -149,7 +149,7 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
       >
         <InfoOutlineRounded sx={{ color: '#D89654' }} />
         <Typography variant="body2" fontWeight={500} sx={{ color: 'text.secondary' }}>
-          لطفاً پیش از تأیید، اطلاعات وارد شده و آدرس انتخابی را به دقت بررسی کنید.
+          لطفاً پیش از تأیید، ن وارد شده و آدرس انتخابی را به دقت بررسی کنید.
         </Typography>
       </Stack>
 

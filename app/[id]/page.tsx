@@ -14,11 +14,11 @@ export const goldData: {
   data: TableSilverDataType[];
 }[] = [
   {
-    title: "طلا",
+    title: "نقره",
     order: 1,
     data: [
       {
-        typeSilver: "طلای ۱۸ عیار(گرم)",
+        typeSilver: "نقرهی ۱۸ عیار(گرم)",
         currentRate: 17785000,
         minPriceDay: 17687000,
         maxPriceDay: 18000000,
@@ -27,7 +27,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeSilver: "طلای ۲۱ عیار(گرم)",
+        typeSilver: "نقرهی ۲۱ عیار(گرم)",
         currentRate: 20703666,
         minPriceDay: 20634833,
         maxPriceDay: 20927666,
@@ -36,7 +36,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeSilver: " طلای ۲۴ عیار(گرم)",
+        typeSilver: " نقرهی ۲۴ عیار(گرم)",
         currentRate: 23543026,
         minPriceDay: 23464753,
         maxPriceDay: 23797746,
@@ -45,7 +45,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeSilver: "۱ مثقال طلا ",
+        typeSilver: "۱ مثقال نقره ",
         currentRate: 76872122,
         minPriceDay: 76616546,
         maxPriceDay: 77703828,
@@ -54,7 +54,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeSilver: "انس جهانی طلا ",
+        typeSilver: "انس جهانی نقره ",
         currentRate: 4785,
         minPriceDay: 4714,
         maxPriceDay: 4787,
@@ -72,7 +72,7 @@ export const goldData: {
         weeklyChart: 2,
       },
       {
-        typeSilver: " طلای دست دوم",
+        typeSilver: " نقرهی دست دوم",
         currentRate: 17509445,
         minPriceDay: 17451232,
         maxPriceDay: 17698886,

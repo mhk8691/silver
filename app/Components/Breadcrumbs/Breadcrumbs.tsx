@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const breadcrumbNameMap: Record<string, string> = {
-  calculator: "محاسبه قیمت طلا",
+  calculator: "محاسبه قیمت نقره",
   faq: "سوالات متداول",
   rules: "قوانین نقرینه",
 };
@@ -83,7 +83,7 @@ export default function CustomBreadcrumbs() {
               },
             }}
           >
-            خرید طلای آب شده
+            خرید نقرهی آب شده
           </Typography>
         </Link>
 

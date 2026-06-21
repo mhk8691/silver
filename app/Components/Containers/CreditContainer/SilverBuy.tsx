@@ -33,7 +33,7 @@ export default function SilverBuy() {
         }}
         sx={{ color: "text.title" }}
       >
-        خرید طلای قسطی
+        خرید نقره ی قسطی
       </Typography>
       <Typography
         variant="h6"
@@ -43,7 +43,7 @@ export default function SilverBuy() {
         }}
         fontWeight={500}
       >
-        مبلغ مورد نظر خود برای خرید طلا را وارد کنید
+        مبلغ مورد نظر خود برای خرید نقره را وارد کنید
       </Typography>
       <InputField
       type="number"
