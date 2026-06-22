@@ -1,6 +1,7 @@
 "use client";
 import { IconButton, Stack, SvgIcon, Typography } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const appbarItems = [
   {
@@ -222,7 +223,10 @@ const appbarItems = [
 export default function MobileAppbar() {
   const router = useRouter();
   const pathname = usePathname();
-
+  const [isActive,setIsActive] = useState('')
+  useEffect(()=>{
+    setIsActive(pathname)
+  },[])
   return (
     <Stack
       position="fixed"
@@ -237,7 +241,6 @@ export default function MobileAppbar() {
       py={1}
     >
       {appbarItems.map((item) => {
-        const isActive = pathname === item.link;
 
         return (
           <Stack
@@ -246,19 +249,22 @@ export default function MobileAppbar() {
             alignItems="center"
             component="div"
             gap={0.5}
-            onClick={() => router.push(item.link)}
+            onClick={() =>{
+               router.push(item.link)
+               setIsActive(item.link)
+            }}
             sx={{ position: "relative", cursor: "pointer" }}
           >
             <IconButton
               sx={{
                 position: "relative",
                 p: 0.75,
-                bgcolor: isActive ? "primary.main" : "transparent",
                 transition: "all 0.3s ease",
-                boxShadow: isActive
+                boxShadow: isActive === item.link
                   ? "0px 4px 12px rgba(0, 0, 0, 0.3)"
                   : "none",
-                zIndex: isActive ? 2 : 1,
+                zIndex: isActive === item.link ? 2 : 1,
+                color:isActive === item.link ? 'primary.main' : 'white'
               }}
             >
               <SvgIcon
@@ -274,7 +280,7 @@ export default function MobileAppbar() {
             <Typography
               variant="body2"
               sx={{
-                color: isActive ? "primary.main" : "#717475",
+                color: isActive === item.link ? "primary.main" : "#717475",
                 fontSize: 10,
               }}
             >
