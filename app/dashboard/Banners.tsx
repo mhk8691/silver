@@ -1,6 +1,6 @@
 'use client'
 import { getBanners } from '@/lib/banners/banners';
-import { Stack } from '@mui/material';
+import { Stack, useMediaQuery, useTheme } from '@mui/material';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import 'swiper/css';
@@ -12,7 +12,7 @@ import Link from 'next/link';
 const styles = {
   container: {
     height: 226,
-    background: 'background.default',
+    background: '#fff',
     fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
     fontSize: 14,
     color: '#fff',
@@ -27,7 +27,7 @@ const styles = {
   slide: {
     textAlign: 'center',
     fontSize: 18,
-    background: '#444',
+    background: '#fff',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -37,7 +37,6 @@ const styles = {
 
 
 export default function Banners() {
-
   const [bannersData,setBannersData] = useState<BannersType[]>([])
   useEffect(()=>{
     const getData = async ()=>{
@@ -57,11 +56,12 @@ export default function Banners() {
                 src={item.image || ''}
                 alt=""
                 width={500}
-                height={226}
+                height={300}
                 style={{
                   width: '100%',
                   height: '100%',
                   borderRadius: 8,
+                  objectFit:'cover'
                 }}
               /></Link>
             </Stack>
