@@ -69,9 +69,20 @@ const DesktopCart = ({cartData,setCartData}:Props) => {
                 ...headStyle,
               }}
             >
-              مقدار نقره
+               وزن خالص
             </TableCell>
-
+ <TableCell
+              align="center"
+              sx={{
+                width: {
+                  xs: '10%',
+                  md: '15%',
+                },
+                ...headStyle,
+              }}
+            >
+             مبلغ وزنی
+            </TableCell>
             <TableCell
               align="center"
               sx={{
@@ -82,7 +93,7 @@ const DesktopCart = ({cartData,setCartData}:Props) => {
                 ...headStyle,
               }}
             >
-              ارزش تومان
+              ارزش کل محصول 
             </TableCell>
 
             <TableCell
@@ -148,13 +159,14 @@ const DesktopCart = ({cartData,setCartData}:Props) => {
                     }}
                   >
                     <Image
-                      src={'/images/product.webp'}
+                      src={item.image_url}
                       alt={item.name}
                       width={112}
                       height={112}
                       style={{
                         width: '100%',
                         height: '100%',
+                        borderRadius:8
                       }}
                     />
                   </Stack>
@@ -175,9 +187,11 @@ const DesktopCart = ({cartData,setCartData}:Props) => {
               </TableCell>
 
               <TableCell align="center" sx={dataStyle}>
+                {priceFormater(item.product_weight_with_fee)} گرم
+              </TableCell>
+<TableCell align="center" sx={dataStyle}>
                 {priceFormater(item.total_price)} تومان
               </TableCell>
-
               <TableCell align="center" sx={dataStyle}>
                <Counter cart={cartData} productId={item.id} setCart={setCartData} style={{
                 minWidth:'100px',

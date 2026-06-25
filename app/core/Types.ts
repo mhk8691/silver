@@ -127,7 +127,8 @@ export interface ProductDateType {
   category?: string;
   weight: number;
   total_price:number;
-  image_url?: string;
+  product_weight_with_fee:number
+  image_url: string;
 }
 
 export interface CartItemDataType {

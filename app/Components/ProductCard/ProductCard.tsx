@@ -108,7 +108,7 @@ export default function ProductCard({ item,cart,setCart}: { item: ProductDateTyp
                 }}
                 sx={{ color: 'text.muted' }}
               >
-                وزن
+                وزن خالص
                 :
               </Typography>
               <Typography
@@ -156,7 +156,55 @@ export default function ProductCard({ item,cart,setCart}: { item: ProductDateTyp
                 }}
                 sx={{ color: 'text.muted' }}
               >
-               قیمت:
+                مبلغ وزنی
+                :
+              </Typography>
+              <Typography
+                variant="body1"
+                fontSize={{
+                  xs: 14,
+                  sm: 16,
+                  lg: 14,
+                  xl: 16,
+                }}
+                sx={{ alignSelf: 'flex-end' }}
+              >
+                {priceFormater(+item.product_weight_with_fee)} {' '}
+                <Box
+                  component={'span'}
+                  fontSize={{
+                    xs: 12,
+                    sm: 14,
+                  }}
+                >
+                  گرم
+                </Box>
+              </Typography>
+            </Stack>
+            <Stack
+              direction={{
+                xs: 'column',
+                sm: 'row',
+                md: 'column',
+                lg: 'row',
+              }}
+              alignItems={{
+                xs: 'flex-start',
+                sm: 'center',
+                md: 'flex-start',
+                lg: 'center',
+              }}
+              justifyContent={'space-between'}
+            >
+              <Typography
+                variant="body2"
+                fontSize={{
+                  xs: 10,
+                  sm: 12,
+                }}
+                sx={{ color: 'text.muted' }}
+              >
+               ارزش کل محصول:
               </Typography>
               <Typography
                 variant="body1"
@@ -195,9 +243,11 @@ export default function ProductCard({ item,cart,setCart}: { item: ProductDateTyp
             }}
             onClick={() => {
               setCart(addToCart({
+                image_url:item.image_url,
                 id:item.id,
                 name:item.name,
                 total_price:item.total_price,
+                product_weight_with_fee:item.product_weight_with_fee,
                 weight:item.weight
               }))
               setOpen(true);
