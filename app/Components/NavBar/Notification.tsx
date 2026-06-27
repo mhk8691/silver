@@ -19,7 +19,6 @@ import CustomTabs from "../Tabs/CustomTabs";
 import MessageCard from "./MessageCard";
 
 const tabs = [
-  { title: "اعلان های من", count: 5 },
   { title: "اطلاعیه های نقرینه" },
 ];
 
@@ -39,8 +38,7 @@ const notifList: NotifItemsType[] = [
 ];
 
 const children: ReactNode[] = [
-  <MessageCard items={notifList} isNotif key={1} />,
-  <MessageCard items={notifList} key={2} />,
+  <MessageCard items={notifList} key={1} />,
 ];
 
 const NotificationContent = ({ onClose }: { onClose: () => void }) => {
