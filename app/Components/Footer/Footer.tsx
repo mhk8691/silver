@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import LinkContainer from "./LinkContainer";
 import Link from "next/link";
-
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 // export const certificate = [
 //   "/images/simple/nezamSenfi.webp",
 //   "/images/simple/enamadSmall.webp",
@@ -112,7 +112,7 @@ export default function Footer() {
           }}
           py={{
             xs: 0,
-            md: 4,
+            md: 2,
           }}
           px={{
             xs: 2,
@@ -129,7 +129,7 @@ export default function Footer() {
               lg: 0,
             }}
             alignItems={"center"}
-            justifyContent={"space-between"}
+            justifyContent={"space-evenly"}
           >
             <Stack
               direction={{
@@ -162,6 +162,7 @@ export default function Footer() {
                 md: 3,
               }}
             >
+              <Link href={'https://wa.me/989191608771'} target="_blank"   rel="noopener noreferrer">
               <Stack
                 direction={"row"}
                 gap={{
@@ -170,49 +171,19 @@ export default function Footer() {
                 }}
                 alignItems={"center"}
               >
-                <SvgIcon>
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M15.5859 8.25016C15.5859 11.7977 12.5059 14.6668 8.71094 14.6668L7.85844 15.6935L7.35428 16.2985C6.92344 16.8119 6.09843 16.7018 5.81427 16.0877L4.58594 13.3835C2.9176 12.2101 1.83594 10.3493 1.83594 8.25016C1.83594 4.70266 4.91594 1.8335 8.71094 1.8335C11.4793 1.8335 13.8718 3.36434 14.9443 5.56434C15.3568 6.38017 15.5859 7.28766 15.5859 8.25016Z"
-                      stroke="currentColor"
-                      strokeWidth="1.375"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                    <path
-                      d="M20.1702 11.7881C20.1702 13.8873 19.0885 15.7481 17.4202 16.9215L16.1919 19.6256C15.9077 20.2398 15.0827 20.359 14.6519 19.8365L13.2952 18.2048C11.0769 18.2048 9.09688 17.224 7.85938 15.6931L8.71187 14.6665C12.5069 14.6665 15.5869 11.7973 15.5869 8.24979C15.5869 7.28729 15.3577 6.3798 14.9452 5.56396C17.9427 6.25146 20.1702 8.78145 20.1702 11.7881Z"
-                      stroke="currentColor"
-                      strokeWidth="1.375"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                    <path
-                      d="M6.41406 8.25H10.9974"
-                      stroke="currentColor"
-                      strokeWidth="1.375"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </SvgIcon>
+                <WhatsAppIcon sx={{fontSize:'30px',color:'#2f2f33'}} />
 
-               <Link href={'https://t.me/darine_app'} target="_blank">
                 <Typography
                   variant="body2"
                   color="text.primary"
                   fontSize={14}
                   sx={{ whiteSpace: "nowrap" }}
                 >
-                  پشتیبانی تلگرام
+                 پشتیبانی واتساپ
                 </Typography>
-               </Link>
               </Stack>
+              </Link>
+              <Link href={'tel:09191608771'}>
               <Stack
                 direction={"row"}
                 gap={{
@@ -246,6 +217,7 @@ export default function Footer() {
                   ۰۹۱۹۱۶۰۸۷۷۱
                 </Typography>
               </Stack>
+                    </Link>
          
             </Stack>
             <Stack direction={"row"} gap={1.5}>
