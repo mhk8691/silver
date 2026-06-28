@@ -172,49 +172,29 @@ const appbarItems = [
   {
     name: "پروفایل",
     icon: (
-      <svg
-        width="29"
-        height="28"
-        viewBox="0 0 29 28"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M4.01172 13.0908V18.3292C4.01172 23.5675 6.11172 25.6675 11.3501 25.6675H17.6384C22.8767 25.6675 24.9767 23.5675 24.9767 18.3292V13.0908"
-          stroke="currentcolor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        ></path>
-        <path
-          d="M14.4993 14.0002C16.6343 14.0002 18.2093 12.2618 17.9993 10.1268L17.2293 2.3335H11.7809L10.9993 10.1268C10.7893 12.2618 12.3643 14.0002 14.4993 14.0002Z"
-          stroke="currentcolor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        ></path>
-        <path
-          d="M21.8619 14.0002C24.2186 14.0002 25.9453 12.0868 25.7119 9.74183L25.3853 6.5335C24.9653 3.50016 23.7986 2.3335 20.7419 2.3335H17.1836L18.0003 10.5118C18.1986 12.4368 19.9369 14.0002 21.8619 14.0002Z"
-          stroke="currentcolor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        ></path>
-        <path
-          d="M7.07815 14.0002C9.00315 14.0002 10.7415 12.4368 10.9282 10.5118L11.1848 7.9335L11.7448 2.3335H8.18649C5.12982 2.3335 3.96315 3.50016 3.54315 6.5335L3.22815 9.74183C2.99482 12.0868 4.72149 14.0002 7.07815 14.0002Z"
-          stroke="currentcolor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        ></path>
-        <path
-          d="M14.4987 19.8335C12.5504 19.8335 11.582 20.8018 11.582 22.7502V25.6668H17.4154V22.7502C17.4154 20.8018 16.447 19.8335 14.4987 19.8335Z"
-          stroke="currentcolor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        ></path>
-      </svg>
+       <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M14.6385 14.9107C14.5569 14.899 14.4519 14.899 14.3585 14.9107C12.3052 14.8407 10.6719 13.1607 10.6719 11.0957C10.6719 8.98404 12.3752 7.26904 14.4985 7.26904C16.6102 7.26904 18.3252 8.98404 18.3252 11.0957C18.3135 13.1607 16.6919 14.8407 14.6385 14.9107Z"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    ></path>
+    <path
+      d="M22.3634 22.6108C20.2867 24.5125 17.5334 25.6675 14.5001 25.6675C11.4667 25.6675 8.71339 24.5125 6.63672 22.6108C6.75339 21.5141 7.45339 20.4408 8.70172 19.6008C11.8984 17.4775 17.1251 17.4775 20.2984 19.6008C21.5467 20.4408 22.2467 21.5141 22.3634 22.6108Z"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    ></path>
+    <path
+      d="M14.4987 25.6668C20.942 25.6668 26.1654 20.4435 26.1654 14.0002C26.1654 7.55684 20.942 2.3335 14.4987 2.3335C8.05538 2.3335 2.83203 7.55684 2.83203 14.0002C2.83203 20.4435 8.05538 25.6668 14.4987 25.6668Z"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    ></path>
+  </svg>
     ),
     link: "/dashboard/profile",
   },
