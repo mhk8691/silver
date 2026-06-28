@@ -129,6 +129,7 @@ export interface ProductDateType {
   total_price:number;
   product_weight_with_fee:number
   image_url: string;
+  inventory_count?:number
 }
 
 export interface CartItemDataType {
