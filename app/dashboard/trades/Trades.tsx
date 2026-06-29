@@ -3,9 +3,11 @@ import {  TradeTableDataType } from '@/app/core/Types';
 import {  useState } from 'react';
 import TradesTableContainer from './TradesTableContainer';
 import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
-import { Grid } from '@mui/material';
+import { Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Trading from './Trading';
 import Chart from '@/app/Components/Chart/Chart';
+import BackLink from '../BackLink';
+import TradeGuide from './TradeGuide';
 // import TradeGoldConfirmation from './TradeGoldConfirmation';
 
 export default function Trade() {
@@ -13,12 +15,19 @@ export default function Trade() {
    const [data,setData] = useState<TradeTableDataType[]>([] as TradeTableDataType[])
    const [reportsParams,setReportsParams] = useState('BUY')
   // const [buyInfo, setBuyInfo] = useState<BuyGoldDataType>({} as BuyGoldDataType);
-
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
       const [filter,setFilter] = useState('')
       const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
-
+  const [openModal,setOpenModal] = useState(false)
   return (
     <>
+      {isMobile &&  <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} width={'100%'}>
+            <BackLink title="خرید و فروش" />
+           <Typography component={'div'} onClick={()=>setOpenModal(true)} variant="h2" fontSize={18} sx={{textDecoration:'underline',color:'#0091F8',cursor:'pointer'}}>
+           راهنما
+          </Typography>
+         </Stack>}
        <Grid size={12} container  spacing={{
         xs: 2,
         lg: 3,
@@ -50,6 +59,7 @@ export default function Trade() {
           <Grid size={12}>
         <TradesTableContainer filter={filter} setDateRange={setDateRange} dateRange={dateRange} setFilter={setFilter} data={data} reportsParams={reportsParams} setData={setData} setReportsParams={setReportsParams} />
       </Grid>
+      <TradeGuide open={openModal} setOpen={setOpenModal} />
     </>
   );
 }

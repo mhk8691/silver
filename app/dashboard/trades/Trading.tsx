@@ -14,6 +14,7 @@ import { Button, Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/m
 import { isAxiosError } from 'axios'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import TradeSilverConfirmation from './TradeSilverConfirmation'
+import TradeGuide from './TradeGuide'
 
 
 
@@ -33,6 +34,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
       const [select, setSelect] = useState(items[0].value);
       const [open, setOpen] = useState(false);
       const [isLoading,setIsLoading] = useState(false)
+      const [openModal,setOpenModal] = useState(false)
   const {assets,refetch} = useAssets()
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
@@ -111,10 +113,15 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
           },
         }}
       >
-        {isDesktop && (
-          <Typography variant="h2" fontSize={22}>
-            خرید و فروش نقره
+             {isDesktop && (
+         <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+           <Typography variant="h2" fontSize={22}>
+            خرید و فروش طلا
           </Typography>
+           <Typography component={'div'} onClick={()=>setOpenModal(true)} variant="h2" fontSize={22} sx={{textDecoration:'underline',color:'#0091F8',cursor:'pointer'}}>
+           راهنما
+          </Typography>
+         </Stack>
         )}
         <FilterToggleButton
           items={items}
@@ -160,6 +167,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
         weight:+silver,
         price:+price
        }} /> 
+       <TradeGuide open={openModal} setOpen={setOpenModal} />
     </>
  
   )
