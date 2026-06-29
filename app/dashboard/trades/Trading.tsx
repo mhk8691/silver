@@ -13,6 +13,7 @@ import { silverSell } from '@/lib/silver/silverSell'
 import { Button, Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { isAxiosError } from 'axios'
 import React, { Dispatch, SetStateAction, useState } from 'react'
+import TradeSilverConfirmation from './TradeSilverConfirmation'
 
 
 
@@ -67,7 +68,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
       setSilver('')
       setPrice('')
       refetch()
-      // setBuyInfo(response.data.details)
+      setOpen(false)
     } catch (error: unknown) {
       if (isAxiosError(error)) {
         showSnackbar(error.response?.data.message);
@@ -87,6 +88,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
            setSilver('')
       setPrice('')
       refetch()
+      setOpen(false)
     } catch (error: unknown) {
       if (isAxiosError(error)) {
         showSnackbar(error.response?.data.message);
@@ -96,6 +98,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
     }
   };
   return (
+    <>
       <Container
         style={{
           gap: 3.15,
@@ -147,13 +150,17 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
         <Button
           variant="contained"
           color="primary"
-          onClick={() => (select === 'buy' ? handleBuySilver() : handleSellSilver())}
+          onClick={() => setOpen(true)}
           sx={{ borderRadius: 2, fontSize: 16, height:60 }}
-          disabled={isLoading}
         >
-          {isLoading ? <Loading size={30}/>:select === 'buy' ? 'خرید' : 'فروش'}
+          {select === 'buy' ? 'خرید' : 'فروش'}
         </Button>
       </Container>
-      /* <TradesilverConfirmation title={select === 'buy' ? 'تایید خرید نقره':'تایید فروش نقره'} open={open} setOpen={setOpen} data={buyInfo} /> */
+       <TradeSilverConfirmation isLoading={isLoading} handleSubmit={select === 'buy' ? handleBuySilver : handleSellSilver} title={select === 'buy' ? 'تایید خرید نقره':'تایید فروش نقره'} open={open} setOpen={setOpen} data={{
+        weight:+silver,
+        price:+price
+       }} /> 
+    </>
+ 
   )
 }

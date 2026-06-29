@@ -28,8 +28,7 @@ const AssetsContext = createContext<AssetsContextType | null>(null);
 export function AssetsProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  const isAuthPage =
-    pathname.startsWith('/login')
+  const isAuthPage = pathname.startsWith('/login');
   const [assets, setAssets] = useState<AllAssetsDataType>({} as AllAssetsDataType);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +38,8 @@ export function AssetsProvider({ children }: { children: React.ReactNode }) {
   const isFetchingRef = useRef(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const isMountedRef = useRef(true);
+  const retryCountRef = useRef(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const stored = localStorage.getItem('eyeState');
@@ -49,6 +50,8 @@ export function AssetsProvider({ children }: { children: React.ReactNode }) {
 
   const fetchData = useCallback(
     async (showLoading = true) => {
+      const MAX_RETRIES = 3;
+
       if (isAuthPage) return;
       if (isFetchingRef.current) return;
 
@@ -63,6 +66,7 @@ export function AssetsProvider({ children }: { children: React.ReactNode }) {
         if (isMountedRef.current) {
           setAssets(response || ({} as AllAssetsDataType));
           setLastUpdate(new Date());
+          retryCountRef.current = 0; 
         }
       } catch (err) {
         if (isMountedRef.current) {
@@ -70,7 +74,21 @@ export function AssetsProvider({ children }: { children: React.ReactNode }) {
             err instanceof Error ? err.message : 'خطا در دریافت اطلاعات'
           );
 
-          setTimeout(() => fetchData(false), 2000);
+          retryCountRef.current += 1;
+
+          if (retryCountRef.current < MAX_RETRIES) {
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+            }
+
+            timeoutRef.current = setTimeout(() => {
+              fetchData(false);
+            }, 2000);
+          } else {
+            setError(`خطا در دریافت اطلاعات پس از ${MAX_RETRIES} بار تلاش`);
+            setIsLoading(false);
+            retryCountRef.current = 0;
+          }
         }
       } finally {
         if (isMountedRef.current) {
@@ -89,6 +107,7 @@ export function AssetsProvider({ children }: { children: React.ReactNode }) {
       fetchData();
 
       intervalRef.current = setInterval(() => {
+        retryCountRef.current = 0; 
         fetchData(false);
       }, 45 * 1000);
     }
@@ -99,10 +118,18 @@ export function AssetsProvider({ children }: { children: React.ReactNode }) {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
   }, [fetchData, isAuthPage]);
 
   const refetch = useCallback(async () => {
+    retryCountRef.current = 0;
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     await fetchData(true);
   }, [fetchData]);
 
