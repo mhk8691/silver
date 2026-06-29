@@ -1,4 +1,3 @@
-// LineChart.tsx
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -6,8 +5,12 @@ import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
+import priceFormater from '@/app/core/PriceFormater';
 
-const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
+
+const ReactApexChart = dynamic(() => import('react-apexcharts'), {
+  ssr: false,
+});
 
 interface Props {
   width?: string;
@@ -36,7 +39,12 @@ export default function LineChart({
     setMounted(true);
   }, []);
 
-  const series = [{name:'قیمت', data }];
+  const series = [
+    {
+      name: 'قیمت',
+      data,
+    },
+  ];
 
   const options: ApexOptions = {
     chart: {
@@ -45,37 +53,79 @@ export default function LineChart({
       background: 'transparent',
       zoom: { enabled: false },
     },
-    dataLabels: { enabled: false },
-    markers: { size: 0 },
+
+    dataLabels: {
+      enabled: false,
+    },
+
+    markers: {
+      size: 0,
+    },
+
     stroke: {
       curve: 'straight',
       width: 2,
     },
- xaxis: {
-  type: 'category',
-  categories: labels,
-  tickAmount: 10,
-  labels: {
-    show: !noLabel,
-    rotate: 0,
-    style: {
-      fontSize: '10px',
+
+    xaxis: {
+      type: 'category',
+      categories: labels,
+      tickAmount: 10,
+      labels: {
+        show: !noLabel,
+        rotate: 0,
+        style: {
+          fontSize: '10px',
+        },
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
     },
-  },
-  axisBorder: { show: false },
-  axisTicks: { show: false },
-},
+
     yaxis: {
-      labels: { show: !noLabel },
+      labels: {
+        show: !noLabel,
+        formatter: (val) => priceFormater(val),
+      },
     },
-   tooltip: {
-  x: { show: true },
-  y: {
-    formatter: (val) => `${val.toLocaleString('fa-IR')} تومان`,
-  },
-},
+
+    tooltip: {
+      x: {
+        show: true,
+        formatter: (_, { dataPointIndex }) => {
+          const value = labels[dataPointIndex];
+
+          const date = new Date(value);
+
+          if (!isNaN(date.getTime())) {
+            return date.toLocaleString('fa-IR', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+            });
+          }
+
+          return value;
+        },
+      },
+
+      y: {
+        formatter: (val) =>
+          `\u2066${priceFormater(val)}\u2069 تومان`,
+      },
+    },
+
     fill: noGradient
-      ? { type: 'solid', opacity: 0.3 }
+      ? {
+          type: 'solid',
+          opacity: 0.3,
+        }
       : {
           type: 'gradient',
           gradient: {
@@ -85,14 +135,36 @@ export default function LineChart({
             stops: [0, 100],
           },
         },
+
     colors: [color],
+
     grid: {
-      borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+      borderColor: isDarkMode
+        ? 'rgba(255,255,255,0.1)'
+        : 'rgba(0,0,0,0.1)',
       strokeDashArray: 4,
     },
+
     theme: {
       mode: isDarkMode ? 'dark' : 'light',
     },
+
+    responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          xaxis: {
+            labels: {
+              rotate: -45,
+              hideOverlappingLabels: true,
+              style: {
+                fontSize: '9px',
+              },
+            },
+          },
+        },
+      },
+    ],
   };
 
   if (!mounted) return null;
@@ -103,8 +175,8 @@ export default function LineChart({
         options={options}
         series={series}
         type="area"
-        height={height}
         width="100%"
+        height={height}
       />
     </Box>
   );

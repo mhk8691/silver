@@ -31,3 +31,28 @@ a {
   background-color: #cccccc;
   border-radius: 10px;
 }
+/* ApexCharts Tooltip */
+.apexcharts-tooltip {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+.apexcharts-tooltip-title {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.apexcharts-tooltip-series-group {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.apexcharts-tooltip-y-group,
+.apexcharts-tooltip-text {
+  direction: rtl !important;
+}
+
+.apexcharts-tooltip-y-value {
+  direction: ltr !important;
+  unicode-bidi: isolate !important;
+}
