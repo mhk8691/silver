@@ -15,6 +15,7 @@ import { isAxiosError } from 'axios'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import TradeSilverConfirmation from './TradeSilverConfirmation'
 import TradeGuide from './TradeGuide'
+import priceFormater from '@/app/core/PriceFormater'
 
 
 
@@ -143,6 +144,25 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
               value={price}
               setValue={handlePriceChange}
             />
+            {
+              select === 'buy' && <Typography
+                variant="body2"
+                color="primary"
+                component="div"
+                sx={{
+                  display: 'inline-flex',
+                  width: 'fit-content',
+                  ml: 1,
+                  mt:1,
+                  cursor: 'pointer',
+                }}
+                onClick={() => {    setPrice(assets.wallet_balance.toString())
+                handlePriceChange(assets.wallet_balance.toString())
+                }}
+              >
+                موجودی: {priceFormater(assets.wallet_balance)} تومان
+              </Typography>
+            }
           </Stack>
           <Stack>
             <InputField
@@ -152,6 +172,25 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
               value={silver}
               setValue={handleSilverChange}
             />
+            {
+              select === 'sell' && <Typography
+                variant="body2"
+                color="primary"
+                component="div"
+                sx={{
+                  display: 'inline-flex',
+                  width: 'fit-content',
+                  ml: 1,
+                  cursor: 'pointer',
+                  mt:1,
+                }}
+                onClick={() => {    setPrice(assets.silver_balance.toString())
+                handleSilverChange(assets.silver_balance.toString())
+                }}
+              >
+                موجودی: {priceFormater(assets.silver_balance)} گرم
+              </Typography>
+            }
           </Stack>
         </Stack>
         <Button

@@ -1,10 +1,12 @@
 "use client";
 
+import { useAssets } from "@/app/AssetsProvider";
 import Card from "@/app/Components/Containers/Container/Container";
 import FilterToggleButton from "@/app/Components/FilterToggleButton/FilterToggleButton";
 import InputField from "@/app/Components/InputField/InputField";
+import priceFormater from "@/app/core/PriceFormater";
 import { ToggleItemsType } from "@/app/core/Types";
-import { Button, Stack, SvgIcon } from "@mui/material";
+import { Button, Stack, SvgIcon, Typography } from "@mui/material";
 import { useState } from "react";
 
 interface Props {
@@ -21,6 +23,7 @@ const RATE = 17999000;
 export default function Trade({ type }: Props) {
   const [price, setPrice] = useState("");
   const [targetPrice, setTargetPrice] = useState("");
+  const {assets} = useAssets()
   const [select, setSelect] = useState(
     type === "sell" ? items[0].value : items[1].value,
   );
@@ -55,7 +58,39 @@ export default function Trade({ type }: Props) {
             value={price}
             setValue={setPrice}
           />
-
+ {
+          type === 'BUY' ? <Typography
+  variant="body2"
+  color="primary"
+  component="div"
+  sx={{
+    display: 'inline-flex',
+    width: 'fit-content',
+    ml: 1,
+    cursor: 'pointer',
+  }}
+  onClick={() => {    setPrice(assets.wallet_balance.toString())
+  // handlePriceChange(assets.wallet_balance.toString())
+  }}
+>
+  موجودی: {priceFormater(assets.wallet_balance)} تومان
+</Typography>:<Typography
+  variant="body2"
+  color="primary"
+  component="div"
+  sx={{
+    display: 'inline-flex',
+    width: 'fit-content',
+    ml: 1,
+    cursor: 'pointer',
+  }}
+  onClick={() => {    setPrice(assets.silver_balance.toString())
+  // handleGoldChange(assets.silver_balance.toString())
+  }}
+>
+  موجودی: {priceFormater(assets.silver_balance)} گرم
+</Typography>
+        }
           <Stack direction="row" justifyContent="center">
             <SvgIcon
               sx={{
