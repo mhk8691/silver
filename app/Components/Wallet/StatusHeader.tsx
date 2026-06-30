@@ -21,6 +21,7 @@ export default function StatusHeader() {
     '/silver-shop-basket',
     '/license',
     '/rules',
+    'margin-rules'
   ];
 
 const isLoginPage = pathname.startsWith('/login');
