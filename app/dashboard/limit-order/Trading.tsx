@@ -2,10 +2,11 @@
 import Card from "@/app/Components/Containers/Container/Container";
 import CustomTabs from "@/app/Components/Tabs/CustomTabs";
 import Typography from "@mui/material/Typography";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 import Trade from "./Trade";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Stack, useMediaQuery, useTheme } from "@mui/material";
+import LimitOrderGuide from "./LimitOrderGuide";
 const tabs = [{ title: "خرید " }, { title: "فروش" }];
 const children: ReactNode[] = [
   <Trade key={1} type="buy" />,
@@ -13,8 +14,10 @@ const children: ReactNode[] = [
 ];
 export default function Trading() {
   const theme = useTheme();
+  const [openModal,setOpenModal] = useState(false)
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
   return (
+    <>
     <Card
       style={{
         px: 0,
@@ -25,9 +28,16 @@ export default function Trading() {
       }}
     >
       {isDesktop && (
-        <Typography variant="h6" fontSize={22} mb={1} px={4}>
-          خرید و فروش نقره
-        </Typography>
+       
+          <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} px={3} mb={2}>
+           <Typography variant="h2" fontSize={22}>
+            خرید و فروش نقره
+          </Typography>
+           <Typography component={'div'} onClick={()=>setOpenModal(true)} variant="h2" fontSize={22} sx={{textDecoration:'underline',color:'#0091F8',cursor:'pointer'}}>
+           راهنما
+          </Typography>
+         </Stack>
+
       )}
       <CustomTabs
         tabList={tabs}
@@ -41,5 +51,7 @@ export default function Trading() {
         {children}
       </CustomTabs>
     </Card>
+    <LimitOrderGuide open={openModal} setOpen={setOpenModal} />
+    </>
   );
 }

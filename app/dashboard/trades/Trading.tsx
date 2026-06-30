@@ -117,7 +117,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
              {isDesktop && (
          <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
            <Typography variant="h2" fontSize={22}>
-            خرید و فروش طلا
+            خرید و فروش نقره
           </Typography>
            <Typography component={'div'} onClick={()=>setOpenModal(true)} variant="h2" fontSize={22} sx={{textDecoration:'underline',color:'#0091F8',cursor:'pointer'}}>
            راهنما
