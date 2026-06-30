@@ -1,7 +1,7 @@
 'use client'
 import Chart from "@/app/Components/Chart/Chart";
 import DetailTable from "@/app/Components/Tables/DetailTable/DetailTable";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Trading from "./Trading";
 import { Metadata } from "next";
 import BackLink from "../BackLink";
@@ -15,6 +15,8 @@ import LimitOrderGuide from "./LimitOrderGuide";
 // };
 export default function page() {
   const [openModal,setOpenModal] = useState(false)
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <>
     <Grid
@@ -25,13 +27,15 @@ export default function page() {
         lg: 3,
       }}
     >
-  <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} px={3} mb={2} width={'100%'}>
+{
+  isMobile &&   <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} px={3} mb={2} width={'100%'}>
       <BackLink title="سفارش با قیمت" />
          
            <Typography component={'div'} onClick={()=>setOpenModal(true)} variant="h2" fontSize={18} sx={{mb:.5,textDecoration:'underline',color:'#0091F8',cursor:'pointer'}}>
            راهنما
           </Typography>
          </Stack>
+}
  
       <Grid
         size={{

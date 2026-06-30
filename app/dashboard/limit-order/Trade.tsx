@@ -59,7 +59,7 @@ export default function Trade({ type }: Props) {
             setValue={setPrice}
           />
  {
-          type === 'BUY' ? <Typography
+          type === 'buy' ? <Typography
   variant="body2"
   color="primary"
   component="div"
