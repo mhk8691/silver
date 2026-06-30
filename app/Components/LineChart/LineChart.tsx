@@ -7,7 +7,6 @@ import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
 import priceFormater from '@/app/core/PriceFormater';
 
-
 const ReactApexChart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
 });
@@ -21,6 +20,9 @@ interface Props {
   data: number[];
   labels: string[];
 }
+
+const toFaDigits = (value: string | number) =>
+  String(value).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[Number(d)]);
 
 export default function LineChart({
   width = '100%',
@@ -74,53 +76,65 @@ export default function LineChart({
       labels: {
         show: !noLabel,
         rotate: 0,
+        formatter: (value: string) => {
+          const date = new Date(value);
+
+          if (!isNaN(date.getTime())) {
+            return date
+              .toLocaleDateString('fa-IR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+              })
+              .replace(/\//g, '/');
+          }
+
+          return toFaDigits(value);
+        },
         style: {
           fontSize: '10px',
         },
       },
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
+      axisBorder: { show: false },
+      axisTicks: { show: false },
     },
 
     yaxis: {
       labels: {
         show: !noLabel,
-        formatter: (val) => priceFormater(val),
+        formatter: (val) => toFaDigits(priceFormater(val)),
       },
     },
-tooltip: {
-  x: {
-    show: true,
-    formatter: (_: string, opts: any) => {
-      if (!opts) return '';
 
-      const value = labels[opts.dataPointIndex];
+    tooltip: {
+      x: {
+        show: true,
+        formatter: (_: string, opts: any) => {
+          if (!opts) return '';
 
-      const date = new Date(value);
+          const value = labels[opts.dataPointIndex];
+          const date = new Date(value);
 
-      if (!isNaN(date.getTime())) {
-        return date.toLocaleString('fa-IR', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-        });
-      }
+          if (!isNaN(date.getTime())) {
+            return date.toLocaleString('fa-IR', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+            });
+          }
 
-      return value;
+          return toFaDigits(value);
+        },
+      },
+
+      y: {
+        formatter: (val: number) =>
+          `\u2066${toFaDigits(priceFormater(val))}\u2069 تومان`,
+      },
     },
-  },
 
-  y: {
-    formatter: (val: number) =>
-      `\u2066${priceFormater(val)}\u2069 تومان`,
-  },
-},
     fill: noGradient
       ? {
           type: 'solid',
@@ -157,6 +171,15 @@ tooltip: {
             labels: {
               rotate: -45,
               hideOverlappingLabels: true,
+              formatter: (value: string) => {
+                const date = new Date(value);
+
+                if (!isNaN(date.getTime())) {
+                  return date.toLocaleDateString('fa-IR');
+                }
+
+                return toFaDigits(value);
+              },
               style: {
                 fontSize: '9px',
               },
@@ -175,8 +198,8 @@ tooltip: {
         options={options}
         series={series}
         type="area"
-        width="100%"
         height={height}
+        width="100%"
       />
     </Box>
   );
