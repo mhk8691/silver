@@ -271,6 +271,21 @@ export default function page() {
               {rule.description}
             </Typography>
           ))}
+          <Typography
+              variant="body2"
+              component={"li"}
+              fontSize={{
+                xs: 12,
+                sm: 14,
+              }}
+            >
+              <Box component={"span"} fontWeight={"bold"} >
+               <Link href={'/'} style={{color:'#0091F8'}}>آموزش نقرینه:</Link>
+              </Box>
+              با مطالعه این آموزش، گام‌به‌گام با ویژگی‌های منحصربه‌فرد نقرینه مانند خرید بدون اجرت ساخت، پس‌انداز نقره با هر سرمایه و نقدشوندگی سریع آشنا شده و مسیر سرمایه‌گذاری امن خود را هموار کنید.
+
+
+            </Typography>
         </Stack>
         <Faq
           faqData={faqData}

@@ -10,7 +10,8 @@ const breadcrumbNameMap: Record<string, string> = {
   calculator: "محاسبه قیمت نقره",
   faq: "سوالات متداول",
   rules: "قوانین نقرینه",
-  'margin-rules':'قوانین سفارش تعهدی'
+  'margin-rules':'قوانین سفارش تعهدی',
+  'about-us':'درباره ما'
 };
 
 const exactHiddenRoutes = [
