@@ -115,6 +115,7 @@ export default function ChartGold({
             priceStyle={priceStyle}
             dividerStyle={dividerStyle}
             chartData={chartData}
+            select={select}
           />
         )}
       </Container>

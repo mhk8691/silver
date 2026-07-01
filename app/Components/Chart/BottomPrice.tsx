@@ -5,11 +5,13 @@ import { ChartGoldDataType } from "@/app/core/Types";
 export default function BottomPrice({
   priceStyle,
   dividerStyle,
-  chartData
+  chartData,
+  select
 }: {
   priceStyle?: SxProps;
   dividerStyle?: SxProps;
   chartData:ChartGoldDataType
+  select:string
 }) {
   return (
     <>
@@ -88,7 +90,7 @@ export default function BottomPrice({
               sm: 16,
             }}
           >
-            {new Intl.NumberFormat("fa-IR").format(chartData.stats.change_percent)} درصد
+            {new Intl.NumberFormat("fa-IR").format(select === '24TH' ? chartData.stats.daily_change_percent :select === 'WEEK'?chartData.stats.weekly_change_percent:chartData.stats.monthly_change_percent)} درصد
          
           </Typography>
         </Stack>
