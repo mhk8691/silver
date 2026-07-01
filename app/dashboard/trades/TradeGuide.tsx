@@ -38,8 +38,7 @@ export default function TradeGuide({open,setOpen}:Props) {
                  <Typography component={'li'} variant="body1" lineHeight={1.5} textAlign={'justify'} fontWeight={'bold'}>
 روی گزینه «خرید» بزنید و در صفحه جدید، جزئیات سفارش خود را ببینید و آن را تایید کنید.
                 </Typography>
-                 <Typography component={'li'} variant="body1" lineHeight={1.5} textAlign={'justify'} fontWeight={'bold'}>
-برای سفارش‌های بالای ۵ گرم به‌صورت پیش‌فرض بیمه نقره فعال می‌شود. در صورتی که آن را نمی‌خواهید، گزینه «بیمه نمی‌خوام» را انتخاب کنید.                </Typography>
+                
                  <Typography component={'li'} variant="body1" lineHeight={1.5} textAlign={'justify'} fontWeight={'bold'}>
 در نهایت با زدن «پرداخت» یا «تأیید» خرید شما نهایی می‌شود.
                 </Typography>
