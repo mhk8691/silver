@@ -118,7 +118,11 @@ function OrderRow({ row }: OrderRowProps) {
             </Typography>
           </Stack>
         </TableCell>
-
+ <TableCell align="center" sx={{ py: 2.5, px: 2.5 }}>
+          <Stack direction="row" alignItems="center" gap={0.5} justifyContent="center">
+            <Typography variant="body1">{row.admin_note || '--'}</Typography>
+          </Stack>
+        </TableCell>
         {/* تاریخ */}
         <TableCell align="center" sx={{ py: 2.5, px: 2.5 }}>
           <Stack direction="row" alignItems="center" gap={0.5} justifyContent="center">
@@ -255,6 +259,7 @@ export default function OrdersTable({
         'روش پرداخت',
         'نوع ارسال',
         'آدرس',
+        'یادداشت',
         'تاریخ',
         '',
 

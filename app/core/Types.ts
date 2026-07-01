@@ -249,6 +249,7 @@ export interface CategoriesDataType {
 }
 
 export interface OrdersDataType {
+  admin_note:string
   id:number,
   tracking_code: string;
   status: StatusType;
