@@ -66,7 +66,7 @@ export default function MobileWalletHeader({
               }}
               sx={{ color: "text.title" }}
             >
-              {visible ? priceFormater(assets.silver_balance )||0 : "***"}
+              {visible ? priceFormater(assets.silver_balance ) : "***"}
             </Typography>
             <Typography
               variant="body1"
@@ -124,7 +124,7 @@ export default function MobileWalletHeader({
               }}
               sx={{ color: "text.title" }}
             >
-              {visible ? priceFormater(assets?.wallet_balance) || 0 : "***"}
+              {visible ? priceFormater(assets?.wallet_balance)  : "***"}
             </Typography>
             <Typography
               variant="body1"

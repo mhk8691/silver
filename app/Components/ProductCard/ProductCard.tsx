@@ -142,7 +142,7 @@ export default function ProductCard({
                 ارزش کل محصول:
               </Typography>
               <Typography variant="body1" fontSize={{ xs: 14, sm: 16, lg: 14, xl: 16 }} sx={{ alignSelf: 'flex-end' }}>
-                {priceFormater(item?.total_price || 0)}{' '}
+                {priceFormater(item?.total_price )}{' '}
                 <Box component={'span'} fontSize={{ xs: 12, sm: 14 }}>تومان</Box>
               </Typography>
             </Stack>

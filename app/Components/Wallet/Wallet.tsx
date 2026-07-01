@@ -93,7 +93,7 @@ const {assets,isVisible} = useAssets()
                   fontSize={20}
                   sx={{ color: "text.title" }}
                 >
-                  {isVisible ? priceFormater(assets?.total_asset_value) || 0 : '***'}
+                  {isVisible ? priceFormater(assets?.total_asset_value)  : '***'}
                 </Typography>
                 <Typography
                   variant="body1"
