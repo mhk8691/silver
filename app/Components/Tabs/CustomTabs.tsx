@@ -1,4 +1,5 @@
 "use client";
+
 import { SxProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
@@ -36,12 +37,13 @@ function a11yProps(index: number) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
 interface Props {
   tabList?: {
     title: string;
     count?: number;
   }[];
-  children: React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[];
   style?: SxProps;
   lineHeight?: string;
   tabsStyle?: SxProps;
@@ -49,6 +51,7 @@ interface Props {
   setCustomValue?: React.Dispatch<React.SetStateAction<number>>;
   tabStyle?: SxProps;
 }
+
 export default function CustomTabs({
   tabList,
   children,
@@ -60,12 +63,18 @@ export default function CustomTabs({
 }: Props) {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (
+    event: React.SyntheticEvent,
+    newValue: number
+  ) => {
     setValue(newValue);
+
     if (setCustomValue) {
       setCustomValue(newValue);
     }
   };
+
+  const panels = React.Children.toArray(children);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -103,32 +112,33 @@ export default function CustomTabs({
         >
           {tabList?.map((item, index) => (
             <Tab
+              key={index}
               disableRipple
+              label={item.title}
+              {...a11yProps(index)}
               sx={{
                 "&.Mui-selected": {
                   color: "text.title",
                 },
                 fontSize: {
                   xs: 16,
-                  sm: "22px",
+                  sm: 22,
                 },
                 color: "#535657",
                 width: "50%",
                 mb: 2,
                 ...style,
               }}
-              label={item.title}
-              {...a11yProps(index)}
-              key={index}
             />
           ))}
         </Tabs>
       </Box>
-      {children.map((item, index) => (
+
+      {panels.map((item, index) => (
         <CustomTabPanel
+          key={index}
           value={value}
           index={index}
-          key={index}
           noPadding={noPadding}
         >
           {item}

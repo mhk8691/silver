@@ -1,4 +1,6 @@
-import { NotifItemsType } from "@/app/core/Types";
+'use client'
+import { formatDate } from "@/app/core/FormatDate";
+import { AnnouncementsType, NotifItemsType } from "@/app/core/Types";
 import {
   Button,
   Stack,
@@ -6,13 +8,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import Link from "next/link";
 
 interface Props {
-  items: NotifItemsType[];
   isNotif?: boolean;
+  announcements:AnnouncementsType[]
 }
 
-export default function MessageCard({ items, isNotif }: Props) {
+export default function MessageCard({  isNotif,announcements }: Props) {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
   return (
@@ -31,8 +34,10 @@ export default function MessageCard({ items, isNotif }: Props) {
           },
         }}
       >
-        {items.map((item) => (
+        {/* {announcements?.map((item) => (
           <Stack
+          component={Link}
+          href={item.link}
             key={item.title}
             direction={"column"}
             gap={1}
@@ -53,13 +58,13 @@ export default function MessageCard({ items, isNotif }: Props) {
               fontSize={14}
               sx={{ color: "#535657", lineHeight: "22.4px" }}
             >
-              {item.message}
+              {item.description}
             </Typography>
             <Typography variant="body1" fontSize={14} sx={{ color: "#757571" }}>
-              {item.date}
+              {formatDate(item.created_at)}
             </Typography>
           </Stack>
-        ))}
+        ))} */}
       </Stack>
 
       {isDesktop && (

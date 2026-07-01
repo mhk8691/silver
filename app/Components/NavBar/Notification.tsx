@@ -1,5 +1,6 @@
 "use client";
-import { NotifItemsType } from "@/app/core/Types";
+
+import { AnnouncementsType } from "@/app/core/Types";
 import { ArrowForward } from "@mui/icons-material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {
@@ -14,54 +15,44 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import CustomTabs from "../Tabs/CustomTabs";
 import MessageCard from "./MessageCard";
+import { getAnnouncements } from "@/lib/announcements/announcements";
 
-const tabs = [
-  { title: "اطلاعیه های نقرینه" },
-];
+const tabs = [{ title: "اطلاعیه های نقرینه" }];
 
-const notifList: NotifItemsType[] = [
-  {
-    title: "ورود به حساب کاربری",
-    message:
-      "محمدحسين کابلي عزیز، ورود شما با موفقیت انجام شد. IP دستگاه: 5.202.35.54 در صورت مشاهده ورود غیرمجاز،به پشتیبانی مراجعه کنید.",
-    date: "1405/01/27 16:20:56",
-  },
-  {
-    title: "ثبت رمز عبور",
-    message:
-      "محمدحسين کابلي عزیز، رمز عبور شما با موفقیت ثبت شد. در صورت مشاهده فعالیت غیرمجاز، لطفاً به پشتیبانی مراجعه کنید.",
-    date: "1405/01/27 15:31:36",
-  },
-];
+type NotificationContentProps = {
+  onClose: () => void;
+  children: ReactNode;
+};
 
-const children: ReactNode[] = [
-  <MessageCard items={notifList} key={1} />,
-];
-
-const NotificationContent = ({ onClose }: { onClose: () => void }) => {
+const NotificationContent = ({
+  onClose,
+  children,
+}: NotificationContentProps) => {
   return (
     <>
       <Stack
-        direction={"row"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
         px={1.5}
         pt={{
           xs: 2,
           sm: 1,
         }}
       >
-        <Stack direction={"row"} alignItems={"center"}>
+        <Stack direction="row" alignItems="center">
           <IconButton onClick={onClose} disableRipple>
             <ArrowForward sx={{ color: "#717475" }} />
           </IconButton>
+
           <Typography variant="body1" fontSize={16} fontWeight={500}>
             پیام ها
           </Typography>
         </Stack>
+
         <Typography
           variant="body1"
           fontSize={16}
@@ -75,6 +66,7 @@ const NotificationContent = ({ onClose }: { onClose: () => void }) => {
         >
           پیام ها
         </Typography>
+
         <Stack
           width={{
             xs: "auto",
@@ -101,9 +93,14 @@ const NotificationContent = ({ onClose }: { onClose: () => void }) => {
           </Button>
         </Stack>
       </Stack>
+
       <Stack px={1.5}>
         <CustomTabs
-          style={{ fontSize: "14px", fontWeight: "500", mb: 0.5 }}
+          style={{
+            fontSize: "14px",
+            fontWeight: "500",
+            mb: 0.5,
+          }}
           tabsStyle={{ px: 0 }}
           noPadding
           lineHeight="6px"
@@ -117,10 +114,24 @@ const NotificationContent = ({ onClose }: { onClose: () => void }) => {
 };
 
 export default function Notification() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const wrapperRef = React.useRef<HTMLDivElement | null>(null);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [announcements, setAnnouncements] = useState<AnnouncementsType[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await getAnnouncements();
+      setAnnouncements(response || []);
+    };
+
+    getData();
+  }, []);
+
+  const tabContent = <MessageCard announcements={announcements} />;
 
   const handleToggle = () => {
     setOpen((prev) => !prev);
@@ -129,7 +140,8 @@ export default function Notification() {
   const handleClose = (event?: MouseEvent | TouchEvent) => {
     const target = event?.target as Node;
 
-    if (wrapperRef.current && wrapperRef.current.contains(target)) return;
+    if (wrapperRef.current && target && wrapperRef.current.contains(target))
+      return;
 
     setOpen(false);
   };
@@ -162,66 +174,72 @@ export default function Notification() {
             },
           }}
         >
-          <NotificationContent onClose={() => setOpen(false)} />
+          <NotificationContent onClose={() => setOpen(false)}>
+            {tabContent}
+          </NotificationContent>
         </Dialog>
       </>
     );
   }
 
   return (
-    <>
-      <ClickAwayListener onClickAway={handleClose}>
-        <div
-          ref={wrapperRef}
-          style={{
-            position: "relative",
-            display: "inline-block",
+    <ClickAwayListener onClickAway={handleClose}>
+      <div
+        ref={wrapperRef}
+        style={{
+          position: "relative",
+          display: "inline-block",
+        }}
+      >
+        <IconButton onClick={handleToggle} disableRipple>
+          <NotificationsIcon
+            color="primary"
+            sx={{
+              fontSize: {
+                xs: 25,
+                sm: 30,
+              },
+            }}
+          />
+        </IconButton>
+
+        <Paper
+          elevation={4}
+          sx={{
+            position: "absolute",
+            top: "calc(100% + 8px)",
+            right: "-50%",
+            width: 320,
+            overflow: "hidden",
+            bgcolor: "background.default",
+            boxShadow: "none",
+            opacity: open ? 1 : 0,
+            pointerEvents: open ? "auto" : "none",
+            transition: "all .1s cubic-bezier(0.4, 0, 0.2, 1)",
+            transformOrigin: "top right",
+            pt: 1,
+            px: 1.5,
           }}
         >
-          <IconButton onClick={handleToggle} disableRipple>
-            <NotificationsIcon
-              color={"primary"}
-              sx={{
-                fontSize: {
-                  xs: 25,
-                  sm: 30,
-                },
-              }}
-            />
-          </IconButton>
-          <Paper
-            elevation={4}
-            sx={{
-              position: "absolute",
-              top: "calc(100% + 8px)",
-              right: "-50%",
-              width: "320px",
-              overflow: "hidden",
-              bgcolor: "background.default",
-              boxShadow: "none",
-              opacity: open ? 1 : 0,
-              pointerEvents: open ? "auto" : "none",
-              transition: "all .1 cubic-bezier(0.4, 0, 0.2, 1)",
-              transformOrigin: "top right",
-              pt: 1,
-              px: 1.5,
+          <Typography variant="body1" fontSize={16} fontWeight={500}>
+            پیام ها
+          </Typography>
+
+          <CustomTabs
+            style={{
+              fontSize: "14px",
+              fontWeight: "500",
+              mb: 0.5,
             }}
+            tabsStyle={{ px: 0 }}
+            noPadding
+            lineHeight="6px"
+            tabList={tabs}
           >
-            <Typography variant="body1" fontSize={16} fontWeight={500}>
-              پیام ها
-            </Typography>
-            <CustomTabs
-              style={{ fontSize: "14px", fontWeight: "500", mb: 0.5 }}
-              tabsStyle={{ px: 0 }}
-              noPadding
-              lineHeight="6px"
-              tabList={tabs}
-            >
-              {children}
-            </CustomTabs>
-          </Paper>
-        </div>
-      </ClickAwayListener>
-    </>
+            {tabContent}
+          </CustomTabs>
+        </Paper>
+      </div>
+    </ClickAwayListener>
   );
 }
