@@ -94,7 +94,6 @@ export default function TradeDetailModal({ open, setOpen, data }: Props) {
 
       <Divider sx={{ mb: 2 }} />
 
-      {/* مبلغ کل */}
       <Box
         sx={{
           bgcolor: 'background.default',
@@ -112,7 +111,6 @@ export default function TradeDetailModal({ open, setOpen, data }: Props) {
         </Typography>
       </Box>
 
-      {/* جزئیات */}
       <Stack>
         <DetailRow 
           label="نوع معامله" 
@@ -139,7 +137,7 @@ export default function TradeDetailModal({ open, setOpen, data }: Props) {
         />
 
         <DetailRow 
-          label="مقدار طلا" 
+          label="مقدار نقره" 
           value={
             <Typography variant="body2" fontWeight={600}>
               {data.amount_gr.toLocaleString()} گرم
@@ -151,7 +149,7 @@ export default function TradeDetailModal({ open, setOpen, data }: Props) {
           label="قیمت هر گرم" 
           value={
             <Typography variant="body2" fontWeight={600}>
-              {priceFormater(pricePerGram)} تومان
+              {priceFormater(data.price_per_gram)} تومان
             </Typography>
           } 
         />
