@@ -206,7 +206,7 @@ export default function LineChart({
         type="area"
         height={height}
         width="100%"
-      />
+      />  
     </Box>
   );
 }

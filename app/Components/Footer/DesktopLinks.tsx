@@ -6,11 +6,11 @@ export const aboutLink = [
   { title: "سوالات متداول", link: "/faq" },
   { title: "اپلیکیشن نقرینه", link: "/application" },
   { title: "قوانین و مقررات", link: "/rules" },
+  { title: 'آموزش پلتفرم', link: '/' },
 ];
 export const contentLink = [
   { title: "محاسبه قیمت نقره", link: "/calculator" },
   { title: "قیمت نقره امروز", link: "/silver-price" },
-    { title: 'آموزش پلتفرم', link: '/' },
 ];
 
 export default function DesktopLinks() {

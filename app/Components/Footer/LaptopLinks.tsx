@@ -21,6 +21,7 @@ const items = [
       { title: "سوالات متداول", link: "faq" },
       { title: "اپلیکیشن نقرینه", link: "application" },
       { title: "قوانین و مقررات", link: "rules" },
+      { title: 'آموزش پلتفرم', link: '/' },
     ],
   },
 
@@ -30,6 +31,7 @@ const items = [
     items: [
       { title: "محاسبه قیمت نقره", link: "/calculator" },
       { title: "قیمت نقره امروز", link: "/silver-price" },
+
     ],
   },
 ];
