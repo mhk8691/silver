@@ -18,22 +18,23 @@ export default function TopPrice({chartData}:{chartData:ChartGoldDataType}) {
         >
           قیمت الان:
         </Typography>
-        <Typography
+         <Stack direction={'row'} alignItems={'center'} gap={.5}>
+           <Typography
           variant="h6"
           fontSize={{
             xs: 20,
             sm: 22,
           }}
           sx={{
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
           }}
         >
-          <Box component={"span"}>{priceFormater(chartData.stats.current_price)}</Box>{' '}
-          <Box component={"span"} fontSize={{ xs: 12, sm: 14 }}>
-            تومان
-          </Box>
+          {priceFormater(chartData.stats.current_price)}
         </Typography>
+        <Typography variant="body2" >
+          تومان
+        </Typography>
+        </Stack>
         <Typography
           variant="body1"
           sx={{ mr: 0.5 }}
