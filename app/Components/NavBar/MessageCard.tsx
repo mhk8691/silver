@@ -8,6 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
@@ -34,7 +35,9 @@ export default function MessageCard({  isNotif,announcements }: Props) {
           },
         }}
       >
-        {announcements?.map((item) => (
+        {
+        announcements.length > 0 ?
+        announcements?.map((item) => (
           <Stack
           component={item.link ? Link :'div'}
           href={item.link}
@@ -64,7 +67,37 @@ export default function MessageCard({  isNotif,announcements }: Props) {
               {formatDate(item.created_at)}
             </Typography>
           </Stack>
-        ))}
+        ))
+        : <Stack
+                my={8}
+                direction={'column'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                gap={3}
+              >
+                <Stack
+                  sx={{
+                    width: 150,
+                    height:135,
+                  }}
+                >
+                  <Image
+                    src={`/images/emptyTable.webp`}
+                    width={300}
+                    height={270}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                    }}
+                    alt=""
+                  />
+                </Stack>
+                <Typography variant="body2" fontSize={12} sx={{ color: 'text.muted' }}>
+                  اطلاعیه ای وجود ندارد
+                </Typography>
+        </Stack>
+        }
+        
       </Stack>
 
       {isDesktop && (
