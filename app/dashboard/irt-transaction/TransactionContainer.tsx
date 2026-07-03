@@ -1,7 +1,7 @@
 'use client';
 import Container from '@/app/Components/Containers/Container/Container';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Transaction from './Transaction';
 import { useEffect, useState } from 'react';
 import TransactionTable from './TransactionTable';
@@ -13,6 +13,8 @@ import DetailTable from '@/app/Components/Tables/DetailTable/DetailTable';
 import { statuses } from '../wallet/page';
 import { getReports } from '@/lib/getReports/getReports';
 import TransactionDetailModal from '../reports/TransactionDetailModal';
+import BackLink from '../BackLink';
+import TransactionsGuide from './TransactionsGuide';
 
 export const TransactionItems: ToggleItemsType[] = [
   {
@@ -34,6 +36,9 @@ export const TransactionItems: ToggleItemsType[] = [
 
 export default function TransactionContainer() {
     const [filter,setFilter] = useState('')
+    const [openModal,setOpenModal] = useState(false)
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
     const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
   const [value, setValue] = useState(0);
     const [transactionParams,setTransactionParams] = useState('deposit')
@@ -63,6 +68,12 @@ export default function TransactionContainer() {
   }, [transactionParams,filter,dateRange]);
   return (
     <>
+    {isMobile &&   <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} width={'100%'}>
+                    <BackLink title="واریز و برداشت" />
+                   <Typography component={'div'} onClick={()=>setOpenModal(true)} variant="h2" fontSize={18} sx={{cursor:'pointer',textDecoration:'underline',color:'#0091F8'}}>
+                   راهنما
+                  </Typography>
+                 </Stack>}
       <Grid
         size={{
           xs: 12,
@@ -183,6 +194,7 @@ dateRange={dateRange} setValue={setValue} setTransactionData={setTransactionData
                   data={selectedTransaction}
                 />
       </Grid>
+      <TransactionsGuide open={openModal} setOpen={setOpenModal}  />
     </>
   );
 }
