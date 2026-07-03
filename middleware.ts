@@ -25,6 +25,14 @@ export function middleware(req: NextRequest) {
     pathname.startsWith(path)
   );
 
+    if (
+    pathname === '/sw.js' ||
+    pathname === '/manifest.webmanifest' ||
+    /\.(png|svg|webp|ico)$/.test(pathname)
+  ) {
+    return NextResponse.next();
+  }
+
   if (
     refreshToken &&
     pathname.startsWith('/login')

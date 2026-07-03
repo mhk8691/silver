@@ -12,6 +12,7 @@ import CustomBreadcrumbs from "./Components/Breadcrumbs/Breadcrumbs";
 import SpaceBox from "./SpaceBox";
 import { AssetsProvider } from "./AssetsProvider";
 import StatusHeader from "./Components/Wallet/StatusHeader";
+import RegisterSW from "./Components/RegisterSW/RegisterSW";
 
 
 
@@ -54,7 +55,7 @@ export default function RootLayout({
                 <SpaceBox />
                 <StatusHeader/>
                 <CustomBreadcrumbs />
-
+                 <RegisterSW />
                 {children}
               </main>
               <GlobalSnackbar />
