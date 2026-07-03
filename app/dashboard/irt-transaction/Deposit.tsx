@@ -30,8 +30,9 @@ interface Props {
   transactionParams:string
     filter:string
     dateRange:DatePickerValue
+      setHintIndex:Dispatch<SetStateAction<number>>
 }
-export default function Deposit({setTransactionData,transactionParams,filter,dateRange}:Props) {
+export default function Deposit({setTransactionData,transactionParams,filter,dateRange,setHintIndex}:Props) {
   const [price, setPrice] = useState('');
   const [select, setSelect] = useState(items[0].value);
   const [open,setOpen] = useState(false)
@@ -109,6 +110,10 @@ const handleReceiptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       }
         }
   }
+
+  useEffect(()=>{
+    setHintIndex(select === 'gateway' ? 0:1)
+  },[select,setHintIndex])
   return (
     <>
     <Card
