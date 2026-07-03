@@ -16,10 +16,11 @@ import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 import { silverWithdraw } from '@/lib/transactions/withdraw/withdraw';
 import { getReports } from '@/lib/getReports/getReports';
 import priceFormater from '@/app/core/PriceFormater';
+import WithdrawConfirm from './WithdrawConfirm';
 
 const items: ToggleItemsType[] = [
   { title: 'به حساب بانکی', value: 'bank', id: 1 },
-  { title: 'به دارینه', value: 'silver', id: 2 },
+  { title: 'به دارینه', value: 'darine', id: 2 },
 ];
 interface Props {
   setTransactionData:Dispatch<SetStateAction<RecentTransactionDataType[]>>,
@@ -28,6 +29,7 @@ interface Props {
     dateRange:DatePickerValue
 }
 export default function Withdraw({setTransactionData,transactionParams,filter,dateRange}:Props) {
+  const [open,setOpen] = useState(false)
   const [price, setPrice] = useState('');
   const [select, setSelect] = useState(items[0].value);
   const [bankCardsData, setBankCardsData] = useState<BankCardDataType[]>([]);
@@ -39,7 +41,7 @@ export default function Withdraw({setTransactionData,transactionParams,filter,da
   setIsLoading(true)
      const response = await silverWithdraw(
       price,
-      select === 'silver' ? 'GOLD' : 'BANK',
+      select === 'darine' ? 'GOLD' : 'BANK',
       selectedCard?selectedCard:undefined,
     );
       const transactionData = await  getReports(transactionParams,undefined,dateRange,filter);
@@ -47,6 +49,7 @@ export default function Withdraw({setTransactionData,transactionParams,filter,da
     showSnackbar(response.message,'success')
     setPrice('')
     setSelectedCard(1)
+    setOpen(false)
     refetch()
  }catch(error:unknown){
   if (isAxiosError(error)){
@@ -65,6 +68,7 @@ export default function Withdraw({setTransactionData,transactionParams,filter,da
     getData();
   }, []);
   return (
+    <>
     <Card style={{ gap: 3.5, p: 0, border: 'none' }}>
       <FilterToggleButton
         items={items}
@@ -83,25 +87,9 @@ export default function Withdraw({setTransactionData,transactionParams,filter,da
                <Typography variant="body2" color="primary"  sx={{cursor:'pointer'}} onClick={()=>setPrice(assets.wallet_balance.toString())}>
             موجودی شما: {priceFormater(assets.wallet_balance )} تومان 
           </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              bgcolor: 'primary.light',
-              color: 'black',
-              borderRadius: 1.5,
-              px: 1,
-              width: 'fit-content',
-              fontSize: {
-                xs: 12,
-                sm: 14,
-              },
-            }}
-          onClick={()=>setPrice(assets?.wallet_balance+'')}
-          >
-            انتخاب کل موجودی
-          </Button>
+         
         </Stack>
-        {select !== 'silver' && (
+        {select !== 'darine' && (
           <BankCard
             bankCardsData={bankCardsData}
             setBankCardsData={setBankCardsData}
@@ -121,11 +109,13 @@ export default function Withdraw({setTransactionData,transactionParams,filter,da
           },
           height:60
         }}
-        onClick={handleWithdraw}
-        disabled={isLoading}
+        onClick={()=>setOpen(true)}
+        disabled={bankCardsData.length === 0}
       >
-        {isLoading ? <Loading size={30}/>:'برداشت'}
+        برداشت
       </Button>
     </Card>
+    <WithdrawConfirm handleWithdraw={handleWithdraw} open={open} setOpen={setOpen}  isLoading={isLoading} finalPrice={price} isDarineWithdraw={select === 'darine' ? true:false} />
+    </>
   );
 }
