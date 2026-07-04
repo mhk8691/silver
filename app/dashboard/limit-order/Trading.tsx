@@ -9,8 +9,8 @@ import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import LimitOrderGuide from "./LimitOrderGuide";
 const tabs = [{ title: "خرید " }, { title: "فروش" }];
 const children: ReactNode[] = [
-  <Trade key={1} type="buy" />,
-  <Trade key={2} type="sell" />,
+  <Trade key={1} type="BUY" getData={async ()=>{}} />,
+  <Trade key={2} type="SELL" getData={async ()=>{}} />,
 ];
 export default function Trading() {
   const theme = useTheme();

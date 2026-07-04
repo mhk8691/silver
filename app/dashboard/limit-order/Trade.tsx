@@ -1,65 +1,102 @@
-"use client";
 
-import { useAssets } from "@/app/AssetsProvider";
-import Card from "@/app/Components/Containers/Container/Container";
-import FilterToggleButton from "@/app/Components/FilterToggleButton/FilterToggleButton";
-import InputField from "@/app/Components/InputField/InputField";
-import priceFormater from "@/app/core/PriceFormater";
-import { ToggleItemsType } from "@/app/core/Types";
-import { Button, Stack, SvgIcon, Typography } from "@mui/material";
-import { useState } from "react";
+'use client';
+
+import { useAssets } from '@/app/AssetsProvider';
+import Card from '@/app/Components/Containers/Container/Container';
+import FilterToggleButton from '@/app/Components/FilterToggleButton/FilterToggleButton';
+import InputField from '@/app/Components/InputField/InputField';
+import Loading from '@/app/Components/Loading/Loading';
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
+import priceFormater from '@/app/core/PriceFormater';
+import { ToggleItemsType } from '@/app/core/Types';
+import { limitOrder } from '@/lib/limit-order/limitOrder';
+import { Button, Stack, SvgIcon, Typography } from '@mui/material';
+import { isAxiosError } from 'axios';
+import { useState } from 'react';
 
 interface Props {
-  type: "buy" | "sell";
+  type: 'BUY' | 'SELL';
+  getData:() => Promise<void>
 }
 
-const items: ToggleItemsType[] = [
-  { title: "در قیمت بالاتر", value: "max", id: 1 },
-  { title: "در قیمت پایین تر", value: "min", id: 2 },
+const buyItems: ToggleItemsType[] = [
+  { title: 'در قیمت پایین تر', value: 'min', id: 1 },
+];
+const sellItems: ToggleItemsType[] = [
+  { title: 'در قیمت بالاتر', value: 'max', id: 1 },
 ];
 
-const RATE = 17999000;
+export default function Trade({ type,getData }: Props) {
+  const [isLoading,setIsLoading] = useState(false)
+  const [price, setPrice] = useState('');
+  const [targetPrice, setTargetPrice] = useState('');
+  const [select, setSelect] = useState(type === 'SELL' ? sellItems[0].value : buyItems[0].value);
+  const [gold,setGold] = useState('')
+  const{assets} = useAssets()
+      const handlePriceChange =  async (val: string) => {
+    setPrice(val);
+    const num = Number(val);
+    if (!isNaN(num)) {
+      setGold(String(num / assets?.gold_price));
+    } else {
+      setGold('');
+    }
+  };
 
-export default function Trade({ type }: Props) {
-  const [price, setPrice] = useState("");
-  const [targetPrice, setTargetPrice] = useState("");
-  const {assets} = useAssets()
-  const [select, setSelect] = useState(
-    type === "sell" ? items[0].value : items[1].value,
-  );
-
-  const silver = price ? String(Number(price) / RATE) : "";
+  const handleGoldChange =async (val: string) => {
+    setGold(val);
+    const num = Number(val);
+    if (!isNaN(num)) {
+      setPrice(String(num * assets?.gold_price));
+    } else {
+      setPrice('');
+    }
+  };
+  const handleClick = async ()=>{
+    setIsLoading(true)
+    try{
+      const response = await limitOrder(type,targetPrice,type==='BUY' ? price:gold)
+      showSnackbar(response.data.message,'success')
+      getData()
+      setPrice('')
+      setGold('')
+      setTargetPrice('')
+    }catch(error:unknown){
+      if (isAxiosError(error)){
+        showSnackbar(error.response?.data.message)
+      }
+    }finally{
+      setIsLoading(false)
+    }
+  }
 
   return (
     <Card
       style={{
         gap: 3.5,
-        border: "none",
+        border: 'none',
         py: 1,
         px: { xs: 0, sm: 1 },
       }}
     >
-      <FilterToggleButton items={items} active={select} setActive={setSelect} />
+      {
+        type === 'BUY' ? <FilterToggleButton style={{py:1.5}} items={buyItems} active={select} setActive={setSelect} /> : <FilterToggleButton style={{py:1.5}} items={sellItems} active={select} setActive={setSelect} />
+      }
+      
+      
 
       <Stack gap={3.5}>
-        <InputField
-        type='number'
-          placeholder={type === "buy" ? "قیمت مد نظر خرید" : "قیمت مد نظر فروش"}
+        <InputField type='number'
+          placeholder={type === 'BUY' ? 'قیمت مد نظر خرید' : 'قیمت مد نظر فروش'}
           title="تومان"
           value={targetPrice}
           setValue={setTargetPrice}
         />
 
         <Stack gap={1.5}>
-          <InputField
-          type='number'
-            placeholder="مبلغ به تومان"
-            title="تومان"
-            value={price}
-            setValue={setPrice}
-          />
- {
-          type === 'buy' ? <Typography
+          <InputField type='number' placeholder="مبلغ به تومان" title="تومان" value={price} setValue={handlePriceChange} />
+           {
+          type === 'BUY' ? <Typography
   variant="body2"
   color="primary"
   component="div"
@@ -70,7 +107,7 @@ export default function Trade({ type }: Props) {
     cursor: 'pointer',
   }}
   onClick={() => {    setPrice(assets.wallet_balance.toString())
-  // handlePriceChange(assets.wallet_balance.toString())
+  handlePriceChange(assets.wallet_balance.toString())
   }}
 >
   موجودی: {priceFormater(assets.wallet_balance)} تومان
@@ -84,15 +121,27 @@ export default function Trade({ type }: Props) {
     ml: 1,
     cursor: 'pointer',
   }}
-  onClick={() => {    setPrice(assets.silver_balance.toString())
-  // handleGoldChange(assets.silver_balance.toString())
+  onClick={() => {    setPrice(assets.gold_balance.toString())
+  handleGoldChange(assets.gold_balance.toString())
   }}
 >
-  موجودی: {priceFormater(assets.silver_balance)} گرم
+  موجودی: {priceFormater(assets.gold_balance)} گرم
 </Typography>
         }
           <Stack direction="row" justifyContent="center">
-            <SvgIcon
+            <Stack
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                bgcolor: '#FEF2C0',
+                borderRadius: '50%',
+                color: 'black',
+                width: 35,
+                height: 35,
+              }}
+            >
+              <SvgIcon
               sx={{
                 bgcolor: "background.paper",
                 borderRadius: "50%",
@@ -109,32 +158,15 @@ export default function Trade({ type }: Props) {
                 <path d="M11.5 2v12" stroke="currentColor" />
               </svg>
             </SvgIcon>
+            </Stack>
           </Stack>
 
-          <InputField
-          type='number'
-            placeholder="وزن نقره"
-            title="گرم"
-            value={silver}
-            setValue={() => {}}
-          />
+          <InputField type='number' placeholder="وزن طلا" title="گرم" value={gold} setValue={handleGoldChange} />
         </Stack>
       </Stack>
 
-      <Button
-        variant="contained"
-        color="primary"
-        disableRipple
-        sx={{
-          borderRadius: 2,
-          fontSize: 16,
-          py: 1.4,
-          "&:hover": {
-            bgcolor: "primary.main",
-          },
-        }}
-      >
-        ثبت سفارش
+      <Button variant="contained" disabled={isLoading} onClick={handleClick} color="primary" sx={{ borderRadius: 2, fontSize: 16, py: 1.4 }}>
+       {isLoading ? <Loading size={30} />:' ثبت سفارش'}
       </Button>
     </Card>
   );
