@@ -296,3 +296,22 @@ export interface AnnouncementsType {
   description:string
   created_at:string
 }
+export interface BuyGoldDataType {
+  details: {
+    weight_gr: number;
+    price_per_gram: number;
+    fee_toman: number;
+    total_paid_toman: number;
+  };
+}
+
+export interface LimitOrderDataType {
+              "id": number,
+            "order_type": "SELL"|'BUY',
+            "target_price": number,
+            "amount_toman": number,
+            "gold_weight": number,
+            "estimated_weight": number,
+            "status": StatusType,
+            "created_at": string
+}

@@ -27,3 +27,10 @@ export const getAddresses = async () => {
     const response = await api.get<ApiResponse<AddressesDataType[]>>('/silver/addresses/');
     return response.data.data;
 };
+
+export const removeAddress = async (id:number) => {
+    const response = await api.delete<{
+      message:string
+    }>(`/silver/address/${id}`);
+    return response.data;
+};
