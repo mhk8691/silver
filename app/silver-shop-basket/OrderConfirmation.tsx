@@ -169,6 +169,7 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
             value="SILVER"
             control={<Radio disableTouchRipple />}
             label="پرداخت اعتباری"
+            disabled
             sx={{ '& .MuiTypography-root': { fontSize: 18 } }}
           />
         </RadioGroup>
