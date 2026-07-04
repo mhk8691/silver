@@ -1,8 +1,7 @@
 'use client';
-import { Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { SxProps, Theme } from '@mui/material/styles';
+
 
 const appbarItems = [
   {
@@ -66,135 +65,115 @@ const appbarItems = [
 ];
 
 export default function MobileAppbar() {
-  const [isActive, setIsActive] = useState('');
   const router = useRouter();
   const pathname = usePathname();
-  const theme = useTheme();
 
-  useEffect(() => {
-    setIsActive(pathname);
-  }, [pathname]);
+  return (
+    <Box
+      sx={{
+        position: 'fixed',
+        bottom: 16,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '92%',
+        borderRadius: 5,
+        zIndex: 1000,
 
-  const primary = theme.palette.primary.main;
-  const primaryFaint = 'rgba(109, 169, 225, 0.12)';
-  const primaryBorder = 'rgba(109, 169, 225, 0.40)';
-  const primaryGlow = 'rgba(109, 169, 225, 0.22)';
-  const primaryInnerLight = 'rgba(109, 169, 225, 0.07)';
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
 
-  const bgColor = theme.palette.background.default;
-  const borderTop = `0.5px solid ${theme.palette.divider || 'rgba(201, 205, 207, 0.6)'}`;
+        bgcolor: 'rgba(255, 255, 255, 0.75)',
 
-  const iconBoxActive: SxProps<Theme> = {
-    background: `linear-gradient(145deg, ${primaryFaint}, rgba(109,169,225,0.04))`,
-    border: `0.5px solid ${primaryBorder}`,
-    borderRadius: '12px',
-    boxShadow: `0 2px 14px ${primaryGlow}, inset 0 1px 0 ${primaryInnerLight}`,
-    color: primary,
-    opacity: 1,
-  };
+        border: '1px solid',
+        borderColor:  'rgba(0,0,0,0.08)',
 
-  const iconBoxBase: SxProps<Theme> = {
+        boxShadow:  '0 10px 30px rgba(0,0,0,0.12)',
+
+        py: 1,
+      }}
+    >
+      <Stack direction="row" justifyContent="space-around" alignItems="center">
+      {appbarItems.map((item) => {
+  const active = pathname === item.link;
+
+  return (
+    <Box
+      key={item.link}
+      onClick={() => router.push(item.link)}
+      sx={{
+        cursor: 'pointer',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 0.4,
+        minWidth: 56,
+      }}
+    >
+      {/* ICON WRAPPER (FIXED SHAPE) */}
+      <Box
+  sx={{
     width: 42,
     height: 42,
-    borderRadius: '12px',
+
+    borderRadius: 2,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
-    color: theme.palette.text.secondary,
-    opacity: 0.45,
-    border: '0.5px solid transparent',
-    '& svg': {
-      width: 22,
-      height: 22,
-      transition: 'transform 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
-    },
-  };
 
-  return (
-    <Stack
-      position="fixed"
-      width="100%"
-      zIndex={10}
-      left={0}
-      bottom={0}
-      direction="row"
-      justifyContent="space-around"
-      alignItems="flex-end"
-      sx={{
-        bgcolor: bgColor,
-        backdropFilter: 'blur(22px)',
-        WebkitBackdropFilter: 'blur(22px)',
-        borderTop,
-        pt: 1,
-        pb: 'max(14px, env(safe-area-inset-bottom))',
-        px: 0.5,
-        boxShadow: '0 -1px 12px rgba(0,0,0,0.06)',
-      }}
-    >
-      {appbarItems.map((item) => {
-        const active = isActive === item.link;
+    transition: 'all 0.25s ease',
 
-        return (
-          <Stack
-            key={item.name}
-            direction="column"
-            alignItems="center"
-            gap={0.5}
-            onClick={() => {
-              router.push(item.link);
-              setIsActive(item.link);
-            }}
-            sx={{
-              cursor: 'pointer',
-              WebkitTapHighlightColor: 'transparent',
-              userSelect: 'none',
-              px: 0.75,
-              minWidth: 56,
-              '&:active .icon-box': {
-                transform: 'scale(0.92)',
-              },
-            }}
-          >
-            <Stack
-              className="icon-box"
-              sx={{
-                ...iconBoxBase,
-                ...(active ? iconBoxActive : {}),
-              }}
-            >
-              {item.icon}
-            </Stack>
+    bgcolor: active
+      ?'rgba(0,0,0,0.06)'
+      : 'transparent',
 
-            <Typography
-              sx={{
-                fontSize: '10px',
-                lineHeight: 1,
-                fontWeight: active ? 600 : 400,
-                color: active ? primary : theme.palette.text.secondary,
-                opacity: active ? 1 : 0.55,
-                transition: 'color 0.25s ease, opacity 0.25s ease',
-                fontFamily: theme.typography.fontFamily,
-              }}
-            >
-              {item.name}
-            </Typography>
+    backdropFilter: active ? 'blur(10px)' : 'none',
+    WebkitBackdropFilter: active ? 'blur(10px)' : 'none',
 
-            <Stack
-              sx={{
-                width: active ? 4 : 0,
-                height: 4,
-                borderRadius: '50%',
-                bgcolor: primary,
-                boxShadow: active ? `0 0 6px ${primary}` : 'none',
-                transition: 'width 0.25s ease, opacity 0.25s ease',
-                opacity: active ? 1 : 0,
-                mt: '-2px',
-              }}
-            />
-          </Stack>
-        );
-      })}
-    </Stack>
+    border: active
+      ? '1px solid'
+      : '1px solid transparent',
+
+    borderColor: active
+      ?  'rgba(0,0,0,0.12)'
+      : 'transparent',
+
+    boxShadow: active
+      ?  '0 8px 18px rgba(0,0,0,0.12)'
+      : 'none',
+
+    transform: active ? 'translateY(-3px)' : 'translateY(0)',
+  }}
+>
+  {item.icon}
+</Box>
+
+      {/* LABEL */}
+      <Typography
+        sx={{
+          fontSize: 10,
+          color: active ? 'primary.main' : 'text.secondary',
+          fontWeight: active ? 600 : 400,
+        }}
+      >
+        {item.name}
+      </Typography>
+
+      {/* DOT INDICATOR */}
+      <Box
+        sx={{
+          width: 4,
+          height: 4,
+          borderRadius: '50%',
+          bgcolor: active ? 'primary.main' : 'transparent',
+          transition: '0.2s',
+        }}
+      />
+    </Box>
+  );
+})}
+      </Stack>
+    </Box>
   );
 }
+
+
