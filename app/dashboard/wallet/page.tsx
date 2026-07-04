@@ -26,7 +26,7 @@ export const statuses = [
   { label: 'لغو شده', value: 'CANCELLED' },
   { label: 'ناموفق', value: 'FAILED' },
 ];
-export default async function page() {
+export default  function page() {
   const [transactionData,setTransactionData] = useState<RecentTransactionDataType[]>([])
   const [transactionParams,setTransactionParams] = useState('deposit')
     const [filter,setFilter] = useState('')

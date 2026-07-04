@@ -113,13 +113,19 @@ export interface AllAssetsDataType {
   "silver_price": number
 }
 export interface StatisticsDataType {
- "total_assets": number,
-  "profit": number,
-  "withdrawn_silver": number,
-  "purchased_giftcards": number,
-  "received_giftcards": number,
-  "pending_toman": number,
-  "pending_silver": number
+  total_assets: number
+  wallet_balance: number
+  silver_balance: number
+  silver_asset_value: number
+  silver_price: number
+  withdrawn_silver: number
+  pending_toman: number
+  pending_silver: number
+  profit: number
+  purchased_giftcards: number
+  received_giftcards: number
+  blocked_wallet_balance: number
+blocked_silver_balance: number
 }
 export interface ProductDateType {
   id: number;
