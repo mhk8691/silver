@@ -33,26 +33,26 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (
-    refreshToken &&
-    pathname.startsWith('/login')
-  ) {
-    return NextResponse.redirect(
-      new URL('/dashboard', req.url)
-    );
-  }
+  // if (
+  //   refreshToken &&
+  //   pathname.startsWith('/login')
+  // ) {
+  //   return NextResponse.redirect(
+  //     new URL('/dashboard', req.url)
+  //   );
+  // }
 
-  if (pathname === '/') {
-    return NextResponse.redirect(
-      new URL('/dashboard', req.url)
-    ); 
-  }
+  // if (pathname === '/') {
+  //   return NextResponse.redirect(
+  //     new URL('/dashboard', req.url)
+  //   ); 
+  // }
 
-  if (!refreshToken && !isPublic) {
-    return NextResponse.redirect(
-      new URL('/login/login-password', req.url)
-    );
-  }
+  // if (!refreshToken && !isPublic) {
+  //   return NextResponse.redirect(
+  //     new URL('/login/login-password', req.url)
+  //   );
+  // }
 
   return NextResponse.next();
 }

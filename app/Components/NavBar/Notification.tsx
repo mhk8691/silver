@@ -4,6 +4,8 @@ import { AnnouncementsType } from "@/app/core/Types";
 import { ArrowForward } from "@mui/icons-material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {
+  Badge,
+  BadgeProps,
   Button,
   ClickAwayListener,
   Dialog,
@@ -11,6 +13,7 @@ import {
   IconButton,
   Paper,
   Stack,
+  styled,
   Typography,
   useMediaQuery,
   useTheme,
@@ -20,7 +23,7 @@ import CustomTabs from "../Tabs/CustomTabs";
 import MessageCard from "./MessageCard";
 import { getAnnouncements } from "@/lib/announcements/announcements";
 
-const tabs = [{ title: "اطلاعیه های نقرینه" }];
+const tabs = [{ title: "اطلاعیه های دارینه" }];
 
 type NotificationContentProps = {
   onClose: () => void;
@@ -45,7 +48,7 @@ const NotificationContent = ({
       >
         <Stack direction="row" alignItems="center">
           <IconButton onClick={onClose} disableRipple>
-            <ArrowForward sx={{ color: "#717475" }} />
+              <ArrowForward sx={{ color: "#717475" }} />
           </IconButton>
 
           <Typography variant="body1" fontSize={16} fontWeight={500}>
@@ -112,26 +115,34 @@ const NotificationContent = ({
     </>
   );
 };
-
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: 5,
+    top: 7,
+    border: `2px solid ${(theme.vars ?? theme).palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 export default function Notification() {
   const [open, setOpen] = useState(false);
   const wrapperRef = React.useRef<HTMLDivElement | null>(null);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const [announcements, setAnnouncements] = useState<AnnouncementsType[]>([]);
+  const isDarkMode = theme.palette.mode === 'dark'
+  const [announcements, setAnnouncements] = useState<AnnouncementsType>({} as AnnouncementsType);
 
   useEffect(() => {
     const getData = async () => {
       const response = await getAnnouncements();
-      setAnnouncements(response || []);
+      console.log(response)
+      setAnnouncements(response || {} as AnnouncementsType);
     };
 
     getData();
   }, []);
 
-  const tabContent = <MessageCard announcements={announcements} />;
+  const tabContent = <MessageCard announcements={announcements} setOpen={setOpen} setAnnouncements={setAnnouncements} />;
 
   const handleToggle = () => {
     setOpen((prev) => !prev);
@@ -150,7 +161,17 @@ export default function Notification() {
     return (
       <>
         <IconButton onClick={handleToggle} disableRipple>
-          <NotificationsIcon
+          {
+            announcements.unread_count === 0 ?    <NotificationsIcon
+            color="primary"
+            sx={{
+              fontSize: {
+                xs: 25,
+                sm: 30,
+              },
+            }}
+          /> :<StyledBadge badgeContent={announcements.unread_count?.toString()} color="error">
+            <NotificationsIcon
             color="primary"
             sx={{
               fontSize: {
@@ -159,6 +180,8 @@ export default function Notification() {
               },
             }}
           />
+          </StyledBadge>
+          }
         </IconButton>
 
         <Dialog
@@ -192,6 +215,16 @@ export default function Notification() {
         }}
       >
         <IconButton onClick={handleToggle} disableRipple>
+          {
+            announcements.unread_count === 0 ? <NotificationsIcon
+            color="primary"
+            sx={{
+              fontSize: {
+                xs: 25,
+                sm: 30,
+              },
+            }}
+          /> :<StyledBadge badgeContent={announcements.unread_count?.toString()} color="error">
           <NotificationsIcon
             color="primary"
             sx={{
@@ -201,6 +234,9 @@ export default function Notification() {
               },
             }}
           />
+          </StyledBadge>
+          }
+             
         </IconButton>
 
         <Paper
@@ -219,6 +255,7 @@ export default function Notification() {
             transformOrigin: "top right",
             pt: 1,
             px: 1.5,
+            
           }}
         >
           <Typography variant="body1" fontSize={16} fontWeight={500}>

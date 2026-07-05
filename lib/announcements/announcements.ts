@@ -5,7 +5,7 @@ import { isAxiosError } from "axios"
 
 export const getAnnouncements = async ()=>{
     try{
-        const response = await api.get<ApiResponse<AnnouncementsType[]>>('/silver/announcements/')
+        const response = await api.get<ApiResponse<AnnouncementsType>>('/silver/announcements/')
         return response.data.data
     }catch(error:unknown){
         if (isAxiosError(error)){
@@ -13,4 +13,12 @@ export const getAnnouncements = async ()=>{
             showSnackbar(error.response?.data.message)
         }
     }
+}
+
+export const markAllRead = async ()=>{
+        const response = await api.post<{
+            message:string
+        }>('/silver/announcements/mark-all-read/')
+        return response.data
+    
 }

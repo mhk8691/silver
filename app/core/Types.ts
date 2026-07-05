@@ -297,10 +297,13 @@ export interface BannersType {
 }
 
 export interface AnnouncementsType {
+  notifList:{
   link:string
   title:string
   description:string
   created_at:string
+  }[]
+  unread_count:number
 }
 export interface BuyGoldDataType {
   details: {
