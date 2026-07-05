@@ -288,8 +288,7 @@ export interface CheckoutDataType {
     quantity:number
   }[],
     "payment_method": string,
-  "delivery_type": string,
-  "address_id": number
+
 }
 export interface BannersType {
   image:string

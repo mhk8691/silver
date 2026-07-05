@@ -7,8 +7,8 @@ import DirectDelivery from './DirectDelivery';
 import HouseDelivery from './HouseDelivery';
 
 const toggleItems: ToggleItemsType[] = [
-  { title: 'تحویل درب منزل', value: 'HOME', id: 1 },
-  // { title: 'تحویل حضوری', value: 'IN_PERSON', id: 2 },
+  // { title: 'تحویل درب منزل', value: 'HOME', id: 1 },
+  { title: 'تحویل حضوری', value: 'IN_PERSON', id: 1 },
 ];
 interface Props{
   deliveryType:string
@@ -37,7 +37,8 @@ export default function Delivery({deliveryType,setDeliveryType,addressId,setAddr
           style={{ py: 1.5 }}
         />
         {/* {deliveryType === 'HOME' ? <HouseDelivery  addressId={addressId} setAddressId={setAddressId} /> : <DirectDelivery />} */}
-      <HouseDelivery  addressId={addressId} setAddressId={setAddressId} />
+      {/* <HouseDelivery  addressId={addressId} setAddressId={setAddressId} /> */}
+       <DirectDelivery />
       </Grid>
       <Grid
         size={{

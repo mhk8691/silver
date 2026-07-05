@@ -1,4 +1,4 @@
-import { getCart } from '@/lib/cart/cart';
+import { clearCart, getCart } from '@/lib/cart/cart';
 import { InfoOutlineRounded } from '@mui/icons-material';
 import {
   Button,
@@ -15,12 +15,11 @@ import {
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import priceFormater from '../core/PriceFormater';
 import { useAssets } from '../AssetsProvider';
-import { CheckoutDataType } from '../core/Types';
-import { checkout } from '@/lib/checkout/checkout';
-import { showSnackbar } from '../Components/Snackbar/Snackbar';
 import { isAxiosError } from 'axios';
+import { showSnackbar } from '../Components/Snackbar/Snackbar';
+import { checkout } from '@/lib/checkout/checkout';
+import { CheckoutDataType } from '../core/Types';
 import { useRouter } from 'next/navigation';
-import Loading from '../Components/Loading/Loading';
 
 const rowStyle: SxProps = {
   display: 'flex',
@@ -37,13 +36,12 @@ const titleStyle: SxProps = {
 
 interface Props {
   setOpen: Dispatch<SetStateAction<boolean>>;
- deliveryType:string
+  deliveryType:string
   addressId:number
 }
 
-export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Props) {
+export default function OrderConfirmation({ setOpen,deliveryType,addressId }: Props) {
   const [checked, setChecked] = useState(false);
-  const [isLoading,setIsLoading] = useState(false)
   const [active, setActive] = useState('TOMAN');
   const router = useRouter()
   const { assets } = useAssets();
@@ -63,50 +61,41 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
       return total + item.total_price * item.quantity;
     }, 0);
   };
+
+  const totalPrice = getTotalPrice();
+
+  const walletBalance = assets?.wallet_balance ?? 0;
+  const silverAssetValue = assets?.silver_asset_value ?? 0;
+
+  const selectedBalanceValue =
+    active === 'TOMAN' ? walletBalance : silverAssetValue;
+
+  const diff = selectedBalanceValue - totalPrice;
+
+  const isEnough = diff >= 0;
+
   const handleClick = async ()=>{
-    const newData:CheckoutDataType = {
-      products:getCart().map((item)=>{
-        return {
-          product_id:item.id,
-          quantity:item.quantity
-        }
-      }),
-      payment_method:active,
-      delivery_type:deliveryType,
-      address_id:addressId
-    }
+    const newData: CheckoutDataType = {
+  products: getCart().map((item) => ({
+    product_id: item.id,
+    quantity: item.quantity,
+  })),
+  payment_method: active,
+
+};
     try{
-      setIsLoading(true)
       const response = await checkout(newData)
       showSnackbar(response.data.message,'success')
-      router.push('/dashboard/gold-recieve')
+      router.push('/dashboard/silver-receive')
+      clearCart()
     }catch (error:unknown){
       if (isAxiosError(error)){
         showSnackbar(error.response?.data.message)
       }
-    }finally{
-      setIsLoading(false)
     }
   }
-  const totalPrice = getTotalPrice();
-
-  const balance = assets?.wallet_balance ?? 0;
-
-  const diff = balance - totalPrice;
-
-  const isEnough = diff >= 0;
-
   return (
     <Stack direction="column">
-      <Stack sx={rowStyle}>
-        <Typography sx={titleStyle}>هزینه ارسال</Typography>
-        <Typography fontSize={18}>100,000 تومان</Typography>
-      </Stack>
-
-      <Stack sx={rowStyle}>
-        <Typography sx={titleStyle}>هزینه بیمه کالا</Typography>
-        <Typography fontSize={18}>366,559 تومان</Typography>
-      </Stack>
 
       <Stack sx={rowStyle}>
         <Typography sx={titleStyle}>مجموع سفارش</Typography>
@@ -120,7 +109,14 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
       <Stack sx={rowStyle}>
         <Typography sx={titleStyle}>موجودی کیف پول</Typography>
         <Typography fontSize={18}>
-          {priceFormater(balance)} تومان
+          {priceFormater(walletBalance)} تومان
+        </Typography>
+      </Stack>
+
+      <Stack sx={rowStyle}>
+        <Typography sx={titleStyle}>موجودی نقره</Typography>
+        <Typography fontSize={18}>
+          {priceFormater(silverAssetValue)} تومان
         </Typography>
       </Stack>
 
@@ -139,19 +135,7 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
         </Typography>
       </Stack>
 
-      <Stack
-        bgcolor="background.paper"
-        borderRadius={2}
-        p={2}
-        direction="row"
-        gap={1}
-        mt={2}
-      >
-        <InfoOutlineRounded sx={{ color: '#D89654' }} />
-        <Typography variant="body2" fontWeight={500} sx={{ color: 'text.secondary' }}>
-          لطفاً پیش از تأیید، ن وارد شده و آدرس انتخابی را به دقت بررسی کنید.
-        </Typography>
-      </Stack>
+   
 
       <FormControl sx={{ mt: 2 }}>
         <RadioGroup
@@ -162,14 +146,13 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
           <FormControlLabel
             value="TOMAN"
             control={<Radio disableTouchRipple />}
-            label="پرداخت نقدی"
+            label="پرداخت از کیف پول"
             sx={{ '& .MuiTypography-root': { fontSize: 18 } }}
           />
           <FormControlLabel
             value="SILVER"
             control={<Radio disableTouchRipple />}
-            label="پرداخت اعتباری"
-            disabled
+            label="پرداخت نقره"
             sx={{ '& .MuiTypography-root': { fontSize: 18 } }}
           />
         </RadioGroup>
@@ -195,7 +178,7 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
         <Button
           variant="contained"
           color="primary"
-          disabled={!checked || isLoading}
+          disabled={!checked}
           sx={{
             fontSize: 20,
             py: 1.3,
@@ -204,10 +187,8 @@ export default function OrderConfirmation({ setOpen,addressId,deliveryType }: Pr
             '&:hover': { bgcolor: 'primary.main' },
           }}
           onClick={handleClick}
-
         >
-          {isLoading ? <Loading size={30} />:' تایید سفارش'}
-         
+          تایید سفارش
         </Button>
 
         <Button
