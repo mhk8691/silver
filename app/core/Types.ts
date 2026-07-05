@@ -268,11 +268,6 @@ export interface OrdersDataType {
   delivery_type_display: string;
   total_toman_amount: number;
   created_at: string;
-unit:string
-plaque:string
-  province: string;
-  city: string;
-  address: string;
     items: {
                     "id": number,
                     "product": number,

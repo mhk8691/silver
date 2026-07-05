@@ -80,7 +80,8 @@ function OrderRow({ row, onOpenDetail }: OrderRowProps) {
         <TableCell align="center">{formatDate(row.created_at)}</TableCell>
 
         {/* delivery type (IMPORTANT ADDED) */}
-        <TableCell align="center">{row.delivery_type_display}</TableCell>
+        <TableCell align="center">{row.payment_method_display}</TableCell>
+        
 
         {/* detail modal */}
         <TableCell align="right">
@@ -189,7 +190,7 @@ export default function OrdersTable({
           'وضعیت',
           'مبلغ',
           'تاریخ',
-          'نوع ارسال',
+          'نوع پرداخت',
           '',
           '',
         ]}
