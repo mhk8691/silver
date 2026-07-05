@@ -13,7 +13,7 @@ import { CartItem } from '../core/Types';
 import Image from 'next/image';
 
 export default function Cart() {
-      const [deliveryType, setDeliveryType] = useState('HOME');
+      const [deliveryType, setDeliveryType] = useState('IN_PERSON');
   const [step, setStep] = useState(0);
   const [open, setOpen] = useState(false);
   const router = useRouter();
