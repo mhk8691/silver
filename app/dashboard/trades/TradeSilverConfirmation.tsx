@@ -1,27 +1,63 @@
 import { useAssets } from '@/app/AssetsProvider'
 import CustomModal from '@/app/Components/CustomModal/CustomModal'
 import Loading from '@/app/Components/Loading/Loading'
+import { showSnackbar } from '@/app/Components/Snackbar/Snackbar'
 import priceFormater from '@/app/core/PriceFormater'
+import { BuyCalculateType } from '@/app/core/Types'
+import { buyCalculate, sellCalculate } from '@/lib/calculate/calculate'
 import { Close } from '@mui/icons-material'
 import { Divider, IconButton, Stack, Typography, Button } from '@mui/material'
-import  { Dispatch, SetStateAction } from 'react'
+import { isAxiosError } from 'axios'
+import  { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 interface Props{
     title:string,
     open:boolean,
     setOpen:Dispatch<SetStateAction<boolean>>
-    data:{
-        weight:number
+    tradeData:{
+        weight:string
         price:number
     }
     handleSubmit:() => Promise<void>
     isLoading:boolean
+    select:string
 }
 
-export default function TradeSilverConfirmation({open,setOpen,title,data,handleSubmit,isLoading}:Props) {
-    const {assets} =  useAssets()
-    const remainingBalance = assets.wallet_balance - data.price;
+export default function TradeSilverConfirmation({select,open,setOpen,title,handleSubmit,isLoading,tradeData}:Props) {
+    const [data,setData] = useState<BuyCalculateType>({} as BuyCalculateType)
+    useEffect(()=>{
+      if (!open) return
+      const getDataBuy = async ()=>{
+        try{
+          const response = await buyCalculate(tradeData.weight)
+          setData(response.data)
+        }
+        catch(error:unknown){
+          if (isAxiosError(error)){
+            showSnackbar(error.response?.data.message,'error')
+          }
+        }
+      }
+       const getDataSell = async ()=>{
+        try{
+          const response = await sellCalculate(tradeData.weight)
+          setData(response.data)
+        }
+        catch(error:unknown){
+          if (isAxiosError(error)){
+            showSnackbar(error.response?.data.message,'error')
+          }
+        }
+      }
+      if (select === 'buy') {
+        getDataBuy()
 
+      }
+      else{
+        getDataSell()
+
+      }
+    },[open,select])
   return (
     <CustomModal open={open} setOpen={setOpen} modalStyle={{p:2}}>
 <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
@@ -33,47 +69,45 @@ export default function TradeSilverConfirmation({open,setOpen,title,data,handleS
         </IconButton>
       </Stack>
       <Typography variant="body2" sx={{mt:2}}>
-        شما درحال {title.split(' ')[1]} {priceFormater(data.weight)} گرم طلا با حساب 1.00 درصد کارمزد معادل {priceFormater(data.price)} تومان هستید
+        شما درحال {title.split(' ')[1]} {priceFormater(data.silver_weight)} گرم نقره با حساب {data.fee_rate} درصد کارمزد معادل {priceFormater(data.total_toman)} تومان هستید
       </Typography>
       <Stack direction={'row'} gap={1} alignItems={'center'} mt={2}>
    <Typography variant="body2" >
-      {remainingBalance >= 0 ? 'موجودی باقی‌مانده:' : 'کسری موجودی:'}
+      موجودی کیف پول:
     </Typography>
     <Typography 
       variant="body2" 
       sx={{ 
-        color: remainingBalance >= 0 ? 'success.main' : 'error.main',
         fontWeight: 'bold'
       }}
     >
-      {priceFormater(Math.abs(remainingBalance))} تومان
-      {remainingBalance < 0 && ' (مقدار منفی)'} 
+      {priceFormater(data.wallet?.accessible_toman)} تومان
     </Typography>
       </Stack>
         <Stack direction={'column'} gap={1}  mt={3}>
             <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} py={.75}>
                 <Typography variant="body2" >
-وزن طلا:
+وزن نقره:
                 </Typography>
                   <Typography variant="body2" >
-                    {priceFormater(data.weight)} گرم
+                    {priceFormater(data.silver_weight)} گرم
                 </Typography>
             </Stack>
             <Divider/>
              <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} py={.75}>
                 <Typography variant="body2" >
-مبلغ کل خرید:
+قیمت لحظه ای هر گرم نقره:
                 </Typography>
                   <Typography variant="body2" >
-                     {priceFormater(data.price)} تومان
+                     {priceFormater(data.pure_silver_price)} تومان
                 </Typography>
             </Stack>
             <Divider/> <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} py={.75}>
                 <Typography variant="body2" >
-موجودی کیف پول:
+مبلغ کل خرید:
                 </Typography>
                   <Typography variant="body2" >
-                    {priceFormater(assets.wallet_balance)} تومان
+                    {priceFormater(data.total_toman)} تومان
                 </Typography>
             </Stack>
         </Stack>

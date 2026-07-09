@@ -318,3 +318,18 @@ export interface LimitOrderDataType {
             "status": StatusType,
             "created_at": string
 }
+
+export interface BuyCalculateType{
+  "silver_price": number,
+        "silver_weight":number,
+        "pure_silver_price": 19790472.0,
+        "fee_rate": number,
+        "fee": number,
+        "total_toman": number,
+        "enough_balance": true
+           "wallet": {
+        "accessible_toman": number,
+        "blocked_toman": number,
+        "remaining_toman":number
+    }
+} 
