@@ -1,16 +1,14 @@
 'use client'
 import { Divider, Grid, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import RefralButton from './RefralButton'
 import Container from '@/app/Components/Containers/Container/Container'
 import priceFormater from '@/app/core/PriceFormater'
-import { useEffect, useState } from "react";
-import { RefrraDataType } from "@/app/core/Types";
-import { getreferral } from "@/lib/getRefrral/getRefrral";
+import { RefrraDataType } from '@/app/core/Types'
+import { getreferral } from '@/lib/getRefrral/getRefrral'
+
 export default function Invite() {
-      const [referralData, setreferralData] = useState<RefrraDataType>(
-        {} as RefrraDataType,
-      );
+      const [referralData, setreferralData] = useState<RefrraDataType>({} as RefrraDataType);
       useEffect(() => {
         const getData = async () => {
           const response = await getreferral();
@@ -19,7 +17,7 @@ export default function Invite() {
         getData();
       }, []);
   return (
-        <Grid
+     <Grid
           size={{
             xs: 12,
             md: 7,
@@ -33,10 +31,10 @@ export default function Invite() {
           <Typography
             variant="h6"
             sx={{
-              color: "text.title",
+              color: 'text.title',
               display: {
-                xs: "none",
-                md: "block",
+                xs: 'none',
+                md: 'block',
               },
             }}
             fontSize={{
@@ -44,12 +42,12 @@ export default function Invite() {
               sm: 22,
             }}
           >
-            نقره فروش شو
+           نقره فروش شو
           </Typography>
           <Typography
             variant="h6"
             sx={{
-              color: "text.secondary",
+              color: 'text.secondary',
               mt: {
                 xs: 0,
                 sm: 2.5,
@@ -60,12 +58,12 @@ export default function Invite() {
               sm: 18,
             }}
           >
-           با دعوت از دوستان خود 20% از کارمزد هر خرید آن‌ها، برای شما
+            با دعوت از دوستان خود {referralData.referral_percent}% از کارمزد هر خرید آن‌ها، برای شما
             واریز خواهد شد.
           </Typography>
           <Typography
             variant="h6"
-            sx={{ color: "text.title", mt: 3 }}
+            sx={{ color: 'text.title', mt: 3 }}
             fontSize={{
               xs: 16,
               sm: 20,
@@ -94,18 +92,18 @@ export default function Invite() {
                 xs: 12,
                 sm: 14,
               }}
-              sx={{ color: "text.title" }}
+              sx={{ color: 'text.title' }}
             >
               خلاصه فعالیت شما
             </Typography>
-            <Stack direction={"row"} justifyContent={"space-between"} mt={2.5}>
+            <Stack direction={'row'} justifyContent={'space-between'} mt={2.5}>
               <Typography
                 variant="h6"
                 fontSize={{
                   xs: 10,
                   sm: 12,
                 }}
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
               >
                 مجموع کاربران دعوت شده توسط شما:
               </Typography>
@@ -115,22 +113,22 @@ export default function Invite() {
                   xs: 12,
                   sm: 14,
                 }}
-                sx={{ color: "text.title" }}
+                sx={{ color: 'text.title' }}
               >
-                {priceFormater(referralData?.total_invited)} نفر
+                {priceFormater(referralData.referrals_count)} نفر
               </Typography>
             </Stack>
-            <Divider sx={{ my: 1.5, borderColor: " #C9CDCF" }} />
-            <Stack direction={"row"} justifyContent={"space-between"}>
+            <Divider sx={{ my: 1.5 }} />
+            <Stack direction={'row'} justifyContent={'space-between'}>
               <Typography
                 variant="h6"
                 fontSize={{
                   xs: 10,
                   sm: 12,
                 }}
-                sx={{ color: "#535657" }}
+                sx={{ color: 'text.muted' }}
               >
-                مجموع دریافتی شما از نقره فروش شو:
+               مجموع دریافتی شما از نقره فروش شو:
               </Typography>
               <Typography
                 variant="h6"
@@ -138,10 +136,32 @@ export default function Invite() {
                   xs: 12,
                   sm: 14,
                 }}
-                sx={{ color: "text.title" }}
+                sx={{ color: 'text.title' }}
               >
-                {priceFormater(referralData?.total_earned) }{" "}
-                تومان
+                {priceFormater(referralData.total_earnings)} تومان
+              </Typography>
+            </Stack>
+               <Divider sx={{ my: 1.5 }} />
+            <Stack direction={'row'} justifyContent={'space-between'}>
+              <Typography
+                variant="h6"
+                fontSize={{
+                  xs: 10,
+                  sm: 12,
+                }}
+                sx={{ color: 'text.muted' }}
+              >
+              مجموع فروش نقره:
+              </Typography>
+              <Typography
+                variant="h6"
+                fontSize={{
+                  xs: 12,
+                  sm: 14,
+                }}
+                sx={{ color: 'text.title' }}
+              >
+                {priceFormater(referralData.total_silver_sales)} تومان
               </Typography>
             </Stack>
           </Container>
