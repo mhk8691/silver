@@ -40,7 +40,7 @@ interface Props {
   addressId:number
 }
 
-export default function OrderConfirmation({ setOpen,deliveryType,addressId }: Props) {
+export default function OrderConfirmation({ setOpen,deliveryType,addressId}: Props) {
   const [checked, setChecked] = useState(false);
   const [active, setActive] = useState('TOMAN');
   const router = useRouter()
@@ -65,10 +65,9 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId }: Pr
   const totalPrice = getTotalPrice();
 
   const walletBalance = assets?.wallet_balance ?? 0;
-  const silverAssetValue = assets?.silver_asset_value ?? 0;
 
-  const selectedBalanceValue =
-    active === 'TOMAN' ? walletBalance : silverAssetValue;
+  const selectedBalanceValue =walletBalance
+  const silverDiff = assets.silver_balance - (totalPrice / assets.silver_price)
 
   const diff = selectedBalanceValue - totalPrice;
 
@@ -86,7 +85,7 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId }: Pr
     try{
       const response = await checkout(newData)
       showSnackbar(response.data.message,'success')
-      router.push('/dashboard/silver-receive')
+      router.push('/dashboard/gold-receive')
       clearCart()
     }catch (error:unknown){
       if (isAxiosError(error)){
@@ -96,33 +95,56 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId }: Pr
   }
   return (
     <Stack direction="column">
-
-      <Stack sx={rowStyle}>
-        <Typography sx={titleStyle}>مجموع سفارش</Typography>
+ {
+    active !== 'TOMAN' &&     <Stack sx={rowStyle}>
+        <Typography sx={titleStyle}>موجودی نقره</Typography>
         <Typography fontSize={18}>
-          {priceFormater(totalPrice)} تومان
+          {priceFormater(assets.silver_balance)} گرم
         </Typography>
       </Stack>
+  }
 
-      <Divider />
-
-      <Stack sx={rowStyle}>
+      {
+        active === 'TOMAN' && <Stack sx={rowStyle}>
         <Typography sx={titleStyle}>موجودی کیف پول</Typography>
         <Typography fontSize={18}>
           {priceFormater(walletBalance)} تومان
         </Typography>
       </Stack>
-
-      <Stack sx={rowStyle}>
-        <Typography sx={titleStyle}>موجودی نقره</Typography>
+      }
+     {
+      active === 'TOMAN' &&  <Stack sx={rowStyle}>
+        <Typography sx={titleStyle}>مجموع سفارش</Typography>
         <Typography fontSize={18}>
-          {priceFormater(silverAssetValue)} تومان
+          {priceFormater(totalPrice)} تومان
         </Typography>
       </Stack>
+     }
+     {
+      active !== 'TOMAN' &&  <Stack sx={rowStyle}>
+        <Typography sx={titleStyle}>مجموع گرم وزنی سفارش</Typography>
+        <Typography fontSize={18}>
+          {priceFormater(totalPrice / assets.silver_price)} گرم
+        </Typography>
+      </Stack>
+     }
 
       <Divider />
 
-      <Stack sx={rowStyle}>
+
+  {
+    active !== 'TOMAN' &&     <Stack sx={rowStyle}>
+        <Typography sx={titleStyle}>موجودی نقرهی باقی مانده</Typography>
+        <Typography fontSize={18} color={silverDiff>=0 ? 'success.main' : 'error.main'}>
+          {priceFormater(silverDiff)} گرم
+        </Typography>
+      </Stack>
+  }
+
+      <Divider />
+
+    {
+      active === 'TOMAN' &&   <Stack sx={rowStyle}>
         <Typography sx={titleStyle}>
           {isEnough ? 'موجودی باقی‌مانده' : 'کمبود موجودی'}
         </Typography>
@@ -134,8 +156,9 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId }: Pr
           {priceFormater(Math.abs(diff))} تومان
         </Typography>
       </Stack>
+    }
 
-   
+     
 
       <FormControl sx={{ mt: 2 }}>
         <RadioGroup
