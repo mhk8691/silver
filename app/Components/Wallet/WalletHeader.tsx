@@ -132,7 +132,7 @@ const pathname = usePathname()
                   fontSize={14}
                   sx={{ color: "#535657" }}
                 >
-                  قیمت فعلی نقره ۹۹۹
+                  قیمت فعلی نقره 
                 </Typography>
                 <Stack direction={"row"} gap={0.5} alignItems={"center"}>
                   <Typography

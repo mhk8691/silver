@@ -20,7 +20,7 @@ export default function ProductTableContainer() {
   const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const data = [
     {
-      typeSilver: "نقره عیار ۹۹۹ (گرم)",
+      typeSilver: "نقره عیار (گرم)",
       currentRate: 17596000,
       minPriceDay: 17580000,
       maxPriceDay: 17831000,
