@@ -63,7 +63,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
     const methood = assets?.wallet_balance > 0 ? 'WALLET':'GATEWAY'
     try {
       setIsLoading(true)
-      const response = await silverBuy(price,methood,silver);
+      const response = await silverBuy(price,methood);
       const newData = await getReports('silver',reportsParams||'',dateRange,filter)
       
       setData&&setData(newData)
@@ -83,7 +83,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
   const handleSellSilver = async () => {
     try {
       setIsLoading(true)
-      const response = await silverSell(silver);
+      const response = await silverSell(price);
       const newData = await getReports('silver',reportsParams || '',dateRange,filter)
       setData&&setData(newData)
       showSnackbar(response.data.message,'success')

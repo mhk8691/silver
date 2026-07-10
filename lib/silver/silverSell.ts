@@ -1,9 +1,8 @@
 import { SellSilverDataType } from '@/app/core/Types';
 import api, { ApiResponse } from '../api';
 
-export const silverSell = async (silver: string) => {
-   const roundSilver = Math.round(+silver * 1000) / 1000
+export const silverSell = async (toman: string) => {
 
-  const response = await api.post<ApiResponse<SellSilverDataType>>('/silver/sell/', { weight: roundSilver });
+  const response = await api.post<ApiResponse<SellSilverDataType>>('/silver/sell/', { toman: toman });
   return response;
 };
