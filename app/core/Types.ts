@@ -307,15 +307,18 @@ export interface BuyGoldDataType {
   };
 }
 
+
 export interface LimitOrderDataType {
-              "id": number,
-            "order_type": "SELL"|'BUY',
-            "target_price": number,
-            "amount_toman": number,
-            "gold_weight": number,
-            "estimated_weight": number,
-            "status": StatusType,
-            "created_at": string
+  "id": number,
+            "type": "BUY" | 'SELL',
+            "type_display": string,
+            "status": "COMPLETED" | 'CANCELLED' | 'PENDING',
+            "status_display": string,
+            "amount_gr":string,
+            "price_per_gram": string,
+            "total_amount": string,
+            "tracking_code": string,
+            "created_at": string,
 }
 
 export interface BuyCalculateType{
