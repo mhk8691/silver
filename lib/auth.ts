@@ -3,7 +3,8 @@ import api, { ApiResponse } from './api';
 
 export type User = {
   full_name: string;
-
+        "silver_buy_fee": number,
+        "silver_sell_fee": number
   "id":number,"mobile":string,"first_name":string,"last_name":string,"national_code":string,"birth_date":string,
 };
 
