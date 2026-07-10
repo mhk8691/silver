@@ -115,25 +115,8 @@ const theme = createTheme({
         },
       },
     },
-    MuiSelect: {
-      styleOverrides: {
-        root: {
-          "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#C9CDCF",
-          },
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          borderColor: "#C9CDCF",
-        },
-        outlined: {
-          borderColor: "#C9CDCF",
-        },
-      },
-    },
+ 
+
     MuiCard: {
       styleOverrides: {
         root: {
