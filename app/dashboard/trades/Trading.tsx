@@ -43,7 +43,13 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
     setPrice(val);
     const num = Number(val);
     if (!isNaN(num)) {
-      setSilver(String(num / assets?.silver_price));
+      if (select === 'buy'){
+      setSilver(String(num / assets?.silver_price_with_fees.buy));
+
+      }else{
+      setSilver(String(num / assets?.silver_price_with_fees.sell));
+
+      }
     } else {
       setSilver('');
     }
@@ -53,7 +59,13 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
     setSilver(val);
     const num = Number(val);
     if (!isNaN(num)) {
-      setPrice(String(num * assets?.silver_price));
+        if (select === 'buy'){
+        setPrice(String(num * assets?.silver_price_with_fees.buy));
+
+      }else{
+      setPrice(String(num * assets?.silver_price_with_fees.sell));
+
+      }
     } else {
       setPrice('');
     }
@@ -63,7 +75,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
     const methood = assets?.wallet_balance > 0 ? 'WALLET':'GATEWAY'
     try {
       setIsLoading(true)
-      const response = await silverBuy(price,methood);
+      const response = await silverBuy(silver,methood);
       const newData = await getReports('silver',reportsParams||'',dateRange,filter)
       
       setData&&setData(newData)
@@ -83,7 +95,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
   const handleSellSilver = async () => {
     try {
       setIsLoading(true)
-      const response = await silverSell(price);
+      const response = await silverSell(silver);
       const newData = await getReports('silver',reportsParams || '',dateRange,filter)
       setData&&setData(newData)
       showSnackbar(response.data.message,'success')

@@ -57,7 +57,7 @@ export default function Trade({
     setPrice(val);
     const num = Number(val);
     if (!isNaN(num) && assets?.silver_price) {
-      setSilver(String(num / assets.silver_price));
+      setSilver(String(num / assets?.silver_price_with_fees.buy));
     } else {
       setSilver('');
     }
@@ -67,7 +67,7 @@ export default function Trade({
     setSilver(val);
     const num = Number(val);
     if (!isNaN(num) && assets?.silver_price) {
-      setPrice(String(num * assets.silver_price));
+      setPrice(String(num * assets?.silver_price_with_fees.buy));
     } else {
       setPrice('');
     }

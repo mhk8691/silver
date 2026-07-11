@@ -57,14 +57,13 @@ export  const getLimitOrder = async (  status?: string,
 
 
 export const editLimitOrder = async (id:number,price_per_gram:string,amount_gr:string,total_amount:string)=>{
-  const response = await api.patch<ApiResponse<LimitOrderDataType>>(`/silver/limit-orders/${id}/partial-update/`,{
-    amount_gr,
-    total_amount,
-    price_per_gram
+  const response = await api.put<ApiResponse<LimitOrderDataType>>(`/silver/limit-orders/${id}/update/`,{
+    gold_weight:amount_gr,
+    amount_toman:total_amount,
+    target_price:price_per_gram
   })
   return response.data
 }
-
 export const cancelLimitOrder = async (id:number)=>{
   const response = await api.post<ApiResponse<LimitOrderDataType>>(`silver/limit-orders/${id}/cancel/`,)
   return response.data
