@@ -266,6 +266,8 @@ export interface OrdersDataType {
   payment_method_display: string;
   delivery_type_display: string;
   total_toman_amount: number;
+    total_silver_amount:number
+
   created_at: string;
     items: {
                     "id": number,

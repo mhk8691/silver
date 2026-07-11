@@ -61,14 +61,19 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId}: Pro
       return total + item.total_price * item.quantity;
     }, 0);
   };
+  const getTotalWeight = (): number => {
+  const cart = getCart();
 
+  return cart.reduce((total, item) => {
+    return total +( item.product_weight_with_fee || 0) * item.quantity;
+  }, 0);
+};
   const totalPrice = getTotalPrice();
-
+    const totalWeight = getTotalWeight();
   const walletBalance = assets?.wallet_balance ?? 0;
 
   const selectedBalanceValue =walletBalance
-  const silverDiff = assets.silver_balance - (totalPrice / assets.silver_price)
-
+  const silverDiff = (assets.silver_balance - totalWeight)
   const diff = selectedBalanceValue - totalPrice;
 
   const isEnough = diff >= 0;
@@ -85,7 +90,7 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId}: Pro
     try{
       const response = await checkout(newData)
       showSnackbar(response.data.message,'success')
-      router.push('/dashboard/gold-receive')
+      router.push('/dashboard/silver-receive')
       clearCart()
     }catch (error:unknown){
       if (isAxiosError(error)){
@@ -124,7 +129,7 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId}: Pro
       active !== 'TOMAN' &&  <Stack sx={rowStyle}>
         <Typography sx={titleStyle}>مجموع گرم وزنی سفارش</Typography>
         <Typography fontSize={18}>
-          {priceFormater(totalPrice / assets.silver_price)} گرم
+       {priceFormater(totalWeight)} گرم
         </Typography>
       </Stack>
      }
@@ -134,7 +139,7 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId}: Pro
 
   {
     active !== 'TOMAN' &&     <Stack sx={rowStyle}>
-        <Typography sx={titleStyle}>موجودی نقرهی باقی مانده</Typography>
+        <Typography sx={titleStyle}>موجودی نقره ی باقی مانده</Typography>
         <Typography fontSize={18} color={silverDiff>=0 ? 'success.main' : 'error.main'}>
           {priceFormater(silverDiff)} گرم
         </Typography>

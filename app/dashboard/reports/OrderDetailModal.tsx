@@ -155,7 +155,7 @@ export default function OrderDetailModal({
             />
           }
         />
-
+        <DetailRow label="وزن" value={`${priceFormater(data.total_silver_amount)} گرم`} /> 
         <DetailRow label="کد رهگیری" value={data.tracking_code} />
 
         <DetailRow label="تاریخ ثبت" value={formatDate(data.created_at)} />
