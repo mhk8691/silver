@@ -45,8 +45,8 @@ const pathname = usePathname()
                 fontSize={14}
                 sx={{ color: "#535657" }}
               >
-                موجودی نقره
-              </Typography>
+ موجودی نقره ی در دسترس
+               </Typography>
               <Stack direction={"row"} gap={0.5} alignItems={"center"}>
                 <Typography
                   variant="body1"
@@ -54,7 +54,7 @@ const pathname = usePathname()
                   fontWeight={500}
                   sx={{ color: "text.title" }}
                 >
-                 {isVisible ? priceFormater(assets?.silver_balance)  : '***'}
+                 {isVisible ? priceFormater(assets?.silver_accessible)  : '***'}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -82,7 +82,7 @@ const pathname = usePathname()
                 fontSize={14}
                 sx={{ color: "#535657" }}
               >
-                موجودی تومان
+               موجودی تومان دردسترس
               </Typography>
               <Stack
                 direction={"row"}

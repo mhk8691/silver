@@ -104,7 +104,7 @@ export default function OrderConfirmation({ setOpen,deliveryType,addressId}: Pro
     active !== 'TOMAN' &&     <Stack sx={rowStyle}>
         <Typography sx={titleStyle}>موجودی نقره</Typography>
         <Typography fontSize={18}>
-          {priceFormater(assets.silver_balance)} گرم
+          {priceFormater(assets.silver_accessible)} گرم
         </Typography>
       </Stack>
   }

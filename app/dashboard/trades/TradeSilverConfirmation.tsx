@@ -41,7 +41,7 @@ export default function TradeSilverConfirmation({select,open,setOpen,title,handl
       }
        const getDataSell = async ()=>{
         try{
-          const response = await sellCalculate(tradeData.price.toString())
+          const response = await sellCalculate(tradeData.weight.toString())
           setData(response.data)
         }
         catch(error:unknown){

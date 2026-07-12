@@ -3,6 +3,6 @@ import api, { ApiResponse } from '../api';
 
 export const silverSell = async (weight: string) => {
      const roundSilver = Math.round(+weight * 1000) / 1000
-  const response = await api.post<ApiResponse<SellSilverDataType>>('/silver/sell/', { weight: roundSilver });
+  const response = await api.post<ApiResponse<SellSilverDataType>>('/silver/sell/', { weight: roundSilver,    "payment_method": "WALLET" });
   return response;
 };

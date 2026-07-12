@@ -50,7 +50,7 @@ export default function MobileWalletHeader({
             }}
             sx={{ color: "#535657" }}
           >
-            موجودی نقره
+            موجودی نقره ی در دسترس
           </Typography>
           <Stack
             direction={"row"}
@@ -66,7 +66,7 @@ export default function MobileWalletHeader({
               }}
               sx={{ color: "text.title" }}
             >
-              {visible ? priceFormater(assets.silver_balance ) : "***"}
+              {visible ? priceFormater(assets.silver_accessible ) : "***"}
             </Typography>
             <Typography
               variant="body1"
@@ -108,7 +108,7 @@ export default function MobileWalletHeader({
             }}
             sx={{ color: "#535657" }}
           >
-            موجودی تومان
+           موجودی تومان دردسترس
           </Typography>
           <Stack
             direction={"row"}

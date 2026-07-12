@@ -172,7 +172,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
                 handlePriceChange(assets.wallet_balance.toString())
                 }}
               >
-                موجودی: {priceFormater(assets.wallet_balance)} تومان
+                موجودی تومان دردسترس: {priceFormater(assets.wallet_balance)} تومان
               </Typography>
             }
           </Stack>
@@ -200,7 +200,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
                 handleSilverChange(assets.silver_balance.toString())
                 }}
               >
-                موجودی: {priceFormater(assets.silver_balance)} گرم
+                 موجودی نقره ی در دسترس: {priceFormater(assets.silver_accessible)} گرم
               </Typography>
             }
           </Stack>

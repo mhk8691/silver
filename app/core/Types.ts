@@ -111,6 +111,7 @@ export interface AllAssetsDataType {
   "silver_asset_value":number, 
   "gold_price":number, 
   "silver_price": number
+  silver_accessible:number
    "silver_price_with_fees": {
         "buy": number,
         "sell": number
