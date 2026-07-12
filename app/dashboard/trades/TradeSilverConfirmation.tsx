@@ -79,10 +79,11 @@ export default function TradeSilverConfirmation({select,open,setOpen,title,handl
     <Typography 
       variant="body2" 
       sx={{ 
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:select === 'buy' ?data?.wallet?.accessible_toman >=0?'success.main':'error.main':  assets.silver_accessible >= 0 ? 'success.main':'error.main'
       }}
     >
-      {priceFormater(select === 'buy'?data.wallet?.accessible_toman:assets.silver_balance)} {select === 'buy' ? 'تومان':'گرم'} 
+      {priceFormater(select === 'buy'?data.wallet?.accessible_toman:assets.silver_accessible)} {select === 'buy' ? 'تومان':'گرم'} 
     </Typography>
       </Stack>
         <Stack direction={'column'} gap={1}  mt={3}>

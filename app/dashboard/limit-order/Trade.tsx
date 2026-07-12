@@ -165,7 +165,7 @@ export default function Trade({
                   cursor: 'pointer',
                 }}
                 onClick={() => {
-                  handleSilverChange(assets.silver_balance.toString());
+                  handleSilverChange(assets.silver_accessible.toString());
                 }}
               >
                 موجودی نقره ی در دسترس: {priceFormater(assets.silver_accessible)} گرم
