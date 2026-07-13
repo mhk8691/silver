@@ -17,6 +17,7 @@ import LimitOrderGuide from './LimitOrderGuide';
 import BackLink from '../BackLink';
 import ChartGold from '@/app/Components/Chart/Chart';
 import { statuses } from '../wallet/page';
+import ChartSilver from '@/app/Components/Chart/Chart';
 
 const tabs = [{ title: 'خرید ' }, { title: 'فروش' }];
 
@@ -178,8 +179,8 @@ export default function LimitOrder() {
           md: 7.2,
         }}
       >
-        <ChartGold
-          positionPrice="bottom"
+        <ChartSilver
+          positionPrice="both"
           priceStyle={{
             mt: { xs: 2, md: 5 },
             mb: { xs: 0, md: 2.5 },

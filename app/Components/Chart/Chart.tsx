@@ -1,4 +1,3 @@
-// ChartGold.tsx
 'use client';
 
 import { IconButton, Stack, SxProps, Typography } from '@mui/material';
@@ -7,13 +6,13 @@ import BottomPrice from './BottomPrice';
 import TopPrice from './TopPrice';
 import FilterToggleButton from '../FilterToggleButton/FilterToggleButton';
 import { useEffect, useState } from 'react';
-import { ChartGoldDataType, ToggleItemsType } from '@/app/core/Types';
+import { ChartSilverDataType, ToggleItemsType } from '@/app/core/Types';
 import Container from '../Containers/Container/Container';
-import { getChartGold } from '@/lib/chart/getChartGold';
 import { isAxiosError } from 'axios';
 import { showSnackbar } from '../Snackbar/Snackbar';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SilverBubble from './SilverBubble';
+import { getChartSilver } from '@/lib/chart/getChartSilver';
 
 interface Props {
   positionPrice: 'top' | 'bottom' | 'both';
@@ -29,7 +28,7 @@ const toggleItems: ToggleItemsType[] = [
   { id: 3, title: 'ماهانه', value: 'MONTH' },
 ];
 
-export default function ChartGold({
+export default function ChartSilver({
   positionPrice,
   chartHeight,
   cardStyle,
@@ -37,13 +36,13 @@ export default function ChartGold({
   priceStyle,
 }: Props) {
   const [select, setSelect] = useState(toggleItems[0]?.value);
-  const [chartData, setChartData] = useState<ChartGoldDataType | null>(null);
+  const [chartData, setChartData] = useState<ChartSilverDataType | null>(null);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await getChartGold(select);
+        const response = await getChartSilver(select);
         setChartData(response);
       } catch (error: unknown) {
         if (isAxiosError(error)) {

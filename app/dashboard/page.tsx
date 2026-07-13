@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Chart from "../Components/Chart/Chart";
 import Wallet from "../Components/Wallet/Wallet";
 import Dashboard from "./Dashboard";
+import ChartSilver from "../Components/Chart/Chart";
 export const metadata: Metadata = {
   title: "داشبورد | نقرینه",
   description: "",
@@ -32,7 +33,7 @@ export default function page() {
         }}
         order={{ xs: 2, sm: 1 }}
       >
-        <Chart
+        <ChartSilver
           positionPrice="both"
           chartHeight="176px"
           priceStyle={{ mt: 1.5 }}

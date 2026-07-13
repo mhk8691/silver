@@ -8,6 +8,7 @@ import Trading from './Trading';
 import Chart from '@/app/Components/Chart/Chart';
 import BackLink from '../BackLink';
 import TradeGuide from './TradeGuide';
+import ChartSilver from '@/app/Components/Chart/Chart';
 // import TradeGoldConfirmation from './TradeGoldConfirmation';
 
 export default function Trade() {
@@ -39,8 +40,8 @@ export default function Trade() {
    </Grid>
 
    <Grid size={{ xs: 12, md: 7.2 }} height={'100%'}>
-          <Chart
-            positionPrice="bottom"
+          <ChartSilver
+            positionPrice="both"
             priceStyle={{
               mt: {
                 xs: 2,

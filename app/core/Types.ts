@@ -221,7 +221,7 @@ export interface RecentTransactionDataType{
 export interface TradeTableDataType {
     "id": number,      "type": "BUY" | 'SELL',      "status": StatusType,      "amount_gr": number,      "price_per_gram": number,      "fee": number,      "total_amount": number,      "tracking_code": string,      "created_at": string
 }
-export interface ChartGoldDataType {
+export interface ChartSilverDataType {
   "chart": {
       "labels": string[],
       "prices": number[]  },

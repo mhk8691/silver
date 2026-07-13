@@ -7,6 +7,7 @@ import { TableSilverDataType } from "../core/Types";
 import ProductTableContainer from "./ProductTableContainer";
 import Chart from "../Components/Chart/Chart";
 import Trading from "../dashboard/trades/Trading";
+import ChartSilver from "../Components/Chart/Chart";
 
 export const goldData: {
   title: string;
@@ -234,7 +235,7 @@ export default function page({ params }: Props) {
               lg: 7.5,
             }}
           >
-            <Chart
+            <ChartSilver
               positionPrice="top"
               cardStyle={{ pt: 3.5, pb: 2.5 }}
               chartHeight="240px"
