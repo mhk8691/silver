@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
 import priceFormater from "../../core/PriceFormater";
 import CircleAnimation from "../CircleAnimation/CircleAnimation";
-import { ChartGoldDataType } from "@/app/core/Types";
+import { ChartSilverDataType } from "@/app/core/Types";
 
-export default function TopPrice({chartData}:{chartData:ChartGoldDataType}) {
+export default function TopPrice({chartData}:{chartData:ChartSilverDataType}) {
   return (
     <Stack direction={"row"} alignItems={"center"} mt={1} gap={2}>
       <CircleAnimation type={chartData.stats.change_percent >= 0 ? 'green' :'red'} />

@@ -1,6 +1,6 @@
 import { Box, Divider, Stack, SxProps, Typography } from "@mui/material";
 import priceFormater from "../../core/PriceFormater";
-import { ChartGoldDataType } from "@/app/core/Types";
+import { ChartSilverDataType } from "@/app/core/Types";
 
 export default function BottomPrice({
   priceStyle,
@@ -10,7 +10,7 @@ export default function BottomPrice({
 }: {
   priceStyle?: SxProps;
   dividerStyle?: SxProps;
-  chartData:ChartGoldDataType
+  chartData:ChartSilverDataType
   select:string
 }) {
   return (
