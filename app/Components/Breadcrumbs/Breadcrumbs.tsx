@@ -11,7 +11,8 @@ const breadcrumbNameMap: Record<string, string> = {
   faq: "سوالات متداول",
   rules: "قوانین نقرینه",
   'margin-rules':'قوانین سفارش تعهدی',
-  'about-us':'درباره ما'
+  'about-us':'درباره ما',
+  'application':'دانلود اپلیکیشن'
 };
 
 const exactHiddenRoutes = [
@@ -21,6 +22,7 @@ const exactHiddenRoutes = [
   "/login/forget",
   "/login/signup",
   "/silver-shop-basket",
+  '/connection-error'
 ];
 
 const prefixHiddenRoutes = ["/login", "/dashboard"];
@@ -43,7 +45,7 @@ export default function CustomBreadcrumbs() {
 
     checkPageStatus();
   }, [pathname]);
-
+  console.log(pathname)
   const shouldHide =
     exactHiddenRoutes.includes(pathname) ||
     prefixHiddenRoutes.some((route) => pathname.startsWith(route)) ||
@@ -85,7 +87,7 @@ export default function CustomBreadcrumbs() {
               },
             }}
           >
-            خرید نقرهی آب شده
+            خرید نقره ی آب شده
           </Typography>
         </Link>
 
