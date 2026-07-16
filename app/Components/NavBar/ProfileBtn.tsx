@@ -121,67 +121,7 @@ const options = [
       </SvgIcon>
     ),
   },
-  {
-    title: "نقره فروش شو",
-    link: "/dashboard/invite",
-    icon: (
-      <SvgIcon>
-        <svg
-          width="22"
-          height="23"
-          viewBox="0 0 22 23"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M19.7644 3.36461C19.7555 4.81419 18.6242 5.98092 17.2011 6.02511C17.1392 6.02511 17.0685 6.02511 17.0066 6.02511C15.5836 5.98092 14.4434 4.81419 14.4434 3.36461C14.4434 1.91503 15.6278 0.704102 17.1039 0.704102C18.58 0.704102 19.7644 1.90619 19.7644 3.36461Z"
-            fill="#8ABAE7"
-            stroke="currentColor"
-            strokeWidth="1.41422"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M16.1339 13.5406C17.5482 13.7792 19.1038 13.5317 20.1998 12.7981C21.6494 11.8258 21.6494 10.2437 20.1998 9.2714C19.095 8.53777 17.5216 8.29028 16.1074 8.53777"
-            stroke="currentColor"
-            strokeWidth="1.41422"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M7.54953 3.36461C7.54953 4.81419 6.41815 5.98092 4.99509 6.02511C4.93322 6.02511 4.86251 6.02511 4.80063 6.02511C3.37757 5.98092 2.23735 4.81419 2.22852 3.36461C2.22852 1.90619 3.41293 0.704102 4.88902 0.704102C6.36512 0.704102 7.54953 1.89735 7.54953 3.36461Z"
-            fill="#8ABAE7"
-            stroke="currentColor"
-            strokeWidth="1.41422"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M5.85892 13.5406C4.4447 13.7792 2.88905 13.5317 1.79303 12.7981C0.334614 11.8258 0.334614 10.2437 1.79303 9.2714C2.89789 8.53777 4.47122 8.29028 5.88544 8.53777"
-            stroke="currentColor"
-            strokeWidth="1.41422"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M13.5769 11.0746C13.5592 12.5153 12.4278 13.6909 11.0048 13.7351C10.9429 13.7262 10.8722 13.7262 10.8103 13.7351C9.38724 13.682 8.25586 12.5153 8.25586 11.0746C8.25586 9.63383 9.44027 8.41406 10.9164 8.41406C12.3925 8.41406 13.5769 9.60731 13.5769 11.0746Z"
-            fill="#8ABAE7"
-            stroke="currentColor"
-            strokeWidth="1.41422"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-          <path
-            d="M14.0068 20.5028C12.3539 21.6076 9.65803 21.6076 8.00515 20.5028C6.55557 19.5393 6.55557 17.9483 8.00515 16.976C9.65803 15.8888 12.3716 15.8888 14.0068 16.976C15.4652 17.9483 15.4652 19.5393 14.0068 20.5028Z"
-            stroke="currentColor"
-            strokeWidth="1.41422"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-        </svg>
-      </SvgIcon>
-    ),
-  },
+
 ];
 
 export default function ProfileBtn() {

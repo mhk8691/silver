@@ -23,11 +23,6 @@ const AppbarItems: AppbarItemsType[] = [
 
 
   {
-    name: "نقره فروش شو",
-    image: "/images/appbar/invite-active.svg",
-    link: "/invite",
-  },
-  {
     name: "تحویل فیزیکی",
     image: "/images/appbar/shop-active.svg",
     link: "/silver-receive",

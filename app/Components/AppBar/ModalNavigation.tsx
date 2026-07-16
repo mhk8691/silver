@@ -108,12 +108,7 @@ const items: ItemsType[] = [
         link: "/reports",
         comingSoon: false,
       },
-      {
-        name: "نقره فروش شو",
-        image: "/invite-active.svg",
-        link: "/invite",
-        comingSoon: false, 
-      },
+
       {
         name: "پروفایل",
         image: "/profile-active.svg",
