@@ -12,7 +12,7 @@ import { silverBuy } from '@/lib/silver/silverBuy'
 import { silverSell } from '@/lib/silver/silverSell'
 import { Button, Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { isAxiosError } from 'axios'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import TradeSilverConfirmation from './TradeSilverConfirmation'
 import TradeGuide from './TradeGuide'
 import priceFormater from '@/app/core/PriceFormater'
@@ -112,6 +112,10 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
       setIsLoading(false)
     }
   };
+  const handleClearInput = ()=>{
+    setPrice('')
+    setSilver('')
+  }
   return (
     <>
       <Container
@@ -140,6 +144,7 @@ export default function Trading({setData,reportsParams,filter,dateRange}:Props) 
           items={items}
           active={select}
           setActive={setSelect}
+          handleClick={handleClearInput}
           style={{
             fontSize: {
               xs: 16,

@@ -11,12 +11,14 @@ interface Props {
   style?: SxProps;
   setMessage?: React.Dispatch<React.SetStateAction<string>>;
   setParams?:React.Dispatch<React.SetStateAction<string>>
+  handleClick?:()=>void
 }
 
-export default function FilterToggleButton({setParams, items, active, setActive, style, setMessage }: Props) {
+export default function FilterToggleButton({setParams, items, active, setActive, style, setMessage,handleClick }: Props) {
   const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
     if (newAlignment !== null) {
       setActive(newAlignment);
+      handleClick && handleClick()
       setParams&&setParams(newAlignment)
     }
   };
