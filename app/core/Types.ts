@@ -116,6 +116,9 @@ export interface AllAssetsDataType {
         "buy": number,
         "sell": number
     },
+    fees:{
+      silver_buy_fee:number
+    }
 }
 export interface StatisticsDataType {
   total_assets: number

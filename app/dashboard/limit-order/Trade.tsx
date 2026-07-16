@@ -53,25 +53,33 @@ export default function Trade({
 
   const { assets } = useAssets();
 
-  const handlePriceChange = async (val: string) => {
-    setPrice(val);
-    const num = Number(val);
-    if (!isNaN(num) && assets?.silver_price) {
-      setSilver(String(num / assets?.silver_price_with_fees.buy));
-    } else {
-      setSilver('');
-    }
-  };
+  const handlePriceChange = (val: string) => {
+  setPrice(val);
 
-  const handleSilverChange = async (val: string) => {
-    setSilver(val);
-    const num = Number(val);
-    if (!isNaN(num) && assets?.silver_price) {
-      setPrice(String(num * assets?.silver_price_with_fees.buy));
-    } else {
-      setPrice('');
-    }
-  };
+  const total = Number(val);
+  const price = Number(targetPrice);
+  const fee = 1 + Number(assets.fees.silver_buy_fee);
+
+  if (!isNaN(total) && !isNaN(price) && price > 0) {
+    setSilver((total / (fee * price)).toString());
+  } else {
+    setSilver('');
+  }
+};
+
+const handleSilverChange = (val: string) => {
+  setSilver(val);
+
+  const weight = Number(val);
+  const price = Number(targetPrice);
+  const fee = 1 + Number(assets.fees.silver_buy_fee);
+
+  if (!isNaN(weight) && !isNaN(price) && price > 0) {
+    setPrice((weight * price * fee).toString());
+  } else {
+    setPrice('');
+  }
+};
 
   const handleClick = async () => {
     setIsLoading(true);
