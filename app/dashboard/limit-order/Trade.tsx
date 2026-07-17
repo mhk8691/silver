@@ -14,6 +14,8 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { buyItems, sellItems } from './LimitOrder';
 import LimitOrderConfirmation from './LimitOrderConfirmation';
+import { limitOrderBuyCalculate, limitOrderSellCalculate } from '@/lib/calculate/calculate';
+import { LimitOrderCalculateType } from '@/app/core/Types';
 
 interface Props {
   type: 'BUY' | 'SELL';
@@ -53,118 +55,111 @@ export default function Trade({
 
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
+    const [data, setData] = useState<LimitOrderCalculateType>({} as LimitOrderCalculateType)
 
   const { assets } = useAssets();
 
 
-  // تغییر مبلغ
-  const handlePriceChange = (val: string) => {
-    setPrice(val);
+const handlePriceChange = (val: string) => {
+  setPrice(val);
 
-    const total = Number(val);
-    const target = Number(targetPrice);
+  const total = Number(val);
+  const target = Number(targetPrice);
 
-    const fee =
-      1 + Number(
-        type === 'BUY'
-          ? assets.fees?.silver_buy_fee
-          : assets.fees?.silver_sell_fee
-      );
+  if (isNaN(total) || isNaN(target) || total <= 0 || target <= 0) {
+    setSilver('');
+    return;
+  }
 
+  if (type === 'BUY') {
+    const fee = Number(assets?.fees?.silver_buy_fee ?? 0)/100;
 
-    if (type === 'BUY') {
+    const weight = total / ((1 + fee) * target);
 
-      if (!isNaN(total) && target > 0) {
-        setSilver(
-          (total / ((1 + Number(assets.fees?.silver_buy_fee)) * target))
-          .toString()
-        );
-      } else {
-        setSilver('');
-      }
+    setSilver(weight.toString());
+  } else {
+    const fee = Number(assets?.fees?.silver_sell_fee ?? 0)/100;
 
+    const weight = total / (target * (1 - fee));
+
+    setSilver(weight.toString());
+  }
+};
+
+const handleSilverChange = (val: string) => {
+  setSilver(val);
+
+  const weight = Number(val);
+  const target = Number(targetPrice);
+
+  if (isNaN(weight) || isNaN(target) || weight <= 0 || target <= 0) {
+    setPrice('');
+    return;
+  }
+
+  if (type === 'BUY') {
+    const fee = Number(assets?.fees?.silver_buy_fee ?? 0)/100;
+
+    const total = weight * target * (1 + fee);
+
+    setPrice(total.toString());
+  } else {
+    const fee = Number(assets?.fees?.silver_sell_fee ?? 0)/100;
+
+    const total = weight * target * (1 - fee);
+
+    setPrice(total.toString());
+  }
+};
+
+useEffect(() => {
+  if (!assets?.fees) return;
+
+  const target = Number(targetPrice);
+
+  if (!target || target <= 0) return;
+
+  if (type === 'BUY') {
+    const total = Number(price);
+
+    if (total > 0) {
+      const fee = Number(assets?.fees?.silver_buy_fee ?? 0)/100;
+
+      const weight = total / ((1 + fee) * target);
+
+      setSilver(weight.toString());
     }
-  };
-
-
-  // تغییر وزن نقره
-  const handleSilverChange = (val: string) => {
-    setSilver(val);
-
-    const weight = Number(val);
-    const target = Number(targetPrice);
-
-
-    if (!isNaN(weight) && target > 0) {
-
-      setPrice(
-        (
-          weight *
-          target *
-          (1 + Number(assets.fees?.silver_sell_fee))
-        ).toString()
-      );
-
-    } else {
-      setPrice('');
-    }
-
-  };
-
-
-
-  // مهم:
-  // وقتی تارگت پرایس تغییر کند دوباره محاسبه کن
-  useEffect(() => {
-
-    const target = Number(targetPrice);
-
-
-    if (!target || target <= 0)
-      return;
-
-
-    if (type === 'BUY') {
-
-      const total = Number(price);
-
-      if (total > 0) {
-
-        setSilver(
-          (
-            total /
-            ((1 + Number(assets.fees?.silver_buy_fee)) * target)
-          ).toString()
-        );
-
-      }
-
-    }
-
-
-    if (type === 'SELL') {
-
+  } else {
+    if (silver) {
       const weight = Number(silver);
 
       if (weight > 0) {
+        const fee = Number(assets?.fees?.silver_sell_fee ?? 0)/100;
 
-        setPrice(
-          (
-            weight *
-            target *
-            (1 + Number(assets.fees?.silver_sell_fee))
-          ).toString()
-        );
+        const total = weight * target * (1 - fee);
 
+        setPrice(total.toString());
       }
+    } else if (price) {
+      const total = Number(price);
 
+      if (total > 0) {
+        const fee = Number(assets?.fees?.silver_sell_fee ?? 0)/100;
+
+        const weight = total / (target * (1 - fee));
+
+        setSilver(weight.toString());
+      }
     }
-
-
-  }, [targetPrice]);
-
-
-
+  }
+}, [
+  targetPrice,
+  type,
+  price,
+  silver,
+  assets?.fees?.silver_buy_fee,
+  assets?.fees?.silver_sell_fee,
+]);
 
   const handleClick = async () => {
 
@@ -226,8 +221,6 @@ export default function Trade({
 
   };
 
-
-
   useEffect(()=>{
 
     if(!editMode){
@@ -252,10 +245,29 @@ export default function Trade({
 
   },[tab]);
 
-
-
-
-
+      const getDataBuy = async () => {
+        try {
+          const response = await limitOrderBuyCalculate(price, targetPrice)
+          setData(response.data)
+          setOpen(true)
+        } catch (error: unknown) {
+          if (isAxiosError(error)) {
+            showSnackbar(error.response?.data.message, 'error')
+          }
+        }
+      }
+  
+      const getDataSell = async () => {
+        try {
+          const response = await limitOrderSellCalculate(silver, targetPrice)
+          setData(response.data)
+           setOpen(true)
+        } catch (error: unknown) {
+          if (isAxiosError(error)) {
+            showSnackbar(error.response?.data.message, 'error')
+          }
+        }
+      }
   return (
     <>
       <Stack id="trade">
@@ -398,7 +410,7 @@ export default function Trade({
             <Button
               variant="contained"
               disabled={isLoading}
-              onClick={()=>setOpen(true)}
+              onClick={()=>select === 'min' ? getDataBuy():getDataSell()}
               sx={{
                 borderRadius:2,
                 fontSize:16,
@@ -438,13 +450,7 @@ export default function Trade({
         open={open}
 
         setOpen={setOpen}
-
-        tradeData={{
-          weight:silver,
-          price:+price
-        }}
-
-        targetPrice={targetPrice}
+data={data}
 
       />
 

@@ -5,7 +5,6 @@ import TradesTableContainer from './TradesTableContainer';
 import { DatePickerValue } from '@/app/Components/DatePicker/CustomDatePicker';
 import { Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Trading from './Trading';
-import Chart from '@/app/Components/Chart/Chart';
 import BackLink from '../BackLink';
 import TradeGuide from './TradeGuide';
 import ChartSilver from '@/app/Components/Chart/Chart';
@@ -21,6 +20,7 @@ export default function Trade() {
       const [filter,setFilter] = useState('')
       const [dateRange,setDateRange] =useState<DatePickerValue| null>(null)
   const [openModal,setOpenModal] = useState(false)
+
   return (
     <>
       {isMobile &&  <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} width={'100%'}>
