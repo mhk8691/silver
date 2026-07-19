@@ -6,12 +6,14 @@ import {
   Divider,
   Box,
   Chip,
+  Button,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import CustomModal from '@/app/Components/CustomModal/CustomModal';
 import priceFormater from '@/app/core/PriceFormater';
 import { TradeTableDataType } from '@/app/core/Types';
 import { formatDate } from '@/app/core/FormatDate';
+import Link from 'next/link';
 
 interface Props {
   open: boolean;
@@ -189,6 +191,14 @@ export default function TradeDetailModal({ open, setOpen, data }: Props) {
             </Typography>
           } 
         />
+            <DetailRow 
+                  label="عمیلات" 
+                  value={
+                    <Button size='small' variant="outlined" color="secondary" LinkComponent={Link} href='/dashboard/trades/1'> 
+                      مشاهده فاکتور
+                    </Button>
+                  } 
+                />
       </Stack>
     </CustomModal>
   );
