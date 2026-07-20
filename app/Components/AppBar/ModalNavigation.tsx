@@ -83,7 +83,7 @@ const items: ItemsType[] = [
         name: "خرید اقساطی",
         image: "/credit-active.svg",
         link: "/credit-menu",
-        comingSoon: false,
+        comingSoon: true,
       },
       {
         name: "تحویل فیزیکی",
@@ -95,7 +95,7 @@ const items: ItemsType[] = [
         name: "کارت هدیه",
         image: "/giftCard-active.svg",
         link: "/gift-card-submit",
-        comingSoon: false,
+        comingSoon: true,
       },
     ],
   },
