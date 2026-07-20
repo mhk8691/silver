@@ -29,12 +29,24 @@ export default async function page({ searchParams }: Props) {
         fontSize={{
           xs: 12,
           md: 14,
-          xl: 16,
+          xl: 15,
         }}
         fontWeight={"500"}
         sx={{ mt: 3 }}
       >
         کد تایید ارسال شده به شماره موبایل {phone} را وارد کنید.
+      </Typography>
+         <Typography
+        variant="body2"
+        fontSize={{
+          xs: 12,
+          md: 14,
+          xl: 15,
+        }}
+        fontWeight={"500"}
+        sx={{ mt: 1 }}
+      >
+       کد تایید علاوه بر پیامک در پیامرسان بله نیز ارسال میشود.
       </Typography>
 
         <VerifyLoginOtpForm phoneNumber={phone} />

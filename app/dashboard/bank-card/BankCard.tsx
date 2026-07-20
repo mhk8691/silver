@@ -116,7 +116,7 @@ export default function BankCard({
                   textAlign: "left",
                 }}
               >
-                محمد محمدی
+               {item.owner_full_name}
               </Typography>
               <Typography
                 variant="body2"
