@@ -369,3 +369,53 @@ export interface LimitOrderCalculateType {
     remaining_toman: number
   }
 }
+
+export type TicketStatus = 'open' | 'pending' | 'answered' | 'resolved' | 'closed';
+export type TicketPriority = 'low' | 'medium' | 'high' | 'urgent';
+
+export interface TicketCategoryType {
+  id: number;
+  name: string;
+  slug?: string;
+  description?: string;
+  is_active?: boolean;
+}
+
+export interface TicketMessageType {
+  id: number;
+  user_name?: string;
+  message: string;
+  is_admin: boolean;
+  attachment_url?: string;
+  attachment_name?: string;
+}
+
+export interface TicketType {
+  id: number;
+  tracking_code: string;
+  title: string;
+  description?: string;
+  category_name?: string;
+  status: TicketStatus;
+  priority: TicketPriority;
+  created_at?: string;
+  last_activity_at?: string;
+  unread_messages_count?: number;
+  last_message_user_type?: 'user' | 'admin';
+  can_edit?: boolean;
+  can_close?: boolean;
+  messages?: TicketMessageType[];
+}
+
+export interface CreateTicketPayload {
+  title: string;
+  description: string;
+  category: number;
+  priority: TicketPriority;
+  attachment?: File | null;
+}
+
+export interface SendTicketMessagePayload {
+  message: string;
+  attachment?: File | null;
+}
