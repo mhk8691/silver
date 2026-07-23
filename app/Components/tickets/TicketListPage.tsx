@@ -175,7 +175,6 @@ export default function TicketListPage() {
           </Typography>
         </Box>
 
-        {!isMobile && (
           <Button
             variant="contained"
             color="primary"
@@ -185,7 +184,6 @@ export default function TicketListPage() {
           >
             ثبت تیکت جدید
           </Button>
-        )}
       </Stack>
 
       {loading ? (
@@ -231,7 +229,6 @@ export default function TicketListPage() {
         </Stack>
       )}
 
-      {isMobile && (
         <Fab
           color="primary"
           onClick={() => setDialogOpen(true)}
@@ -240,7 +237,6 @@ export default function TicketListPage() {
         >
           <AddIcon />
         </Fab>
-      )}
 
       <CreateTicketDialog
         open={dialogOpen}
