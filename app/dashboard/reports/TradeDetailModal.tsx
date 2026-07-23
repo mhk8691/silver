@@ -191,6 +191,14 @@ export default function TradeDetailModal({ open, setOpen, data }: Props) {
             </Typography>
           } 
         />
+              <DetailRow 
+          label="عمیلات" 
+          value={
+            <Button size='small' variant="outlined" color="secondary" LinkComponent={Link} href='/dashboard/trades/1'> 
+              مشاهده فاکتور
+            </Button>
+          } 
+        />
       </Stack>
     </CustomModal>
   );
