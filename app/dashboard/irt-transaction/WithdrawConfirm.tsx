@@ -2,6 +2,7 @@ import Container from "@/app/Components/Containers/Container/Container";
 import CustomModal from "@/app/Components/CustomModal/CustomModal";
 import Loading from "@/app/Components/Loading/Loading";
 import priceFormatter from "@/app/core/PriceFormater";
+import { BankCardDataType } from "@/app/core/Types";
 import { Close } from "@mui/icons-material";
 import {
   IconButton,
@@ -18,6 +19,7 @@ interface Props {
   isLoading:boolean
   finalPrice:string
   isDarineWithdraw:boolean
+  bankCardsData:BankCardDataType
 }
 export default function WithdrawConfirm({
   open,
@@ -25,11 +27,11 @@ export default function WithdrawConfirm({
   handleWithdraw,
 isLoading,
 finalPrice,
-isDarineWithdraw
+isDarineWithdraw,
+bankCardsData
 }: Props) {
   
 
- 
   return (
     <CustomModal
       open={open}
@@ -80,7 +82,7 @@ isDarineWithdraw
       
 
         <Typography variant="body1" fontSize={14} fontWeight={'bold'} lineHeight={"25px"}>
-       آیا از برداشت به مبلغ {priceFormatter(+finalPrice)} تومان اطمینان دارید؟
+       آیا از برداشت به مبلغ {priceFormatter(+finalPrice)} تومان به حساب {bankCardsData?.owner_full_name} اطمینان دارید؟
         </Typography>
   
      

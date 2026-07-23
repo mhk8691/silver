@@ -73,7 +73,7 @@ export default function Withdraw({setTransactionData,transactionParams,filter,da
     setHintIndex(select === 'bank' ? 2:3)
   },[select,setHintIndex])
 
-  return (
+  return (  
     <>
     <Card style={{ gap: 3.5, p: 0, border: 'none' }}>
       <FilterToggleButton
@@ -121,7 +121,7 @@ export default function Withdraw({setTransactionData,transactionParams,filter,da
         برداشت
       </Button>
     </Card>
-    <WithdrawConfirm handleWithdraw={handleWithdraw} open={open} setOpen={setOpen}  isLoading={isLoading} finalPrice={price} isDarineWithdraw={select === 'darine' ? true:false} />
+    <WithdrawConfirm handleWithdraw={handleWithdraw} open={open} setOpen={setOpen}   isLoading={isLoading} bankCardsData={bankCardsData.find((bank) => bank.id === selectedCard) || {} as BankCardDataType} finalPrice={price} isDarineWithdraw={select === 'darine' ? true:false} />
     </>
   );
 }
