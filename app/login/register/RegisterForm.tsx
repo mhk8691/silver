@@ -1,5 +1,5 @@
 'use client';
-import { Grid, Stack } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import Field from '../Field';
 import SubmitButton from '../SubmitButton';
@@ -87,6 +87,7 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
         setValue={setNationalCode}
         label="کد ملی"
       />
+      <Typography variant="body2" color="info" fontSize={12} mt={1.5}>مالک کدملی و شماره موبایل یکسان باشد.</Typography>
     </Grid>
 
     <Grid size={12}>
@@ -149,6 +150,9 @@ export default function RegisterForm({ phoneNumber }: { phoneNumber: string }) {
           autoComplete: 'current-password',
         }}
       />
+            <Typography variant="body2" color="info" fontSize={12} mt={1.5}>
+              رمز عبور باید شامل حرف کوچک، حروف بزرگ، علامت و عدد شود.
+            </Typography>
     </Grid>
 
     <Grid size={12}>

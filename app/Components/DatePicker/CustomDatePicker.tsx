@@ -130,7 +130,7 @@ function CustomRangeInput({ onFocus, value, separator = ',', style, isRange, lab
 
   return (
     <TextField
-      placeholder={label || 'انتخاب تاریخ'}
+      label={label || 'انتخاب تاریخ'}
       value={displayValue}
       onFocus={onFocus}
       fullWidth
