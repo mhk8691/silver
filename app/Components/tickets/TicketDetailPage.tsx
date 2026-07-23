@@ -12,6 +12,7 @@ import {
   Button,
   Skeleton,
   Avatar,
+  Tooltip,
 } from '@mui/material';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -19,6 +20,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
 import { PriorityChip, StatusChip } from './TicketChips';
 import AttachmentPicker from './AttachmentPicker';
@@ -92,7 +94,7 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
     }
   }, [messages.length, loading]);
 
-  const isClosed = ticket?.status === 'closed';
+  const isClosed = ticket?.status === 'closed' || ticket?.status === 'resolved';
 
   const handleSend = async () => {
     if ((!reply.trim() && !replyAttachment) || isClosed) return;
@@ -163,49 +165,77 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
           borderColor: 'divider',
         }}
       >
-        {/* ۱. هدر چت (Chat Header) */}
+        {/* ۱. هدر چت (Chat Header - ریسپانسیو کامل شامل اولویت و وضعیت) */}
         <Box
           sx={{
-            p: 2,
+            p: { xs: 1, sm: 2 },
             bgcolor: 'background.paper',
             borderBottom: '1px solid',
             borderColor: 'divider',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            gap: { xs: 0.5, sm: 1.5 },
             zIndex: 2,
           }}
         >
-          <Stack direction="row" alignItems="center" spacing={1.5}>
-            <IconButton onClick={() => router.push('/dashboard/tickets')} size="small">
-              <ArrowForwardIcon />
+          {/* سمت راست: دکمه بازگشت، آواتار و اطلاعات تیکت */}
+          <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }} sx={{ minWidth: 0, flex: 1 }}>
+            <IconButton onClick={() => router.push('/dashboard/tickets')} size="small" sx={{ p: { xs: 0.5, sm: 1 } }}>
+              <ArrowForwardIcon fontSize="small" />
             </IconButton>
-            <Avatar sx={{ bgcolor: 'primary.main', color: 'primary.contrastText' }}>
-              <SupportAgentIcon />
+            <Avatar sx={{ width: { xs: 32, sm: 40 }, height: { xs: 32, sm: 40 }, bgcolor: 'primary.main', color: 'primary.contrastText' }}>
+              <SupportAgentIcon fontSize="small" />
             </Avatar>
-            <Box>
-              <Typography variant="subtitle1" fontWeight={700} lineHeight={1.2}>
+            <Box sx={{ minWidth: 0, flex: 1 }}>
+              <Typography
+                variant="subtitle1"
+                fontWeight={700}
+                lineHeight={1.2}
+                noWrap
+                sx={{ fontSize: { xs: '0.825rem', sm: '1rem' } }}
+              >
                 {ticket.title}
               </Typography>
-              <Typography variant="caption" color="text.secondary">
-                کد رهگیری: {ticket.tracking_code}
+              <Typography variant="caption" color="text.secondary" noWrap display="block" sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}>
+                کد: {ticket.tracking_code}
               </Typography>
             </Box>
           </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <StatusChip status={ticket.status} />
-            <PriorityChip priority={ticket.priority} />
+          {/* سمت چپ: نمایش هر دو چیپ (وضعیت + اولویت) و دکمه بستن تیکت */}
+          <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1 }} sx={{ flexShrink: 0 }}>
+            {/* مقیاس کوچک‌تر چیپ‌ها در موبایل با transform scale یا sx اختصاصی */}
+            <Box sx={{ transform: { xs: 'scale(0.85)', sm: 'scale(1)' }, transformOrigin: 'right center', display: 'flex', gap: 0.5 }}>
+              <StatusChip status={ticket.status} />
+              <PriorityChip priority={ticket.priority} />
+            </Box>
+
             {!isClosed && ticket.can_close !== false && (
-              <Button
-                variant="outlined"
-                color="error"
-                size="small"
-                onClick={() => setCloseDialogOpen(true)}
-                sx={{ borderRadius: '8px', ml: 1, display: { xs: 'none', sm: 'inline-flex' } }}
-              >
-                بستن تیکت
-              </Button>
+              <>
+                {/* دکمه متنی در تبلت و دسکتاپ */}
+                <Button
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                  onClick={() => setCloseDialogOpen(true)}
+                  sx={{ borderRadius: '8px', display: { xs: 'none', sm: 'inline-flex' }, whiteSpace: 'nowrap' }}
+                >
+                  بستن تیکت
+                </Button>
+
+                {/* دکمه آیکونی در موبایل برای صرفه‌جویی در فضا */}
+                <Tooltip title="بستن تیکت">
+                  <IconButton
+                    color="error"
+                    size="small"
+                    onClick={() => setCloseDialogOpen(true)}
+                    sx={{ display: { xs: 'inline-flex', sm: 'none' }, p: 0.5 }}
+                  >
+                    <CancelOutlinedIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </>
             )}
           </Stack>
         </Box>
@@ -226,8 +256,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
             gap: 1.5,
           }}
         >
-        
-
           {messages.length === 0 ? (
             <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', my: 'auto' }}>
               هیچ پیامی ارسال نشده است. اولین پیام را شما بفرستید!
@@ -266,7 +294,7 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
                         color="primary.main"
                         sx={{ display: 'block', mb: 0.5 }}
                       >
-                        {msg.user_name || 'پشتیبانی'}  (پشتیبان پلتفرم)
+                        {msg.user_name || 'پشتیبانی'} (پشتیبان پلتفرم)
                       </Typography>
                     )}
 
