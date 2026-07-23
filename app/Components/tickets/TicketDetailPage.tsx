@@ -58,7 +58,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
   const [closeDialogOpen, setCloseDialogOpen] = useState(false);
   const [closing, setClosing] = useState(false);
 
-  // رفرنس کانتینر چت برای اسکرول داخلی دقیق
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToBottom = (smooth = true) => {
@@ -87,7 +86,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
     loadData();
   }, [loadData]);
 
-  // اسکرول هوشمند فقط درون باکس پیام‌ها
   useEffect(() => {
     if (!loading && messages.length > 0) {
       scrollToBottom(true);
@@ -151,7 +149,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
         borderColor: { sm: 'background.paper' },
       }}
     >
-      {/* Container اصلی چت به سبک پیام‌رسان */}
       <Paper
         elevation={3}
         sx={{
@@ -165,82 +162,129 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
           borderColor: 'divider',
         }}
       >
-        {/* ۱. هدر چت (Chat Header - ریسپانسیو کامل شامل اولویت و وضعیت) */}
+        {/* ==================== هدر هوشمند دوطبقه در موبایل بدون غیب شدن متن ==================== */}
         <Box
           sx={{
-            p: { xs: 1, sm: 2 },
+            p: { xs: 1.25, sm: 2 },
             bgcolor: 'background.paper',
             borderBottom: '1px solid',
             borderColor: 'divider',
             display: 'flex',
-            alignItems: 'center',
+            flexDirection: { xs: 'column', sm: 'row' }, // در موبایل ستونی، در دسکتاپ افقی
+            alignItems: { xs: 'stretch', sm: 'center' },
             justifyContent: 'space-between',
-            gap: { xs: 0.5, sm: 1.5 },
+            gap: { xs: 1.25, sm: 2 },
             zIndex: 2,
           }}
         >
-          {/* سمت راست: دکمه بازگشت، آواتار و اطلاعات تیکت */}
-          <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }} sx={{ minWidth: 0, flex: 1 }}>
-            <IconButton onClick={() => router.push('/dashboard/tickets')} size="small" sx={{ p: { xs: 0.5, sm: 1 } }}>
+          {/* بخش اول: اطلاعات تیکت (بازگشت + آواتار + متن کامل عنوان و پیگیری) */}
+          <Stack
+            direction="row"
+            alignItems="flex-start"
+            spacing={{ xs: 1, sm: 1.5 }}
+            sx={{ width: '100%', minWidth: 0, flex: 1 }}
+          >
+            <IconButton
+              onClick={() => router.push('/dashboard/tickets')}
+              size="small"
+              edge="start"
+              sx={{
+                p: { xs: 0.75, sm: 1 },
+                bgcolor: 'action.hover',
+                flexShrink: 0,
+                mt: 0.25,
+                '&:hover': { bgcolor: 'action.selected' },
+              }}
+            >
               <ArrowForwardIcon fontSize="small" />
             </IconButton>
-            <Avatar sx={{ width: { xs: 32, sm: 40 }, height: { xs: 32, sm: 40 }, bgcolor: 'primary.main', color: 'primary.contrastText' }}>
-              <SupportAgentIcon fontSize="small" />
+
+            <Avatar
+              sx={{
+                width: { xs: 36, sm: 44 },
+                height: { xs: 36, sm: 44 },
+                bgcolor: 'primary.main',
+                color: 'primary.contrastText',
+                flexShrink: 0,
+              }}
+            >
+              <SupportAgentIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
             </Avatar>
+
+            {/* عنوان و کد پیگیری (کاملاً کامل و بدون هیچ محدودیتی) */}
             <Box sx={{ minWidth: 0, flex: 1 }}>
               <Typography
                 variant="subtitle1"
                 fontWeight={700}
-                lineHeight={1.2}
-                noWrap
-                sx={{ fontSize: { xs: '0.825rem', sm: '1rem' } }}
+                sx={{
+                  fontSize: { xs: '0.85rem', sm: '0.95rem' },
+                  lineHeight: 1.35,
+                  color: 'text.primary',
+                  wordBreak: 'break-word',
+                }}
               >
                 {ticket.title}
               </Typography>
-              <Typography variant="caption" color="text.secondary" noWrap display="block" sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}>
-                کد: {ticket.tracking_code}
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{
+                  fontSize: { xs: '0.725rem', sm: '0.75rem' },
+                  mt: 0.4,
+                  display: 'block',
+                  wordBreak: 'break-all',
+                }}
+              >
+                کد پیگیری: {ticket.tracking_code}
               </Typography>
             </Box>
           </Stack>
 
-          {/* سمت چپ: نمایش هر دو چیپ (وضعیت + اولویت) و دکمه بستن تیکت */}
-          <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1 }} sx={{ flexShrink: 0 }}>
-            {/* مقیاس کوچک‌تر چیپ‌ها در موبایل با transform scale یا sx اختصاصی */}
-            <Box sx={{ transform: { xs: 'scale(0.85)', sm: 'scale(1)' }, transformOrigin: 'right center', display: 'flex', gap: 0.5 }}>
+          {/* بخش دوم: وضعیت‌ها و دکمه بستن (در موبایل در سطر پایین منظم می‌شود) */}
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent={{ xs: 'between', sm: 'flex-end' }}
+            spacing={1}
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              flexShrink: 0,
+              pt: { xs: 0.5, sm: 0 },
+              borderTop: { xs: '1px dashed', sm: 'none' },
+              borderColor: { xs: 'divider' },
+            }}
+          >
+            {/* چیپ‌های وضعیت و اولویت */}
+            <Stack direction="row" spacing={0.75} alignItems="center" sx={{ flex: 1 }}>
               <StatusChip status={ticket.status} />
               <PriorityChip priority={ticket.priority} />
-            </Box>
+            </Stack>
 
+            {/* دکمه بستن تیکت */}
             {!isClosed && ticket.can_close !== false && (
-              <>
-                {/* دکمه متنی در تبلت و دسکتاپ */}
-                <Button
-                  variant="outlined"
-                  color="error"
-                  size="small"
-                  onClick={() => setCloseDialogOpen(true)}
-                  sx={{ borderRadius: '8px', display: { xs: 'none', sm: 'inline-flex' }, whiteSpace: 'nowrap' }}
-                >
-                  بستن تیکت
-                </Button>
-
-                {/* دکمه آیکونی در موبایل برای صرفه‌جویی در فضا */}
-                <Tooltip title="بستن تیکت">
-                  <IconButton
-                    color="error"
-                    size="small"
-                    onClick={() => setCloseDialogOpen(true)}
-                    sx={{ display: { xs: 'inline-flex', sm: 'none' }, p: 0.5 }}
-                  >
-                    <CancelOutlinedIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
-              </>
+              <Button
+                variant="outlined"
+                color="error"
+                size="small"
+                onClick={() => setCloseDialogOpen(true)}
+                startIcon={<CancelOutlinedIcon fontSize="small" />}
+                sx={{
+                  borderRadius: '8px',
+                  whiteSpace: 'nowrap',
+                  px: 1.25,
+                  py: 0.4,
+                  fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                  flexShrink: 0,
+                }}
+              >
+                بستن تیکت
+              </Button>
             )}
           </Stack>
         </Box>
+        {/* =================================================================== */}
 
-        {/* ۲. بدنه گفتگو (Chat Messages List) */}
+        {/* ۲. بدنه گفتگو */}
         <Box
           ref={chatContainerRef}
           sx={{
@@ -277,7 +321,7 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
                     sx={{
                       p: 1.5,
                       px: 2,
-                      maxWidth: { xs: '85%', sm: '65%' },
+                      maxWidth: { xs: '88%', sm: '65%' },
                       borderRadius: isMe
                         ? '16px 16px 2px 16px'
                         : '16px 16px 16px 2px',
@@ -304,7 +348,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
                       </Typography>
                     )}
 
-                    {/* فایل پیوست */}
                     {msg.attachment_url && (
                       <Paper
                         variant="outlined"
@@ -333,7 +376,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
                       </Paper>
                     )}
 
-                    {/* زمان و آیکون تیک */}
                     <Box
                       sx={{
                         display: 'flex',
@@ -356,7 +398,7 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
           )}
         </Box>
 
-        {/* ۳. بخش ارسال پیام (Input Area) */}
+        {/* ۳. بخش ارسال پیام */}
         <Box
           sx={{
             p: 1.5,
@@ -380,7 +422,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
             </Stack>
           ) : (
             <Stack spacing={1}>
-              {/* نمایش فایل پیوست پیش از ارسال */}
               {replyAttachment && (
                 <Box sx={{ px: 1 }}>
                   <AttachmentPicker
@@ -392,7 +433,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
               )}
 
               <Stack direction="row" spacing={1} alignItems="center">
-                {/* دکمه پیوست فایل */}
                 {!replyAttachment && (
                   <AttachmentPicker
                     file={replyAttachment}
@@ -401,7 +441,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
                   />
                 )}
 
-                {/* ورودی متن */}
                 <TextField
                   fullWidth
                   multiline
@@ -428,7 +467,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
                   }}
                 />
 
-                {/* دکمه ارسال دایره‌ای */}
                 <IconButton
                   color="primary"
                   onClick={handleSend}
@@ -452,7 +490,6 @@ export default function TicketDetailPage({ ticketId }: TicketDetailPageProps) {
         </Box>
       </Paper>
 
-      {/* کاستوم مودال بستن تیکت */}
       <CustomModal open={closeDialogOpen} setOpen={setCloseDialogOpen}>
         <Stack spacing={2} sx={{ p: 2 }}>
           <Typography variant="h6" fontWeight={700}>
