@@ -224,7 +224,7 @@ export interface RecentTransactionDataType{
       updated_at: string;
 }
 export interface TradeTableDataType {
-    "id": number,      "type": "BUY" | 'SELL',      "status": StatusType,      "amount_gr": number,      "price_per_gram": number,      "fee": number,      "total_amount": number,      "tracking_code": string,      "created_at": string
+    "id": number,      "type": "BUY" | 'SELL',invoice_id?:number,       "status": StatusType,      "amount_gr": number,      "price_per_gram": number,      "fee": number,      "total_amount": number,      "tracking_code": string,      "created_at": string
 }
 export interface ChartSilverDataType {
   "chart": {
@@ -418,4 +418,30 @@ export interface CreateTicketPayload {
 export interface SendTicketMessagePayload {
   message: string;
   attachment?: File | null;
+}
+
+export interface InvoiceType {
+   "id": number,
+      "invoice_number": string,
+      "invoice_type": "BUY" | 'SELL',
+      "invoice_type_display": string,
+      "invoice_date": string,
+      "status_display":string,
+      "buyer_name": string,
+      "buyer_national_id": string,
+      "buyer_phone": string,
+      "buyer_address": string,
+      "seller_name": string,
+      "seller_national_id": string,
+      "seller_phone": string,
+      "seller_address": string,
+      "gold_weight": string,
+      "gold_carat": number,
+      "gold_price_per_gram": string,
+      "pure_gold_price": string,
+      "fee_rate": string,
+      "fee_amount": string,
+      "total_amount": number,
+      "tracking_code": string,
+      "description": string
 }
