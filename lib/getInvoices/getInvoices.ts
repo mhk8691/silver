@@ -4,7 +4,7 @@ export const getInvoices = async (id:string) => {
     const response = await api.get<ApiResponse<InvoiceType>>(`/silver/invoices/${id}/`);
     return response.data.data;
   }
-export const downloadInvoices = async (id: string) => {
+export const downloadInvoices = async (id: string,date:string) => {
   const response = await api.get(`/silver/invoices/${id}/download/`, {
     responseType: 'blob',
   });
@@ -13,6 +13,6 @@ export const downloadInvoices = async (id: string) => {
     blob: response.data,
     fileName:
       response.headers['content-disposition']
-        ?.match(/filename="?(.+?)"?$/)?.[1] ?? 'invoice.pdf',
+        ?.match(/filename="?(.+?)"?$/)?.[1] ?? `factor noghrine | ${date}.pdf`,
   };
 };

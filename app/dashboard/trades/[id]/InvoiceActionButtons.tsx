@@ -12,12 +12,14 @@ import Loading from '@/app/Components/Loading/Loading';
 export interface InvoiceActionButtonsProps {
   onBack?: () => void;
   id:string
+  date:string
 }
 
 
 export default function InvoiceActionButtons({
   onBack,
-  id
+  id,
+  date
 }: InvoiceActionButtonsProps) {
   const [loading,setLoading] = useState(false)
   const router = useRouter()
@@ -26,7 +28,7 @@ export default function InvoiceActionButtons({
   try {
     setLoading(true);
 
-    const { blob, fileName } = await downloadInvoices(id);
+    const { blob, fileName } = await downloadInvoices(id,date);
 
     const url = window.URL.createObjectURL(blob);
 
@@ -67,7 +69,6 @@ export default function InvoiceActionButtons({
           fontWeight: 700,
           fontSize: '0.95rem',
           py: 1.4,
-          color: '#10100F',
       
         }}
       >
@@ -85,15 +86,7 @@ export default function InvoiceActionButtons({
           fontWeight: 600,
           fontSize: '0.95rem',
           py: 1.4,
-          borderColor: 'background.border',
-          color: 'text.primary',
-          '&:hover': {
-            borderColor: 'text.subtitle',
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'dark'
-                ? 'rgba(255,255,255,0.04)'
-                : 'rgba(0,0,0,0.03)',
-          },
+        
         }}
       >
         بازگشت

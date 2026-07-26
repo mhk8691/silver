@@ -30,11 +30,6 @@ export default function InputField({
   type = 'text',
 }: Props) {
 
-  // تبدیل امن به عدد
-  const toNumber = (val: string) => {
-    const num = Number(val);
-    return isNaN(num) ? 0 : num;
-  };
 
   // فرمت نمایش (رند 3 رقم اعشار + جلوگیری از خراب شدن تایپ)
   const formatNumber = (val: string) => {

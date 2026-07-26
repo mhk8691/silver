@@ -67,11 +67,11 @@ export default function SalesInvoiceCard({ data }: SalesInvoiceCardProps) {
         </Grid>
 
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <InfoItem label="شماره ملی" value={data.buyer_national_id} />
+          <InfoItem label="شماره ملی" value={data.buyer_national_id ? data.buyer_national_id : '--'} />
         </Grid>
 
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <InfoItem label="شماره تماس" value={data.buyer_phone} />
+          <InfoItem label="شماره تماس" value={data.buyer_phone?data.buyer_phone:'--'} />
         </Grid>
 
         <Grid size={{ xs: 12, md: 3 }}>
@@ -89,11 +89,11 @@ export default function SalesInvoiceCard({ data }: SalesInvoiceCardProps) {
         </Grid>
 
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <InfoItem label="شماره ملی" value={data.seller_national_id} />
+          <InfoItem label="شماره ملی" value={data.seller_national_id ? data.seller_national_id :'--'} />
         </Grid>
 
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <InfoItem label="شماره تماس" value={data.seller_phone} />
+          <InfoItem label="شماره تماس" value={data.seller_phone ?data.seller_phone:'--'} />
         </Grid>
 
         <Grid size={{ xs: 12, md: 3 }}>
@@ -117,7 +117,7 @@ export default function SalesInvoiceCard({ data }: SalesInvoiceCardProps) {
           sm: '1px solid',
         },
         borderColor: {
-          sm: 'background.border',
+          sm: '#C9CDCF',
         },
         p: { xs: 2, sm: 3, md: 4 },
       }}
@@ -173,28 +173,23 @@ export default function SalesInvoiceCard({ data }: SalesInvoiceCardProps) {
           <Grid size={{ xs: 12, sm: 3 }}>
             <InfoItem
               label="وزن طلا"
-              value={`${data.gold_weight} گرم`}
+              value={`${data.silver_weight} گرم`}
             />
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 3 }}>
-            <InfoItem
-              label="عیار"
-              value={`${data.gold_carat} عیار`}
-            />
-          </Grid>
+       
 
           <Grid size={{ xs: 12, sm: 3 }}>
             <InfoItem
               label="قیمت هر گرم"
-              value={data.gold_price_per_gram}
+              value={`${priceFormatter(+data.silver_price_per_gram)} تومان`}
             />
           </Grid>
 
           <Grid size={{ xs: 12, sm: 3 }}>
             <InfoItem
               label="کارمزد"
-              value={data.fee_amount}
+              value={`${priceFormatter(+data.fee_amount)} تومان`} 
             />
           </Grid>
         </Grid>
@@ -203,9 +198,9 @@ export default function SalesInvoiceCard({ data }: SalesInvoiceCardProps) {
       <Box
         sx={{
           display: 'inline-flex',
-          bgcolor: 'background.paper',
+          bgcolor: 'background.secondary',
           border: '1px solid',
-          borderColor: 'background.border',
+          borderColor: '#C9CDCF',
           borderRadius: '10px',
           px: 2.5,
           py: 1.25,

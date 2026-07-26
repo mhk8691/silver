@@ -50,73 +50,18 @@ const theme = createTheme({
     fontFamily: `${IranYekanFont.style.fontFamily}, sans-serif`,
   },
   components: {
-    MuiButton: {
+       MuiButton: {
       styleOverrides: {
-        root: {
-          "&.MuiButton-textInherit": {
-            color: "#1A1B1C",
-          },
-        },
+        
         contained: {
           color: "#FFFFFF",
         },
         text: {
           color: "#1A1B1C",
         },
-        outlined: {
-          color: "#1A1B1C",
-          borderColor: "#1A1B1C",
-          "&:hover": {
-            borderColor: "#1A1B1C",
-          },
-        },
+     
       },
     },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#C9CDCF",
-          },
-          "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#C9CDCF",
-          },
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#C9CDCF",
-          },
-          "&.Mui-focused fieldset": {
-            borderColor: "#C9CDCF",
-            borderWidth: "1px",
-          },
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          "&.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#C9CDCF",
-          },
-        },
-      },
-    },
-    MuiFilledInput: {
-      styleOverrides: {
-        root: {
-          "&:before, &:after": {
-            borderBottomColor: "#C9CDCF",
-          },
-          "&:hover:before": {
-            borderBottomColor: "#C9CDCF",
-          },
-          "&.Mui-focused:after": {
-            borderBottomColor: "#C9CDCF",
-          },
-        },
-      },
-    },
- 
-
     MuiCard: {
       styleOverrides: {
         root: {
