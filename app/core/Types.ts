@@ -52,6 +52,7 @@ export interface AppbarItemsType {
   image: string;
   link?: string;
   comingSoon?: boolean; // اختیاری
+  isPrefetch?:boolean
 }
 
 export interface AssetsDataType {

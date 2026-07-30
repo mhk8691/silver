@@ -65,7 +65,7 @@ export default function page() {
         </Stack>
         <Typography variant="body2" >
 
-اپلیکیشن نقره سی، بستری برای خرید و فروش آنلاین و راحت نقره خام و بدون اجرت است. با بھره مندی از امکانات اپلیکیشن نقره سی، سرمایه شما همیشه در دسترس شما بوده و برای <Link style={{color:'#6DA9E1',textDecoration:'underline'}} href={'/dashboard'}>
+اپلیکیشن نقره سی، بستری برای خرید و فروش آنلاین و راحت نقره خام و بدون اجرت است. با بھره مندی از امکانات اپلیکیشن نقره سی، سرمایه شما همیشه در دسترس شما بوده و برای <Link style={{color:'#6DA9E1',textDecoration:'underline'}} href={'/dashboard'} prefetch={false}>
                 خرید نقره آب شده
                 </Link>  نیازی به مراجعه و حضور فیزیکی به بازار نقره نیست.
         </Typography>

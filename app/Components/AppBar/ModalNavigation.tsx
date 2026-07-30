@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import CustomModal from "../CustomModal/CustomModal";
 import { AppbarItemsType } from "@/app/core/Types";
+import Link from "next/link";
 
 interface Props {
   open: boolean;
@@ -44,6 +45,7 @@ const items: ItemsType[] = [
         image: "/trade-active.svg",
         link: "/trades",
         comingSoon: false, // فعال
+        isPrefetch:true
       },
       {
         name: "سفارش با قیمت",
@@ -61,18 +63,21 @@ const items: ItemsType[] = [
         image: "/wallet-active.svg",
         link: "/wallet",
         comingSoon: false,
+        isPrefetch:true
       },
       {
         name: "واریز و برداشت",
         image: "/irtTransaction-active.svg",
         link: "/irt-transaction",
         comingSoon: false,
+        isPrefetch:true
       },
       {
         name: "کارت های بانکی",
         image: "/bankCard-active.svg",
         link: "/bank-card",
         comingSoon: false, 
+        isPrefetch:true
       },
     ],
   },
@@ -90,6 +95,7 @@ const items: ItemsType[] = [
         image: "/shop-active.svg",
         link: "/silver-receive",
         comingSoon: false, 
+        isPrefetch:true
       },
       {
         name: "کارت هدیه",
@@ -107,6 +113,7 @@ const items: ItemsType[] = [
         image: "/reports-active.svg",
         link: "/reports",
         comingSoon: false,
+        isPrefetch:true
       },
 
       {
@@ -200,11 +207,11 @@ const Content = ({
                     key={navigate.name}
                     py={1}
                     px={1.5}
-                    component={"div"}
+                    component={!navigate.comingSoon ? Link :"div"}
+                    href={`/dashboard${navigate.link}`}
+                    prefetch={navigate.isPrefetch}
                     onClick={() => {
-                      // فقط اگر به زودی نباشه، کلیک کار کنه
                       if (!navigate.comingSoon) {
-                        router.push(`/dashboard${navigate.link}`);
                         setOpen(false);
                       }
                     }}

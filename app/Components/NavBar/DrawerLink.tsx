@@ -70,7 +70,7 @@ export default function DrawerLink({ open, setOpen }: Props) {
       </Stack>
       <Stack direction={"column"} gap={2}>
         {menuItems.map((item) => (
-          <Link href={item.link} key={item.link}>
+          <Link href={item.link} key={item.link} prefetch={false}>
             <Typography variant="body2" fontWeight={500}>
               {item.title}
             </Typography>

@@ -136,7 +136,7 @@ export default function ButtonGroupe() {
           <Stack direction={"row"} alignItems={"center"}>
           
           </Stack>
-          <Link href={"/dashboard"}>
+          <Link href={"/dashboard"} prefetch={false}>
             {isDesktop ? (
               <IconButton>
                 <svg
