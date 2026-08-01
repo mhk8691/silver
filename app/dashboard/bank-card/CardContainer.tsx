@@ -6,7 +6,7 @@ import AddCard from "./AddCard";
 import BankCard from "./BankCard";
 import { BankCardDataType } from "@/app/core/Types";
 import { getBankCard } from "@/lib/getbankCard/bankCard";
-import EmptyData from "@/app/Components/Tables/EmptyData";
+import EmptyMessage from "@/app/Components/EmptyMessage/EmptyMessage";
 export default function CardContainer() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -32,7 +32,7 @@ export default function CardContainer() {
           bankCardData.length >0 ? <BankCard
           bankCardData={bankCardData}
           setBankCardData={setBankCardData}
-        />:<EmptyData emptyMessage="کارت بانکی وجود ندارد" />
+        />:<EmptyMessage title="کارت بانکی وجود ندارد" />
         }
       </Grid>
       <Button

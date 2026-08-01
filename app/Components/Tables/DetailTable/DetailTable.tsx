@@ -10,6 +10,7 @@ import FilterToggleButton from '../../FilterToggleButton/FilterToggleButton';
 import SelectField, { SelectItem } from '../../InputField/SelectField';
 import FilterButton from './FilterButton';
 import CustomTable from '../CustomTable';
+import EmptyMessage from '../../EmptyMessage/EmptyMessage';
 interface Props {
   title?: string;
   type: 'chip' | 'toggle';
@@ -139,41 +140,7 @@ export default function OrderDetail({
           <CustomTable heads={tableHead}>{tableBody}</CustomTable>
         </Stack>
       ) : (
-      <Stack
-        mt={10}
-        mb={8}
-        direction={'column'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        gap={4}
-      >
-        <Stack
-          sx={{
-            width: {
-              xs: 184,
-              sm: 300,
-            },
-            height: {
-              xs: 166,
-              sm: 270,
-            },
-          }}
-        >
-          <Image
-            src={`/images/${isDarkMode ? 'emptyTableDark.png' : 'emptyTable.webp'}`}
-            width={300}
-            height={270}
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            alt=""
-          />
-        </Stack>
-        <Typography variant="body2" fontSize={12} sx={{ color: 'text.muted' }}>
-          {emptyMessage || message}
-        </Typography>
-      </Stack>
+      <EmptyMessage title={emptyMessage || message} />
       )}
     </>
   ) : (
@@ -290,24 +257,7 @@ export default function OrderDetail({
           <CustomTable heads={tableHead}>{tableBody}</CustomTable>
         </Stack>
       ) : (
-        <Stack
-          mt={10}
-          mb={8}
-          direction={'column'}
-          alignItems={'center'}
-          justifyContent={'center'}
-          gap={4}
-        >
-          <Image
-            src={`/images/${isDarkMode ? 'emptyTableDark.png' : 'emptyTable.webp'}`}
-            width={300}
-            height={270}
-            alt=""
-          />
-          <Typography variant="body2" fontSize={12} sx={{ color: 'text.muted' }}>
-            {emptyMessage || message}
-          </Typography>
-        </Stack>
+        <EmptyMessage title={emptyMessage || message} />
       )}
     </Card>
   );
