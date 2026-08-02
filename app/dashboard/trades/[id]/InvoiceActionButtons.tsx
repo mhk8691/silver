@@ -1,8 +1,7 @@
 'use client';
 
-import { Stack, Button, CircularProgress } from '@mui/material';
+import { Stack, Button } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { useRouter } from 'next/navigation';
 import { downloadInvoices } from '@/lib/getInvoices/getInvoices';
 import { isAxiosError } from 'axios';
 import { showSnackbar } from '@/app/Components/Snackbar/Snackbar';
@@ -22,28 +21,45 @@ export default function InvoiceActionButtons({
   date
 }: InvoiceActionButtonsProps) {
   const [loading,setLoading] = useState(false)
-  const router = useRouter()
 
-  const handleDownload = async () => {
+const handleDownload = async () => {
   try {
     setLoading(true);
 
-    const { blob, fileName } = await downloadInvoices(id,date);
+    const { blob, fileName } = await downloadInvoices(id, date);
 
-    const url = window.URL.createObjectURL(blob);
+    const mimeType = blob.type || 'application/octet-stream';
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = fileName;
+    // اگر داخل WebView اندروید هستیم
+    if (window.AndroidBlobDownloader) {
+      const reader = new FileReader();
 
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+      reader.onloadend = () => {
+        window.AndroidBlobDownloader?.getBase64FromBlobData(
+          reader.result,
+          mimeType,
+          fileName
+        );
+      };
 
-    window.URL.revokeObjectURL(url);
+      reader.readAsDataURL(blob);
+    } else {
+      // دانلود معمولی در مرورگر
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      window.URL.revokeObjectURL(url);
+    }
   } catch (error: unknown) {
     if (isAxiosError(error)) {
-      showSnackbar(error.response?.data.message, 'error');
+      showSnackbar(error.response?.data?.message || 'خطا در دانلود فاکتور', 'error');
     }
   } finally {
     setLoading(false);
