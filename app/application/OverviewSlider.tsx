@@ -11,6 +11,8 @@ const sliderItems = [
     {id:2,image:'applicationImg2'},
     {id:3,image:'applicationImg3'},
     {id:4,image:'applicationImg4'},
+    {id:5,image:'applicationImg5'},
+    {id:6,image:'applicationImg6'},
 ]
 export default function OverviewSlider() {
   return (
