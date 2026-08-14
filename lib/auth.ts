@@ -114,6 +114,11 @@ export const loginPassword = async (
 ) => {
   const res = await api.post<{
     message:string
+    data:{
+      user:{
+        id:number
+      }
+    }
   }>(
     '/accounts/login/password/',
     {
@@ -129,7 +134,11 @@ export const verifyLoginOtp = async (
   mobile: string,
   code: string,
 ) => {
-  const res = await api.post<{message:string}>(
+  const res = await api.post<{message:string,  data:{
+      user:{
+        id:number
+      }
+    }}>(
     '/accounts/login/otp/',
     {
       mobile,

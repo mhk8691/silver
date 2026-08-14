@@ -21,23 +21,27 @@ export default function LoginPassForm({ children }: Props) {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async () => {
-    try {
-      setIsLoading(true);
+const handleLogin = async () => {
+  try {
+    setIsLoading(true);
 
-      const response = await loginPassword(phoneNumber, password);
+    const response = await loginPassword(phoneNumber, password);
 
-      showSnackbar(response?.data.message, 'success');
-      router.push('/dashboard');
-    } catch (error: unknown) {
-      if (isAxiosError(error)) {
-        showSnackbar(error.response?.data.message);
-      }
-    } finally {
-      setIsLoading(false);
+    showSnackbar(response?.data.message, 'success');
+
+    if (typeof window !== 'undefined' && window.AndroidBridge) {
+      window.AndroidBridge.notifyUserLogin(String(response.data.data.user.id));
     }
-  };
 
+    router.push('/dashboard');
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      showSnackbar(error.response?.data.message);
+    }
+  } finally {
+    setIsLoading(false);
+  }
+};
   return (
     <form
       autoComplete="on"

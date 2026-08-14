@@ -153,18 +153,25 @@ export default function ProfileBtn() {
       }
     }
   }
-     const fetchUser = React.useCallback(async () => {
-    try {
-      const me = await getMe();
-      setUser(me);
-    } catch (error:unknown) {
-      if (isAxiosError(error)){
-        showSnackbar(error.response?.data.message)
+const fetchUser = React.useCallback(async () => {
+  try {
+    const me = await getMe();
+    setUser(me);
 
-      }
-      setUser(null);
+    if (typeof window !== 'undefined' && window.AndroidBridge) {
+      window.AndroidBridge.notifyUserLogin();
     }
-  }, []);
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      showSnackbar(error.response?.data.message);
+    }
+    setUser(null);
+  }
+}, []);
+
+React.useEffect(() => {
+  fetchUser();
+}, [fetchUser]);
 React.useEffect(()=>{
   fetchUser()
 },[fetchUser])

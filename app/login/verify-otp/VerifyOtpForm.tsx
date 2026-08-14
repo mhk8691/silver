@@ -19,32 +19,56 @@ export default function VerifyOtpForm({ phoneNumber }: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLoginVerifyOtp = async (code?: string) => {
-    const finalCode = code ?? verifyCode;
-    console.log(finalCode)
-    try {
-      setIsLoading(true);
-      const res = await verifyLoginOtp(phoneNumber, finalCode);
-      showSnackbar(res.data.message, 'success');
-      router.push('/dashboard');
-    } catch (error: unknown) {
-      if (isAxiosError(error)) {
-        if (error.status === 404 && error.response?.data.message.need_register) {
-          router.push(`/login/register/?phone=${phoneNumber}`);
-          showSnackbar(error.response?.data.message.message, 'warning');
-        } else {
-          showSnackbar(error.response?.data.message);
-        }
-      }
-    } finally {
-      setIsLoading(false);
+  const finalCode = code ?? verifyCode;
+  try {
+    setIsLoading(true);
+    const res = await verifyLoginOtp(phoneNumber, finalCode);
+    showSnackbar(res.data.message, 'success');
+
+    if (typeof window !== 'undefined' && window.AndroidBridge) {
+      window.AndroidBridge.notifyUserLogin(String(res.data.data.user.id));
     }
-  };
+
+    router.push('/dashboard');
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      if (error.status === 404 && error.response?.data.message.need_register) {
+        router.push(`/login/register/?phone=${phoneNumber}`);
+        showSnackbar(error.response?.data.message.message, 'warning');
+      } else {
+        showSnackbar(error.response?.data.message);
+      }
+    }
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   useEffect(() => {
     const cleanup = autoCompleteCode(setVerifyCode, (code) => {
       handleLoginVerifyOtp(code);
     });
     return cleanup;
+  }, []);
+
+  useEffect(() => {
+    const handleAndroidOtp = (event: MessageEvent) => {
+      if (
+        event.origin !== 'https://gold.darine.shop' &&
+        !event.origin.startsWith('android-app://')
+      ) {
+        return;
+      }
+
+      const otpCode = event.data;
+      if (typeof otpCode === 'string' && /^\d{4,6}$/.test(otpCode)) {
+        setVerifyCode(otpCode);
+        handleLoginVerifyOtp(otpCode);
+      }
+    };
+
+    window.addEventListener('message', handleAndroidOtp);
+    return () => window.removeEventListener('message', handleAndroidOtp);
   }, []);
 
   return (
