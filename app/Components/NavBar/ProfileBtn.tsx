@@ -142,17 +142,22 @@ export default function ProfileBtn() {
 
     setOpen(false);
   };
- const handleLogout = async ()=>{
-    try{
-      const response = await logout()
-      showSnackbar(response.message,'success')
-      router.push('/login/login-password')
-    }catch(error:unknown){
-      if (isAxiosError(error)){
-        showSnackbar(error.response?.data.message)
-      }
+const handleLogout = async () => {
+  try {
+    const response = await logout();
+    showSnackbar(response.message, 'success');
+
+    if (typeof window !== 'undefined' && window.AndroidBridge) {
+      window.AndroidBridge.notifyUserLogout();
+    }
+
+    router.push('/login/login-password');
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      showSnackbar(error.response?.data.message);
     }
   }
+};
 const fetchUser = React.useCallback(async () => {
   try {
     const me = await getMe();

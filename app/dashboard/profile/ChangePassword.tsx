@@ -68,17 +68,26 @@ export default function ChangePassword() {
     }
 
   };
-   const handleLogout = async ()=>{
-      try{
-        const response = await logout()
-        showSnackbar(response.message,'success')
-        router.push('/login/login-password')
-      }catch(error:unknown){
-        if (isAxiosError(error)){
-          showSnackbar(error.response?.data.message)
-        }
-      }
+
+     const handleLogout = async () => {
+  try {
+    if (typeof window !== 'undefined' && window.AndroidBridge) {
+      window.AndroidBridge.notifyUserLogout();
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
+
+    const response = await logout();
+
+    showSnackbar(response.message, 'success');
+
+    return response;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      showSnackbar(error.response?.data.message);
+    }
+  }
+};
      
   return (
     <>

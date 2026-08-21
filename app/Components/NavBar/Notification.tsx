@@ -140,35 +140,43 @@ export default function Notification() {
   const [isLoading,setIsLoading] = useState(false)
   const isDarkMode = theme.palette.mode === 'dark'
   const [announcements, setAnnouncements] = useState<AnnouncementsType>({} as AnnouncementsType);
-    const handleMarkReadAll = async ()=>{
-    try{
-      setIsLoading(true)
-      const response = await markAllRead()
-      const res = await getAnnouncements()
-      setAnnouncements(res || {} as AnnouncementsType)
-      showSnackbar(response?.message || '' ,'success')
-      setOpen(false)
-    }
-    catch(error:unknown){
-        if (isAxiosError(error)){
+ const handleMarkReadAll = async () => {
+  try {
+    setIsLoading(true);
 
-            showSnackbar(error.response?.data.message)
-        }
+    const response = await markAllRead();
+
+    const res = await getAnnouncements();
+
+    setAnnouncements(res || ({} as AnnouncementsType));
+
+    window.AndroidBridge?.updateUnreadCount(res?.unread_count ?? 0);
+
+    showSnackbar(response?.message || '', 'success');
+    setOpen(false);
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      showSnackbar(error.response?.data.message);
     }
-    finally{
-      setIsLoading(false)
-    }
+  } finally {
+    setIsLoading(false);
   }
-  useEffect(() => {
-    const getData = async () => {
-      const response = await getAnnouncements();
-      console.log(response)
-      setAnnouncements(response || {} as AnnouncementsType);
-    };
+};
+useEffect(() => {
+  const getData = async () => {
+    const response = await getAnnouncements();
 
-    getData();
-  }, []);
+    console.log(response);
 
+    setAnnouncements(response || ({} as AnnouncementsType));
+
+    window.AndroidBridge?.updateUnreadCount(
+      response?.unread_count ?? 0
+    );
+  };
+
+  getData();
+}, []);
   const tabContent = <MessageCard isLoading={isLoading} handleMarkReadAll={handleMarkReadAll} announcements={announcements}  />;
 
   const handleToggle = () => {

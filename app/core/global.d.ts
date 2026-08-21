@@ -6,8 +6,16 @@ declare global {
         mimeType: string,
         fileName: string
       ) => void;
+
       notifyUserLogin: (userId?: string) => void;
+
+      notifyUserLogout: () => void;
+
+      updateUnreadCount: (count: number) => void;
     };
+
+    onReceiveAndroidOtp?: (code: string) => void;
   }
 }
-export {}
+
+export {};
