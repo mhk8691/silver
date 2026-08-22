@@ -25,7 +25,7 @@ export function middleware(req: NextRequest) {
     pathname.startsWith(path)
   );
 
-    if (
+  if (
     pathname === '/sw.js' ||
     pathname === '/manifest.webmanifest' ||
     /\.(png|svg|webp|ico)$/.test(pathname)
@@ -45,7 +45,7 @@ export function middleware(req: NextRequest) {
   if (pathname === '/') {
     return NextResponse.redirect(
       new URL('/dashboard', req.url)
-    ); 
+    );
   }
 
   if (!refreshToken && !isPublic) {
