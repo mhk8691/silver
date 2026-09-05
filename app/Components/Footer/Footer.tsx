@@ -148,6 +148,39 @@ export default function Footer() {
               <Typography variant="body2" color="text.primary" fontSize={12}>
                 24 ساعته و در 7 روز هفته پاسخگوی شما هستیم.
               </Typography>
+                  <Typography
+              component={Link}
+              href="https://noghresea.ir/"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="body2"
+              fontSize={{
+                xs: 12,
+                md: 16,
+              }}
+
+              sx={{
+                display:{
+
+                  md:'none'
+                },
+                color: 'text.secondary',
+                textDecoration: 'none',
+                fontWeight: 400,
+                opacity: 0.75,
+                transition: 'all 0.2s ease',
+                mb: {
+                  xs: 1,
+                  md: 0,
+                },
+                '&:hover': {
+                  opacity: 1,
+                  color: 'text.primary',
+                },
+              }}
+            >
+              قدرت گرفته از نقره سی
+            </Typography>
             </Stack>
             <Stack
               direction={"row"}
@@ -258,6 +291,41 @@ export default function Footer() {
                 />
               </Stack>
             </Stack>
+            
+          </Stack>
+                <Stack direction={'row'} justifyContent={'center'} display={{
+            xs:'none',
+            md:'flex'
+          }}>
+            <Typography
+              component={Link}
+              href="https://noghresea.ir/"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="body2"
+              fontSize={{
+                xs: 12,
+                md: 16,
+              }}
+              sx={{
+                color: 'text.secondary',
+                textDecoration: 'none',
+                fontWeight: 400,
+                opacity: 0.75,
+                transition: 'all 0.2s ease',
+                mt: 3,
+                mb: {
+                  xs: 3,
+                  md: 0,
+                },
+                '&:hover': {
+                  opacity: 1,
+                  color: 'text.primary',
+                },
+              }}
+            >
+              قدرت گرفته ازنقره سی
+            </Typography>
           </Stack>
         </Grid>
       </Grid>
@@ -272,27 +340,7 @@ export default function Footer() {
           sm: "background.paper",
         }}
       >
-        <Typography
-          component={Link}
-          href="https://noghresea.ir/"
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="body2"
-          fontSize={11}
-          sx={{
-            color: "text.secondary",
-            textDecoration: "none",
-            fontWeight: 400,
-            opacity: 0.75,
-            transition: "all 0.2s ease",
-            "&:hover": {
-              opacity: 1,
-              color: "text.primary",
-            },
-          }}
-        >
-          قدرت گرفته ازنقره سی
-        </Typography>
+    
         <Typography
           variant="body2"
           fontSize={12}
