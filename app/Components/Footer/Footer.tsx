@@ -161,7 +161,6 @@ export default function Footer() {
 
               sx={{
                 display:{
-
                   md:'none'
                 },
                 color: 'text.secondary',
